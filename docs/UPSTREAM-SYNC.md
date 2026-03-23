@@ -19,7 +19,6 @@ The Phase 1 root import copied these tracked upstream entries into the repositor
 - `CHANGELOG.md`
 - `LICENSE`
 - `README.md`
-- `README.zh-CN.md`
 - `SECURITY.md`
 - `agents`
 - `assets`
@@ -51,6 +50,13 @@ The Korean localization fork must preserve these tokens exactly as-is:
 - Identifiers
 - phase/requirement IDs
 
+## Language Policy in This Fork
+
+- Korean is the default reading language for public documentation.
+- Commands, file names, directory names, identifiers, and phase/requirement IDs stay in English.
+- Simplified Chinese documentation was present in the upstream baseline but is intentionally removed in this fork.
+- English reference access is preserved through unchanged file-path conventions and upstream baseline links.
+
 ## Next Localization Phases
 
 After the upstream baseline import, the planned sequence is:
@@ -65,3 +71,4 @@ After the upstream baseline import, the planned sequence is:
 - Treat `v1.28.0` as the first imported baseline for this fork.
 - Preserve the root-level upstream layout so future diffs stay easy to compare against upstream.
 - Do not rename compatibility-sensitive tokens while translating prose.
+- If a future upstream sync restores Chinese files, remove them again unless the fork policy changes.
