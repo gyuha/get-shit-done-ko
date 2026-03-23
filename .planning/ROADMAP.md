@@ -60,7 +60,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: Translate command docs and help-facing workflow entry points.
+- [x] 03-01: Translate command docs and help-facing workflow entry points.
 - [ ] 03-02: Translate workflow/template/reference files while preserving markup and tokens.
 - [ ] 03-03: Review agent prompts and shared terminology for consistency across assets.
 
