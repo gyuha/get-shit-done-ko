@@ -1,12 +1,15 @@
-# GSD Agent Reference
+# GSD 에이전트 레퍼런스
 
-> All 15 specialized agents — roles, tools, spawn patterns, and relationships. For architecture context, see [Architecture](ARCHITECTURE.md).
+> 15개 전문 에이전트의 역할, 도구 권한, spawn 패턴, 상호 관계를 정리한 문서입니다. 전체 구조 맥락은 [Architecture](ARCHITECTURE.md)를 참고하세요.
+
+> [!NOTE]
+> 에이전트 이름, 도구 이름, 모델 이름, 파일 경로는 그대로 유지합니다. 설명은 한국어 우선으로 읽을 수 있게 정리합니다.
 
 ---
 
 ## Overview
 
-GSD uses a multi-agent architecture where thin orchestrators (workflow files) spawn specialized agents with fresh context windows. Each agent has a focused role, limited tool access, and produces specific artifacts.
+GSD는 얇은 orchestrator(워크플로 파일)가 새로운 context window를 가진 전문 에이전트를 실행하는 multi-agent 구조를 사용합니다. 각 에이전트는 역할이 좁고, 도구 권한이 제한되며, 특정 산출물을 만들도록 설계되어 있습니다.
 
 ### Agent Categories
 

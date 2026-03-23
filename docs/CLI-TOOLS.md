@@ -1,12 +1,15 @@
-# GSD CLI Tools Reference
+# GSD CLI 도구 레퍼런스
 
-> Programmatic API reference for `gsd-tools.cjs`. Used by workflows and agents internally. For user-facing commands, see [Command Reference](COMMANDS.md).
+> `gsd-tools.cjs`의 프로그래매틱 API 레퍼런스입니다. 주로 워크플로와 에이전트가 내부적으로 사용하며, 사용자용 명령어는 [Command Reference](COMMANDS.md)를 참고하세요.
+
+> [!NOTE]
+> CLI 서브커맨드, 인자, 파일 경로는 그대로 유지하고 설명만 한국어로 안내합니다.
 
 ---
 
 ## Overview
 
-`gsd-tools.cjs` is a Node.js CLI utility that replaces repetitive inline bash patterns across GSD's ~50 command, workflow, and agent files. It centralizes: config parsing, model resolution, phase lookup, git commits, summary verification, state management, and template operations.
+`gsd-tools.cjs`는 GSD의 수십 개 명령어, 워크플로, 에이전트 파일에서 반복되던 인라인 bash 패턴을 치환하는 Node.js CLI 유틸리티입니다. config 파싱, 모델 해석, phase 조회, git commit, summary 검증, state 관리, template 작업을 한곳으로 모아 둡니다.
 
 **Location:** `get-shit-done/bin/gsd-tools.cjs`
 **Modules:** 15 domain modules in `get-shit-done/bin/lib/`

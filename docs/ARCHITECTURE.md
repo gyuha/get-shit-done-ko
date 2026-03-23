@@ -1,6 +1,9 @@
-# GSD Architecture
+# GSD 아키텍처
 
-> System architecture for contributors and advanced users. For user-facing documentation, see [Feature Reference](FEATURES.md) or [User Guide](USER-GUIDE.md).
+> 기여자와 고급 사용자를 위한 시스템 아키텍처 문서입니다. 사용자 관점 문서는 [Feature Reference](FEATURES.md)와 [User Guide](USER-GUIDE.md)를 참고하세요.
+
+> [!NOTE]
+> 파일 경로, 런타임 이름, 에이전트 식별자, 구조 다이어그램 안의 토큰은 그대로 유지합니다. 설명은 한국어 우선으로 제공합니다.
 
 ---
 
