@@ -1,10 +1,24 @@
-# Release Checklist
+# 릴리스 체크리스트
 
 ## 목적
 
-이 문서는 `get-shit-done-ko`를 release하거나 새 upstream sync 직후 상태를 점검할 때 유지보수자가 그대로 따라갈 수 있는 Korean-first 체크리스트입니다.
+이 문서는 `get-shit-done-ko`를 릴리스하거나 새 upstream sync 직후 상태를 점검할 때 유지보수자가 그대로 따라갈 수 있는 한국어 우선 체크리스트입니다.
 
-## Canonical Validation Commands
+## Upstream Sync 선행 확인
+
+`$gsd-sync-upstream` 또는 수동 maintainer sync를 시작할 때는 먼저 tracked upstream baseline과 GitHub releases latest를 비교합니다.
+
+```bash
+node scripts/check-upstream-release.cjs --current-file get-shit-done/UPSTREAM_VERSION --json
+node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --dry-run
+```
+
+- 기준선 파일은 `get-shit-done/UPSTREAM_VERSION`입니다.
+- `update_available`이 `false`면 upstream latest가 같거나 더 낮으므로 no-op으로 종료합니다.
+- 실제 반영은 dry-run 결과를 확인한 뒤 `node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag>`로 진행합니다.
+- sync 직후에는 아래 기준 검증 명령을 다시 실행합니다.
+
+## 기준 검증 명령
 
 아래 명령을 순서대로 실행합니다.
 
@@ -20,22 +34,22 @@ node scripts/run-tests.cjs
 
 - `validate health`: `healthy`
 - `validate consistency`: `passed: true`
-- `roadmap analyze`: 모든 completed phase가 summary와 맞물리고 현재 phase 상태가 의도와 일치
-- focused compatibility suite: runtime/path conversion 관련 테스트 전부 pass
-- full suite: 전체 repo tests pass
+- `roadmap analyze`: 모든 완료된 phase가 summary와 맞물리고 현재 phase 상태가 의도와 일치
+- 집중 호환성 스위트: runtime/path conversion 관련 테스트가 모두 통과
+- 전체 스위트: 저장소 전체 테스트가 통과
 
-## Manual Spot Checks
+## 수동 점검 항목
 
 자동화 뒤에 아래 수동 확인을 합니다.
 
 1. `README.md`, `docs/UPSTREAM-SYNC.md`, `docs/RELEASE-CHECKLIST.md`를 열고 유지보수 링크가 끊기지 않았는지 확인합니다.
 2. 대표 prompt/runtime 파일에서 command literals, file paths, placeholders, identifiers, phase/requirement IDs가 번역되지 않았는지 확인합니다.
-3. installer/runtime 예시에서 non-Claude runtime이 `~/.claude`를 그대로 노출하지 않는지 확인합니다.
-4. Chinese 문서나 `zh-CN` 링크가 다시 들어오지 않았는지 확인합니다.
+3. installer/runtime 예시에서 Claude 이외 런타임이 `~/.claude`를 그대로 노출하지 않는지 확인합니다.
+4. 중국어 문서나 `zh-CN` 링크가 다시 들어오지 않았는지 확인합니다.
 
-## Token Preservation Rules
+## 토큰 보존 규칙
 
-아래 항목은 release 직전에도 바뀌면 안 됩니다.
+아래 항목은 릴리스 직전에도 바뀌면 안 됩니다.
 
 - Commands
 - File names
@@ -44,12 +58,12 @@ node scripts/run-tests.cjs
 - phase/requirement IDs
 - snippet 안의 machine-sensitive tokens
 
-## Accepted Caveats
+## 허용되는 예외
 
 - commands/agents frontmatter의 `description`는 generated installer/config compatibility 때문에 영어를 유지할 수 있습니다.
 - 한국어화는 설명문과 안내문 레이어에 적용하고, 실행 의미를 가진 토큰은 번역하지 않습니다.
 
-## When a Finding Is Blocking
+## 차단 이슈로 보는 경우
 
 다음 중 하나면 release blocker로 취급합니다.
 
@@ -63,9 +77,9 @@ node scripts/run-tests.cjs
 - compatibility contract를 깨지 않는 wording caveat
 - 유지보수 호환성을 위해 의도적으로 남긴 English frontmatter
 
-## Release Close-Out
+## 릴리스 마감 점검
 
-release 또는 sync 마감 직전 마지막으로 확인합니다.
+릴리스 또는 sync 마감 직전 마지막으로 확인합니다.
 
 1. 워킹트리가 깨끗한지 확인합니다.
 2. Phase/summary/verification 문서가 최신 결과를 반영하는지 확인합니다.

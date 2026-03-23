@@ -68,6 +68,7 @@ This is a maintainer-only repo sync workflow. It is not the same as `$gsd-update
 2. Report the tracked upstream baseline, the latest upstream GitHub release tag/date, and the fork package version from `package.json`.
 3. If `update_available` is `false`:
    - explain whether the repo is current or ahead
+   - note explicitly that the decision came from the tracked upstream baseline file, not from `package.json` alone
    - stop with an explicit no-op result
 4. If `update_available` is `true`:
    - run `node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --dry-run`
@@ -77,7 +78,11 @@ This is a maintainer-only repo sync workflow. It is not the same as `$gsd-update
 5. After a successful apply run:
    - update `get-shit-done/UPSTREAM_VERSION`
    - update `docs/UPSTREAM-SYNC.md`
-   - run the canonical validation commands from `docs/RELEASE-CHECKLIST.md`
+   - run the canonical validation commands from `docs/RELEASE-CHECKLIST.md`:
+     - `node get-shit-done/bin/gsd-tools.cjs validate health`
+     - `node get-shit-done/bin/gsd-tools.cjs validate consistency`
+     - `node get-shit-done/bin/gsd-tools.cjs roadmap analyze`
+     - `node scripts/run-tests.cjs`
 
 Never describe this skill as an npm install/update flow, and never route users to `$gsd-update` for repo sync.
 </process>
