@@ -4,7 +4,7 @@
 
 **한국어(기본)** · [English Reference (upstream v1.28.0)](https://github.com/gsd-build/get-shit-done/tree/v1.28.0)
 
-> 유지보수 참고: 이 포크는 upstream `v1.28.0`을 기준으로 시작했습니다. 동기화 기준과 번역 가드레일은 [docs/UPSTREAM-SYNC.md](docs/UPSTREAM-SYNC.md)에서 확인할 수 있습니다.
+> 유지보수 참고: 이 포크는 upstream `v1.28.0`을 기준으로 시작했습니다. 동기화 기준과 번역 가드레일은 [docs/UPSTREAM-SYNC.md](docs/UPSTREAM-SYNC.md), release 점검 절차는 [docs/RELEASE-CHECKLIST.md](docs/RELEASE-CHECKLIST.md)에서 확인할 수 있습니다.
 
 **Claude Code, OpenCode, Gemini CLI, Codex, Copilot, Antigravity를 위한 가볍고 강력한 메타 프롬프팅, 컨텍스트 엔지니어링, 스펙 기반 개발 시스템입니다.**
 
