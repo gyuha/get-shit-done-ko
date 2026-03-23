@@ -1,6 +1,6 @@
 ---
 name: gsd:note
-description: "한국어 우선 안내 — Zero-friction idea capture. Append, list, or promote notes to todos."
+description: "Zero-friction idea capture. Append, list, or promote notes to todos."
 argument-hint: "<text> | list | promote <N> [--global]"
 allowed-tools:
   - Read

@@ -1,6 +1,6 @@
 ---
 name: gsd:audit-milestone
-description: "한국어 우선 안내 — Audit milestone completion against original intent before archiving"
+description: "Audit milestone completion against original intent before archiving"
 argument-hint: "[version]"
 allowed-tools:
   - Read

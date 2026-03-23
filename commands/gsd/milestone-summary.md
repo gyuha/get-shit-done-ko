@@ -1,7 +1,7 @@
 ---
 type: prompt
 name: gsd:milestone-summary
-description: "한국어 우선 안내 — Generate a comprehensive project summary from milestone artifacts for team onboarding and review"
+description: "Generate a comprehensive project summary from milestone artifacts for team onboarding and review"
 argument-hint: "[version]"
 allowed-tools:
   - Read

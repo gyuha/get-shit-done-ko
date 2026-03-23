@@ -1,6 +1,6 @@
 ---
 name: gsd:new-project
-description: "한국어 우선 안내 — Initialize a new project with deep context gathering and PROJECT.md"
+description: "Initialize a new project with deep context gathering and PROJECT.md"
 argument-hint: "[--auto]"
 allowed-tools:
   - Read

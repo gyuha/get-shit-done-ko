@@ -1,5 +1,5 @@
 ---
-description: "한국어 우선 안내 — Reapply local modifications after a GSD update"
+description: "Reapply local modifications after a GSD update"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion
 ---
 

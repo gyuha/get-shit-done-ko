@@ -1,6 +1,6 @@
 ---
 name: gsd:next
-description: "한국어 우선 안내 — Automatically advance to the next logical step in the GSD workflow"
+description: "Automatically advance to the next logical step in the GSD workflow"
 allowed-tools:
   - Read
   - Bash

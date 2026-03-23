@@ -1,6 +1,6 @@
 ---
 name: gsd:review
-description: "한국어 우선 안내 — Request cross-AI peer review of phase plans from external AI CLIs"
+description: "Request cross-AI peer review of phase plans from external AI CLIs"
 argument-hint: "--phase N [--gemini] [--claude] [--codex] [--all]"
 allowed-tools:
   - Read

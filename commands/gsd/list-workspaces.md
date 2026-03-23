@@ -1,6 +1,6 @@
 ---
 name: gsd:list-workspaces
-description: "한국어 우선 안내 — List active GSD workspaces and their status"
+description: "List active GSD workspaces and their status"
 allowed-tools:
   - Bash
   - Read

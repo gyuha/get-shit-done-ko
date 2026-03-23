@@ -1,6 +1,6 @@
 ---
 name: gsd:validate-phase
-description: "한국어 우선 안내 — Retroactively audit and fill Nyquist validation gaps for a completed phase"
+description: "Retroactively audit and fill Nyquist validation gaps for a completed phase"
 argument-hint: "[phase number]"
 allowed-tools:
   - Read

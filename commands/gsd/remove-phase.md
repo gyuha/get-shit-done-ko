@@ -1,6 +1,6 @@
 ---
 name: gsd:remove-phase
-description: "한국어 우선 안내 — Remove a future phase from roadmap and renumber subsequent phases"
+description: "Remove a future phase from roadmap and renumber subsequent phases"
 argument-hint: <phase-number>
 allowed-tools:
   - Read

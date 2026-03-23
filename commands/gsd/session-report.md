@@ -1,6 +1,6 @@
 ---
 name: gsd:session-report
-description: "한국어 우선 안내 — Generate a session report with token usage estimates, work summary, and outcomes"
+description: "Generate a session report with token usage estimates, work summary, and outcomes"
 allowed-tools:
   - Read
   - Bash

@@ -1,6 +1,6 @@
 ---
 name: gsd:list-phase-assumptions
-description: "한국어 우선 안내 — Surface Claude's assumptions about a phase approach before planning"
+description: "Surface Claude's assumptions about a phase approach before planning"
 argument-hint: "[phase]"
 allowed-tools:
   - Read

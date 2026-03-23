@@ -1,6 +1,6 @@
 ---
 name: gsd:research-phase
-description: "한국어 우선 안내 — Research how to implement a phase (standalone - usually use /gsd:plan-phase instead)"
+description: "Research how to implement a phase (standalone - usually use /gsd:plan-phase instead)"
 argument-hint: "[phase]"
 allowed-tools:
   - Read

@@ -1,6 +1,6 @@
 ---
 name: gsd:ui-phase
-description: "한국어 우선 안내 — Generate UI design contract (UI-SPEC.md) for frontend phases"
+description: "Generate UI design contract (UI-SPEC.md) for frontend phases"
 argument-hint: "[phase]"
 allowed-tools:
   - Read

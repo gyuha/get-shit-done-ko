@@ -1,6 +1,6 @@
 ---
 name: gsd:debug
-description: "한국어 우선 안내 — Systematic debugging with persistent state across context resets"
+description: "Systematic debugging with persistent state across context resets"
 argument-hint: [issue description]
 allowed-tools:
   - Read

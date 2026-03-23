@@ -1,6 +1,6 @@
 ---
 name: gsd:progress
-description: "한국어 우선 안내 — Check project progress, show context, and route to next action (execute or plan)"
+description: "Check project progress, show context, and route to next action (execute or plan)"
 allowed-tools:
   - Read
   - Bash

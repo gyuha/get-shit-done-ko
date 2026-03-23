@@ -1,6 +1,6 @@
 ---
 name: gsd:ship
-description: "한국어 우선 안내 — Create PR, run review, and prepare for merge after verification passes"
+description: "Create PR, run review, and prepare for merge after verification passes"
 argument-hint: "[phase number or milestone, e.g., '4' or 'v1.0']"
 allowed-tools:
   - Read

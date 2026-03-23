@@ -1,6 +1,6 @@
 ---
 name: gsd:review-backlog
-description: "한국어 우선 안내 — Review and promote backlog items to active milestone"
+description: "Review and promote backlog items to active milestone"
 allowed-tools:
   - Read
   - Write

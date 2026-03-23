@@ -1,7 +1,7 @@
 ---
 type: prompt
 name: gsd:complete-milestone
-description: "한국어 우선 안내 — Archive completed milestone and prepare for next version"
+description: "Archive completed milestone and prepare for next version"
 argument-hint: <version>
 allowed-tools:
   - Read

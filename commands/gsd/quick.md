@@ -1,6 +1,6 @@
 ---
 name: gsd:quick
-description: "한국어 우선 안내 — Execute a quick task with GSD guarantees (atomic commits, state tracking) but skip optional agents"
+description: "Execute a quick task with GSD guarantees (atomic commits, state tracking) but skip optional agents"
 argument-hint: "[--full] [--discuss] [--research]"
 allowed-tools:
   - Read

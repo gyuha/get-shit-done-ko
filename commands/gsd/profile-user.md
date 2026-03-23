@@ -1,6 +1,6 @@
 ---
 name: gsd:profile-user
-description: "한국어 우선 안내 — Generate developer behavioral profile and create Claude-discoverable artifacts"
+description: "Generate developer behavioral profile and create Claude-discoverable artifacts"
 argument-hint: "[--questionnaire] [--refresh]"
 allowed-tools:
   - Read

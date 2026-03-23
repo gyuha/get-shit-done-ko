@@ -1,6 +1,6 @@
 ---
 name: gsd:pr-branch
-description: "한국어 우선 안내 — Create a clean PR branch by filtering out .planning/ commits — ready for code review"
+description: "Create a clean PR branch by filtering out .planning/ commits — ready for code review"
 argument-hint: "[target branch, default: main]"
 allowed-tools:
   - Bash

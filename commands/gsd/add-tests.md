@@ -1,6 +1,6 @@
 ---
 name: gsd:add-tests
-description: "한국어 우선 안내 — Generate tests for a completed phase based on UAT criteria and implementation"
+description: "Generate tests for a completed phase based on UAT criteria and implementation"
 argument-hint: "<phase> [additional instructions]"
 allowed-tools:
   - Read

@@ -1,6 +1,6 @@
 ---
 name: gsd:stats
-description: "한국어 우선 안내 — Display project statistics — phases, plans, requirements, git metrics, and timeline"
+description: "Display project statistics — phases, plans, requirements, git metrics, and timeline"
 allowed-tools:
   - Read
   - Bash

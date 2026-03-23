@@ -1,6 +1,6 @@
 ---
 name: gsd:health
-description: "한국어 우선 안내 — Diagnose planning directory health and optionally repair issues"
+description: "Diagnose planning directory health and optionally repair issues"
 argument-hint: [--repair]
 allowed-tools:
   - Read

@@ -1,6 +1,6 @@
 ---
 name: gsd:do
-description: "한국어 우선 안내 — Route freeform text to the right GSD command automatically"
+description: "Route freeform text to the right GSD command automatically"
 argument-hint: "<description of what you want to do>"
 allowed-tools:
   - Read

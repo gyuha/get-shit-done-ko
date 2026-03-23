@@ -1,6 +1,6 @@
 ---
 name: gsd:add-phase
-description: "한국어 우선 안내 — Add phase to end of current milestone in roadmap"
+description: "Add phase to end of current milestone in roadmap"
 argument-hint: <description>
 allowed-tools:
   - Read

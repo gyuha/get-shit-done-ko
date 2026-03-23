@@ -1,6 +1,6 @@
 ---
 name: gsd:remove-workspace
-description: "한국어 우선 안내 — Remove a GSD workspace and clean up worktrees"
+description: "Remove a GSD workspace and clean up worktrees"
 argument-hint: "<workspace-name>"
 allowed-tools:
   - Bash

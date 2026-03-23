@@ -1,6 +1,6 @@
 ---
 name: gsd:plan-phase
-description: "한국어 우선 안내 — Create detailed phase plan (PLAN.md) with verification loop"
+description: "Create detailed phase plan (PLAN.md) with verification loop"
 argument-hint: "[phase] [--auto] [--research] [--skip-research] [--gaps] [--skip-verify] [--prd <file>] [--reviews] [--text]"
 agent: gsd-planner
 allowed-tools:

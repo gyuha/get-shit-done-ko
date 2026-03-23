@@ -1,6 +1,6 @@
 ---
 name: gsd:verify-work
-description: "한국어 우선 안내 — Validate built features through conversational UAT"
+description: "Validate built features through conversational UAT"
 argument-hint: "[phase number, e.g., '4']"
 allowed-tools:
   - Read

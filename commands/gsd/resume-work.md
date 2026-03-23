@@ -1,6 +1,6 @@
 ---
 name: gsd:resume-work
-description: "한국어 우선 안내 — Resume work from previous session with full context restoration"
+description: "Resume work from previous session with full context restoration"
 allowed-tools:
   - Read
   - Bash

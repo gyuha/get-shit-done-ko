@@ -1,6 +1,6 @@
 ---
 name: gsd:new-workspace
-description: "한국어 우선 안내 — Create an isolated workspace with repo copies and independent .planning/"
+description: "Create an isolated workspace with repo copies and independent .planning/"
 argument-hint: "--name <name> [--repos repo1,repo2] [--path /target] [--strategy worktree|clone] [--branch name] [--auto]"
 allowed-tools:
   - Read

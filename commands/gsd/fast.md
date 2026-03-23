@@ -1,6 +1,6 @@
 ---
 name: gsd:fast
-description: "한국어 우선 안내 — Execute a trivial task inline — no subagents, no planning overhead"
+description: "Execute a trivial task inline — no subagents, no planning overhead"
 argument-hint: "[task description]"
 allowed-tools:
   - Read

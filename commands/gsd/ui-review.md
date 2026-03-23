@@ -1,6 +1,6 @@
 ---
 name: gsd:ui-review
-description: "한국어 우선 안내 — Retroactive 6-pillar visual audit of implemented frontend code"
+description: "Retroactive 6-pillar visual audit of implemented frontend code"
 argument-hint: "[phase]"
 allowed-tools:
   - Read

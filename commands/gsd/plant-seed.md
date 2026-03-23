@@ -1,6 +1,6 @@
 ---
 name: gsd:plant-seed
-description: "한국어 우선 안내 — Capture a forward-looking idea with trigger conditions — surfaces automatically at the right milestone"
+description: "Capture a forward-looking idea with trigger conditions — surfaces automatically at the right milestone"
 argument-hint: "[idea summary]"
 allowed-tools:
   - Read

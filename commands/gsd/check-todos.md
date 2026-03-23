@@ -1,6 +1,6 @@
 ---
 name: gsd:check-todos
-description: "한국어 우선 안내 — List pending todos and select one to work on"
+description: "List pending todos and select one to work on"
 argument-hint: [area filter]
 allowed-tools:
   - Read

@@ -1,6 +1,6 @@
 ---
 name: gsd:settings
-description: "한국어 우선 안내 — Configure GSD workflow toggles and model profile"
+description: "Configure GSD workflow toggles and model profile"
 allowed-tools:
   - Read
   - Write

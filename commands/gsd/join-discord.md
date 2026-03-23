@@ -1,6 +1,6 @@
 ---
 name: gsd:join-discord
-description: "한국어 우선 안내 — Join the GSD Discord community"
+description: "Join the GSD Discord community"
 ---
 
 <objective>

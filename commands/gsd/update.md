@@ -1,6 +1,6 @@
 ---
 name: gsd:update
-description: "한국어 우선 안내 — Update GSD to latest version with changelog display"
+description: "Update GSD to latest version with changelog display"
 allowed-tools:
   - Bash
   - AskUserQuestion

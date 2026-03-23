@@ -1,6 +1,6 @@
 ---
 name: gsd:autonomous
-description: "한국어 우선 안내 — Run all remaining phases autonomously — discuss→plan→execute per phase"
+description: "Run all remaining phases autonomously — discuss→plan→execute per phase"
 argument-hint: "[--from N]"
 allowed-tools:
   - Read

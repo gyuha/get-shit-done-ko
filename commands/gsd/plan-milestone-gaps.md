@@ -1,6 +1,6 @@
 ---
 name: gsd:plan-milestone-gaps
-description: "한국어 우선 안내 — Create phases to close all gaps identified by milestone audit"
+description: "Create phases to close all gaps identified by milestone audit"
 allowed-tools:
   - Read
   - Write

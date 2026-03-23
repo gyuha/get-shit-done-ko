@@ -1,6 +1,6 @@
 ---
 name: gsd:discuss-phase
-description: "한국어 우선 안내 — Gather phase context through adaptive questioning before planning. Use --auto to skip interactive questions (Claude picks recommended defaults)."
+description: "Gather phase context through adaptive questioning before planning. Use --auto to skip interactive questions (Claude picks recommended defaults)."
 argument-hint: "<phase> [--auto] [--batch] [--analyze] [--text]"
 allowed-tools:
   - Read

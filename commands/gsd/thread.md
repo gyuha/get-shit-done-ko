@@ -1,6 +1,6 @@
 ---
 name: gsd:thread
-description: "한국어 우선 안내 — Manage persistent context threads for cross-session work"
+description: "Manage persistent context threads for cross-session work"
 argument-hint: [name | description]
 allowed-tools:
   - Read

@@ -1,6 +1,6 @@
 ---
 name: gsd:cleanup
-description: "한국어 우선 안내 — Archive accumulated phase directories from completed milestones"
+description: "Archive accumulated phase directories from completed milestones"
 ---
 <objective>
 한국어 우선 안내: 이 명령 문서는 `/gsd:cleanup` 흐름을 한국어로 먼저 안내합니다. 아래 영문 원문은 upstream 호환성과 세부 의미 보존을 위해 함께 유지합니다.

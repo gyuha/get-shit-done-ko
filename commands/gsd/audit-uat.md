@@ -1,6 +1,6 @@
 ---
 name: gsd:audit-uat
-description: "한국어 우선 안내 — Cross-phase audit of all outstanding UAT and verification items"
+description: "Cross-phase audit of all outstanding UAT and verification items"
 allowed-tools:
   - Read
   - Glob

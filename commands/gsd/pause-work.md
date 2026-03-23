@@ -1,6 +1,6 @@
 ---
 name: gsd:pause-work
-description: "한국어 우선 안내 — Create context handoff when pausing work mid-phase"
+description: "Create context handoff when pausing work mid-phase"
 allowed-tools:
   - Read
   - Write

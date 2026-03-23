@@ -1,6 +1,6 @@
 ---
 name: gsd:add-todo
-description: "한국어 우선 안내 — Capture idea or task as todo from current conversation context"
+description: "Capture idea or task as todo from current conversation context"
 argument-hint: [optional description]
 allowed-tools:
   - Read

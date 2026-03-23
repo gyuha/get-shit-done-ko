@@ -1,5 +1,5 @@
 ---
-description: "한국어 우선 안내 — Manage parallel workstreams — list, create, switch, status, progress, complete, and resume"
+description: "Manage parallel workstreams — list, create, switch, status, progress, complete, and resume"
 ---
 
 # /gsd:workstreams

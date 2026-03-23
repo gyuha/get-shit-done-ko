@@ -1,6 +1,6 @@
 ---
 name: gsd:manager
-description: "한국어 우선 안내 — Interactive command center for managing multiple phases from one terminal"
+description: "Interactive command center for managing multiple phases from one terminal"
 allowed-tools:
   - Read
   - Write
