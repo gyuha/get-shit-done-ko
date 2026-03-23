@@ -60,7 +60,7 @@ GSD의 `/gsd:pause-work` 명령은 실행 상태를 저장합니다. WARNING 메
 
 ## Setup
 
-두 hook은 `npx get-shit-done-cc` 설치 중 자동 등록됩니다.
+두 hook은 `npx get-shit-done-ko` 설치 중 자동 등록됩니다.
 
 - **Statusline** (bridge 파일 기록): settings.json의 `statusLine`으로 등록
 - **Context Monitor** (bridge 파일 읽기): settings.json의 `PostToolUse` hook으로 등록 (`Gemini`는 `AfterTool`)
