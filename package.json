@@ -1,6 +1,6 @@
 {
   "name": "get-shit-done-ko",
-  "version": "1.28.0",
+  "version": "1.28.01",
   "description": "A meta-prompting, context engineering and spec-driven development system for Claude Code, OpenCode, Gemini and Codex by TÂCHES.",
   "bin": {
     "get-shit-done-ko": "bin/install.js"
@@ -44,7 +44,10 @@
   },
   "scripts": {
     "build:hooks": "node scripts/build-hooks.js",
+    "pack:dry-run": "npm pack --dry-run",
     "prepublishOnly": "npm run build:hooks",
+    "publish:npm": "npm publish --access public",
+    "release:npm": "npm test && npm run publish:npm",
     "test": "node scripts/run-tests.cjs",
     "test:coverage": "c8 --check-coverage --lines 70 --reporter text --include 'get-shit-done/bin/lib/*.cjs' --exclude 'tests/**' --all node scripts/run-tests.cjs"
   }
