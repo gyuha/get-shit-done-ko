@@ -1,12 +1,15 @@
-# GSD Configuration Reference
+# GSD 설정 레퍼런스
 
-> Full configuration schema, workflow toggles, model profiles, and git branching options. For feature context, see [Feature Reference](FEATURES.md).
+> 전체 configuration schema, workflow 토글, 모델 프로필, git branching 옵션을 설명하는 문서입니다. 기능 맥락은 [Feature Reference](FEATURES.md)를 참고하세요.
+
+> [!NOTE]
+> 설정 키 이름과 값, 파일 경로, 명령어 예시는 그대로 유지합니다. 설명만 한국어로 제공합니다.
 
 ---
 
 ## Configuration File
 
-GSD stores project settings in `.planning/config.json`. Created during `/gsd:new-project`, updated via `/gsd:settings`.
+GSD는 프로젝트 설정을 `.planning/config.json`에 저장합니다. `/gsd:new-project`에서 처음 생성되고, 이후 `/gsd:settings`로 수정할 수 있습니다.
 
 ### Full Schema
 

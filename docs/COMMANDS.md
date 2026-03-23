@@ -1,6 +1,9 @@
-# GSD Command Reference
+# GSD 명령어 레퍼런스
 
-> Complete command syntax, flags, options, and examples. For feature details, see [Feature Reference](FEATURES.md). For workflow walkthroughs, see [User Guide](USER-GUIDE.md).
+> 전체 명령어 문법, flags, 옵션, 예제를 모아 둔 문서입니다. 기능 설명은 [Feature Reference](FEATURES.md), 실제 워크플로 사용 예시는 [User Guide](USER-GUIDE.md)를 참고하세요.
+
+> [!NOTE]
+> 명령어 이름, flags, 인자 형식, 코드 예시는 원문 그대로 유지합니다. 설명과 안내 문구만 한국어 우선으로 정리합니다.
 
 ---
 
@@ -9,6 +12,8 @@
 - **Claude Code / Gemini / Copilot:** `/gsd:command-name [args]`
 - **OpenCode:** `/gsd-command-name [args]`
 - **Codex:** `$gsd-command-name [args]`
+
+사용 중인 런타임에 따라 호출 접두사만 다르고, 실제 명령 의미와 phase 흐름은 동일합니다.
 
 ---
 

@@ -1,6 +1,14 @@
-# GSD Feature Reference
+# GSD 기능 레퍼런스
 
-> Complete feature and function documentation with requirements. For architecture details, see [Architecture](ARCHITECTURE.md). For command syntax, see [Command Reference](COMMANDS.md).
+> 요구사항과 함께 GSD의 기능을 정리한 문서입니다. 아키텍처는 [Architecture](ARCHITECTURE.md), 명령어 문법은 [Command Reference](COMMANDS.md)를 참고하세요.
+
+> [!NOTE]
+> 아래 요구사항 ID, 명령어, 파일 경로, 코드 예시는 원문 토큰을 유지합니다. 설명문과 안내 문구만 한국어 우선으로 읽을 수 있게 정리했습니다.
+
+## 문서 활용법
+
+- 이 문서는 "무슨 기능이 있는가"와 "그 기능이 어떤 요구사항을 만족해야 하는가"를 함께 보려는 사용자에게 맞춰져 있습니다.
+- 세부 구현 규칙은 [Architecture](ARCHITECTURE.md), 실제 실행 방법은 [USER-GUIDE](USER-GUIDE.md)와 함께 보면 이해가 빠릅니다.
 
 ---
 

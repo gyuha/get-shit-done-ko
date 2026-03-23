@@ -1,6 +1,15 @@
-# GSD User Guide
+# GSD 사용자 가이드
 
-A detailed reference for workflows, troubleshooting, and configuration. For quick-start setup, see the [README](../README.md).
+워크플로 사용법, 문제 해결, 설정까지 한 번에 볼 수 있는 상세 가이드입니다. 빠른 시작은 [README](../README.md)를 참고하세요.
+
+> [!NOTE]
+> 이 문서는 한국어 우선 설명을 제공합니다. 명령어, 파일 경로, 코드 블록, 식별자 토큰은 upstream 호환성을 위해 그대로 유지합니다.
+
+## 빠른 안내
+
+- 워크플로 전체 흐름을 먼저 보고 싶다면 `Workflow Diagrams`부터 읽으면 됩니다.
+- 실사용 중 막혔을 때는 `Troubleshooting`과 `Recovery Quick Reference`가 가장 빠릅니다.
+- 설정 키와 프로필 차이가 궁금하면 `Configuration Reference` 섹션으로 바로 가면 됩니다.
 
 ---
 
