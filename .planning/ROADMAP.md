@@ -140,5 +140,5 @@ Plans:
 
 Plans:
 - [x] 07-01: Introduce a dedicated upstream-sync skill, machine-readable baseline tracking, and release comparison logic.
-- [ ] 07-02: Implement the safe upstream refresh flow that imports newer GSD sources and reapplies fork-local overlays.
-- [ ] 07-03: Add regression coverage and maintainer documentation for no-op, dry-run, and successful sync flows.
+- [x] 07-02: Implement the safe upstream refresh flow that imports newer GSD sources and reapplies fork-local overlays.
+- [x] 07-03: Add regression coverage and maintainer documentation for no-op, dry-run, and successful sync flows.
