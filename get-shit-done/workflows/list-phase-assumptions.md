@@ -1,5 +1,5 @@
 <purpose>
-한국어 우선 안내: 이 워크플로 자산은 `list-phase-assumptions` 흐름을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+한국어 우선 안내: 이 워크플로 자산은 `list-phase-assumptions` 흐름을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 Surface Claude's assumptions about a phase before planning, enabling users to correct misconceptions early.
 
