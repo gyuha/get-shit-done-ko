@@ -15,7 +15,7 @@
 <br>
 
 ```bash
-npx get-shit-done-cc@latest
+npx get-shit-done-ko@latest
 ```
 
 **Mac, Windows, Linux에서 동작합니다.**
@@ -73,7 +73,7 @@ GSD는 그 문제를 해결하려고 만든 컨텍스트 엔지니어링 레이�
 ## Getting Started
 
 ```bash
-npx get-shit-done-cc@latest
+npx get-shit-done-ko@latest
 ```
 
 설치기는 다음 두 가지를 묻습니다.
@@ -95,7 +95,7 @@ npx get-shit-done-cc@latest
 GSD는 빠르게 바뀝니다. 주기적으로 업데이트하는 편이 좋습니다.
 
 ```bash
-npx get-shit-done-cc@latest
+npx get-shit-done-ko@latest
 ```
 
 <details>
@@ -103,33 +103,33 @@ npx get-shit-done-cc@latest
 
 ```bash
 # Claude Code
-npx get-shit-done-cc --claude --global   # Install to ~/.claude/
-npx get-shit-done-cc --claude --local    # Install to ./.claude/
+npx get-shit-done-ko --claude --global   # Install to ~/.claude/
+npx get-shit-done-ko --claude --local    # Install to ./.claude/
 
 # OpenCode (open source, free models)
-npx get-shit-done-cc --opencode --global # Install to ~/.config/opencode/
+npx get-shit-done-ko --opencode --global # Install to ~/.config/opencode/
 
 # Gemini CLI
-npx get-shit-done-cc --gemini --global   # Install to ~/.gemini/
+npx get-shit-done-ko --gemini --global   # Install to ~/.gemini/
 
 # Codex (skills-first)
-npx get-shit-done-cc --codex --global    # Install to ~/.codex/
-npx get-shit-done-cc --codex --local     # Install to ./.codex/
+npx get-shit-done-ko --codex --global    # Install to ~/.codex/
+npx get-shit-done-ko --codex --local     # Install to ./.codex/
 
 # Copilot (GitHub Copilot CLI)
-npx get-shit-done-cc --copilot --global  # Install to ~/.github/
-npx get-shit-done-cc --copilot --local   # Install to ./.github/
+npx get-shit-done-ko --copilot --global  # Install to ~/.github/
+npx get-shit-done-ko --copilot --local   # Install to ./.github/
 
 # Cursor CLI
-npx get-shit-done-cc --cursor --global      # Install to ~/.cursor/
-npx get-shit-done-cc --cursor --local       # Install to ./.cursor/
+npx get-shit-done-ko --cursor --global      # Install to ~/.cursor/
+npx get-shit-done-ko --cursor --local       # Install to ./.cursor/
 
 # Antigravity (Google, skills-first, Gemini-based)
-npx get-shit-done-cc --antigravity --global # Install to ~/.gemini/antigravity/
-npx get-shit-done-cc --antigravity --local  # Install to ./.agent/
+npx get-shit-done-ko --antigravity --global # Install to ~/.gemini/antigravity/
+npx get-shit-done-ko --antigravity --local  # Install to ./.agent/
 
 # All runtimes
-npx get-shit-done-cc --all --global      # Install to all directories
+npx get-shit-done-ko --all --global      # Install to all directories
 ```
 
 `--global`(`-g`) 또는 `--local`(`-l`)을 사용하면 위치 선택 프롬프트를 건너뜁니다.
@@ -712,18 +712,18 @@ This prevents Claude from reading these files entirely, regardless of what comma
 
 **Commands not working as expected?**
 - Run `/gsd:help` to verify installation
-- Re-run `npx get-shit-done-cc` to reinstall
+- Re-run `npx get-shit-done-ko` to reinstall
 
 **Updating to the latest version?**
 ```bash
-npx get-shit-done-cc@latest
+npx get-shit-done-ko@latest
 ```
 
 **Using Docker or containerized environments?**
 
 If file reads fail with tilde paths (`~/.claude/...`), set `CLAUDE_CONFIG_DIR` before installing:
 ```bash
-CLAUDE_CONFIG_DIR=/home/youruser/.claude npx get-shit-done-cc --global
+CLAUDE_CONFIG_DIR=/home/youruser/.claude npx get-shit-done-ko --global
 ```
 This ensures absolute paths are used instead of `~` which may not expand correctly in containers.
 
@@ -733,21 +733,21 @@ To remove GSD completely:
 
 ```bash
 # Global installs
-npx get-shit-done-cc --claude --global --uninstall
-npx get-shit-done-cc --opencode --global --uninstall
-npx get-shit-done-cc --gemini --global --uninstall
-npx get-shit-done-cc --codex --global --uninstall
-npx get-shit-done-cc --copilot --global --uninstall
-npx get-shit-done-cc --cursor --global --uninstall
-npx get-shit-done-cc --antigravity --global --uninstall
+npx get-shit-done-ko --claude --global --uninstall
+npx get-shit-done-ko --opencode --global --uninstall
+npx get-shit-done-ko --gemini --global --uninstall
+npx get-shit-done-ko --codex --global --uninstall
+npx get-shit-done-ko --copilot --global --uninstall
+npx get-shit-done-ko --cursor --global --uninstall
+npx get-shit-done-ko --antigravity --global --uninstall
 
 # Local installs (current project)
-npx get-shit-done-cc --claude --local --uninstall
-npx get-shit-done-cc --opencode --local --uninstall
-npx get-shit-done-cc --codex --local --uninstall
-npx get-shit-done-cc --copilot --local --uninstall
-npx get-shit-done-cc --cursor --local --uninstall
-npx get-shit-done-cc --antigravity --local --uninstall
+npx get-shit-done-ko --claude --local --uninstall
+npx get-shit-done-ko --opencode --local --uninstall
+npx get-shit-done-ko --codex --local --uninstall
+npx get-shit-done-ko --copilot --local --uninstall
+npx get-shit-done-ko --cursor --local --uninstall
+npx get-shit-done-ko --antigravity --local --uninstall
 ```
 
 This removes all GSD commands, agents, hooks, and settings while preserving your other configurations.
@@ -756,7 +756,7 @@ This removes all GSD commands, agents, hooks, and settings while preserving your
 
 ## Community Ports
 
-OpenCode, Gemini CLI, and Codex are now natively supported via `npx get-shit-done-cc`.
+OpenCode, Gemini CLI, and Codex are now natively supported via `npx get-shit-done-ko`.
 
 These community ports pioneered multi-runtime support:
 
