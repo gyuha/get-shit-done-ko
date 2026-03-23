@@ -1,4 +1,6 @@
 <questioning_guide>
+한국어 우선 안내: 이 참조 문서는 `questioning` 규칙을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+
 
 Project initialization is dream extraction, not requirements gathering. You're helping the user discover and articulate what they want to build. This isn't a contract negotiation — it's collaborative thinking.
 
