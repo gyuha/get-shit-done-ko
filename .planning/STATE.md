@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.28.0
 milestone_name: milestone
-status: Milestone complete
-stopped_at: Phase 6 complete; milestone ready for release or next milestone
-last_updated: "2026-03-23T14:16:44Z"
+status: Planning next phase
+stopped_at: Phase 7 planning requested for automated upstream sync skill
+last_updated: "2026-03-23T15:03:35Z"
 progress:
-  total_phases: 6
+  total_phases: 7
   completed_phases: 6
-  total_plans: 16
+  total_plans: 19
   completed_plans: 16
 ---
 
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Korean-speaking users can use GSD end-to-end in Korean without breaking upstream command compatibility.
-**Current focus:** Milestone complete - release prep or next milestone selection
+**Current focus:** Phase 7 planning - automated upstream sync skill for maintainers
 
 ## Current Position
 
-Phase: 6 complete
-Plan: All plans complete
+Phase: 7 planned
+Plan: 3 plans drafted; ready for execution
 
 ## Performance Metrics
 
@@ -44,6 +44,7 @@ Plan: All plans complete
 | 04 | 2 | 10 min | 5 min |
 | 05 | 3 | 10 min | 3 min |
 | 06 | 3 | 7 min | 2 min |
+| 07 | 0 | planned | n/a |
 
 **Recent Trend:**
 
@@ -88,10 +89,13 @@ Recent decisions affecting current work:
 - [Phase 05]: Repaired bare `.claude` config-root leaks only where validation surfaced non-Claude runtime warnings — Compatibility closure stayed narrow and evidence-driven.
 - [Phase 05]: Added dedicated Korean maintainer release and sync guidance — Future releases can reuse the same validation commands and caveat rules without rediscovering them.
 - [Phase 06 planning]: The fork's published npm identity must become `get-shit-done-ko` so README install commands and actual package/bin entrypoints stay aligned.
+- [Phase 07 planning]: Upstream repo sync must stay separate from runtime self-update so maintainers do not confuse repo refreshes with `$gsd-update`.
+- [Phase 07 planning]: Compare upstream release state against the tracked upstream baseline rather than `package.json` alone because the fork package version (`1.28.1`) can move ahead of the imported upstream tag (`v1.28.0`).
 
 ### Roadmap Evolution
 
 - Phase 6 added: Rename npm package and installer entrypoint to get-shit-done-ko
+- Phase 7 added: Automated upstream GSD sync skill
 
 ### Pending Todos
 
@@ -99,10 +103,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None.
+- Upstream latest release is currently `v1.28.0` (published 2026-03-22), while this fork's `package.json` is `1.28.1`; the new sync skill must treat the tracked upstream baseline as a separate source of truth from the fork package version.
 
 ## Session Continuity
 
 Last session: 2026-03-23T13:32:17Z
-Stopped at: Phase 6 complete; milestone ready for release or next milestone
-Resume file: None
+Stopped at: Phase 7 planning requested for automated upstream sync skill
+Resume file: .planning/phases/07-automated-upstream-gsd-sync-skill/07-01-PLAN.md

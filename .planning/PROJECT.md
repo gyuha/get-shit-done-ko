@@ -19,12 +19,14 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 - ✓ Korean-first command/workflow/template/reference/agent overlay established without breaking command/path/token compatibility — Phase 3
 - ✓ Korean-first runtime messaging and maintainer-facing source comments established without changing behavior contracts — Phase 4
 - ✓ Compatibility validation, targeted converter repairs, and maintainer release/sync guidance completed — Phase 5
+- ✓ Package identity rename and canonical install/update naming aligned to `get-shit-done-ko` — Phase 6
 
 ### Active
 
-- **PKG-01**: User can install the fork with `npx get-shit-done-ko@latest` and the published bin entrypoint resolves to `get-shit-done-ko`.
-- **PKG-02**: Public docs, help/update workflows, and installer guidance use `get-shit-done-ko` as the only canonical package name.
-- **PKG-03**: Maintainer can still run install, update, uninstall, and regression flows successfully after the package identity rename.
+- **L10N-01**: Maintainer can sync newer upstream releases with a documented Korean update workflow.
+- **L10N-04**: Maintainer can run a dedicated skill that checks `gsd-build/get-shit-done` GitHub releases and decides whether this repo's tracked upstream baseline is behind.
+- **L10N-05**: If a newer upstream release exists, maintainer can refresh the vendored GSD tree in this repo while preserving Korean overlays and protected local files.
+- **L10N-06**: If this repo is already current or ahead, the sync skill reports exact compared versions and dates and exits without mutating the worktree.
 
 ### Out of Scope
 
@@ -42,6 +44,7 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 - The localization scope explicitly includes docs, workflow prompts, templates, error/help text, checkpoint copy, and comments.
 - The localization scope explicitly excludes command tokens, filenames, directory names, identifiers, and phase/requirement IDs.
 - The fork now also needs its published npm package identity to match the repository and README naming (`get-shit-done-ko`) without changing GSD command tokens or runtime flags.
+- The fork now also needs a maintainer-only sync skill that can compare upstream GitHub releases against the tracked baseline and safely refresh the vendored GSD tree when upstream moves ahead.
 
 ## Constraints
 
@@ -65,6 +68,8 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 | Keep runtime localization scoped to human-facing prose and explanatory comments | Flags, IDs, paths, and machine-sensitive tokens must remain byte-stable for compatibility | ✓ Good |
 | Close release blockers only when validation evidence surfaces them | Phase 5 should finish compatibility and maintainability, not widen product scope | ✓ Good |
 | Add a dedicated Korean maintainer release checklist instead of overloading README | Sync/release operations need a canonical checklist that is easy to re-run | ✓ Good |
+| Separate upstream repo sync from runtime self-update | The repo now has both an end-user `$gsd-update` flow and a maintainer need to refresh vendored sources, so the two workflows must not be conflated | ✓ Good |
+| Compare upstream release state against a tracked baseline, not only the fork npm version | The fork package is already `1.28.1` while the tracked upstream baseline is `v1.28.0`, so package semver alone would produce false "already ahead" results | ✓ Good |
 
 ## Evolution
 
@@ -84,4 +89,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after Phase 6 planning*
+*Last updated: 2026-03-23 after Phase 7 planning*

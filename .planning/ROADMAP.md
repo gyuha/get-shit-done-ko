@@ -18,6 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Runtime Text and Comment Localization** - Localize remaining user-facing source strings and explanatory comments safely. (completed 2026-03-23)
 - [x] **Phase 5: Compatibility Validation and Release Prep** - Verify integrity, repair regressions, and prepare the fork for ongoing maintenance. (completed 2026-03-23)
 - [x] **Phase 6: Rename npm package and installer entrypoint to get-shit-done-ko** - Make the fork's published install path match its Korean-localized package identity. (completed 2026-03-23)
+- [ ] **Phase 7: Automated Upstream GSD Sync Skill** - Add a maintainer skill that checks upstream GitHub releases and refreshes the vendored GSD tree only when a newer upstream release exists.
 
 ## Phase Details
 
@@ -97,7 +98,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -107,6 +108,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 4. Runtime Text and Comment Localization | 2/2 | Complete   | 2026-03-23 |
 | 5. Compatibility Validation and Release Prep | 3/3 | Complete | 2026-03-23 |
 | 6. Rename npm package and installer entrypoint to get-shit-done-ko | 3/3 | Complete | 2026-03-23 |
+| 7. Automated Upstream GSD Sync Skill | 0/3 | Planned | - |
 
 ### Phase 6: Rename npm package and installer entrypoint to get-shit-done-ko
 
@@ -123,3 +125,20 @@ Plans:
 - [x] 06-01: Rename package metadata and runtime-facing installer/update/help entrypoints to `get-shit-done-ko`.
 - [x] 06-02: Replace public and maintainer-facing command examples so docs match the renamed package identity.
 - [x] 06-03: Expand regression coverage for the renamed package/bin surfaces and run final verification.
+
+### Phase 7: Automated Upstream GSD Sync Skill
+
+**Goal:** Add a maintainer-only skill that checks upstream GitHub releases, compares them against this repo's tracked upstream baseline, and refreshes the vendored GSD tree only when upstream is newer.
+**Depends on:** Phase 6
+**Requirements**: [L10N-01, L10N-04, L10N-05, L10N-06]
+**Success Criteria** (what must be TRUE):
+  1. Maintainer can run a dedicated skill that reports the latest upstream release tag/date and this repo's tracked baseline before any mutation.
+  2. If upstream is newer, the skill can import the newer vendored GSD snapshot into the repo while preserving Korean overlays and protected local files.
+  3. If upstream is not newer, the skill exits cleanly with an explicit no-op summary and leaves the worktree unchanged.
+  4. Maintainer docs and tests cover the comparison logic, dry-run/update path, and safe post-sync verification flow.
+**Plans**: 3 plans
+
+Plans:
+- [ ] 07-01: Introduce a dedicated upstream-sync skill, machine-readable baseline tracking, and release comparison logic.
+- [ ] 07-02: Implement the safe upstream refresh flow that imports newer GSD sources and reapplies fork-local overlays.
+- [ ] 07-03: Add regression coverage and maintainer documentation for no-op, dry-run, and successful sync flows.
