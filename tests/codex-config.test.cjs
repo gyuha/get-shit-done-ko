@@ -160,12 +160,13 @@ describe('package identity rename regression coverage', () => {
   test('installer source and README use get-shit-done-ko in canonical commands', () => {
     const installSource = fs.readFileSync(path.join(__dirname, '..', 'bin', 'install.js'), 'utf8');
     const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf8');
+    const legacyPackageName = ['get-shit-done', 'cc'].join('-');
 
     assert.ok(installSource.includes('npx get-shit-done-ko [options]'));
     assert.ok(installSource.includes('npx get-shit-done-ko --codex --global'));
-    assert.ok(!installSource.includes('npx get-shit-done-cc'));
+    assert.ok(!installSource.includes(`npx ${legacyPackageName}`));
     assert.ok(readme.includes('npx get-shit-done-ko@latest'));
-    assert.ok(!readme.includes('get-shit-done-cc'));
+    assert.ok(!readme.includes(legacyPackageName));
   });
 });
 
