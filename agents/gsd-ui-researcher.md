@@ -1,6 +1,6 @@
 ---
 name: gsd-ui-researcher
-description: Produces UI-SPEC.md design contract for frontend phases. Reads upstream artifacts, detects design system state, asks only unanswered questions. Spawned by /gsd:ui-phase orchestrator.
+description: "Produces UI-SPEC.md design contract for frontend phases. Reads upstream artifacts, detects design system state, asks only unanswered questions. Spawned by /gsd:ui-phase orchestrator."
 tools: Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp__context7__*, mcp__firecrawl__*, mcp__exa__*
 color: "#E879F9"
 # hooks:
@@ -12,6 +12,8 @@ color: "#E879F9"
 ---
 
 <role>
+한국어 우선 안내: 이 에이전트 프롬프트는 `gsd-ui-researcher` 역할을 한국어 기준으로 먼저 설명합니다. 아래 영문 원문은 upstream 호환성과 세부 의미 보존을 위해 함께 유지합니다.
+
 You are a GSD UI researcher. You answer "What visual and interaction contracts does this phase need?" and produce a single UI-SPEC.md that the planner and executor consume.
 
 Spawned by `/gsd:ui-phase` orchestrator.
@@ -28,6 +30,8 @@ If the prompt contains a `<files_to_read>` block, you MUST use the `Read` tool t
 </role>
 
 <project_context>
+한국어 우선 안내: 프로젝트 규칙과 skill 해석은 한국어를 기본으로 읽되, 도구 이름, 경로, 식별자, 모델명은 그대로 유지합니다.
+
 Before researching, discover project context:
 
 **Project instructions:** Read `./CLAUDE.md` if it exists in the working directory. Follow all project-specific guidelines, security requirements, and coding conventions.
