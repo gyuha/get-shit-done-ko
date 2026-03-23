@@ -10,6 +10,18 @@
 - Baseline tag: `v1.28.0`
 - Fork baseline meaning: 이 포크의 첫 한국어화 기준선이며, 이후 sync diff는 이 버전 대비로 읽습니다.
 
+## Machine-Readable Baseline
+
+- Tracked baseline file: `get-shit-done/UPSTREAM_VERSION`
+- Current tracked upstream baseline: `v1.28.0`
+- Maintainer compare command:
+
+```bash
+node scripts/check-upstream-release.cjs --current-file get-shit-done/UPSTREAM_VERSION --json
+```
+
+이 파일은 fork의 `package.json` 버전과 별개로 관리합니다. 현재 이 포크의 npm package version은 upstream baseline보다 앞설 수 있으므로, upstream sync 판단은 `package.json`만으로 하지 않습니다.
+
 ## Imported Top-Level Entries
 
 Phase 1 root import로 다음 upstream tracked entry를 저장소 루트에 그대로 복사했습니다.
@@ -83,6 +95,24 @@ node get-shit-done/bin/gsd-tools.cjs roadmap analyze
 node --test tests/path-replacement.test.cjs tests/runtime-converters.test.cjs tests/codex-config.test.cjs tests/antigravity-install.test.cjs tests/copilot-install.test.cjs
 node scripts/run-tests.cjs
 ```
+
+## Maintainer Sync Skill
+
+Maintainer-only repo sync는 `$gsd-update`가 아니라 `$gsd-sync-upstream`로 다룹니다.
+
+기본 흐름:
+
+1. `get-shit-done/UPSTREAM_VERSION`를 읽어 tracked upstream baseline을 확인합니다.
+2. `scripts/check-upstream-release.cjs`로 `gsd-build/get-shit-done` GitHub releases를 확인합니다.
+3. upstream latest가 더 높을 때만 dry-run/apply sync 흐름으로 진행합니다.
+4. upstream latest가 같거나 더 낮으면 compared versions/date를 보여주고 no-op으로 종료합니다.
+
+현재 비교 기준은 반드시 다음 두 값입니다.
+
+- tracked upstream baseline: `get-shit-done/UPSTREAM_VERSION`
+- upstream latest release: `https://github.com/gsd-build/get-shit-done/releases`
+
+fork `package.json` version은 참고 정보일 뿐, sync eligibility의 단독 source of truth가 아닙니다.
 
 ## Accepted Caveats
 
