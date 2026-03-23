@@ -8,6 +8,7 @@ commands.html
 # Local test installs
 .claude/
 .codex/
+.opencode/
 
 # Build artifacts (committed to npm, not git)
 hooks/dist/
