@@ -1,5 +1,5 @@
 /**
- * Config — Planning config CRUD operations
+ * Config — planning config CRUD 작업
  */
 
 const fs = require('fs');
@@ -38,12 +38,12 @@ const CONFIG_KEY_SUGGESTIONS = {
 function validateKnownConfigKeyPath(keyPath) {
   const suggested = CONFIG_KEY_SUGGESTIONS[keyPath];
   if (suggested) {
-    error(`Unknown config key: ${keyPath}. Did you mean ${suggested}?`);
+    error(`알 수 없는 config key입니다: ${keyPath}. ${suggested}를 의미했나요?`);
   }
 }
 
 /**
- * Build a fully-materialized config object for a new project.
+ * 새 프로젝트용 완전한 config 객체를 구성한다.
  *
  * Merges (increasing priority):
  *   1. Hardcoded defaults — every key that loadConfig() resolves, plus mode/granularity
@@ -60,7 +60,7 @@ function buildNewProjectConfig(userChoices) {
   const choices = userChoices || {};
   const homedir = require('os').homedir();
 
-  // Detect API key availability
+  // API 키 사용 가능 여부를 감지한다.
   const braveKeyFile = path.join(homedir, '.gsd', 'brave_api_key');
   const hasBraveSearch = !!(process.env.BRAVE_API_KEY || fs.existsSync(braveKeyFile));
   const firecrawlKeyFile = path.join(homedir, '.gsd', 'firecrawl_api_key');
@@ -68,13 +68,13 @@ function buildNewProjectConfig(userChoices) {
   const exaKeyFile = path.join(homedir, '.gsd', 'exa_api_key');
   const hasExaSearch = !!(process.env.EXA_API_KEY || fs.existsSync(exaKeyFile));
 
-  // Load user-level defaults from ~/.gsd/defaults.json if available
+  // ~/.gsd/defaults.json이 있으면 사용자 기본값을 불러온다.
   const globalDefaultsPath = path.join(homedir, '.gsd', 'defaults.json');
   let userDefaults = {};
   try {
     if (fs.existsSync(globalDefaultsPath)) {
       userDefaults = JSON.parse(fs.readFileSync(globalDefaultsPath, 'utf-8'));
-      // Migrate deprecated "depth" key to "granularity"
+      // 더 이상 쓰지 않는 "depth" 키를 "granularity"로 마이그레이션한다.
       if ('depth' in userDefaults && !('granularity' in userDefaults)) {
         const depthToGranularity = { quick: 'coarse', standard: 'standard', comprehensive: 'fine' };
         userDefaults.granularity = depthToGranularity[userDefaults.depth] || userDefaults.depth;
@@ -85,7 +85,7 @@ function buildNewProjectConfig(userChoices) {
       }
     }
   } catch {
-    // Ignore malformed global defaults
+    // 잘못된 전역 defaults는 무시한다.
   }
 
   const hardcoded = {
@@ -122,7 +122,7 @@ function buildNewProjectConfig(userChoices) {
     },
   };
 
-  // Three-level deep merge: hardcoded <- userDefaults <- choices
+  // 3단계 merge: hardcoded <- userDefaults <- choices
   return {
     ...hardcoded,
     ...userDefaults,
@@ -146,41 +146,41 @@ function buildNewProjectConfig(userChoices) {
 }
 
 /**
- * Command: create a fully-materialized .planning/config.json for a new project.
+ * 명령: 새 프로젝트용 완전한 .planning/config.json을 만든다.
  *
  * Accepts user-chosen settings as a JSON string (the keys the user explicitly
  * configured during /gsd:new-project). All remaining keys are filled from
  * hardcoded defaults and optional ~/.gsd/defaults.json.
  *
- * Idempotent: if config.json already exists, returns { created: false }.
+ * 멱등적이다. config.json이 이미 있으면 { created: false }를 반환한다.
  */
 function cmdConfigNewProject(cwd, choicesJson, raw) {
   const planningBase = planningRoot(cwd);
   const configPath = path.join(planningBase, 'config.json');
 
-  // Idempotent: don't overwrite existing config
+  // 멱등성 유지: 기존 config는 덮어쓰지 않는다.
   if (fs.existsSync(configPath)) {
     output({ created: false, reason: 'already_exists' }, raw, 'exists');
     return;
   }
 
-  // Parse user choices
+  // 사용자 선택값을 파싱한다.
   let userChoices = {};
   if (choicesJson && choicesJson.trim() !== '') {
     try {
       userChoices = JSON.parse(choicesJson);
     } catch (err) {
-      error('Invalid JSON for config-new-project: ' + err.message);
+      error('config-new-project용 JSON이 올바르지 않습니다: ' + err.message);
     }
   }
 
-  // Ensure .planning directory exists
+  // .planning 디렉터리가 없으면 만든다.
   try {
     if (!fs.existsSync(planningBase)) {
       fs.mkdirSync(planningBase, { recursive: true });
     }
   } catch (err) {
-    error('Failed to create .planning directory: ' + err.message);
+    error('.planning 디렉터리 생성에 실패했습니다: ' + err.message);
   }
 
   const config = buildNewProjectConfig(userChoices);
@@ -189,12 +189,12 @@ function cmdConfigNewProject(cwd, choicesJson, raw) {
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
     output({ created: true, path: '.planning/config.json' }, raw, 'created');
   } catch (err) {
-    error('Failed to write config.json: ' + err.message);
+    error('config.json 쓰기에 실패했습니다: ' + err.message);
   }
 }
 
 /**
- * Ensures the config file exists (creates it if needed).
+ * config 파일이 존재하도록 보장한다(필요하면 생성).
  *
  * Does not call `output()`, so can be used as one step in a command without triggering `exit(0)` in
  * the happy path. But note that `error()` will still `exit(1)` out of the process.
@@ -203,16 +203,16 @@ function ensureConfigFile(cwd) {
   const planningBase = planningRoot(cwd);
   const configPath = path.join(planningBase, 'config.json');
 
-  // Ensure .planning directory exists
+  // .planning 디렉터리가 없으면 만든다.
   try {
     if (!fs.existsSync(planningBase)) {
       fs.mkdirSync(planningBase, { recursive: true });
     }
   } catch (err) {
-    error('Failed to create .planning directory: ' + err.message);
+    error('.planning 디렉터리 생성에 실패했습니다: ' + err.message);
   }
 
-  // Check if config already exists
+  // config가 이미 있으면 그대로 반환한다.
   if (fs.existsSync(configPath)) {
     return { created: false, reason: 'already_exists' };
   }
@@ -223,12 +223,12 @@ function ensureConfigFile(cwd) {
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
     return { created: true, path: '.planning/config.json' };
   } catch (err) {
-    error('Failed to create config.json: ' + err.message);
+    error('config.json 생성에 실패했습니다: ' + err.message);
   }
 }
 
 /**
- * Command to ensure the config file exists (creates it if needed).
+ * 명령: config 파일이 존재하도록 보장한다(필요하면 생성).
  *
  * Note that this exits the process (via `output()`) even in the happy path; use
  * `ensureConfigFile()` directly if you need to avoid this.
@@ -243,8 +243,7 @@ function cmdConfigEnsureSection(cwd, raw) {
 }
 
 /**
- * Sets a value in the config file, allowing nested values via dot notation (e.g.,
- * "workflow.research").
+ * config 파일 값 하나를 설정한다. dot 표기("workflow.research")의 중첩 키를 지원한다.
  *
  * Does not call `output()`, so can be used as one step in a command without triggering `exit(0)` in
  * the happy path. But note that `error()` will still `exit(1)` out of the process.
@@ -252,17 +251,17 @@ function cmdConfigEnsureSection(cwd, raw) {
 function setConfigValue(cwd, keyPath, parsedValue) {
   const configPath = path.join(planningRoot(cwd), 'config.json');
 
-  // Load existing config or start with empty object
+  // 기존 config를 읽거나, 없으면 빈 객체로 시작한다.
   let config = {};
   try {
     if (fs.existsSync(configPath)) {
       config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
     }
   } catch (err) {
-    error('Failed to read config.json: ' + err.message);
+    error('config.json 읽기에 실패했습니다: ' + err.message);
   }
 
-  // Set nested value using dot notation (e.g., "workflow.research")
+  // dot 표기로 중첩 값을 설정한다(예: "workflow.research").
   const keys = keyPath.split('.');
   let current = config;
   for (let i = 0; i < keys.length - 1; i++) {
@@ -272,37 +271,36 @@ function setConfigValue(cwd, keyPath, parsedValue) {
     }
     current = current[key];
   }
-  const previousValue = current[keys[keys.length - 1]]; // Capture previous value before overwriting
+  const previousValue = current[keys[keys.length - 1]]; // 덮어쓰기 전에 이전 값을 보존한다.
   current[keys[keys.length - 1]] = parsedValue;
 
-  // Write back
+  // 파일에 다시 쓴다.
   try {
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
     return { updated: true, key: keyPath, value: parsedValue, previousValue };
   } catch (err) {
-    error('Failed to write config.json: ' + err.message);
+    error('config.json 쓰기에 실패했습니다: ' + err.message);
   }
 }
 
 /**
- * Command to set a value in the config file, allowing nested values via dot notation (e.g.,
- * "workflow.research").
+ * 명령: config 파일 값 하나를 설정한다. dot 표기("workflow.research")를 지원한다.
  *
  * Note that this exits the process (via `output()`) even in the happy path; use `setConfigValue()`
  * directly if you need to avoid this.
  */
 function cmdConfigSet(cwd, keyPath, value, raw) {
   if (!keyPath) {
-    error('Usage: config-set <key.path> <value>');
+    error('사용법: config-set <key.path> <value>');
   }
 
   validateKnownConfigKeyPath(keyPath);
 
   if (!VALID_CONFIG_KEYS.has(keyPath)) {
-    error(`Unknown config key: "${keyPath}". Valid keys: ${[...VALID_CONFIG_KEYS].sort().join(', ')}`);
+    error(`알 수 없는 config key입니다: "${keyPath}". 사용 가능 키: ${[...VALID_CONFIG_KEYS].sort().join(', ')}`);
   }
 
-  // Parse value (handle booleans and numbers)
+  // 값 파싱(불리언/숫자 처리)
   let parsedValue = value;
   if (value === 'true') parsedValue = true;
   else if (value === 'false') parsedValue = false;
@@ -316,7 +314,7 @@ function cmdConfigGet(cwd, keyPath, raw) {
   const configPath = path.join(planningRoot(cwd), 'config.json');
 
   if (!keyPath) {
-    error('Usage: config-get <key.path>');
+    error('사용법: config-get <key.path>');
   }
 
   let config = {};
@@ -324,53 +322,53 @@ function cmdConfigGet(cwd, keyPath, raw) {
     if (fs.existsSync(configPath)) {
       config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
     } else {
-      error('No config.json found at ' + configPath);
+      error('config.json을 찾을 수 없습니다: ' + configPath);
     }
   } catch (err) {
     if (err.message.startsWith('No config.json')) throw err;
-    error('Failed to read config.json: ' + err.message);
+    error('config.json 읽기에 실패했습니다: ' + err.message);
   }
 
-  // Traverse dot-notation path (e.g., "workflow.auto_advance")
+  // dot 표기 경로를 따라간다(예: "workflow.auto_advance").
   const keys = keyPath.split('.');
   let current = config;
   for (const key of keys) {
     if (current === undefined || current === null || typeof current !== 'object') {
-      error(`Key not found: ${keyPath}`);
+      error(`키를 찾을 수 없습니다: ${keyPath}`);
     }
     current = current[key];
   }
 
   if (current === undefined) {
-    error(`Key not found: ${keyPath}`);
+    error(`키를 찾을 수 없습니다: ${keyPath}`);
   }
 
   output(current, raw, String(current));
 }
 
 /**
- * Command to set the model profile in the config file.
+ * 명령: config 파일의 model profile을 설정한다.
  *
  * Note that this exits the process (via `output()`) even in the happy path.
  */
 function cmdConfigSetModelProfile(cwd, profile, raw) {
   if (!profile) {
-    error(`Usage: config-set-model-profile <${VALID_PROFILES.join('|')}>`);
+    error(`사용법: config-set-model-profile <${VALID_PROFILES.join('|')}>`);
   }
 
   const normalizedProfile = profile.toLowerCase().trim();
   if (!VALID_PROFILES.includes(normalizedProfile)) {
-    error(`Invalid profile '${profile}'. Valid profiles: ${VALID_PROFILES.join(', ')}`);
+    error(`올바르지 않은 profile입니다: '${profile}'. 사용 가능 profile: ${VALID_PROFILES.join(', ')}`);
   }
 
-  // Ensure config exists (create if needed)
+  // config가 없으면 먼저 생성한다.
   ensureConfigFile(cwd);
 
-  // Set the model profile in the config
+  // config에 model profile을 기록한다.
   const { previousValue } = setConfigValue(cwd, 'model_profile', normalizedProfile, raw);
   const previousProfile = previousValue || 'balanced';
 
-  // Build result value / message and return
+  // 반환용 결과 객체를 구성한다.
   const agentToModelMap = getAgentToModelMapForProfile(normalizedProfile);
   const result = {
     updated: true,

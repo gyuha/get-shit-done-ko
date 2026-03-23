@@ -1,11 +1,11 @@
 /**
- * Workstream — CRUD operations for workstream namespacing
+ * Workstream — workstream 네임스페이스용 CRUD 작업
  *
- * Workstreams enable parallel milestones by scoping ROADMAP.md, STATE.md,
- * REQUIREMENTS.md, and phases/ into .planning/workstreams/{name}/ directories.
+ * Workstream은 ROADMAP.md, STATE.md, REQUIREMENTS.md, phases/를
+ * .planning/workstreams/{name}/ 아래로 분리해 milestone 병렬 작업을 가능하게 한다.
  *
- * When no workstreams/ directory exists, GSD operates in "flat mode" with
- * everything at .planning/ — backward compatible with pre-workstream installs.
+ * workstreams/ 디렉터리가 없으면 GSD는 .planning/ 하나만 쓰는 "flat mode"로 동작하며,
+ * 기존 pre-workstream 설치와 하위 호환된다.
  */
 
 const fs = require('fs');
@@ -13,24 +13,24 @@ const path = require('path');
 const { output, error, planningPaths, planningRoot, toPosixPath, getMilestoneInfo, generateSlugInternal, setActiveWorkstream, getActiveWorkstream, filterPlanFiles, filterSummaryFiles, readSubdirectories } = require('./core.cjs');
 const { stateExtractField } = require('./state.cjs');
 
-// ─── Migration ──────────────────────────────────────────────────────────────
+// ─── 마이그레이션 ───────────────────────────────────────────────────────────
 
 /**
- * Migrate flat .planning/ layout to workstream mode.
- * Moves per-workstream files (ROADMAP.md, STATE.md, REQUIREMENTS.md, phases/)
- * into .planning/workstreams/{name}/. Shared files (PROJECT.md, config.json,
- * milestones/, research/, codebase/, todos/) stay in place.
+ * flat .planning/ 레이아웃을 workstream mode로 마이그레이션한다.
+ * workstream별 파일(ROADMAP.md, STATE.md, REQUIREMENTS.md, phases/)은
+ * .planning/workstreams/{name}/로 옮기고, 공유 파일(PROJECT.md, config.json,
+ * milestones/, research/, codebase/, todos/)은 제자리에 둔다.
  */
 function migrateToWorkstreams(cwd, workstreamName) {
   if (!workstreamName || /[/\\]/.test(workstreamName) || workstreamName === '.' || workstreamName === '..') {
-    throw new Error('Invalid workstream name for migration');
+    throw new Error('마이그레이션용 workstream 이름이 올바르지 않습니다');
   }
 
   const baseDir = planningRoot(cwd);
   const wsDir = path.join(baseDir, 'workstreams', workstreamName);
 
   if (fs.existsSync(path.join(baseDir, 'workstreams'))) {
-    throw new Error('Already in workstream mode — .planning/workstreams/ exists');
+    throw new Error('이미 workstream mode입니다 — .planning/workstreams/가 존재합니다');
   }
 
   const toMove = [
@@ -64,21 +64,21 @@ function migrateToWorkstreams(cwd, workstreamName) {
   return { migrated: true, workstream: workstreamName, files_moved: filesMoved };
 }
 
-// ─── CRUD Commands ──────────────────────────────────────────────────────────
+// ─── CRUD 명령 ─────────────────────────────────────────────────────────────
 
 function cmdWorkstreamCreate(cwd, name, options, raw) {
   if (!name) {
-    error('workstream name required. Usage: workstream create <name>');
+    error('workstream 이름이 필요합니다. 사용법: workstream create <name>');
   }
 
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
   if (!slug) {
-    error('Invalid workstream name — must contain at least one alphanumeric character');
+    error('올바르지 않은 workstream 이름입니다 — 최소 한 글자의 영문자 또는 숫자가 필요합니다');
   }
 
   const baseDir = planningRoot(cwd);
   if (!fs.existsSync(baseDir)) {
-    error('.planning/ directory not found — run /gsd:new-project first');
+    error('.planning/ 디렉터리를 찾을 수 없습니다 — 먼저 /gsd:new-project를 실행하세요');
   }
 
   const wsRoot = path.join(baseDir, 'workstreams');
@@ -134,17 +134,17 @@ function cmdWorkstreamCreate(cwd, name, options, raw) {
     '# Project State',
     '',
     '## Current Position',
-    '**Status:** Not started',
+    '**Status:** 시작 전',
     '**Current Phase:** None',
     `**Last Activity:** ${today}`,
-    '**Last Activity Description:** Workstream created',
+    '**Last Activity Description:** Workstream 생성됨',
     '',
     '## Progress',
     '**Phases Complete:** 0',
-    '**Current Plan:** N/A',
+    '**Current Plan:** 해당 없음',
     '',
     '## Session Continuity',
-    '**Stopped At:** N/A',
+    '**Stopped At:** 해당 없음',
     '**Resume File:** None',
     '',
   ].join('\n');
@@ -172,7 +172,7 @@ function cmdWorkstreamList(cwd, raw) {
   const wsRoot = path.join(planningRoot(cwd), 'workstreams');
 
   if (!fs.existsSync(wsRoot)) {
-    output({ mode: 'flat', workstreams: [], message: 'No workstreams — operating in flat mode' }, raw);
+    output({ mode: 'flat', workstreams: [], message: 'workstream이 없어 flat mode로 동작 중입니다' }, raw);
     return;
   }
 
@@ -200,7 +200,7 @@ function cmdWorkstreamList(cwd, raw) {
     let status = 'unknown', currentPhase = null;
     try {
       const stateContent = fs.readFileSync(path.join(wsDir, 'STATE.md'), 'utf-8');
-      status = stateExtractField(stateContent, 'Status') || 'unknown';
+      status = stateExtractField(stateContent, 'Status') || '알 수 없음';
       currentPhase = stateExtractField(stateContent, 'Current Phase');
     } catch {}
 
@@ -220,8 +220,8 @@ function cmdWorkstreamList(cwd, raw) {
 }
 
 function cmdWorkstreamStatus(cwd, name, raw) {
-  if (!name) error('workstream name required. Usage: workstream status <name>');
-  if (/[/\\]/.test(name) || name === '.' || name === '..') error('Invalid workstream name');
+  if (!name) error('workstream 이름이 필요합니다. 사용법: workstream status <name>');
+  if (/[/\\]/.test(name) || name === '.' || name === '..') error('올바르지 않은 workstream 이름입니다');
 
   const wsDir = path.join(planningRoot(cwd), 'workstreams', name);
   if (!fs.existsSync(wsDir)) {

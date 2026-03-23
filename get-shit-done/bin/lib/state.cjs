@@ -106,9 +106,9 @@ function cmdStateGet(cwd, section, raw) {
       return;
     }
 
-    output({ error: `Section or field "${section}" not found` }, raw, '');
+    output({ error: `섹션 또는 필드 "${section}"을 찾을 수 없습니다` }, raw, '');
   } catch {
-    error('STATE.md not found');
+    error('STATE.md 파일을 찾을 수 없습니다');
   }
 }
 
@@ -119,13 +119,13 @@ function readTextArgOrFile(cwd, value, filePath, label) {
   const { validatePath } = require('./security.cjs');
   const pathCheck = validatePath(filePath, cwd, { allowAbsolute: true });
   if (!pathCheck.safe) {
-    throw new Error(`${label} path rejected: ${pathCheck.error}`);
+    throw new Error(`${label} 경로가 거부되었습니다: ${pathCheck.error}`);
   }
 
   try {
     return fs.readFileSync(pathCheck.resolved, 'utf-8').trimEnd();
   } catch {
-    throw new Error(`${label} file not found: ${filePath}`);
+    throw new Error(`${label} 파일을 찾을 수 없습니다: ${filePath}`);
   }
 }
 
@@ -135,7 +135,7 @@ function cmdStatePatch(cwd, patches, raw) {
   for (const field of Object.keys(patches)) {
     const fieldCheck = validateFieldName(field);
     if (!fieldCheck.valid) {
-      error(`state patch: ${fieldCheck.error}`);
+      error(`state patch 오류: ${fieldCheck.error}`);
     }
   }
 
@@ -167,20 +167,20 @@ function cmdStatePatch(cwd, patches, raw) {
 
     output(results, raw, results.updated.length > 0 ? 'true' : 'false');
   } catch {
-    error('STATE.md not found');
+    error('STATE.md 파일을 찾을 수 없습니다');
   }
 }
 
 function cmdStateUpdate(cwd, field, value) {
   if (!field || value === undefined) {
-    error('field and value required for state update');
+    error('state update에는 field와 value가 필요합니다');
   }
 
   // Validate field name to prevent regex injection via crafted field names
   const { validateFieldName } = require('./security.cjs');
   const fieldCheck = validateFieldName(field);
   if (!fieldCheck.valid) {
-    error(`state update: ${fieldCheck.error}`);
+    error(`state update 오류: ${fieldCheck.error}`);
   }
 
   const statePath = planningPaths(cwd).state;
@@ -199,10 +199,10 @@ function cmdStateUpdate(cwd, field, value) {
       writeStateMd(statePath, content, cwd);
       output({ updated: true });
     } else {
-      output({ updated: false, reason: `Field "${field}" not found in STATE.md` });
+      output({ updated: false, reason: `STATE.md에서 필드 "${field}"를 찾을 수 없습니다` });
     }
   } catch {
-    output({ updated: false, reason: 'STATE.md not found' });
+    output({ updated: false, reason: 'STATE.md 파일을 찾을 수 없습니다' });
   }
 }
 
@@ -241,7 +241,7 @@ function stateReplaceFieldWithFallback(content, primary, fallback, value) {
 
 function cmdStateAdvancePlan(cwd, raw) {
   const statePath = planningPaths(cwd).state;
-  if (!fs.existsSync(statePath)) { output({ error: 'STATE.md not found' }, raw); return; }
+  if (!fs.existsSync(statePath)) { output({ error: 'STATE.md 파일을 찾을 수 없습니다' }, raw); return; }
 
   let content = fs.readFileSync(statePath, 'utf-8');
   const today = new Date().toISOString().split('T')[0];
@@ -266,12 +266,12 @@ function cmdStateAdvancePlan(cwd, raw) {
   }
 
   if (isNaN(currentPlan) || isNaN(totalPlans)) {
-    output({ error: 'Cannot parse Current Plan or Total Plans in Phase from STATE.md' }, raw);
+    output({ error: 'STATE.md에서 Current Plan 또는 Total Plans in Phase를 해석할 수 없습니다' }, raw);
     return;
   }
 
   if (currentPlan >= totalPlans) {
-    content = stateReplaceFieldWithFallback(content, 'Status', null, 'Phase complete — ready for verification');
+    content = stateReplaceFieldWithFallback(content, 'Status', null, 'Phase 완료 — verification 준비됨');
     content = stateReplaceFieldWithFallback(content, 'Last Activity', 'Last activity', today);
     writeStateMd(statePath, content, cwd);
     output({ advanced: false, reason: 'last_plan', current_plan: currentPlan, total_plans: totalPlans, status: 'ready_for_verification' }, raw, 'false');
@@ -284,7 +284,7 @@ function cmdStateAdvancePlan(cwd, raw) {
     } else {
       content = stateReplaceField(content, 'Current Plan', String(newPlan)) || content;
     }
-    content = stateReplaceFieldWithFallback(content, 'Status', null, 'Ready to execute');
+    content = stateReplaceFieldWithFallback(content, 'Status', null, '실행 준비 완료');
     content = stateReplaceFieldWithFallback(content, 'Last Activity', 'Last activity', today);
     writeStateMd(statePath, content, cwd);
     output({ advanced: true, previous_plan: currentPlan, current_plan: newPlan, total_plans: totalPlans }, raw, 'true');
@@ -293,13 +293,13 @@ function cmdStateAdvancePlan(cwd, raw) {
 
 function cmdStateRecordMetric(cwd, options, raw) {
   const statePath = planningPaths(cwd).state;
-  if (!fs.existsSync(statePath)) { output({ error: 'STATE.md not found' }, raw); return; }
+  if (!fs.existsSync(statePath)) { output({ error: 'STATE.md 파일을 찾을 수 없습니다' }, raw); return; }
 
   let content = fs.readFileSync(statePath, 'utf-8');
   const { phase, plan, duration, tasks, files } = options;
 
   if (!phase || !plan || !duration) {
-    output({ error: 'phase, plan, and duration required' }, raw);
+    output({ error: 'phase, plan, duration이 필요합니다' }, raw);
     return;
   }
 
@@ -321,13 +321,13 @@ function cmdStateRecordMetric(cwd, options, raw) {
     writeStateMd(statePath, content, cwd);
     output({ recorded: true, phase, plan, duration }, raw, 'true');
   } else {
-    output({ recorded: false, reason: 'Performance Metrics section not found in STATE.md' }, raw, 'false');
+    output({ recorded: false, reason: 'STATE.md에서 Performance Metrics 섹션을 찾을 수 없습니다' }, raw, 'false');
   }
 }
 
 function cmdStateUpdateProgress(cwd, raw) {
   const statePath = planningPaths(cwd).state;
-  if (!fs.existsSync(statePath)) { output({ error: 'STATE.md not found' }, raw); return; }
+  if (!fs.existsSync(statePath)) { output({ error: 'STATE.md 파일을 찾을 수 없습니다' }, raw); return; }
 
   let content = fs.readFileSync(statePath, 'utf-8');
 
@@ -366,7 +366,7 @@ function cmdStateUpdateProgress(cwd, raw) {
     writeStateMd(statePath, content, cwd);
     output({ updated: true, percent, completed: totalSummaries, total: totalPlans, bar: progressStr }, raw, progressStr);
   } else {
-    output({ updated: false, reason: 'Progress field not found in STATE.md' }, raw, 'false');
+    output({ updated: false, reason: 'STATE.md에서 Progress 필드를 찾을 수 없습니다' }, raw, 'false');
   }
 }
 
@@ -675,22 +675,22 @@ function buildStateFrontmatter(bodyContent, cwd) {
     if (pctMatch) progressPercent = parseInt(pctMatch[1], 10);
   }
 
-  // Normalize status to one of: planning, discussing, executing, verifying, paused, completed, unknown
+  // 상태값을 planning, discussing, executing, verifying, paused, completed, unknown 중 하나로 정규화한다.
   let normalizedStatus = status || 'unknown';
   const statusLower = (status || '').toLowerCase();
-  if (statusLower.includes('paused') || statusLower.includes('stopped') || pausedAt) {
+  if (statusLower.includes('paused') || statusLower.includes('stopped') || statusLower.includes('일시중지') || statusLower.includes('중단') || pausedAt) {
     normalizedStatus = 'paused';
-  } else if (statusLower.includes('executing') || statusLower.includes('in progress')) {
+  } else if (statusLower.includes('executing') || statusLower.includes('in progress') || statusLower.includes('실행') || statusLower.includes('진행 중')) {
     normalizedStatus = 'executing';
-  } else if (statusLower.includes('planning') || statusLower.includes('ready to plan')) {
+  } else if (statusLower.includes('planning') || statusLower.includes('ready to plan') || statusLower.includes('계획') || statusLower.includes('plan 준비')) {
     normalizedStatus = 'planning';
-  } else if (statusLower.includes('discussing')) {
+  } else if (statusLower.includes('discussing') || statusLower.includes('논의')) {
     normalizedStatus = 'discussing';
-  } else if (statusLower.includes('verif')) {
+  } else if (statusLower.includes('verif') || statusLower.includes('검증')) {
     normalizedStatus = 'verifying';
-  } else if (statusLower.includes('complete') || statusLower.includes('done')) {
+  } else if (statusLower.includes('complete') || statusLower.includes('done') || statusLower.includes('완료')) {
     normalizedStatus = 'completed';
-  } else if (statusLower.includes('ready to execute')) {
+  } else if (statusLower.includes('ready to execute') || statusLower.includes('실행 준비')) {
     normalizedStatus = 'executing';
   }
 

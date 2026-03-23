@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * GSD Tools — CLI utility for GSD workflow operations
+ * GSD Tools — GSD 워크플로 작업용 CLI 유틸리티
  *
- * Replaces repetitive inline bash patterns across ~50 GSD command/workflow/agent files.
- * Centralizes: config parsing, model resolution, phase lookup, git commits, summary verification.
+ * 약 50개의 GSD command/workflow/agent 파일에 흩어진 반복 bash 패턴을 대체한다.
+ * config 파싱, 모델 해석, phase 조회, git commit, summary 검증을 한곳으로 모은다.
  *
- * Usage: node gsd-tools.cjs <command> [args] [--raw] [--pick <field>]
+ * 사용법: node gsd-tools.cjs <command> [args] [--raw] [--pick <field>]
  *
  * Atomic Commands:
  *   state load                         Load project config + state
@@ -151,12 +151,12 @@ const profilePipeline = require('./lib/profile-pipeline.cjs');
 const profileOutput = require('./lib/profile-output.cjs');
 const workstream = require('./lib/workstream.cjs');
 
-// ─── Arg parsing helpers ──────────────────────────────────────────────────────
+// ─── 인자 파싱 헬퍼 ────────────────────────────────────────────────────────────
 
 /**
- * Extract named --flag <value> pairs from an args array.
- * Returns an object mapping flag names to their values (null if absent).
- * Flags listed in `booleanFlags` are treated as boolean (no value consumed).
+ * args 배열에서 이름 있는 --flag <value> 쌍을 추출한다.
+ * 반환값은 flag 이름을 값에 매핑한 객체이며, 없으면 null이다.
+ * `booleanFlags`에 지정한 flag는 값 소비 없이 불리언으로 처리한다.
  *
  * parseNamedArgs(args, 'phase', 'plan')        → { phase: '3', plan: '1' }
  * parseNamedArgs(args, [], ['amend', 'force'])  → { amend: true, force: false }
@@ -176,9 +176,9 @@ function parseNamedArgs(args, valueFlags = [], booleanFlags = []) {
 }
 
 /**
- * Collect all tokens after --flag until the next --flag or end of args.
- * Handles multi-word values like --name Foo Bar Version 1.
- * Returns null if the flag is absent.
+ * --flag 뒤부터 다음 --flag 전까지의 토큰을 모두 모은다.
+ * --name Foo Bar Version 1 같은 다중 단어 값도 처리한다.
+ * flag가 없으면 null을 반환한다.
  */
 function parseMultiwordArg(args, flag) {
   const idx = args.indexOf(`--${flag}`);
@@ -191,34 +191,34 @@ function parseMultiwordArg(args, flag) {
   return tokens.length > 0 ? tokens.join(' ') : null;
 }
 
-// ─── CLI Router ───────────────────────────────────────────────────────────────
+// ─── CLI 라우터 ───────────────────────────────────────────────────────────────
 
 async function main() {
   const args = process.argv.slice(2);
 
-  // Optional cwd override for sandboxed subagents running outside project root.
+  // 프로젝트 루트 밖에서 실행되는 sandboxed subagent용 선택적 cwd override.
   let cwd = process.cwd();
   const cwdEqArg = args.find(arg => arg.startsWith('--cwd='));
   const cwdIdx = args.indexOf('--cwd');
   if (cwdEqArg) {
     const value = cwdEqArg.slice('--cwd='.length).trim();
-    if (!value) error('Missing value for --cwd');
+    if (!value) error('--cwd 값이 필요합니다');
     args.splice(args.indexOf(cwdEqArg), 1);
     cwd = path.resolve(value);
   } else if (cwdIdx !== -1) {
     const value = args[cwdIdx + 1];
-    if (!value || value.startsWith('--')) error('Missing value for --cwd');
+    if (!value || value.startsWith('--')) error('--cwd 값이 필요합니다');
     args.splice(cwdIdx, 2);
     cwd = path.resolve(value);
   }
 
   if (!fs.existsSync(cwd) || !fs.statSync(cwd).isDirectory()) {
-    error(`Invalid --cwd: ${cwd}`);
+    error(`잘못된 --cwd 경로입니다: ${cwd}`);
   }
 
-  // Resolve worktree root: in a linked worktree, .planning/ lives in the main worktree.
-  // However, in monorepo worktrees where the subdirectory itself owns .planning/,
-  // skip worktree resolution — the CWD is already the correct project root.
+  // linked worktree에서는 .planning/이 main worktree에 있을 수 있다.
+  // 다만 하위 디렉터리 자체가 .planning/을 소유한 monorepo worktree라면
+  // 현재 CWD가 이미 올바른 프로젝트 루트이므로 worktree 해석을 건너뛴다.
   const { resolveWorktreeRoot } = require('./lib/core.cjs');
   if (!fs.existsSync(path.join(cwd, '.planning'))) {
     const worktreeRoot = resolveWorktreeRoot(cwd);
@@ -227,29 +227,29 @@ async function main() {
     }
   }
 
-  // Optional workstream override for parallel milestone work.
-  // Priority: --ws flag > GSD_WORKSTREAM env var > active-workstream file > null (flat mode)
+  // 병렬 milestone 작업용 선택적 workstream override.
+  // 우선순위: --ws > GSD_WORKSTREAM > active-workstream 파일 > null(flat mode)
   const wsEqArg = args.find(arg => arg.startsWith('--ws='));
   const wsIdx = args.indexOf('--ws');
   let ws = null;
   if (wsEqArg) {
     ws = wsEqArg.slice('--ws='.length).trim();
-    if (!ws) error('Missing value for --ws');
+    if (!ws) error('--ws 값이 필요합니다');
     args.splice(args.indexOf(wsEqArg), 1);
   } else if (wsIdx !== -1) {
     ws = args[wsIdx + 1];
-    if (!ws || ws.startsWith('--')) error('Missing value for --ws');
+    if (!ws || ws.startsWith('--')) error('--ws 값이 필요합니다');
     args.splice(wsIdx, 2);
   } else if (process.env.GSD_WORKSTREAM) {
     ws = process.env.GSD_WORKSTREAM.trim();
   } else {
     ws = getActiveWorkstream(cwd);
   }
-  // Validate workstream name to prevent path traversal attacks.
+  // path traversal 공격을 막기 위해 workstream 이름을 검증한다.
   if (ws && !/^[a-zA-Z0-9_-]+$/.test(ws)) {
-    error('Invalid workstream name: must be alphanumeric, hyphens, and underscores only');
+    error('잘못된 workstream 이름입니다: 영문자, 숫자, 하이픈, 밑줄만 사용할 수 있습니다');
   }
-  // Set env var so all modules (planningDir, planningPaths) auto-resolve workstream paths
+  // 모든 모듈(planningDir, planningPaths)이 workstream 경로를 자동 해석하도록 env를 설정한다.
   if (ws) {
     process.env.GSD_WORKSTREAM = ws;
   }
@@ -258,26 +258,24 @@ async function main() {
   const raw = rawIndex !== -1;
   if (rawIndex !== -1) args.splice(rawIndex, 1);
 
-  // --pick <name>: extract a single field from JSON output (replaces jq dependency).
-  // Supports dot-notation (e.g., --pick workflow.research) and bracket notation
-  // for arrays (e.g., --pick directories[-1]).
+  // --pick <name>: JSON 출력에서 단일 필드만 추출한다(jq 대체).
+  // dot 표기(--pick workflow.research)와 배열 bracket 표기(--pick directories[-1])를 지원한다.
   const pickIdx = args.indexOf('--pick');
   let pickField = null;
   if (pickIdx !== -1) {
     pickField = args[pickIdx + 1];
-    if (!pickField || pickField.startsWith('--')) error('Missing value for --pick');
+    if (!pickField || pickField.startsWith('--')) error('--pick 값이 필요합니다');
     args.splice(pickIdx, 2);
   }
 
   const command = args[0];
 
   if (!command) {
-    error('Usage: gsd-tools <command> [args] [--raw] [--pick <field>] [--cwd <path>] [--ws <name>]\nCommands: state, resolve-model, find-phase, commit, verify-summary, verify, frontmatter, template, generate-slug, current-timestamp, list-todos, verify-path-exists, config-ensure-section, config-new-project, init, workstream');
+    error('사용법: gsd-tools <command> [args] [--raw] [--pick <field>] [--cwd <path>] [--ws <name>]\n명령: state, resolve-model, find-phase, commit, verify-summary, verify, frontmatter, template, generate-slug, current-timestamp, list-todos, verify-path-exists, config-ensure-section, config-new-project, init, workstream');
   }
 
-  // Multi-repo guard: resolve project root for commands that read/write .planning/.
-  // Skip for pure-utility commands that don't touch .planning/ to avoid unnecessary
-  // filesystem traversal on every invocation.
+  // Multi-repo 가드: .planning/을 읽거나 쓰는 명령은 프로젝트 루트를 해석한다.
+  // .planning/을 건드리지 않는 순수 유틸리티 명령은 불필요한 탐색을 피하기 위해 건너뛴다.
   const SKIP_ROOT_RESOLUTION = new Set([
     'generate-slug', 'current-timestamp', 'verify-path-exists',
     'verify-summary', 'template', 'frontmatter',
@@ -459,7 +457,7 @@ async function runCommand(command, args, cwd, raw) {
           wave: wave || '1',
         }, raw);
       } else {
-        error('Unknown template subcommand. Available: select, fill');
+        error('알 수 없는 template 하위 명령입니다. 사용 가능: select, fill');
       }
       break;
     }
@@ -477,7 +475,7 @@ async function runCommand(command, args, cwd, raw) {
       } else if (subcommand === 'validate') {
         frontmatter.cmdFrontmatterValidate(cwd, file, parseNamedArgs(args, ['schema']).schema, raw);
       } else {
-        error('Unknown frontmatter subcommand. Available: get, set, merge, validate');
+        error('알 수 없는 frontmatter 하위 명령입니다. 사용 가능: get, set, merge, validate');
       }
       break;
     }
@@ -497,7 +495,7 @@ async function runCommand(command, args, cwd, raw) {
       } else if (subcommand === 'key-links') {
         verify.cmdVerifyKeyLinks(cwd, args[2], raw);
       } else {
-        error('Unknown verify subcommand. Available: plan-structure, phase-completeness, references, commits, artifacts, key-links');
+        error('알 수 없는 verify 하위 명령입니다. 사용 가능: plan-structure, phase-completeness, references, commits, artifacts, key-links');
       }
       break;
     }
@@ -564,7 +562,7 @@ async function runCommand(command, args, cwd, raw) {
         };
         phase.cmdPhasesList(cwd, options, raw);
       } else {
-        error('Unknown phases subcommand. Available: list');
+        error('알 수 없는 phases 하위 명령입니다. 사용 가능: list');
       }
       break;
     }
@@ -578,7 +576,7 @@ async function runCommand(command, args, cwd, raw) {
       } else if (subcommand === 'update-plan-progress') {
         roadmap.cmdRoadmapUpdatePlanProgress(cwd, args[2], raw);
       } else {
-        error('Unknown roadmap subcommand. Available: get-phase, analyze, update-plan-progress');
+        error('알 수 없는 roadmap 하위 명령입니다. 사용 가능: get-phase, analyze, update-plan-progress');
       }
       break;
     }
@@ -588,7 +586,7 @@ async function runCommand(command, args, cwd, raw) {
       if (subcommand === 'mark-complete') {
         milestone.cmdRequirementsMarkComplete(cwd, args.slice(2), raw);
       } else {
-        error('Unknown requirements subcommand. Available: mark-complete');
+        error('알 수 없는 requirements 하위 명령입니다. 사용 가능: mark-complete');
       }
       break;
     }
@@ -618,7 +616,7 @@ async function runCommand(command, args, cwd, raw) {
       } else if (subcommand === 'complete') {
         phase.cmdPhaseComplete(cwd, args[2], raw);
       } else {
-        error('Unknown phase subcommand. Available: next-decimal, add, insert, remove, complete');
+        error('알 수 없는 phase 하위 명령입니다. 사용 가능: next-decimal, add, insert, remove, complete');
       }
       break;
     }
@@ -630,7 +628,7 @@ async function runCommand(command, args, cwd, raw) {
         const archivePhases = args.includes('--archive-phases');
         milestone.cmdMilestoneComplete(cwd, args[2], { name: milestoneName, archivePhases }, raw);
       } else {
-        error('Unknown milestone subcommand. Available: complete');
+        error('알 수 없는 milestone 하위 명령입니다. 사용 가능: complete');
       }
       break;
     }
@@ -643,7 +641,7 @@ async function runCommand(command, args, cwd, raw) {
         const repairFlag = args.includes('--repair');
         verify.cmdValidateHealth(cwd, { repair: repairFlag }, raw);
       } else {
-        error('Unknown validate subcommand. Available: consistency, health');
+        error('알 수 없는 validate 하위 명령입니다. 사용 가능: consistency, health');
       }
       break;
     }
@@ -673,7 +671,7 @@ async function runCommand(command, args, cwd, raw) {
       } else if (subcommand === 'match-phase') {
         commands.cmdTodoMatchPhase(cwd, args[2], raw);
       } else {
-        error('Unknown todo subcommand. Available: complete, match-phase');
+        error('알 수 없는 todo 하위 명령입니다. 사용 가능: complete, match-phase');
       }
       break;
     }
@@ -740,7 +738,7 @@ async function runCommand(command, args, cwd, raw) {
           init.cmdInitRemoveWorkspace(cwd, args[2], raw);
           break;
         default:
-          error(`Unknown init workflow: ${workflow}\nAvailable: execute-phase, plan-phase, new-project, new-milestone, quick, resume, verify-work, phase-op, todos, milestone-op, map-codebase, progress, manager, new-workspace, list-workspaces, remove-workspace`);
+          error(`알 수 없는 init 워크플로입니다: ${workflow}\n사용 가능: execute-phase, plan-phase, new-project, new-milestone, quick, resume, verify-work, phase-op, todos, milestone-op, map-codebase, progress, manager, new-workspace, list-workspaces, remove-workspace`);
       }
       break;
     }
@@ -890,7 +888,7 @@ async function runCommand(command, args, cwd, raw) {
     }
 
     default:
-      error(`Unknown command: ${command}`);
+      error(`알 수 없는 명령입니다: ${command}`);
   }
 }
 

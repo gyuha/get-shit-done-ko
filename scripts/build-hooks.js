@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Copy GSD hooks to dist for installation.
- * Validates JavaScript syntax before copying to prevent shipping broken hooks.
- * See #1107, #1109, #1125, #1161 — a duplicate const declaration shipped
- * in dist and caused PostToolUse hook errors for all users.
+ * 설치용으로 GSD hook을 dist에 복사한다.
+ * 깨진 hook이 배포되지 않도록 복사 전에 JavaScript 문법을 검증한다.
+ * #1107, #1109, #1125, #1161 참고: 중복 const 선언이 dist에 포함되어
+ * 전체 사용자에게 PostToolUse hook 오류를 일으킨 적이 있다.
  */
 
 const fs = require('fs');
@@ -13,7 +13,7 @@ const vm = require('vm');
 const HOOKS_DIR = path.join(__dirname, '..', 'hooks');
 const DIST_DIR = path.join(HOOKS_DIR, 'dist');
 
-// Hooks to copy (pure Node.js, no bundling needed)
+// 복사할 hook 목록 (순수 Node.js라 번들링 불필요)
 const HOOKS_TO_COPY = [
   'gsd-check-update.js',
   'gsd-context-monitor.js',
@@ -23,16 +23,15 @@ const HOOKS_TO_COPY = [
 ];
 
 /**
- * Validate JavaScript syntax without executing the file.
- * Catches SyntaxError (duplicate const, missing brackets, etc.)
- * before the hook gets shipped to users.
+ * 파일을 실행하지 않고 JavaScript 문법만 검증한다.
+ * SyntaxError(중복 const, 괄호 누락 등)를 배포 전에 잡아낸다.
  */
 function validateSyntax(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
   try {
-    // Use vm.compileFunction to check syntax without executing
+    // 실행 없이 문법만 확인한다.
     new vm.Script(content, { filename: path.basename(filePath) });
-    return null; // No error
+    return null; // 오류 없음
   } catch (e) {
     if (e instanceof SyntaxError) {
       return e.message;
@@ -42,41 +41,41 @@ function validateSyntax(filePath) {
 }
 
 function build() {
-  // Ensure dist directory exists
+  // dist 디렉터리가 없으면 만든다.
   if (!fs.existsSync(DIST_DIR)) {
     fs.mkdirSync(DIST_DIR, { recursive: true });
   }
 
   let hasErrors = false;
 
-  // Copy hooks to dist with syntax validation
+  // 문법 검증을 통과한 hook만 dist로 복사한다.
   for (const hook of HOOKS_TO_COPY) {
     const src = path.join(HOOKS_DIR, hook);
     const dest = path.join(DIST_DIR, hook);
 
     if (!fs.existsSync(src)) {
-      console.warn(`Warning: ${hook} not found, skipping`);
+      console.warn(`경고: ${hook} 파일이 없어 건너뜁니다`);
       continue;
     }
 
-    // Validate syntax before copying
+    // 복사 전에 문법을 먼저 확인한다.
     const syntaxError = validateSyntax(src);
     if (syntaxError) {
-      console.error(`\x1b[31m✗ ${hook}: SyntaxError — ${syntaxError}\x1b[0m`);
+      console.error(`\x1b[31m✗ ${hook}: 문법 오류 — ${syntaxError}\x1b[0m`);
       hasErrors = true;
       continue;
     }
 
-    console.log(`\x1b[32m✓\x1b[0m Copying ${hook}...`);
+    console.log(`\x1b[32m✓\x1b[0m ${hook} 복사 중...`);
     fs.copyFileSync(src, dest);
   }
 
   if (hasErrors) {
-    console.error('\n\x1b[31mBuild failed: fix syntax errors above before publishing.\x1b[0m');
+    console.error('\n\x1b[31m빌드 실패: 배포 전에 위 문법 오류를 수정하세요.\x1b[0m');
     process.exit(1);
   }
 
-  console.log('\nBuild complete.');
+  console.log('\n빌드가 완료되었습니다.');
 }
 
 build();

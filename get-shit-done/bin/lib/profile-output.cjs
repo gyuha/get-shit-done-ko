@@ -1,12 +1,12 @@
 /**
- * Profile Output — profile rendering, questionnaire, and artifact generation
+ * Profile Output — profile 렌더링, 설문, 산출물 생성
  *
- * Renders profiling analysis into user-facing artifacts:
- *   - write-profile: USER-PROFILE.md from analysis JSON
- *   - profile-questionnaire: fallback when no sessions available
- *   - generate-dev-preferences: dev-preferences.md command artifact
- *   - generate-claude-profile: Developer Profile section in CLAUDE.md
- *   - generate-claude-md: full CLAUDE.md with managed sections
+ * 프로파일링 분석 결과를 사용자용 산출물로 렌더링한다:
+ *   - write-profile: analysis JSON으로 USER-PROFILE.md 생성
+ *   - profile-questionnaire: session이 없을 때 사용할 fallback
+ *   - generate-dev-preferences: dev-preferences.md 명령 산출물 생성
+ *   - generate-claude-profile: CLAUDE.md의 Developer Profile 섹션 생성
+ *   - generate-claude-md: 관리 섹션이 포함된 전체 CLAUDE.md 생성
  */
 
 const fs = require('fs');
@@ -25,38 +25,38 @@ const DIMENSION_KEYS = [
 const PROFILING_QUESTIONS = [
   {
     dimension: 'communication_style',
-    header: 'Communication Style',
-    context: 'Think about the last few times you asked Claude to build or change something. How did you frame the request?',
-    question: 'When you ask Claude to build something, how much context do you typically provide?',
+    header: '커뮤니케이션 스타일',
+    context: '최근 Claude에게 무언가를 만들거나 수정해 달라고 요청했던 순간을 떠올려 보세요. 보통 어떻게 요청을 시작하나요?',
+    question: 'Claude에게 무언가를 만들어 달라고 할 때, 보통 얼마나 많은 맥락을 제공하나요?',
     options: [
-      { label: 'Minimal -- "fix the bug", "add dark mode", just say what\'s needed', value: 'a', rating: 'terse-direct' },
-      { label: 'Some context -- explain what and why in a paragraph or two', value: 'b', rating: 'conversational' },
-      { label: 'Detailed specs -- headers, numbered lists, problem analysis, constraints', value: 'c', rating: 'detailed-structured' },
-      { label: 'It depends on the task -- simple tasks get short prompts, complex ones get detailed specs', value: 'd', rating: 'mixed' },
+      { label: '최소한만 제공 -- "버그 고쳐", "다크 모드 추가"처럼 필요한 말만 한다', value: 'a', rating: 'terse-direct' },
+      { label: '어느 정도 제공 -- 한두 문단으로 무엇을 왜 원하는지 설명한다', value: 'b', rating: 'conversational' },
+      { label: '상세 사양 제공 -- 제목, 번호 목록, 문제 분석, 제약조건까지 적는다', value: 'c', rating: 'detailed-structured' },
+      { label: '작업에 따라 다름 -- 간단한 일은 짧게, 복잡한 일은 자세히 적는다', value: 'd', rating: 'mixed' },
     ],
   },
   {
     dimension: 'decision_speed',
-    header: 'Decision Making',
-    context: 'Think about times when Claude presented you with multiple options -- like choosing a library, picking an architecture, or selecting an approach.',
-    question: 'When Claude presents you with options, how do you typically decide?',
+    header: '의사결정 방식',
+    context: 'Claude가 라이브러리, 아키텍처, 접근 방식을 여러 개 제안했던 상황을 떠올려 보세요.',
+    question: 'Claude가 여러 선택지를 제시하면, 보통 어떻게 결정하나요?',
     options: [
-      { label: 'Pick quickly based on gut feeling or past experience', value: 'a', rating: 'fast-intuitive' },
-      { label: 'Ask for a comparison table or pros/cons, then decide', value: 'b', rating: 'deliberate-informed' },
-      { label: 'Research independently (read docs, check GitHub stars) before deciding', value: 'c', rating: 'research-first' },
-      { label: 'Let Claude recommend -- I generally trust the suggestion', value: 'd', rating: 'delegator' },
+      { label: '감이나 경험으로 빠르게 고른다', value: 'a', rating: 'fast-intuitive' },
+      { label: '비교표나 장단점을 요청한 뒤 결정한다', value: 'b', rating: 'deliberate-informed' },
+      { label: '문서나 GitHub 지표를 직접 조사한 뒤 결정한다', value: 'c', rating: 'research-first' },
+      { label: 'Claude 추천을 따른다 -- 대체로 제안을 신뢰한다', value: 'd', rating: 'delegator' },
     ],
   },
   {
     dimension: 'explanation_depth',
-    header: 'Explanation Preferences',
-    context: 'Think about when Claude explains code it wrote or an approach it took. How much detail feels right?',
-    question: 'When Claude explains something, how much detail do you want?',
+    header: '설명 선호도',
+    context: 'Claude가 자신이 작성한 코드나 선택한 접근을 설명할 때를 떠올려 보세요. 어느 정도 설명이 적당한가요?',
+    question: 'Claude가 무언가를 설명할 때, 어느 정도 디테일을 원하나요?',
     options: [
-      { label: 'Just the code -- I\'ll read it and figure it out myself', value: 'a', rating: 'code-only' },
-      { label: 'Brief explanation with the code -- a sentence or two about the approach', value: 'b', rating: 'concise' },
-      { label: 'Detailed walkthrough -- explain the approach, trade-offs, and code structure', value: 'c', rating: 'detailed' },
-      { label: 'Deep dive -- teach me the concepts behind it so I understand the fundamentals', value: 'd', rating: 'educational' },
+      { label: '코드만 있으면 된다 -- 읽고 스스로 파악한다', value: 'a', rating: 'code-only' },
+      { label: '짧은 설명이면 충분하다 -- 접근을 한두 문장으로 알려주면 된다', value: 'b', rating: 'concise' },
+      { label: '상세한 워크스루가 좋다 -- 접근, 트레이드오프, 코드 구조까지 설명해 달라', value: 'c', rating: 'detailed' },
+      { label: '깊이 있는 설명이 좋다 -- 개념과 원리를 배워서 기초를 이해하고 싶다', value: 'd', rating: 'educational' },
     ],
   },
   {
@@ -173,29 +173,29 @@ const CLAUDE_INSTRUCTIONS = {
 };
 
 const CLAUDE_MD_FALLBACKS = {
-  project: 'Project not yet initialized. Run /gsd:new-project to set up.',
-  stack: 'Technology stack not yet documented. Will populate after codebase mapping or first phase.',
-  conventions: 'Conventions not yet established. Will populate as patterns emerge during development.',
-  architecture: 'Architecture not yet mapped. Follow existing patterns found in the codebase.',
+  project: '프로젝트가 아직 초기화되지 않았습니다. /gsd:new-project를 실행해 설정하세요.',
+  stack: '기술 스택이 아직 문서화되지 않았습니다. codebase mapping 또는 첫 phase 이후 채워집니다.',
+  conventions: '컨벤션이 아직 정리되지 않았습니다. 개발 중 패턴이 쌓이면 채워집니다.',
+  architecture: '아키텍처가 아직 정리되지 않았습니다. 현재 codebase의 기존 패턴을 따르세요.',
 };
 
 const CLAUDE_MD_WORKFLOW_ENFORCEMENT = [
-  'Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.',
+  'Edit, Write 등 파일을 바꾸는 도구를 쓰기 전에 먼저 GSD 명령으로 작업을 시작해 planning 산출물과 실행 컨텍스트를 동기화하세요.',
   '',
-  'Use these entry points:',
-  '- `/gsd:quick` for small fixes, doc updates, and ad-hoc tasks',
-  '- `/gsd:debug` for investigation and bug fixing',
-  '- `/gsd:execute-phase` for planned phase work',
+  '다음 진입점을 사용하세요:',
+  '- `/gsd:quick` 작은 수정, 문서 갱신, ad-hoc 작업',
+  '- `/gsd:debug` 조사 및 버그 수정',
+  '- `/gsd:execute-phase` 계획된 phase 작업',
   '',
-  'Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.',
+  '사용자가 명시적으로 우회를 요청하지 않는 한, GSD 워크플로 밖에서 repo를 직접 수정하지 마세요.',
 ].join('\n');
 
 const CLAUDE_MD_PROFILE_PLACEHOLDER = [
   '<!-- GSD:profile-start -->',
   '## Developer Profile',
   '',
-  '> Profile not yet configured. Run `/gsd:profile-user` to generate your developer profile.',
-  '> This section is managed by `generate-claude-profile` -- do not edit manually.',
+  '> 프로필이 아직 설정되지 않았습니다. `/gsd:profile-user`를 실행해 개발자 프로필을 생성하세요.',
+  '> 이 섹션은 `generate-claude-profile`이 관리합니다. 수동으로 편집하지 마세요.',
   '<!-- GSD:profile-end -->',
 ].join('\n');
 

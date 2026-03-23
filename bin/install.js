@@ -273,17 +273,17 @@ const banner = '\n' +
   '   ╚═════╝ ╚══════╝╚═════╝' + reset + '\n' +
   '\n' +
   '  Get Shit Done ' + dim + 'v' + pkg.version + reset + '\n' +
-  '  A meta-prompting, context engineering and spec-driven\n' +
-  '  development system for Claude Code, OpenCode, Gemini, Codex, Copilot, Antigravity, and Cursor by TÂCHES.\n';
+  '  메타 프롬프팅, 컨텍스트 엔지니어링, 스펙 주도 개발을 위한\n' +
+  '  Claude Code, OpenCode, Gemini, Codex, Copilot, Antigravity, Cursor용 시스템 by TÂCHES.\n';
 
 // Parse --config-dir argument
 function parseConfigDirArg() {
   const configDirIndex = args.findIndex(arg => arg === '--config-dir' || arg === '-c');
   if (configDirIndex !== -1) {
     const nextArg = args[configDirIndex + 1];
-    // Error if --config-dir is provided without a value or next arg is another flag
+    // --config-dir 뒤 값이 없거나 다음 인자가 다른 flag면 오류 처리한다.
     if (!nextArg || nextArg.startsWith('-')) {
-      console.error(`  ${yellow}--config-dir requires a path argument${reset}`);
+      console.error(`  ${yellow}--config-dir에는 경로 인자가 필요합니다${reset}`);
       process.exit(1);
     }
     return nextArg;
@@ -293,7 +293,7 @@ function parseConfigDirArg() {
   if (configDirArg) {
     const value = configDirArg.split('=')[1];
     if (!value) {
-      console.error(`  ${yellow}--config-dir requires a non-empty path${reset}`);
+      console.error(`  ${yellow}--config-dir에는 비어 있지 않은 경로가 필요합니다${reset}`);
       process.exit(1);
     }
     return value;
@@ -307,17 +307,17 @@ const forceStatusline = args.includes('--force-statusline');
 console.log(banner);
 
 if (hasUninstall) {
-  console.log('  Mode: Uninstall\n');
+  console.log('  모드: 제거\n');
 }
 
 // Show help if requested
 if (hasHelp) {
-  console.log(`  ${yellow}Usage:${reset} npx get-shit-done-cc [options]\n\n  ${yellow}Options:${reset}\n    ${cyan}-g, --global${reset}              Install globally (to config directory)\n    ${cyan}-l, --local${reset}               Install locally (to current directory)\n    ${cyan}--claude${reset}                  Install for Claude Code only\n    ${cyan}--opencode${reset}                Install for OpenCode only\n    ${cyan}--gemini${reset}                  Install for Gemini only\n    ${cyan}--codex${reset}                   Install for Codex only\n    ${cyan}--copilot${reset}                 Install for Copilot only\n    ${cyan}--antigravity${reset}             Install for Antigravity only\n    ${cyan}--cursor${reset}                  Install for Cursor only\n    ${cyan}--all${reset}                     Install for all runtimes\n    ${cyan}-u, --uninstall${reset}           Uninstall GSD (remove all GSD files)\n    ${cyan}-c, --config-dir <path>${reset}   Specify custom config directory\n    ${cyan}-h, --help${reset}                Show this help message\n    ${cyan}--force-statusline${reset}        Replace existing statusline config\n\n  ${yellow}Examples:${reset}\n    ${dim}# Interactive install (prompts for runtime and location)${reset}\n    npx get-shit-done-cc\n\n    ${dim}# Install for Claude Code globally${reset}\n    npx get-shit-done-cc --claude --global\n\n    ${dim}# Install for Gemini globally${reset}\n    npx get-shit-done-cc --gemini --global\n\n    ${dim}# Install for Codex globally${reset}\n    npx get-shit-done-cc --codex --global\n\n    ${dim}# Install for Copilot globally${reset}\n    npx get-shit-done-cc --copilot --global\n\n    ${dim}# Install for Copilot locally${reset}\n    npx get-shit-done-cc --copilot --local\n\n    ${dim}# Install for Antigravity globally${reset}\n    npx get-shit-done-cc --antigravity --global\n\n    ${dim}# Install for Antigravity locally${reset}\n    npx get-shit-done-cc --antigravity --local\n\n    ${dim}# Install for Cursor globally${reset}\n    npx get-shit-done-cc --cursor --global\n\n    ${dim}# Install for Cursor locally${reset}\n    npx get-shit-done-cc --cursor --local\n\n    ${dim}# Install for all runtimes globally${reset}\n    npx get-shit-done-cc --all --global\n\n    ${dim}# Install to custom config directory${reset}\n    npx get-shit-done-cc --codex --global --config-dir ~/.codex-work\n\n    ${dim}# Install to current project only${reset}\n    npx get-shit-done-cc --claude --local\n\n    ${dim}# Uninstall GSD from Cursor globally${reset}\n    npx get-shit-done-cc --cursor --global --uninstall\n\n  ${yellow}Notes:${reset}\n    The --config-dir option is useful when you have multiple configurations.\n    It takes priority over CLAUDE_CONFIG_DIR / GEMINI_CONFIG_DIR / CODEX_HOME / COPILOT_CONFIG_DIR / ANTIGRAVITY_CONFIG_DIR / CURSOR_CONFIG_DIR environment variables.\n`);
+  console.log(`  ${yellow}사용법:${reset} npx get-shit-done-cc [options]\n\n  ${yellow}옵션:${reset}\n    ${cyan}-g, --global${reset}              전역 설치(설정 디렉터리 대상)\n    ${cyan}-l, --local${reset}               로컬 설치(현재 디렉터리 대상)\n    ${cyan}--claude${reset}                  Claude Code 전용 설치\n    ${cyan}--opencode${reset}                OpenCode 전용 설치\n    ${cyan}--gemini${reset}                  Gemini 전용 설치\n    ${cyan}--codex${reset}                   Codex 전용 설치\n    ${cyan}--copilot${reset}                 Copilot 전용 설치\n    ${cyan}--antigravity${reset}             Antigravity 전용 설치\n    ${cyan}--cursor${reset}                  Cursor 전용 설치\n    ${cyan}--all${reset}                     모든 runtime에 설치\n    ${cyan}-u, --uninstall${reset}           GSD 제거(모든 GSD 파일 삭제)\n    ${cyan}-c, --config-dir <path>${reset}   사용자 지정 config 디렉터리 지정\n    ${cyan}-h, --help${reset}                도움말 표시\n    ${cyan}--force-statusline${reset}        기존 statusline 설정 교체\n\n  ${yellow}예시:${reset}\n    ${dim}# 대화형 설치(runtime과 위치를 물어봄)${reset}\n    npx get-shit-done-cc\n\n    ${dim}# Claude Code 전역 설치${reset}\n    npx get-shit-done-cc --claude --global\n\n    ${dim}# Gemini 전역 설치${reset}\n    npx get-shit-done-cc --gemini --global\n\n    ${dim}# Codex 전역 설치${reset}\n    npx get-shit-done-cc --codex --global\n\n    ${dim}# Copilot 전역 설치${reset}\n    npx get-shit-done-cc --copilot --global\n\n    ${dim}# Copilot 로컬 설치${reset}\n    npx get-shit-done-cc --copilot --local\n\n    ${dim}# Antigravity 전역 설치${reset}\n    npx get-shit-done-cc --antigravity --global\n\n    ${dim}# Antigravity 로컬 설치${reset}\n    npx get-shit-done-cc --antigravity --local\n\n    ${dim}# Cursor 전역 설치${reset}\n    npx get-shit-done-cc --cursor --global\n\n    ${dim}# Cursor 로컬 설치${reset}\n    npx get-shit-done-cc --cursor --local\n\n    ${dim}# 모든 runtime 전역 설치${reset}\n    npx get-shit-done-cc --all --global\n\n    ${dim}# 사용자 지정 config 디렉터리에 설치${reset}\n    npx get-shit-done-cc --codex --global --config-dir ~/.codex-work\n\n    ${dim}# 현재 프로젝트에만 설치${reset}\n    npx get-shit-done-cc --claude --local\n\n    ${dim}# Cursor 전역 설치를 제거${reset}\n    npx get-shit-done-cc --cursor --global --uninstall\n\n  ${yellow}참고:${reset}\n    --config-dir 옵션은 여러 설정을 나눠 쓸 때 유용합니다.\n    이 값은 CLAUDE_CONFIG_DIR / GEMINI_CONFIG_DIR / CODEX_HOME / COPILOT_CONFIG_DIR / ANTIGRAVITY_CONFIG_DIR / CURSOR_CONFIG_DIR 환경 변수보다 우선합니다.\n`);
   process.exit(0);
 }
 
 /**
- * Expand ~ to home directory (shell doesn't expand in env vars passed to node)
+ * ~를 home 디렉터리로 확장한다(shell은 node에 전달된 env var 내부의 ~를 확장하지 않음).
  */
 function expandTilde(filePath) {
   if (filePath && filePath.startsWith('~/')) {
@@ -327,17 +327,17 @@ function expandTilde(filePath) {
 }
 
 /**
- * Build a hook command path using forward slashes for cross-platform compatibility.
- * On Windows, $HOME is not expanded by cmd.exe/PowerShell, so we use the actual path.
+ * 크로스 플랫폼 호환을 위해 slash(/) 기반 hook 명령 경로를 만든다.
+ * Windows에서는 cmd.exe/PowerShell이 $HOME을 확장하지 않으므로 실제 경로를 사용한다.
  */
 function buildHookCommand(configDir, hookName) {
-  // Use forward slashes for Node.js compatibility on all platforms
+  // 모든 플랫폼에서 Node.js 호환을 위해 forward slash를 사용한다.
   const hooksPath = configDir.replace(/\\/g, '/') + '/hooks/' + hookName;
   return `node "${hooksPath}"`;
 }
 
 /**
- * Resolve the opencode config file path, preferring .jsonc if it exists.
+ * opencode config 파일 경로를 해석한다. .jsonc가 있으면 우선한다.
  */
 function resolveOpencodeConfigPath(configDir) {
   const jsoncPath = path.join(configDir, 'opencode.jsonc');
@@ -348,7 +348,7 @@ function resolveOpencodeConfigPath(configDir) {
 }
 
 /**
- * Read and parse settings.json, returning empty object if it doesn't exist
+ * settings.json을 읽고 파싱한다. 파일이 없으면 빈 객체를 반환한다.
  */
 function readSettings(settingsPath) {
   if (fs.existsSync(settingsPath)) {
@@ -2848,13 +2848,13 @@ function cleanupOrphanedFiles(configDir) {
     const fullPath = path.join(configDir, relPath);
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
-      console.log(`  ${green}✓${reset} Removed orphaned ${relPath}`);
+      console.log(`  ${green}✓${reset} 고아 ${relPath} 파일을 제거했습니다`);
     }
   }
 }
 
 /**
- * Clean up orphaned hook registrations from settings.json
+ * settings.json에서 고아 hook 등록을 정리한다.
  */
 function cleanupOrphanedHooks(settings) {
   const orphanedHookPatterns = [
@@ -2867,24 +2867,24 @@ function cleanupOrphanedHooks(settings) {
 
   let cleanedHooks = false;
 
-  // Check all hook event types (Stop, SessionStart, etc.)
+  // 모든 hook 이벤트 타입(Stop, SessionStart 등)을 확인한다.
   if (settings.hooks) {
     for (const eventType of Object.keys(settings.hooks)) {
       const hookEntries = settings.hooks[eventType];
       if (Array.isArray(hookEntries)) {
-        // Filter out entries that contain orphaned hooks
+        // 고아 hook을 포함한 엔트리를 제거한다.
         const filtered = hookEntries.filter(entry => {
           if (entry.hooks && Array.isArray(entry.hooks)) {
-            // Check if any hook in this entry matches orphaned patterns
+            // 엔트리 내 hook이 고아 패턴과 일치하는지 확인한다.
             const hasOrphaned = entry.hooks.some(h =>
               h.command && orphanedHookPatterns.some(pattern => h.command.includes(pattern))
             );
             if (hasOrphaned) {
               cleanedHooks = true;
-              return false;  // Remove this entry
+              return false;  // 이 엔트리는 제거
             }
           }
-          return true;  // Keep this entry
+          return true;  // 이 엔트리는 유지
         });
         settings.hooks[eventType] = filtered;
       }
@@ -2892,27 +2892,26 @@ function cleanupOrphanedHooks(settings) {
   }
 
   if (cleanedHooks) {
-    console.log(`  ${green}✓${reset} Removed orphaned hook registrations`);
+    console.log(`  ${green}✓${reset} 고아 hook 등록을 제거했습니다`);
   }
 
-  // Fix #330: Update statusLine if it points to old GSD statusline.js path
-  // Only match the specific old GSD path pattern (hooks/statusline.js),
-  // not third-party statusline scripts that happen to contain 'statusline.js'
+  // Fix #330: statusLine이 예전 GSD statusline.js 경로를 가리키면 갱신한다.
+  // hooks/statusline.js 패턴만 바꾸고, 우연히 같은 이름이 들어간 서드파티 스크립트는 건드리지 않는다.
   if (settings.statusLine && settings.statusLine.command &&
       /hooks[\/\\]statusline\.js/.test(settings.statusLine.command)) {
     settings.statusLine.command = settings.statusLine.command.replace(
       /hooks([\/\\])statusline\.js/,
       'hooks$1gsd-statusline.js'
     );
-    console.log(`  ${green}✓${reset} Updated statusline path (hooks/statusline.js → hooks/gsd-statusline.js)`);
+    console.log(`  ${green}✓${reset} statusline 경로를 갱신했습니다 (hooks/statusline.js → hooks/gsd-statusline.js)`);
   }
 
   return settings;
 }
 
 /**
- * Uninstall GSD from the specified directory for a specific runtime
- * Removes only GSD-specific files/directories, preserves user content
+ * 지정한 runtime의 디렉터리에서 GSD를 제거한다.
+ * GSD 전용 파일/디렉터리만 지우고 사용자 콘텐츠는 보존한다.
  * @param {boolean} isGlobal - Whether to uninstall from global or local
  * @param {string} runtime - Target runtime ('claude', 'opencode', 'gemini', 'codex', 'copilot')
  */
@@ -2941,12 +2940,12 @@ function uninstall(isGlobal, runtime = 'claude') {
   if (runtime === 'antigravity') runtimeLabel = 'Antigravity';
   if (runtime === 'cursor') runtimeLabel = 'Cursor';
 
-  console.log(`  Uninstalling GSD from ${cyan}${runtimeLabel}${reset} at ${cyan}${locationLabel}${reset}\n`);
+  console.log(`  ${cyan}${locationLabel}${reset}의 ${cyan}${runtimeLabel}${reset}에서 GSD를 제거하는 중입니다\n`);
 
-  // Check if target directory exists
+  // 대상 디렉터리가 있는지 확인한다.
   if (!fs.existsSync(targetDir)) {
-    console.log(`  ${yellow}⚠${reset} Directory does not exist: ${locationLabel}`);
-    console.log(`  Nothing to uninstall.\n`);
+    console.log(`  ${yellow}⚠${reset} 디렉터리가 없습니다: ${locationLabel}`);
+    console.log(`  제거할 항목이 없습니다.\n`);
     return;
   }
 
@@ -2964,7 +2963,7 @@ function uninstall(isGlobal, runtime = 'claude') {
           removedCount++;
         }
       }
-      console.log(`  ${green}✓${reset} Removed GSD commands from command/`);
+      console.log(`  ${green}✓${reset} command/에서 GSD 명령을 제거했습니다`);
     }
   } else if (isCodex || isCursor) {
     // Codex/Cursor: remove skills/gsd-*/SKILL.md skill directories
@@ -2980,7 +2979,7 @@ function uninstall(isGlobal, runtime = 'claude') {
       }
       if (skillCount > 0) {
         removedCount++;
-        console.log(`  ${green}✓${reset} Removed ${skillCount} ${runtimeLabel} skills`);
+        console.log(`  ${green}✓${reset} ${runtimeLabel} skill ${skillCount}개를 제거했습니다`);
       }
     }
 
@@ -2998,7 +2997,7 @@ function uninstall(isGlobal, runtime = 'claude') {
       }
       if (tomlCount > 0) {
         removedCount++;
-        console.log(`  ${green}✓${reset} Removed ${tomlCount} agent .toml configs`);
+        console.log(`  ${green}✓${reset} agent .toml 설정 ${tomlCount}개를 제거했습니다`);
       }
     }
 
@@ -3011,11 +3010,11 @@ function uninstall(isGlobal, runtime = 'claude') {
         // File is empty after stripping — delete it
         fs.unlinkSync(configPath);
         removedCount++;
-        console.log(`  ${green}✓${reset} Removed config.toml (was GSD-only)`);
+        console.log(`  ${green}✓${reset} config.toml을 제거했습니다 (GSD 전용 파일)`);
       } else if (cleaned !== content) {
         fs.writeFileSync(configPath, cleaned);
         removedCount++;
-        console.log(`  ${green}✓${reset} Cleaned GSD sections from config.toml`);
+        console.log(`  ${green}✓${reset} config.toml에서 GSD 섹션을 정리했습니다`);
       }
     }
     }
@@ -3033,7 +3032,7 @@ function uninstall(isGlobal, runtime = 'claude') {
       }
       if (skillCount > 0) {
         removedCount++;
-        console.log(`  ${green}✓${reset} Removed ${skillCount} Copilot skills`);
+        console.log(`  ${green}✓${reset} Copilot skill ${skillCount}개를 제거했습니다`);
       }
     }
 
@@ -3045,11 +3044,11 @@ function uninstall(isGlobal, runtime = 'claude') {
       if (cleaned === null) {
         fs.unlinkSync(instructionsPath);
         removedCount++;
-        console.log(`  ${green}✓${reset} Removed copilot-instructions.md (was GSD-only)`);
+        console.log(`  ${green}✓${reset} copilot-instructions.md를 제거했습니다 (GSD 전용 파일)`);
       } else if (cleaned !== content) {
         fs.writeFileSync(instructionsPath, cleaned);
         removedCount++;
-        console.log(`  ${green}✓${reset} Cleaned GSD section from copilot-instructions.md`);
+        console.log(`  ${green}✓${reset} copilot-instructions.md에서 GSD 섹션을 정리했습니다`);
       }
     }
   } else if (isAntigravity) {
@@ -3066,7 +3065,7 @@ function uninstall(isGlobal, runtime = 'claude') {
       }
       if (skillCount > 0) {
         removedCount++;
-        console.log(`  ${green}✓${reset} Removed ${skillCount} Antigravity skills`);
+        console.log(`  ${green}✓${reset} Antigravity skill ${skillCount}개를 제거했습니다`);
       }
     }
   } else if (isCursor) {
@@ -3083,7 +3082,7 @@ function uninstall(isGlobal, runtime = 'claude') {
       }
       if (skillCount > 0) {
         removedCount++;
-        console.log(`  ${green}✓${reset} Removed ${skillCount} Cursor skills`);
+        console.log(`  ${green}✓${reset} Cursor skill ${skillCount}개를 제거했습니다`);
       }
     }
   } else {
@@ -3091,7 +3090,7 @@ function uninstall(isGlobal, runtime = 'claude') {
     if (fs.existsSync(gsdCommandsDir)) {
       fs.rmSync(gsdCommandsDir, { recursive: true });
       removedCount++;
-      console.log(`  ${green}✓${reset} Removed commands/gsd/`);
+      console.log(`  ${green}✓${reset} commands/gsd/를 제거했습니다`);
     }
   }
 
@@ -3100,7 +3099,7 @@ function uninstall(isGlobal, runtime = 'claude') {
   if (fs.existsSync(gsdDir)) {
     fs.rmSync(gsdDir, { recursive: true });
     removedCount++;
-    console.log(`  ${green}✓${reset} Removed get-shit-done/`);
+    console.log(`  ${green}✓${reset} get-shit-done/를 제거했습니다`);
   }
 
   // 3. Remove GSD agents (gsd-*.md files only)
@@ -3116,7 +3115,7 @@ function uninstall(isGlobal, runtime = 'claude') {
     }
     if (agentCount > 0) {
       removedCount++;
-      console.log(`  ${green}✓${reset} Removed ${agentCount} GSD agents`);
+      console.log(`  ${green}✓${reset} GSD agent ${agentCount}개를 제거했습니다`);
     }
   }
 
@@ -3134,7 +3133,7 @@ function uninstall(isGlobal, runtime = 'claude') {
     }
     if (hookCount > 0) {
       removedCount++;
-      console.log(`  ${green}✓${reset} Removed ${hookCount} GSD hooks`);
+      console.log(`  ${green}✓${reset} GSD hook ${hookCount}개를 제거했습니다`);
     }
   }
 
@@ -3147,7 +3146,7 @@ function uninstall(isGlobal, runtime = 'claude') {
       if (content === '{"type":"commonjs"}') {
         fs.unlinkSync(pkgJsonPath);
         removedCount++;
-        console.log(`  ${green}✓${reset} Removed GSD package.json`);
+        console.log(`  ${green}✓${reset} GSD package.json을 제거했습니다`);
       }
     } catch (e) {
       // Ignore read errors
@@ -3165,7 +3164,7 @@ function uninstall(isGlobal, runtime = 'claude') {
         settings.statusLine.command.includes('gsd-statusline')) {
       delete settings.statusLine;
       settingsModified = true;
-      console.log(`  ${green}✓${reset} Removed GSD statusline from settings`);
+      console.log(`  ${green}✓${reset} settings에서 GSD statusline을 제거했습니다`);
     }
 
     // Remove GSD hooks from SessionStart
@@ -3183,7 +3182,7 @@ function uninstall(isGlobal, runtime = 'claude') {
       });
       if (settings.hooks.SessionStart.length < before) {
         settingsModified = true;
-        console.log(`  ${green}✓${reset} Removed GSD hooks from settings`);
+        console.log(`  ${green}✓${reset} settings에서 GSD hook을 제거했습니다`);
       }
       // Clean up empty array
       if (settings.hooks.SessionStart.length === 0) {
@@ -3206,7 +3205,7 @@ function uninstall(isGlobal, runtime = 'claude') {
         });
         if (settings.hooks[eventName].length < before) {
           settingsModified = true;
-          console.log(`  ${green}✓${reset} Removed context monitor hook from settings`);
+          console.log(`  ${green}✓${reset} settings에서 context monitor hook을 제거했습니다`);
         }
         if (settings.hooks[eventName].length === 0) {
           delete settings.hooks[eventName];
@@ -3229,7 +3228,7 @@ function uninstall(isGlobal, runtime = 'claude') {
         });
         if (settings.hooks[eventName].length < before) {
           settingsModified = true;
-          console.log(`  ${green}✓${reset} Removed prompt injection guard hook from settings`);
+          console.log(`  ${green}✓${reset} settings에서 prompt injection guard hook을 제거했습니다`);
         }
         if (settings.hooks[eventName].length === 0) {
           delete settings.hooks[eventName];
@@ -3284,7 +3283,7 @@ function uninstall(isGlobal, runtime = 'claude') {
         if (modified) {
           fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n');
           removedCount++;
-          console.log(`  ${green}✓${reset} Removed GSD permissions from ${path.basename(configPath)}`);
+          console.log(`  ${green}✓${reset} ${path.basename(configPath)}에서 GSD 권한 항목을 제거했습니다`);
         }
       } catch (e) {
         // Ignore JSON parse errors
@@ -3293,19 +3292,19 @@ function uninstall(isGlobal, runtime = 'claude') {
   }
 
   if (removedCount === 0) {
-    console.log(`  ${yellow}⚠${reset} No GSD files found to remove.`);
+    console.log(`  ${yellow}⚠${reset} 제거할 GSD 파일을 찾지 못했습니다.`);
   }
 
   console.log(`
-  ${green}Done!${reset} GSD has been uninstalled from ${runtimeLabel}.
-  Your other files and settings have been preserved.
+  ${green}완료!${reset} ${runtimeLabel}에서 GSD를 제거했습니다.
+  다른 파일과 설정은 그대로 보존되었습니다.
 `);
 }
 
 /**
- * Parse JSONC (JSON with Comments) by stripping comments and trailing commas.
- * OpenCode supports JSONC format via jsonc-parser, so users may have comments.
- * This is a lightweight inline parser to avoid adding dependencies.
+ * 주석과 trailing comma를 제거해 JSONC(JSON with Comments)를 파싱한다.
+ * OpenCode는 jsonc-parser를 통해 JSONC를 지원하므로 실제 사용자 파일에 주석이 있을 수 있다.
+ * 의존성 추가를 피하기 위한 가벼운 inline parser다.
  */
 function parseJsonc(content) {
   // Strip BOM if present
@@ -3608,7 +3607,7 @@ function saveLocalPatches(configDir) {
       files: modified
     };
     fs.writeFileSync(path.join(patchesDir, 'backup-meta.json'), JSON.stringify(meta, null, 2));
-    console.log('  ' + yellow + 'i' + reset + '  Found ' + modified.length + ' locally modified GSD file(s) — backed up to ' + PATCHES_DIR_NAME + '/');
+    console.log('  ' + yellow + 'i' + reset + '  로컬에서 수정된 GSD 파일 ' + modified.length + '개를 발견해 ' + PATCHES_DIR_NAME + '/에 백업했습니다');
     for (const f of modified) {
       console.log('     ' + dim + f + reset);
     }
@@ -3617,7 +3616,7 @@ function saveLocalPatches(configDir) {
 }
 
 /**
- * After install, report backed-up patches for user to reapply.
+ * 설치 후, 사용자가 다시 적용할 수 있도록 백업된 patch를 안내한다.
  */
 function reportLocalPatches(configDir, runtime = 'claude') {
   const patchesDir = path.join(configDir, PATCHES_DIR_NAME);
@@ -3636,14 +3635,14 @@ function reportLocalPatches(configDir, runtime = 'claude') {
           ? 'gsd-reapply-patches (mention the skill name)'
           : '/gsd:reapply-patches';
     console.log('');
-    console.log('  ' + yellow + 'Local patches detected' + reset + ' (from v' + meta.from_version + '):');
+    console.log('  ' + yellow + '로컬 patch가 감지되었습니다' + reset + ' (기준 버전 v' + meta.from_version + '):');
     for (const f of meta.files) {
       console.log('     ' + cyan + f + reset);
     }
     console.log('');
-    console.log('  Your modifications are saved in ' + cyan + PATCHES_DIR_NAME + '/' + reset);
-    console.log('  Run ' + cyan + reapplyCommand + reset + ' to merge them into the new version.');
-    console.log('  Or manually compare and merge the files.');
+    console.log('  변경 내용은 ' + cyan + PATCHES_DIR_NAME + '/' + reset + '에 저장되었습니다');
+    console.log('  새 버전에 병합하려면 ' + cyan + reapplyCommand + reset + ' 를 실행하세요.');
+    console.log('  또는 파일을 직접 비교해서 병합해도 됩니다.');
     console.log('');
   }
   return meta.files || [];
@@ -3687,7 +3686,7 @@ function install(isGlobal, runtime = 'claude') {
   if (isAntigravity) runtimeLabel = 'Antigravity';
   if (isCursor) runtimeLabel = 'Cursor';
 
-  console.log(`  Installing for ${cyan}${runtimeLabel}${reset} to ${cyan}${locationLabel}${reset}\n`);
+  console.log(`  ${cyan}${locationLabel}${reset}에 ${cyan}${runtimeLabel}${reset}용으로 설치하는 중입니다\n`);
 
   // Track installation failures
   const failures = [];
@@ -3709,7 +3708,7 @@ function install(isGlobal, runtime = 'claude') {
     copyFlattenedCommands(gsdSrc, commandDir, 'gsd', pathPrefix, runtime);
     if (verifyInstalled(commandDir, 'command/gsd-*')) {
       const count = fs.readdirSync(commandDir).filter(f => f.startsWith('gsd-')).length;
-      console.log(`  ${green}✓${reset} Installed ${count} commands to command/`);
+      console.log(`  ${green}✓${reset} command/에 명령 ${count}개를 설치했습니다`);
     } else {
       failures.push('command/gsd-*');
     }
@@ -3719,7 +3718,7 @@ function install(isGlobal, runtime = 'claude') {
     copyCommandsAsCodexSkills(gsdSrc, skillsDir, 'gsd', pathPrefix, runtime);
     const installedSkillNames = listCodexSkillNames(skillsDir);
     if (installedSkillNames.length > 0) {
-      console.log(`  ${green}✓${reset} Installed ${installedSkillNames.length} skills to skills/`);
+      console.log(`  ${green}✓${reset} skills/에 skill ${installedSkillNames.length}개를 설치했습니다`);
     } else {
       failures.push('skills/gsd-*');
     }
@@ -3731,7 +3730,7 @@ function install(isGlobal, runtime = 'claude') {
       const count = fs.readdirSync(skillsDir, { withFileTypes: true })
         .filter(e => e.isDirectory() && e.name.startsWith('gsd-')).length;
       if (count > 0) {
-        console.log(`  ${green}✓${reset} Installed ${count} skills to skills/`);
+        console.log(`  ${green}✓${reset} skills/에 skill ${count}개를 설치했습니다`);
       } else {
         failures.push('skills/gsd-*');
       }
@@ -3746,7 +3745,7 @@ function install(isGlobal, runtime = 'claude') {
       const count = fs.readdirSync(skillsDir, { withFileTypes: true })
         .filter(e => e.isDirectory() && e.name.startsWith('gsd-')).length;
       if (count > 0) {
-        console.log(`  ${green}✓${reset} Installed ${count} skills to skills/`);
+        console.log(`  ${green}✓${reset} skills/에 skill ${count}개를 설치했습니다`);
       } else {
         failures.push('skills/gsd-*');
       }
@@ -3759,7 +3758,7 @@ function install(isGlobal, runtime = 'claude') {
     copyCommandsAsCursorSkills(gsdSrc, skillsDir, 'gsd', pathPrefix, runtime);
     const installedSkillNames = listCodexSkillNames(skillsDir); // reuse — same dir structure
     if (installedSkillNames.length > 0) {
-      console.log(`  ${green}✓${reset} Installed ${installedSkillNames.length} skills to skills/`);
+      console.log(`  ${green}✓${reset} skills/에 skill ${installedSkillNames.length}개를 설치했습니다`);
     } else {
       failures.push('skills/gsd-*');
     }
@@ -3772,7 +3771,7 @@ function install(isGlobal, runtime = 'claude') {
     const gsdDest = path.join(commandsDir, 'gsd');
     copyWithPathReplacement(gsdSrc, gsdDest, pathPrefix, runtime, true, isGlobal);
     if (verifyInstalled(gsdDest, 'commands/gsd')) {
-      console.log(`  ${green}✓${reset} Installed commands/gsd`);
+      console.log(`  ${green}✓${reset} commands/gsd를 설치했습니다`);
     } else {
       failures.push('commands/gsd');
     }
@@ -3783,7 +3782,7 @@ function install(isGlobal, runtime = 'claude') {
   const skillDest = path.join(targetDir, 'get-shit-done');
   copyWithPathReplacement(skillSrc, skillDest, pathPrefix, runtime, false, isGlobal);
   if (verifyInstalled(skillDest, 'get-shit-done')) {
-    console.log(`  ${green}✓${reset} Installed get-shit-done`);
+    console.log(`  ${green}✓${reset} get-shit-done을 설치했습니다`);
   } else {
     failures.push('get-shit-done');
   }
@@ -3835,7 +3834,7 @@ function install(isGlobal, runtime = 'claude') {
       }
     }
     if (verifyInstalled(agentsDest, 'agents')) {
-      console.log(`  ${green}✓${reset} Installed agents`);
+      console.log(`  ${green}✓${reset} agents를 설치했습니다`);
     } else {
       failures.push('agents');
     }
@@ -3847,7 +3846,7 @@ function install(isGlobal, runtime = 'claude') {
   if (fs.existsSync(changelogSrc)) {
     fs.copyFileSync(changelogSrc, changelogDest);
     if (verifyFileInstalled(changelogDest, 'CHANGELOG.md')) {
-      console.log(`  ${green}✓${reset} Installed CHANGELOG.md`);
+      console.log(`  ${green}✓${reset} CHANGELOG.md를 설치했습니다`);
     } else {
       failures.push('CHANGELOG.md');
     }
@@ -3857,7 +3856,7 @@ function install(isGlobal, runtime = 'claude') {
   const versionDest = path.join(targetDir, 'get-shit-done', 'VERSION');
   fs.writeFileSync(versionDest, pkg.version);
   if (verifyFileInstalled(versionDest, 'VERSION')) {
-    console.log(`  ${green}✓${reset} Wrote VERSION (${pkg.version})`);
+    console.log(`  ${green}✓${reset} VERSION(${pkg.version})을 기록했습니다`);
   } else {
     failures.push('VERSION');
   }
@@ -3868,7 +3867,7 @@ function install(isGlobal, runtime = 'claude') {
     // Node.js walks up looking for package.json - this stops inheritance from project
     const pkgJsonDest = path.join(targetDir, 'package.json');
     fs.writeFileSync(pkgJsonDest, '{"type":"commonjs"}\n');
-    console.log(`  ${green}✓${reset} Wrote package.json (CommonJS mode)`);
+    console.log(`  ${green}✓${reset} package.json(CommonJS mode)을 기록했습니다`);
 
     // Copy hooks from dist/ (bundled with dependencies)
     // Template paths for the target runtime (replaces '.claude' with correct config dir)
@@ -3897,7 +3896,7 @@ function install(isGlobal, runtime = 'claude') {
         }
       }
       if (verifyInstalled(hooksDest, 'hooks')) {
-        console.log(`  ${green}✓${reset} Installed hooks (bundled)`);
+        console.log(`  ${green}✓${reset} hook을 설치했습니다 (bundled)`);
       } else {
         failures.push('hooks');
       }
@@ -3910,13 +3909,13 @@ function install(isGlobal, runtime = 'claude') {
   try { fs.unlinkSync(updateCacheFile); } catch (e) { /* cache may not exist yet */ }
 
   if (failures.length > 0) {
-    console.error(`\n  ${yellow}Installation incomplete!${reset} Failed: ${failures.join(', ')}`);
+    console.error(`\n  ${yellow}설치가 완전히 끝나지 않았습니다!${reset} 실패 항목: ${failures.join(', ')}`);
     process.exit(1);
   }
 
   // Write file manifest for future modification detection
   writeManifest(targetDir, runtime);
-  console.log(`  ${green}✓${reset} Wrote file manifest (${MANIFEST_NAME})`);
+  console.log(`  ${green}✓${reset} 파일 manifest(${MANIFEST_NAME})를 기록했습니다`);
 
   // Report any backed-up local patches
   reportLocalPatches(targetDir, runtime);
@@ -3959,22 +3958,22 @@ function install(isGlobal, runtime = 'claude') {
     scanForLeakedPaths(targetDir);
     if (leakedPaths.length > 0) {
       const totalLeaks = leakedPaths.reduce((sum, l) => sum + l.count, 0);
-      console.warn(`\n  ${yellow}⚠${reset}  Found ${totalLeaks} unreplaced .claude path reference(s) in ${leakedPaths.length} file(s):`);
+      console.warn(`\n  ${yellow}⚠${reset}  ${leakedPaths.length}개 파일에서 치환되지 않은 .claude 경로 참조 ${totalLeaks}개를 찾았습니다:`);
       for (const leak of leakedPaths.slice(0, 5)) {
         console.warn(`     ${dim}${leak.file}${reset} (${leak.count})`);
       }
       if (leakedPaths.length > 5) {
-        console.warn(`     ${dim}... and ${leakedPaths.length - 5} more file(s)${reset}`);
+        console.warn(`     ${dim}... 그 외 ${leakedPaths.length - 5}개 파일${reset}`);
       }
-      console.warn(`  ${dim}These paths may not resolve correctly for ${runtimeLabel}.${reset}`);
+      console.warn(`  ${dim}${runtimeLabel}에서는 이 경로가 올바르게 해석되지 않을 수 있습니다.${reset}`);
     }
   }
 
   if (isCodex) {
     // Generate Codex config.toml and per-agent .toml files
     const agentCount = installCodexConfig(targetDir, agentsSrc);
-    console.log(`  ${green}✓${reset} Generated config.toml with ${agentCount} agent roles`);
-    console.log(`  ${green}✓${reset} Generated ${agentCount} agent .toml config files`);
+    console.log(`  ${green}✓${reset} agent role ${agentCount}개가 포함된 config.toml을 생성했습니다`);
+    console.log(`  ${green}✓${reset} agent .toml 설정 파일 ${agentCount}개를 생성했습니다`);
 
     // Add Codex hooks (SessionStart for update checking) — requires codex_hooks feature flag
     const configPath = path.join(targetDir, 'config.toml');
@@ -3997,9 +3996,9 @@ function install(isGlobal, runtime = 'claude') {
       }
 
       fs.writeFileSync(configPath, configContent, 'utf-8');
-      console.log(`  ${green}✓${reset} Configured Codex hooks (SessionStart)`);
+      console.log(`  ${green}✓${reset} Codex hook(SessionStart)를 설정했습니다`);
     } catch (e) {
-      console.warn(`  ${yellow}⚠${reset}  Could not configure Codex hooks: ${e.message}`);
+      console.warn(`  ${yellow}⚠${reset}  Codex hook을 설정하지 못했습니다: ${e.message}`);
     }
 
     return { settingsPath: null, settings: null, statuslineCommand: null, runtime };
@@ -4012,7 +4011,7 @@ function install(isGlobal, runtime = 'claude') {
     if (fs.existsSync(templatePath)) {
       const template = fs.readFileSync(templatePath, 'utf8');
       mergeCopilotInstructions(instructionsPath, template);
-      console.log(`  ${green}✓${reset} Generated copilot-instructions.md`);
+      console.log(`  ${green}✓${reset} copilot-instructions.md를 생성했습니다`);
     }
     // Copilot: no settings.json, no hooks, no statusline (like Codex)
     return { settingsPath: null, settings: null, statuslineCommand: null, runtime };
@@ -4048,7 +4047,7 @@ function install(isGlobal, runtime = 'claude') {
     }
     if (!settings.experimental.enableAgents) {
       settings.experimental.enableAgents = true;
-      console.log(`  ${green}✓${reset} Enabled experimental agents`);
+      console.log(`  ${green}✓${reset} experimental agents를 활성화했습니다`);
     }
   }
 
@@ -4074,7 +4073,7 @@ function install(isGlobal, runtime = 'claude') {
           }
         ]
       });
-      console.log(`  ${green}✓${reset} Configured update check hook`);
+      console.log(`  ${green}✓${reset} update check hook을 설정했습니다`);
     }
 
     // Configure post-tool hook for context window monitoring
@@ -4097,7 +4096,7 @@ function install(isGlobal, runtime = 'claude') {
           }
         ]
       });
-      console.log(`  ${green}✓${reset} Configured context window monitor hook`);
+      console.log(`  ${green}✓${reset} context window monitor hook을 설정했습니다`);
     } else {
       // Migrate existing context monitor hooks: add matcher and timeout if missing
       for (const entry of settings.hooks[postToolEvent]) {
@@ -4114,7 +4113,7 @@ function install(isGlobal, runtime = 'claude') {
             }
           }
           if (migrated) {
-            console.log(`  ${green}✓${reset} Updated context monitor hook (added matcher + timeout)`);
+            console.log(`  ${green}✓${reset} context monitor hook을 갱신했습니다 (matcher + timeout 추가)`);
           }
         }
       }
@@ -4142,7 +4141,7 @@ function install(isGlobal, runtime = 'claude') {
           }
         ]
       });
-      console.log(`  ${green}✓${reset} Configured prompt injection guard hook`);
+      console.log(`  ${green}✓${reset} prompt injection guard hook을 설정했습니다`);
     }
   }
 
@@ -4150,7 +4149,7 @@ function install(isGlobal, runtime = 'claude') {
 }
 
 /**
- * Apply statusline config, then print completion message
+ * statusline 설정을 반영한 뒤 완료 메시지를 출력한다.
  */
 function finishInstall(settingsPath, settings, statuslineCommand, shouldInstallStatusline, runtime = 'claude', isGlobal = true) {
   const isOpencode = runtime === 'opencode';
@@ -4163,23 +4162,22 @@ function finishInstall(settingsPath, settings, statuslineCommand, shouldInstallS
       type: 'command',
       command: statuslineCommand
     };
-    console.log(`  ${green}✓${reset} Configured statusline`);
+    console.log(`  ${green}✓${reset} statusline을 설정했습니다`);
   }
 
-  // Write settings when runtime supports settings.json
+  // runtime이 settings.json을 지원하면 설정을 기록한다.
   if (!isCodex && !isCopilot && !isCursor) {
     writeSettings(settingsPath, settings);
   }
 
-  // Configure OpenCode permissions
+  // OpenCode 권한을 설정한다.
   if (isOpencode) {
     configureOpencodePermissions(isGlobal);
   }
 
-  // For non-Claude runtimes, set resolve_model_ids: "omit" in ~/.gsd/defaults.json
-  // so resolveModelInternal() returns '' instead of Claude aliases (opus/sonnet/haiku)
-  // that the runtime can't resolve. Users can still use model_overrides for explicit IDs.
-  // See #1156.
+  // Claude 이외 runtime에서는 ~/.gsd/defaults.json에 resolve_model_ids: "omit"을 설정한다.
+  // 이렇게 하면 resolveModelInternal()이 runtime이 이해하지 못하는 Claude alias(opus/sonnet/haiku) 대신 ''를 반환한다.
+  // 사용자는 여전히 model_overrides로 명시적 ID를 지정할 수 있다. (#1156)
   if (runtime !== 'claude') {
     const gsdDir = path.join(os.homedir(), '.gsd');
     const defaultsPath = path.join(gsdDir, 'defaults.json');
@@ -4190,10 +4188,10 @@ function finishInstall(settingsPath, settings, statuslineCommand, shouldInstallS
       if (defaults.resolve_model_ids !== 'omit') {
         defaults.resolve_model_ids = 'omit';
         fs.writeFileSync(defaultsPath, JSON.stringify(defaults, null, 2) + '\n');
-        console.log(`  ${green}✓${reset} Set resolve_model_ids: "omit" in ~/.gsd/defaults.json`);
+        console.log(`  ${green}✓${reset} ~/.gsd/defaults.json에 resolve_model_ids: "omit"을 설정했습니다`);
       }
     } catch (e) {
-      console.log(`  ${yellow}⚠${reset} Could not write ~/.gsd/defaults.json: ${e.message}`);
+      console.log(`  ${yellow}⚠${reset} ~/.gsd/defaults.json에 쓰지 못했습니다: ${e.message}`);
     }
   }
 
@@ -4212,14 +4210,14 @@ function finishInstall(settingsPath, settings, statuslineCommand, shouldInstallS
   if (runtime === 'antigravity') command = '/gsd-new-project';
   if (runtime === 'cursor') command = 'gsd-new-project (mention the skill name)';
   console.log(`
-  ${green}Done!${reset} Open a blank directory in ${program} and run ${cyan}${command}${reset}.
+  ${green}완료!${reset} ${program}에서 빈 디렉터리를 연 뒤 ${cyan}${command}${reset} 를 실행하세요.
 
-  ${cyan}Join the community:${reset} https://discord.gg/gsd
+  ${cyan}커뮤니티 참여:${reset} https://discord.gg/gsd
 `);
 }
 
 /**
- * Handle statusline configuration with optional prompt
+ * 필요하면 사용자에게 물어본 뒤 statusline 설정을 처리한다.
  */
 function handleStatusline(settings, isInteractive, callback) {
   const hasExisting = settings.statusLine != null;
@@ -4235,8 +4233,8 @@ function handleStatusline(settings, isInteractive, callback) {
   }
 
   if (!isInteractive) {
-    console.log(`  ${yellow}⚠${reset} Skipping statusline (already configured)`);
-    console.log(`    Use ${cyan}--force-statusline${reset} to replace\n`);
+    console.log(`  ${yellow}⚠${reset} statusline은 건너뜁니다 (이미 설정되어 있음)`);
+    console.log(`    교체하려면 ${cyan}--force-statusline${reset} 를 사용하세요\n`);
     callback(false);
     return;
   }
@@ -4249,20 +4247,20 @@ function handleStatusline(settings, isInteractive, callback) {
   });
 
   console.log(`
-  ${yellow}⚠${reset} Existing statusline detected\n
-  Your current statusline:
+  ${yellow}⚠${reset} 기존 statusline이 감지되었습니다\n
+  현재 statusline:
     ${dim}command: ${existingCmd}${reset}
 
-  GSD includes a statusline showing:
-    • Model name
-    • Current task (from todo list)
-    • Context window usage (color-coded)
+  GSD statusline에는 다음 정보가 표시됩니다:
+    • 모델 이름
+    • 현재 작업(todo list 기준)
+    • 컨텍스트 창 사용량(색상 표시)
 
-  ${cyan}1${reset}) Keep existing
-  ${cyan}2${reset}) Replace with GSD statusline
+  ${cyan}1${reset}) 기존 설정 유지
+  ${cyan}2${reset}) GSD statusline으로 교체
 `);
 
-  rl.question(`  Choice ${dim}[1]${reset}: `, (answer) => {
+  rl.question(`  선택 ${dim}[1]${reset}: `, (answer) => {
     rl.close();
     const choice = answer.trim() || '1';
     callback(choice === '2');
@@ -4270,7 +4268,7 @@ function handleStatusline(settings, isInteractive, callback) {
 }
 
 /**
- * Prompt for runtime selection
+ * 설치할 runtime을 묻는다.
  */
 function promptRuntime(callback) {
   const rl = readline.createInterface({
@@ -4283,7 +4281,7 @@ function promptRuntime(callback) {
   rl.on('close', () => {
     if (!answered) {
       answered = true;
-      console.log(`\n  ${yellow}Installation cancelled${reset}\n`);
+      console.log(`\n  ${yellow}설치를 취소했습니다${reset}\n`);
       process.exit(0);
     }
   });
@@ -4299,30 +4297,30 @@ function promptRuntime(callback) {
   };
   const allRuntimes = ['claude', 'opencode', 'gemini', 'codex', 'copilot', 'antigravity', 'cursor'];
 
-  console.log(`  ${yellow}Which runtime(s) would you like to install for?${reset}\n\n  ${cyan}1${reset}) Claude Code  ${dim}(~/.claude)${reset}
-  ${cyan}2${reset}) OpenCode     ${dim}(~/.config/opencode)${reset} - open source, free models
+  console.log(`  ${yellow}어떤 runtime에 설치할까요?${reset}\n\n  ${cyan}1${reset}) Claude Code  ${dim}(~/.claude)${reset}
+  ${cyan}2${reset}) OpenCode     ${dim}(~/.config/opencode)${reset} - 오픈소스, 무료 모델
   ${cyan}3${reset}) Gemini       ${dim}(~/.gemini)${reset}
   ${cyan}4${reset}) Codex        ${dim}(~/.codex)${reset}
   ${cyan}5${reset}) Copilot      ${dim}(~/.copilot)${reset}
   ${cyan}6${reset}) Antigravity  ${dim}(~/.gemini/antigravity)${reset}
   ${cyan}7${reset}) Cursor       ${dim}(~/.cursor)${reset}
-  ${cyan}8${reset}) All
+  ${cyan}8${reset}) 전체
 
-  ${dim}Select multiple: 1,4,6 or 1 4 6${reset}
+  ${dim}여러 개 선택 가능: 1,4,6 또는 1 4 6${reset}
 `);
 
-  rl.question(`  Choice ${dim}[1]${reset}: `, (answer) => {
+  rl.question(`  선택 ${dim}[1]${reset}: `, (answer) => {
     answered = true;
     rl.close();
     const input = answer.trim() || '1';
 
-    // "All" shortcut
+    // "전체" 단축 선택
     if (input === '8') {
       callback(allRuntimes);
       return;
     }
 
-    // Parse comma-separated, space-separated, or single choice
+    // 쉼표/공백/단일 선택 입력을 모두 처리한다.
     const choices = input.split(/[\s,]+/).filter(Boolean);
     const selected = [];
     for (const c of choices) {
@@ -4337,11 +4335,11 @@ function promptRuntime(callback) {
 }
 
 /**
- * Prompt for install location
+ * 설치 위치를 묻는다.
  */
 function promptLocation(runtimes) {
   if (!process.stdin.isTTY) {
-    console.log(`  ${yellow}Non-interactive terminal detected, defaulting to global install${reset}\n`);
+    console.log(`  ${yellow}비대화형 터미널이 감지되어 전역 설치를 기본값으로 사용합니다${reset}\n`);
     installAllRuntimes(runtimes, true, false);
     return;
   }
@@ -4356,7 +4354,7 @@ function promptLocation(runtimes) {
   rl.on('close', () => {
     if (!answered) {
       answered = true;
-      console.log(`\n  ${yellow}Installation cancelled${reset}\n`);
+      console.log(`\n  ${yellow}설치를 취소했습니다${reset}\n`);
       process.exit(0);
     }
   });
@@ -4368,11 +4366,11 @@ function promptLocation(runtimes) {
 
   const localExamples = runtimes.map(r => `./${getDirName(r)}`).join(', ');
 
-  console.log(`  ${yellow}Where would you like to install?${reset}\n\n  ${cyan}1${reset}) Global ${dim}(${pathExamples})${reset} - available in all projects
-  ${cyan}2${reset}) Local  ${dim}(${localExamples})${reset} - this project only
+  console.log(`  ${yellow}어디에 설치할까요?${reset}\n\n  ${cyan}1${reset}) Global ${dim}(${pathExamples})${reset} - 모든 프로젝트에서 사용 가능
+  ${cyan}2${reset}) Local  ${dim}(${localExamples})${reset} - 현재 프로젝트 전용
 `);
 
-  rl.question(`  Choice ${dim}[1]${reset}: `, (answer) => {
+  rl.question(`  선택 ${dim}[1]${reset}: `, (answer) => {
     answered = true;
     rl.close();
     const choice = answer.trim() || '1';
@@ -4382,7 +4380,7 @@ function promptLocation(runtimes) {
 }
 
 /**
- * Install GSD for all selected runtimes
+ * 선택한 모든 runtime에 GSD를 설치한다.
  */
 function installAllRuntimes(runtimes, isGlobal, isInteractive) {
   const results = [];
@@ -4460,14 +4458,14 @@ if (process.env.GSD_TEST_MODE) {
 
 // Main logic
 if (hasGlobal && hasLocal) {
-  console.error(`  ${yellow}Cannot specify both --global and --local${reset}`);
+  console.error(`  ${yellow}--global과 --local을 동시에 지정할 수 없습니다${reset}`);
   process.exit(1);
 } else if (explicitConfigDir && hasLocal) {
-  console.error(`  ${yellow}Cannot use --config-dir with --local${reset}`);
+  console.error(`  ${yellow}--local과 함께 --config-dir을 사용할 수 없습니다${reset}`);
   process.exit(1);
 } else if (hasUninstall) {
   if (!hasGlobal && !hasLocal) {
-    console.error(`  ${yellow}--uninstall requires --global or --local${reset}`);
+    console.error(`  ${yellow}--uninstall에는 --global 또는 --local이 필요합니다${reset}`);
     process.exit(1);
   }
   const runtimes = selectedRuntimes.length > 0 ? selectedRuntimes : ['claude'];
@@ -4486,7 +4484,7 @@ if (hasGlobal && hasLocal) {
 } else {
   // Interactive
   if (!process.stdin.isTTY) {
-    console.log(`  ${yellow}Non-interactive terminal detected, defaulting to Claude Code global install${reset}\n`);
+    console.log(`  ${yellow}비대화형 터미널이 감지되어 Claude Code 전역 설치를 기본값으로 사용합니다${reset}\n`);
     installAllRuntimes(['claude'], true, false);
   } else {
     promptRuntime((runtimes) => {
