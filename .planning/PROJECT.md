@@ -22,7 +22,9 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 
 ### Active
 
-None. Current milestone goal is complete.
+- **PKG-01**: User can install the fork with `npx get-shit-done-ko@latest` and the published bin entrypoint resolves to `get-shit-done-ko`.
+- **PKG-02**: Public docs, help/update workflows, and installer guidance use `get-shit-done-ko` as the only canonical package name.
+- **PKG-03**: Maintainer can still run install, update, uninstall, and regression flows successfully after the package identity rename.
 
 ### Out of Scope
 
@@ -39,6 +41,7 @@ None. Current milestone goal is complete.
 - Repository structure matters because runtime entry points and prompt references rely on stable paths such as `commands/`, `get-shit-done/workflows/`, `get-shit-done/templates/`, and `get-shit-done/references/`.
 - The localization scope explicitly includes docs, workflow prompts, templates, error/help text, checkpoint copy, and comments.
 - The localization scope explicitly excludes command tokens, filenames, directory names, identifiers, and phase/requirement IDs.
+- The fork now also needs its published npm package identity to match the repository and README naming (`get-shit-done-ko`) without changing GSD command tokens or runtime flags.
 
 ## Constraints
 
@@ -81,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after Phase 5 completion*
+*Last updated: 2026-03-23 after Phase 6 planning*

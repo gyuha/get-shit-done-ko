@@ -39,6 +39,12 @@
 - **L10N-02**: Maintainer can run a terminology/integrity lint pass for translated assets.
 - **L10N-03**: Contributor can read a Korean maintainer guide for localization conventions.
 
+### Package Identity
+
+- **PKG-01**: User can install the fork with `npx get-shit-done-ko@latest`, and the published npm bin entrypoint is `get-shit-done-ko`.
+- **PKG-02**: User and maintainer only see `get-shit-done-ko` in canonical install, update, help, and uninstall examples across supported docs and workflows.
+- **PKG-03**: Maintainer can run the existing install, update, uninstall, and regression flows after the rename without introducing compatibility regressions.
+
 ## Out of Scope
 
 | Feature | Reason |
@@ -63,12 +69,16 @@
 | TEXT-02 | Phase 4 | Complete |
 | QUAL-01 | Phase 5 | Complete |
 | QUAL-02 | Phase 5 | Complete |
+| PKG-01 | Phase 6 | Planned |
+| PKG-02 | Phase 6 | Planned |
+| PKG-03 | Phase 6 | Planned |
 
 **Coverage:**
 - v1 requirements: 11 total
-- Mapped to phases: 11
-- Unmapped: 0 ✓
+- v2 requirements: 6 total
+- Mapped to phases: 14
+- Unmapped: 3
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after Phase 5 completion*
+*Last updated: 2026-03-23 after Phase 6 planning*

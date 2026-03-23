@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.28.0
 milestone_name: milestone
-status: Phase 05 complete
-stopped_at: Phase 5 complete; milestone ready for release or next milestone
-last_updated: "2026-03-23T13:32:17Z"
+status: Phase 06 planned
+stopped_at: Phase 6 planned; ready for execution
+last_updated: "2026-03-23T14:06:03Z"
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 5
-  total_plans: 13
+  total_plans: 16
   completed_plans: 13
 ---
 
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Korean-speaking users can use GSD end-to-end in Korean without breaking upstream command compatibility.
-**Current focus:** Milestone complete — ready for release or next upstream/localization milestone
+**Current focus:** Phase 06 planned — package identity rename and canonical install path alignment
 
 ## Current Position
 
-Phase: 05 (compatibility-validation-and-release-prep) — COMPLETE
-Plan: 3 of 3
+Phase: 06 (rename-npm-package-and-installer-entrypoint-to-get-shit-done-ko) — PLANNED
+Plan: 0 of 3 complete
 
 ## Performance Metrics
 
@@ -83,6 +83,11 @@ Recent decisions affecting current work:
 - [Phase 04]: Translated representative maintainer-facing comments/docblocks in core source modules — Source explanations can now stay Korean-first without altering parser-sensitive literals or contracts.
 - [Phase 05]: Repaired bare `.claude` config-root leaks only where validation surfaced non-Claude runtime warnings — Compatibility closure stayed narrow and evidence-driven.
 - [Phase 05]: Added dedicated Korean maintainer release and sync guidance — Future releases can reuse the same validation commands and caveat rules without rediscovering them.
+- [Phase 06 planning]: The fork's published npm identity must become `get-shit-done-ko` so README install commands and actual package/bin entrypoints stay aligned.
+
+### Roadmap Evolution
+
+- Phase 6 added: Rename npm package and installer entrypoint to get-shit-done-ko
 
 ### Pending Todos
 
