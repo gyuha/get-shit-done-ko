@@ -1,4 +1,6 @@
 <purpose>
+한국어 우선 안내: 이 워크플로 자산은 `cleanup` 흐름을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+
 
 Archive accumulated phase directories from completed milestones into `.planning/milestones/v{X.Y}-phases/`. Identifies which phases belong to each completed milestone, shows a dry-run summary, and moves directories on confirmation.
 

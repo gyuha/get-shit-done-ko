@@ -1,4 +1,6 @@
 <purpose>
+한국어 우선 안내: 이 워크플로 자산은 `diagnose-issues` 흐름을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+
 Orchestrate parallel debug agents to investigate UAT gaps and find root causes.
 
 After UAT finds gaps, spawn one debug agent per gap. Each agent investigates autonomously with symptoms pre-filled from UAT. Collect root causes, update UAT.md gaps with diagnosis, then hand off to plan-phase --gaps with actual diagnoses.

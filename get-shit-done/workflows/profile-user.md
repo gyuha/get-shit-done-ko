@@ -1,4 +1,6 @@
 <purpose>
+한국어 우선 안내: 이 워크플로 자산은 `profile-user` 흐름을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+
 Orchestrate the full developer profiling flow: consent, session analysis (or questionnaire fallback), profile generation, result display, and artifact creation.
 
 This workflow wires Phase 1 (session pipeline) and Phase 2 (profiling engine) into a cohesive user-facing experience. All heavy lifting is done by existing gsd-tools.cjs subcommands and the gsd-user-profiler agent -- this workflow orchestrates the sequence, handles branching, and provides the UX.

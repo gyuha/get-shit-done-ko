@@ -1,4 +1,6 @@
 <purpose>
+한국어 우선 안내: 이 워크플로 자산은 `health` 흐름을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+
 한국어 우선 안내: 이 워크플로는 `.planning/` 무결성을 점검하고 수리 가능한 문제를 한국어 기준으로 안내합니다. 아래 영문 규칙과 코드 식별자는 그대로 유지합니다.
 
 Validate `.planning/` directory integrity and report actionable issues. Checks for missing files, invalid configurations, inconsistent state, and orphaned plans. Optionally repairs auto-fixable issues.

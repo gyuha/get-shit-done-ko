@@ -1,5 +1,8 @@
 # Testing Patterns Template
 
+> 한국어 우선 안내: 이 템플릿은 `testing` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+
+
 Template for `.planning/codebase/TESTING.md` - captures test framework and patterns.
 
 **Purpose:** Document how tests are written and run. Guide for adding tests that match existing patterns.

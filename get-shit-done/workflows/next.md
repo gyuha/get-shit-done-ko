@@ -1,4 +1,6 @@
 <purpose>
+한국어 우선 안내: 이 워크플로 자산은 `next` 흐름을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+
 한국어 우선 안내: 이 워크플로는 현재 상태를 읽고 다음에 실행할 GSD 단계를 한국어 기준으로 제시합니다. 아래 영문 라우팅 규칙과 명령 리터럴은 그대로 유지합니다.
 
 Detect current project state and automatically advance to the next logical GSD workflow step.
