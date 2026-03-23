@@ -73,6 +73,7 @@ This is a maintainer-only repo sync workflow. It is not the same as `$gsd-update
    - run `node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --dry-run`
    - show incoming tag, touched paths, preserved paths, and overlay notes
    - ask for confirmation before any mutation
+   - after approval, run `node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag>`
 5. After a successful apply run:
    - update `get-shit-done/UPSTREAM_VERSION`
    - update `docs/UPSTREAM-SYNC.md`

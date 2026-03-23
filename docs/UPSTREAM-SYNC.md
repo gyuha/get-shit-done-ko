@@ -106,6 +106,7 @@ Maintainer-only repo sync는 `$gsd-update`가 아니라 `$gsd-sync-upstream`로 
 2. `scripts/check-upstream-release.cjs`로 `gsd-build/get-shit-done` GitHub releases를 확인합니다.
 3. upstream latest가 더 높을 때만 dry-run/apply sync 흐름으로 진행합니다.
 4. upstream latest가 같거나 더 낮으면 compared versions/date를 보여주고 no-op으로 종료합니다.
+5. dry-run은 `node scripts/apply-upstream-refresh.cjs --to-tag <tag> --dry-run`로 먼저 실행하고, touched paths / preserved paths / overlay reapply 목록을 확인합니다.
 
 현재 비교 기준은 반드시 다음 두 값입니다.
 

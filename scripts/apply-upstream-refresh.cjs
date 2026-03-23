@@ -289,12 +289,17 @@ function importSnapshotIntoRepo(repoDir, snapshotDir) {
 }
 
 function buildDryRunResult({ releaseState, overlays }) {
+  const summary = releaseState.update_available
+    ? `Ready to refresh vendored GSD from ${releaseState.current_tag} to ${releaseState.latest_tag}.`
+    : `No refresh needed because tracked baseline ${releaseState.current_tag} is already current or ahead.`;
+
   return {
     status: releaseState.status,
     current_tag: releaseState.current_tag,
     incoming_tag: releaseState.latest_tag,
     latest_published_at: releaseState.latest_published_at,
     package_version: releaseState.package_version,
+    summary,
     touched: [...IMPORT_ENTRIES],
     preserved: [...PRESERVED_PATHS],
     overlay_reapply: overlays.map(entry => entry.path),
@@ -318,6 +323,7 @@ function formatDryRun(result) {
   if (result.package_version) {
     lines.push(`- fork package version: ${result.package_version}`);
   }
+  lines.push(`- summary: ${result.summary}`);
 
   lines.push('', '### touched paths');
   for (const entry of result.touched) {
