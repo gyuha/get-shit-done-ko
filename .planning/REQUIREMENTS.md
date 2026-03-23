@@ -35,12 +35,12 @@
 
 ### Localization Operations
 
-- **L10N-01**: Maintainer can sync newer upstream releases with a documented Korean update workflow.
+- [x] **L10N-01**: Maintainer can sync newer upstream releases with a documented Korean update workflow.
 - **L10N-02**: Maintainer can run a terminology/integrity lint pass for translated assets.
 - **L10N-03**: Contributor can read a Korean maintainer guide for localization conventions.
-- **L10N-04**: Maintainer can run a dedicated skill that checks `https://github.com/gsd-build/get-shit-done/releases` and determines whether a newer upstream release exists than this repo's tracked baseline.
-- **L10N-05**: If a newer upstream release exists, maintainer can refresh the vendored GSD files in this repo while preserving Korean overlays, protected local files, and token-sensitive customizations.
-- **L10N-06**: If this repo is already current or ahead, the sync skill reports the compared upstream/local versions with concrete release dates and exits without changing files.
+- [x] **L10N-04**: Maintainer can run a dedicated skill that checks `https://github.com/gsd-build/get-shit-done/releases` and determines whether a newer upstream release exists than this repo's tracked baseline.
+- [x] **L10N-05**: If a newer upstream release exists, maintainer can refresh the vendored GSD files in this repo while preserving Korean overlays, protected local files, and token-sensitive customizations.
+- [x] **L10N-06**: If this repo is already current or ahead, the sync skill reports the compared upstream/local versions with concrete release dates and exits without changing files.
 
 ### Package Identity
 
@@ -75,10 +75,10 @@
 | PKG-01 | Phase 6 | Complete |
 | PKG-02 | Phase 6 | Complete |
 | PKG-03 | Phase 6 | Complete |
-| L10N-01 | Phase 7 | Planned |
-| L10N-04 | Phase 7 | Planned |
-| L10N-05 | Phase 7 | Planned |
-| L10N-06 | Phase 7 | Planned |
+| L10N-01 | Phase 7 | Complete |
+| L10N-04 | Phase 7 | Complete |
+| L10N-05 | Phase 7 | Complete |
+| L10N-06 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 11 total
@@ -88,4 +88,4 @@
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after Phase 7 planning*
+*Last updated: 2026-03-23 after Phase 7 completion*

@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Runtime Text and Comment Localization** - Localize remaining user-facing source strings and explanatory comments safely. (completed 2026-03-23)
 - [x] **Phase 5: Compatibility Validation and Release Prep** - Verify integrity, repair regressions, and prepare the fork for ongoing maintenance. (completed 2026-03-23)
 - [x] **Phase 6: Rename npm package and installer entrypoint to get-shit-done-ko** - Make the fork's published install path match its Korean-localized package identity. (completed 2026-03-23)
-- [ ] **Phase 7: Automated Upstream GSD Sync Skill** - Add a maintainer skill that checks upstream GitHub releases and refreshes the vendored GSD tree only when a newer upstream release exists.
+- [x] **Phase 7: Automated Upstream GSD Sync Skill** - Add a maintainer skill that checks upstream GitHub releases and refreshes the vendored GSD tree only when a newer upstream release exists. (completed 2026-03-23)
 
 ## Phase Details
 
@@ -108,7 +108,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 4. Runtime Text and Comment Localization | 2/2 | Complete   | 2026-03-23 |
 | 5. Compatibility Validation and Release Prep | 3/3 | Complete | 2026-03-23 |
 | 6. Rename npm package and installer entrypoint to get-shit-done-ko | 3/3 | Complete | 2026-03-23 |
-| 7. Automated Upstream GSD Sync Skill | 0/3 | Planned | - |
+| 7. Automated Upstream GSD Sync Skill | 3/3 | Complete | 2026-03-23 |
 
 ### Phase 6: Rename npm package and installer entrypoint to get-shit-done-ko
 
@@ -136,7 +136,7 @@ Plans:
   2. If upstream is newer, the skill can import the newer vendored GSD snapshot into the repo while preserving Korean overlays and protected local files.
   3. If upstream is not newer, the skill exits cleanly with an explicit no-op summary and leaves the worktree unchanged.
   4. Maintainer docs and tests cover the comparison logic, dry-run/update path, and safe post-sync verification flow.
-**Plans**: 3 plans
+**Plans**: 3/3 plans complete
 
 Plans:
 - [x] 07-01: Introduce a dedicated upstream-sync skill, machine-readable baseline tracking, and release comparison logic.

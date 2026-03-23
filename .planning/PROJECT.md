@@ -20,13 +20,12 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 - ✓ Korean-first runtime messaging and maintainer-facing source comments established without changing behavior contracts — Phase 4
 - ✓ Compatibility validation, targeted converter repairs, and maintainer release/sync guidance completed — Phase 5
 - ✓ Package identity rename and canonical install/update naming aligned to `get-shit-done-ko` — Phase 6
+- ✓ Maintainer-only upstream compare/dry-run/apply sync workflow completed with regression coverage and Korean-first guidance — Phase 7
 
 ### Active
 
-- **L10N-01**: Maintainer can sync newer upstream releases with a documented Korean update workflow.
-- **L10N-04**: Maintainer can run a dedicated skill that checks `gsd-build/get-shit-done` GitHub releases and decides whether this repo's tracked upstream baseline is behind.
-- **L10N-05**: If a newer upstream release exists, maintainer can refresh the vendored GSD tree in this repo while preserving Korean overlays and protected local files.
-- **L10N-06**: If this repo is already current or ahead, the sync skill reports exact compared versions and dates and exits without mutating the worktree.
+- **L10N-02**: Maintainer can run a terminology/integrity lint pass for translated assets.
+- **L10N-03**: Contributor can read a Korean maintainer guide for localization conventions.
 
 ### Out of Scope
 
@@ -44,7 +43,7 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 - The localization scope explicitly includes docs, workflow prompts, templates, error/help text, checkpoint copy, and comments.
 - The localization scope explicitly excludes command tokens, filenames, directory names, identifiers, and phase/requirement IDs.
 - The fork now also needs its published npm package identity to match the repository and README naming (`get-shit-done-ko`) without changing GSD command tokens or runtime flags.
-- The fork now also needs a maintainer-only sync skill that can compare upstream GitHub releases against the tracked baseline and safely refresh the vendored GSD tree when upstream moves ahead.
+- The fork now includes a maintainer-only sync skill that compares upstream GitHub releases against the tracked baseline and can dry-run or apply a safe vendored-tree refresh when upstream moves ahead.
 
 ## Constraints
 
@@ -89,4 +88,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after Phase 7 planning*
+*Last updated: 2026-03-23 after Phase 7 completion*
