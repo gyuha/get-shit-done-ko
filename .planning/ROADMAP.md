@@ -13,7 +13,7 @@ This roadmap takes the project from an empty destination repository to a Korean-
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Upstream Baseline Import** - Bring upstream `v1.28.0` into the repo root with traceable parity.
-- [ ] **Phase 2: Korean-First Documentation** - Make docs/readme/navigation Korean-first while preserving English and removing Chinese.
+- [x] **Phase 2: Korean-First Documentation** - Make docs/readme/navigation Korean-first while preserving English and removing Chinese. (completed 2026-03-23)
 - [ ] **Phase 3: Workflow Asset Localization** - Translate command/workflow/template/reference surfaces without breaking structured tokens.
 - [ ] **Phase 4: Runtime Text and Comment Localization** - Localize remaining user-facing source strings and explanatory comments safely.
 - [ ] **Phase 5: Compatibility Validation and Release Prep** - Verify integrity, repair regressions, and prepare the fork for ongoing maintenance.
@@ -45,9 +45,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: Localize README and top-level doc navigation to Korean-first structure.
-- [ ] 02-02: Translate primary documentation pages and preserve English cross-links.
-- [ ] 02-03: Remove `zh-CN` content and clean up remaining Chinese references.
+- [x] 02-01: Localize README and top-level doc navigation to Korean-first structure.
+- [x] 02-02: Translate primary documentation pages and preserve English cross-links.
+- [x] 02-03: Remove `zh-CN` content and clean up remaining Chinese references.
 
 ### Phase 3: Workflow Asset Localization
 **Goal**: Translate GSD’s command/help/workflow/template/reference assets so Korean becomes the default working language without damaging structured prompt syntax.
@@ -101,7 +101,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Upstream Baseline Import | 2/2 | Complete | 2026-03-23 |
-| 2. Korean-First Documentation | 0/3 | Not started | - |
+| 2. Korean-First Documentation | 3/3 | Complete | 2026-03-23 |
 | 3. Workflow Asset Localization | 0/3 | Not started | - |
 | 4. Runtime Text and Comment Localization | 0/2 | Not started | - |
 | 5. Compatibility Validation and Release Prep | 0/3 | Not started | - |

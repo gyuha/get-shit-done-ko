@@ -15,6 +15,7 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 ### Validated
 
 - ✓ Root-level upstream `get-shit-done` `v1.28.0` baseline imported and documented — Phase 1
+- ✓ Korean-first public documentation established, English reference access preserved, and Simplified Chinese docs removed — Phase 2
 
 ### Active
 
@@ -51,9 +52,9 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Pin initial import to upstream `v1.28.0` | Gives the fork a stable baseline and makes future sync work auditable | — Pending |
-| Keep command/file/path/ID tokens in English | These tokens are part of the runtime contract and must not drift | — Pending |
-| Korean-first with English retained, Chinese removed | Matches the requested reading experience and lowers maintenance burden | — Pending |
+| Pin initial import to upstream `v1.28.0` | Gives the fork a stable baseline and makes future sync work auditable | ✓ Good |
+| Keep command/file/path/ID tokens in English | These tokens are part of the runtime contract and must not drift | ✓ Good |
+| Korean-first with English retained, Chinese removed | Matches the requested reading experience and lowers maintenance burden | ✓ Good |
 | Translate prompts/templates/comments in source, not just end-user docs | Most of the product experience is encoded in markdown workflow assets | — Pending |
 | Flatten upstream into the root instead of keeping a nested submodule | Later localization phases need to edit the actual runtime tree in place | ✓ Good |
 | Document upstream sync rules before translating imported content | Future maintenance needs a stable source/version audit trail | ✓ Good |
@@ -76,4 +77,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after Phase 1 completion*
+*Last updated: 2026-03-23 after Phase 2 completion*
