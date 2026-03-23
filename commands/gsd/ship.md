@@ -1,6 +1,6 @@
 ---
 name: gsd:ship
-description: Create PR, run review, and prepare for merge after verification passes
+description: "한국어 우선 안내 — Create PR, run review, and prepare for merge after verification passes"
 argument-hint: "[phase number or milestone, e.g., '4' or 'v1.0']"
 allowed-tools:
   - Read
@@ -11,6 +11,8 @@ allowed-tools:
   - AskUserQuestion
 ---
 <objective>
+한국어 우선 안내: 이 명령 문서는 `/gsd:ship` 흐름을 한국어로 먼저 안내합니다. 아래 영문 원문은 upstream 호환성과 세부 의미 보존을 위해 함께 유지합니다.
+
 Bridge local completion → merged PR. After /gsd:verify-work passes, ship the work: push branch, create PR with auto-generated body, optionally trigger review, and track the merge.
 
 Closes the plan → execute → verify → ship loop.

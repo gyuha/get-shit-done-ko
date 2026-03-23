@@ -1,6 +1,6 @@
 ---
 name: gsd:execute-phase
-description: Execute all plans in a phase with wave-based parallelization
+description: "한국어 우선 안내 — Execute all plans in a phase with wave-based parallelization"
 argument-hint: "<phase-number> [--wave N] [--gaps-only] [--interactive]"
 allowed-tools:
   - Read
@@ -14,6 +14,8 @@ allowed-tools:
   - AskUserQuestion
 ---
 <objective>
+한국어 우선 안내: 이 명령 문서는 `/gsd:execute-phase` 흐름을 한국어로 먼저 안내합니다. 아래 영문 원문은 upstream 호환성과 세부 의미 보존을 위해 함께 유지합니다.
+
 Execute all plans in a phase using wave-based parallel execution.
 
 Orchestrator stays lean: discover plans, analyze dependencies, group into waves, spawn subagents, collect results. Each subagent loads the full execute-plan context and handles its own plan.
@@ -36,6 +38,8 @@ Context budget: ~15% orchestrator, 100% fresh per subagent.
 </execution_context>
 
 <context>
+한국어 우선 안내: 인자, flags, 경로, 식별자, 플레이스홀더는 그대로 유지하고 설명만 한국어 우선으로 읽으면 됩니다.
+
 Phase: $ARGUMENTS
 
 **Available optional flags (documentation only — not automatically active):**
@@ -54,6 +58,8 @@ Context files are resolved inside the workflow via `gsd-tools init execute-phase
 </context>
 
 <process>
+한국어 우선 안내: 실제 실행 시에는 아래 워크플로와 참조 경로를 그대로 따르되, 설명 해석은 한국어를 기본으로 사용합니다.
+
 Execute the execute-phase workflow from @~/.claude/get-shit-done/workflows/execute-phase.md end-to-end.
 Preserve all workflow gates (wave execution, checkpoint handling, verification, state updates, routing).
 </process>

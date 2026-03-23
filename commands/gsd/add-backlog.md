@@ -1,6 +1,6 @@
 ---
 name: gsd:add-backlog
-description: Add an idea to the backlog parking lot (999.x numbering)
+description: "한국어 우선 안내 — Add an idea to the backlog parking lot (999.x numbering)"
 argument-hint: <description>
 allowed-tools:
   - Read
@@ -9,12 +9,16 @@ allowed-tools:
 ---
 
 <objective>
+한국어 우선 안내: 이 명령 문서는 `/gsd:add-backlog` 흐름을 한국어로 먼저 안내합니다. 아래 영문 원문은 upstream 호환성과 세부 의미 보존을 위해 함께 유지합니다.
+
 Add a backlog item to the roadmap using 999.x numbering. Backlog items are
 unsequenced ideas that aren't ready for active planning — they live outside
 the normal phase sequence and accumulate context over time.
 </objective>
 
 <process>
+한국어 우선 안내: 실제 실행 시에는 아래 워크플로와 참조 경로를 그대로 따르되, 설명 해석은 한국어를 기본으로 사용합니다.
+
 
 1. **Read ROADMAP.md** to find existing backlog entries:
    ```bash

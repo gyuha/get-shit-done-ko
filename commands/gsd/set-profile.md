@@ -1,6 +1,6 @@
 ---
 name: gsd:set-profile
-description: Switch model profile for GSD agents (quality/balanced/budget/inherit)
+description: "한국어 우선 안내 — Switch model profile for GSD agents (quality/balanced/budget/inherit)"
 argument-hint: <profile (quality|balanced|budget|inherit)>
 model: haiku
 allowed-tools:

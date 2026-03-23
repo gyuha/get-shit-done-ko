@@ -1,7 +1,7 @@
 ---
 type: prompt
 name: gsd:complete-milestone
-description: Archive completed milestone and prepare for next version
+description: "한국어 우선 안내 — Archive completed milestone and prepare for next version"
 argument-hint: <version>
 allowed-tools:
   - Read
@@ -10,6 +10,8 @@ allowed-tools:
 ---
 
 <objective>
+한국어 우선 안내: 이 명령 문서는 `/gsd:complete-milestone` 흐름을 한국어로 먼저 안내합니다. 아래 영문 원문은 upstream 호환성과 세부 의미 보존을 위해 함께 유지합니다.
+
 Mark milestone {{version}} complete, archive to milestones/, and update ROADMAP.md and REQUIREMENTS.md.
 
 Purpose: Create historical record of shipped version, archive milestone artifacts (roadmap + requirements), and prepare for next milestone.
@@ -24,6 +26,8 @@ Output: Milestone archived (roadmap + requirements), PROJECT.md evolved, git tag
   </execution_context>
 
 <context>
+한국어 우선 안내: 인자, flags, 경로, 식별자, 플레이스홀더는 그대로 유지하고 설명만 한국어 우선으로 읽으면 됩니다.
+
 **Project files:**
 - `.planning/ROADMAP.md`
 - `.planning/REQUIREMENTS.md`
@@ -36,6 +40,8 @@ Output: Milestone archived (roadmap + requirements), PROJECT.md evolved, git tag
   </context>
 
 <process>
+한국어 우선 안내: 실제 실행 시에는 아래 워크플로와 참조 경로를 그대로 따르되, 설명 해석은 한국어를 기본으로 사용합니다.
+
 
 **Follow complete-milestone.md workflow:**
 
@@ -113,6 +119,8 @@ Output: Milestone archived (roadmap + requirements), PROJECT.md evolved, git tag
 </process>
 
 <success_criteria>
+한국어 우선 안내: 성공 기준의 판단은 아래 영문 체크리스트를 따르며, 한국어 설명은 빠른 이해를 돕기 위한 층입니다.
+
 
 - Milestone archived to `.planning/milestones/v{{version}}-ROADMAP.md`
 - Requirements archived to `.planning/milestones/v{{version}}-REQUIREMENTS.md`

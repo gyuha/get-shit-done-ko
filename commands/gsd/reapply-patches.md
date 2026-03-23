@@ -1,5 +1,5 @@
 ---
-description: Reapply local modifications after a GSD update
+description: "한국어 우선 안내 — Reapply local modifications after a GSD update"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion
 ---
 
@@ -8,6 +8,8 @@ After a GSD update wipes and reinstalls files, this command merges user's previo
 </purpose>
 
 <process>
+한국어 우선 안내: 실제 실행 시에는 아래 워크플로와 참조 경로를 그대로 따르되, 설명 해석은 한국어를 기본으로 사용합니다.
+
 
 ## Step 1: Detect backed-up patches
 
@@ -116,6 +118,8 @@ Ask user:
 </process>
 
 <success_criteria>
+한국어 우선 안내: 성공 기준의 판단은 아래 영문 체크리스트를 따르며, 한국어 설명은 빠른 이해를 돕기 위한 층입니다.
+
 - [ ] All backed-up patches processed
 - [ ] User modifications merged into new version
 - [ ] Conflicts resolved with user input

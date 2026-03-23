@@ -1,6 +1,6 @@
 ---
 name: gsd:research-phase
-description: Research how to implement a phase (standalone - usually use /gsd:plan-phase instead)
+description: "한국어 우선 안내 — Research how to implement a phase (standalone - usually use /gsd:plan-phase instead)"
 argument-hint: "[phase]"
 allowed-tools:
   - Read
@@ -9,6 +9,8 @@ allowed-tools:
 ---
 
 <objective>
+한국어 우선 안내: 이 명령 문서는 `/gsd:research-phase` 흐름을 한국어로 먼저 안내합니다. 아래 영문 원문은 upstream 호환성과 세부 의미 보존을 위해 함께 유지합니다.
+
 Research how to implement a phase. Spawns gsd-phase-researcher agent with phase context.
 
 **Note:** This is a standalone research command. For most workflows, use `/gsd:plan-phase` which integrates research automatically.
@@ -24,12 +26,16 @@ Research how to implement a phase. Spawns gsd-phase-researcher agent with phase 
 </objective>
 
 <context>
+한국어 우선 안내: 인자, flags, 경로, 식별자, 플레이스홀더는 그대로 유지하고 설명만 한국어 우선으로 읽으면 됩니다.
+
 Phase number: $ARGUMENTS (required)
 
 Normalize phase input in step 1 before any directory lookups.
 </context>
 
 <process>
+한국어 우선 안내: 실제 실행 시에는 아래 워크플로와 참조 경로를 그대로 따르되, 설명 해석은 한국어를 기본으로 사용합니다.
+
 
 ## 0. Initialize Context
 
@@ -182,6 +188,8 @@ Task(
 </process>
 
 <success_criteria>
+한국어 우선 안내: 성공 기준의 판단은 아래 영문 체크리스트를 따르며, 한국어 설명은 빠른 이해를 돕기 위한 층입니다.
+
 - [ ] Phase validated against roadmap
 - [ ] Existing research checked
 - [ ] gsd-phase-researcher spawned with context

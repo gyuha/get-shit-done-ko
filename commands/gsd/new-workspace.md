@@ -1,6 +1,6 @@
 ---
 name: gsd:new-workspace
-description: Create an isolated workspace with repo copies and independent .planning/
+description: "한국어 우선 안내 — Create an isolated workspace with repo copies and independent .planning/"
 argument-hint: "--name <name> [--repos repo1,repo2] [--path /target] [--strategy worktree|clone] [--branch name] [--auto]"
 allowed-tools:
   - Read
@@ -9,6 +9,8 @@ allowed-tools:
   - AskUserQuestion
 ---
 <context>
+한국어 우선 안내: 인자, flags, 경로, 식별자, 플레이스홀더는 그대로 유지하고 설명만 한국어 우선으로 읽으면 됩니다.
+
 **Flags:**
 - `--name` (required) — Workspace name
 - `--repos` — Comma-separated repo paths or names. If omitted, interactive selection from child git repos in cwd
@@ -19,6 +21,8 @@ allowed-tools:
 </context>
 
 <objective>
+한국어 우선 안내: 이 명령 문서는 `/gsd:new-workspace` 흐름을 한국어로 먼저 안내합니다. 아래 영문 원문은 upstream 호환성과 세부 의미 보존을 위해 함께 유지합니다.
+
 Create a physical workspace directory containing copies of specified git repos (as worktrees or clones) with an independent `.planning/` directory for isolated GSD sessions.
 
 **Use cases:**
@@ -39,6 +43,8 @@ Create a physical workspace directory containing copies of specified git repos (
 </execution_context>
 
 <process>
+한국어 우선 안내: 실제 실행 시에는 아래 워크플로와 참조 경로를 그대로 따르되, 설명 해석은 한국어를 기본으로 사용합니다.
+
 Execute the new-workspace workflow from @~/.claude/get-shit-done/workflows/new-workspace.md end-to-end.
 Preserve all workflow gates (validation, approvals, commits, routing).
 </process>
