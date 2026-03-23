@@ -12,7 +12,7 @@ This roadmap takes the project from an empty destination repository to a Korean-
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Upstream Baseline Import** - Bring upstream `v1.28.0` into the repo root with traceable parity.
+- [x] **Phase 1: Upstream Baseline Import** - Bring upstream `v1.28.0` into the repo root with traceable parity.
 - [ ] **Phase 2: Korean-First Documentation** - Make docs/readme/navigation Korean-first while preserving English and removing Chinese.
 - [ ] **Phase 3: Workflow Asset Localization** - Translate command/workflow/template/reference surfaces without breaking structured tokens.
 - [ ] **Phase 4: Runtime Text and Comment Localization** - Localize remaining user-facing source strings and explanatory comments safely.
@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01: Import upstream repository contents into the project root while preserving destination git history.
-- [ ] 01-02: Audit imported structure, note parity decisions, and resolve any immediate path/layout mismatches.
+- [x] 01-02: Audit imported structure, note parity decisions, and resolve any immediate path/layout mismatches.
 
 ### Phase 2: Korean-First Documentation
 **Goal**: Make public documentation Korean-first while preserving English access and removing Simplified Chinese content and links.
@@ -100,7 +100,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Upstream Baseline Import | 0/2 | Not started | - |
+| 1. Upstream Baseline Import | 2/2 | Complete | 2026-03-23 |
 | 2. Korean-First Documentation | 0/3 | Not started | - |
 | 3. Workflow Asset Localization | 0/3 | Not started | - |
 | 4. Runtime Text and Comment Localization | 0/2 | Not started | - |

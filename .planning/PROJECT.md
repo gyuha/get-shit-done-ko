@@ -14,11 +14,10 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Root-level upstream `get-shit-done` `v1.28.0` baseline imported and documented — Phase 1
 
 ### Active
 
-- [ ] Mirror upstream `get-shit-done` `v1.28.0` into the repository root without losing required runtime files, scripts, tests, or install behavior.
 - [ ] Keep commands, file names, directory names, identifiers, and phase/requirement IDs unchanged while translating non-command prose.
 - [ ] Make Korean the default documentation language while keeping English documentation and removing Simplified Chinese content and links.
 - [ ] Translate workflow prompts, templates, references, error/help/checkpoint copy, and source comments that are part of the maintained user experience.
@@ -56,6 +55,8 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 | Keep command/file/path/ID tokens in English | These tokens are part of the runtime contract and must not drift | — Pending |
 | Korean-first with English retained, Chinese removed | Matches the requested reading experience and lowers maintenance burden | — Pending |
 | Translate prompts/templates/comments in source, not just end-user docs | Most of the product experience is encoded in markdown workflow assets | — Pending |
+| Flatten upstream into the root instead of keeping a nested submodule | Later localization phases need to edit the actual runtime tree in place | ✓ Good |
+| Document upstream sync rules before translating imported content | Future maintenance needs a stable source/version audit trail | ✓ Good |
 
 ## Evolution
 
@@ -75,4 +76,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after initialization*
+*Last updated: 2026-03-23 after Phase 1 completion*

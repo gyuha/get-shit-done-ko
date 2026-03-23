@@ -7,8 +7,8 @@
 
 ### Sync Baseline
 
-- [ ] **SYNC-01**: Maintainer can import upstream `get-shit-done` `v1.28.0` into the repository root without missing required runtime directories or files.
-- [ ] **SYNC-02**: Maintainer can identify the upstream version and counterpart structure for the localized fork from project documentation.
+- [x] **SYNC-01**: Maintainer can import upstream `get-shit-done` `v1.28.0` into the repository root without missing required runtime directories or files.
+- [x] **SYNC-02**: Maintainer can identify the upstream version and counterpart structure for the localized fork from project documentation.
 
 ### Documentation
 
@@ -52,8 +52,8 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SYNC-01 | Phase 1 | Pending |
-| SYNC-02 | Phase 1 | Pending |
+| SYNC-01 | Phase 1 | Complete |
+| SYNC-02 | Phase 1 | Complete |
 | DOCS-01 | Phase 2 | Pending |
 | DOCS-02 | Phase 2 | Pending |
 | DOCS-03 | Phase 2 | Pending |
