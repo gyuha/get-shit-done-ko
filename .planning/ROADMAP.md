@@ -105,7 +105,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Workflow Asset Localization | 3/3 | Complete | 2026-03-23 |
 | 4. Runtime Text and Comment Localization | 2/2 | Complete   | 2026-03-23 |
 | 5. Compatibility Validation and Release Prep | 3/3 | Complete | 2026-03-23 |
-| 6. Rename npm package and installer entrypoint to get-shit-done-ko | 0/3 | Planned | - |
+| 6. Rename npm package and installer entrypoint to get-shit-done-ko | 1/3 | In Progress|  |
 
 ### Phase 6: Rename npm package and installer entrypoint to get-shit-done-ko
 
@@ -116,9 +116,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
   1. `package.json`, `package-lock.json`, and installer-facing entrypoints expose `get-shit-done-ko` as the actual npm package and bin name.
   2. README, maintainer docs, and workflow/help/update text no longer present `get-shit-done-cc` as a canonical command.
   3. Install, update, uninstall, and regression flows stay green after the rename.
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
-- [ ] 06-01: Rename package metadata and runtime-facing installer/update/help entrypoints to `get-shit-done-ko`.
+- [x] 06-01: Rename package metadata and runtime-facing installer/update/help entrypoints to `get-shit-done-ko`.
 - [ ] 06-02: Replace public and maintainer-facing command examples so docs match the renamed package identity.
 - [ ] 06-03: Expand regression coverage for the renamed package/bin surfaces and run final verification.

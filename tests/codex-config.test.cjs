@@ -16,6 +16,7 @@ const os = require('os');
 
 const {
   getCodexSkillAdapterHeader,
+  convertClaudeCommandToCodexSkill,
   convertClaudeAgentToCodexAgent,
   generateCodexAgentToml,
   generateCodexConfigBlock,
@@ -109,6 +110,36 @@ describe('getCodexSkillAdapterHeader', () => {
     assert.ok(result.includes('wait(ids)'), 'documents parallel wait pattern');
     assert.ok(result.includes('close_agent'), 'documents close_agent cleanup');
     assert.ok(result.includes('CHECKPOINT'), 'documents result markers');
+  });
+});
+
+// ─── convertClaudeCommandToCodexSkill ──────────────────────────────────────────
+
+describe('convertClaudeCommandToCodexSkill', () => {
+  test('uses Korean override descriptions for installed Codex skills', () => {
+    const input = `---
+name: gsd:new-project
+description: Initialize a new project with deep context gathering and PROJECT.md
+---
+
+Body.`;
+
+    const result = convertClaudeCommandToCodexSkill(input, 'gsd-new-project');
+    assert.ok(result.includes('description: "깊은 컨텍스트 수집과 함께 새 프로젝트 초기화"'), result);
+    assert.ok(result.includes('short-description: "깊은 컨텍스트 수집과 함께 새 프로젝트 초기화"'), result);
+  });
+
+  test('falls back to source description when no Korean override exists', () => {
+    const input = `---
+name: gsd:test-command
+description: Test description
+---
+
+Body.`;
+
+    const result = convertClaudeCommandToCodexSkill(input, 'gsd-test-command');
+    assert.ok(result.includes('description: "Test description"'), result);
+    assert.ok(result.includes('short-description: "Test description"'), result);
   });
 });
 
