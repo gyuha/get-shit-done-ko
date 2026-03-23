@@ -947,7 +947,7 @@ Result parsing:
 </codex_skill_adapter>`;
 }
 
-const codexSkillDescriptionOverrides = {
+const localizedSkillDescriptionOverrides = {
   'gsd-add-backlog': '아이디어를 backlog parking lot(999.x)에 추가',
   'gsd-add-phase': '현재 milestone 끝에 새 phase 추가',
   'gsd-add-tests': '완료된 phase 기준으로 테스트 생성',
@@ -1007,8 +1007,34 @@ const codexSkillDescriptionOverrides = {
   'gsd-workstreams': 'parallel workstream 생성·전환·상태·완료 관리',
 };
 
-function getCodexSkillDescription(skillName, fallbackDescription) {
-  return codexSkillDescriptionOverrides[skillName] || fallbackDescription;
+function getLocalizedSkillDescription(skillName, fallbackDescription) {
+  return localizedSkillDescriptionOverrides[skillName] || fallbackDescription;
+}
+
+function normalizeCommandName(commandName) {
+  return String(commandName || '').trim().replace(/:/g, '-');
+}
+
+function localizeClaudeCommandFrontmatter(content) {
+  const { frontmatter, body } = extractFrontmatterAndBody(content);
+  if (!frontmatter) return content;
+
+  const frontmatterName = extractFrontmatterField(frontmatter, 'name');
+  const description = extractFrontmatterField(frontmatter, 'description');
+  if (!frontmatterName || !description) return content;
+
+  const localizedDescription = toSingleLine(
+    getLocalizedSkillDescription(normalizeCommandName(frontmatterName), description)
+  );
+
+  if (localizedDescription === description) return content;
+
+  const updatedFrontmatter = frontmatter.replace(
+    /^description:\s*.+$/m,
+    `description: ${yamlQuote(localizedDescription)}`
+  );
+
+  return `---\n${updatedFrontmatter}\n---${body}`;
 }
 
 function convertClaudeCommandToCodexSkill(content, skillName) {
@@ -1021,7 +1047,7 @@ function convertClaudeCommandToCodexSkill(content, skillName) {
       description = maybeDescription;
     }
   }
-  description = toSingleLine(getCodexSkillDescription(skillName, description));
+  description = toSingleLine(getLocalizedSkillDescription(skillName, description));
   const shortDescription = description.length > 180 ? `${description.slice(0, 177)}...` : description;
   const adapter = getCodexSkillAdapterHeader(skillName);
 
@@ -2895,6 +2921,10 @@ function copyWithPathReplacement(srcDir, destDir, pathPrefix, runtime, isCommand
       }
       content = processAttribution(content, getCommitAttribution(runtime));
 
+      if (runtime === 'claude' && isCommand) {
+        content = localizeClaudeCommandFrontmatter(content);
+      }
+
       // Convert frontmatter for opencode compatibility
       if (isOpencode) {
         content = convertClaudeToOpencodeFrontmatter(content);
@@ -4550,6 +4580,7 @@ if (process.env.GSD_TEST_MODE) {
     installCodexConfig,
     install,
     convertClaudeCommandToCodexSkill,
+    localizeClaudeCommandFrontmatter,
     convertClaudeToOpencodeFrontmatter,
     neutralizeAgentReferences,
     GSD_CODEX_MARKER,

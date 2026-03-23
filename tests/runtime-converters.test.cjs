@@ -12,11 +12,16 @@
 
 const { test, describe } = require('node:test');
 const assert = require('node:assert');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
 
 process.env.GSD_TEST_MODE = '1';
 const {
   convertClaudeToOpencodeFrontmatter,
   convertClaudeToGeminiAgent,
+  install,
+  localizeClaudeCommandFrontmatter,
   neutralizeAgentReferences,
 } = require('../bin/install.js');
 
@@ -144,6 +149,51 @@ describe('OpenCode command conversion (isAgent: false, default)', () => {
     const result = convertClaudeToOpencodeFrontmatter(SAMPLE_COMMAND);
     const frontmatter = result.split('---')[1];
     assert.ok(frontmatter.includes('description:'), 'description should be kept');
+  });
+});
+
+describe('Claude command description localization', () => {
+  test('overrides Claude command frontmatter descriptions to Korean for known GSD commands', () => {
+    const input = `---
+name: gsd:new-project
+description: "Initialize a new project with deep context gathering and PROJECT.md"
+allowed-tools:
+  - Read
+---
+
+Body.`;
+
+    const result = localizeClaudeCommandFrontmatter(input);
+    assert.ok(result.includes('description: "깊은 컨텍스트 수집과 함께 새 프로젝트 초기화"'), result);
+    assert.ok(result.includes('name: gsd:new-project'), 'preserves command name');
+    assert.ok(result.includes('Body.'), 'preserves body');
+  });
+
+  test('writes Korean descriptions into installed Claude commands', () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'gsd-claude-local-'));
+    const previousCwd = process.cwd();
+
+    try {
+      process.chdir(tempDir);
+      install(false, 'claude');
+
+      const installedCommand = fs.readFileSync(
+        path.join(tempDir, '.claude', 'commands', 'gsd', 'new-project.md'),
+        'utf8'
+      );
+
+      assert.ok(
+        installedCommand.includes('description: "깊은 컨텍스트 수집과 함께 새 프로젝트 초기화"'),
+        installedCommand
+      );
+      assert.ok(
+        !installedCommand.includes('description: "Initialize a new project with deep context gathering and PROJECT.md"'),
+        'legacy English description should not remain in installed Claude command frontmatter'
+      );
+    } finally {
+      process.chdir(previousCwd);
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
   });
 });
 
