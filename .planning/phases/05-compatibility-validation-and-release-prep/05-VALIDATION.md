@@ -1,7 +1,7 @@
 ---
 phase: 05
 slug: compatibility-validation-and-release-prep
-status: draft
+status: passed
 nyquist_compliant: true
 wave_0_complete: true
 created: 2026-03-23
@@ -38,12 +38,12 @@ created: 2026-03-23
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 05-01-01 | 01 | 1 | QUAL-01 | cli validation | `node get-shit-done/bin/gsd-tools.cjs validate health && node get-shit-done/bin/gsd-tools.cjs validate consistency && node get-shit-done/bin/gsd-tools.cjs roadmap analyze` | ✅ | ⬜ pending |
-| 05-01-02 | 01 | 1 | QUAL-02 | focused compatibility suite | `node --test tests/path-replacement.test.cjs tests/runtime-converters.test.cjs tests/codex-config.test.cjs tests/antigravity-install.test.cjs tests/copilot-install.test.cjs` | ✅ | ⬜ pending |
-| 05-02-01 | 02 | 2 | QUAL-02 | targeted regression | `node --test tests/path-replacement.test.cjs tests/runtime-converters.test.cjs tests/codex-config.test.cjs tests/antigravity-install.test.cjs tests/copilot-install.test.cjs` | ✅ | ⬜ pending |
-| 05-02-02 | 02 | 2 | QUAL-01 | full suite | `node scripts/run-tests.cjs` | ✅ | ⬜ pending |
-| 05-03-01 | 03 | 3 | QUAL-02 | docs integrity | `rg -n "v1.28.0|upstream sync|Korean|English|Chinese|release|maintainer" README.md docs/UPSTREAM-SYNC.md docs/RELEASE-CHECKLIST.md` | ⬜ pending | ⬜ pending |
-| 05-03-02 | 03 | 3 | QUAL-01 | final health | `node get-shit-done/bin/gsd-tools.cjs validate health && node get-shit-done/bin/gsd-tools.cjs roadmap analyze` | ✅ | ⬜ pending |
+| 05-01-01 | 01 | 1 | QUAL-01 | cli validation | `node get-shit-done/bin/gsd-tools.cjs validate health && node get-shit-done/bin/gsd-tools.cjs validate consistency && node get-shit-done/bin/gsd-tools.cjs roadmap analyze` | ✅ | ✅ green |
+| 05-01-02 | 01 | 1 | QUAL-02 | focused compatibility suite | `node --test tests/path-replacement.test.cjs tests/runtime-converters.test.cjs tests/codex-config.test.cjs tests/antigravity-install.test.cjs tests/copilot-install.test.cjs` | ✅ | ✅ green |
+| 05-02-01 | 02 | 2 | QUAL-02 | targeted regression | `node --test tests/path-replacement.test.cjs tests/runtime-converters.test.cjs tests/codex-config.test.cjs tests/antigravity-install.test.cjs tests/copilot-install.test.cjs` | ✅ | ✅ green |
+| 05-02-02 | 02 | 2 | QUAL-01 | full suite | `node scripts/run-tests.cjs` | ✅ | ✅ green |
+| 05-03-01 | 03 | 3 | QUAL-02 | docs integrity | `rg -n "v1.28.0|upstream sync|Korean|English|Chinese|release|maintainer" README.md docs/UPSTREAM-SYNC.md docs/RELEASE-CHECKLIST.md` | ✅ | ✅ green |
+| 05-03-02 | 03 | 3 | QUAL-01 | final health | `node get-shit-done/bin/gsd-tools.cjs validate health && node get-shit-done/bin/gsd-tools.cjs roadmap analyze` | ✅ | ✅ green |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -73,4 +73,4 @@ created: 2026-03-23
 - [x] Feedback latency < 120s
 - [x] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** pending
+**Approval:** granted

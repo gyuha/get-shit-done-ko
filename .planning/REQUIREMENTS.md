@@ -28,8 +28,8 @@
 
 ### Quality Assurance
 
-- [ ] **QUAL-01**: Maintainer can run the existing install/test flow after localization and confirm no critical regressions were introduced.
-- [ ] **QUAL-02**: Maintainer can verify that commands, file paths, identifiers, snippets, and phase/requirement IDs remain unchanged after translation.
+- [x] **QUAL-01**: Maintainer can run the existing install/test flow after localization and confirm no critical regressions were introduced.
+- [x] **QUAL-02**: Maintainer can verify that commands, file paths, identifiers, snippets, and phase/requirement IDs remain unchanged after translation.
 
 ## v2 Requirements
 
@@ -61,8 +61,8 @@
 | FLOW-02 | Phase 3 | Complete |
 | TEXT-01 | Phase 4 | Complete |
 | TEXT-02 | Phase 4 | Complete |
-| QUAL-01 | Phase 5 | Pending |
-| QUAL-02 | Phase 5 | Pending |
+| QUAL-01 | Phase 5 | Complete |
+| QUAL-02 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 11 total
@@ -71,4 +71,4 @@
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after Phase 4 completion*
+*Last updated: 2026-03-23 after Phase 5 completion*

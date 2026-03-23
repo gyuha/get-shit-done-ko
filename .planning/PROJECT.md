@@ -18,10 +18,11 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 - ✓ Korean-first public documentation established, English reference access preserved, and Simplified Chinese docs removed — Phase 2
 - ✓ Korean-first command/workflow/template/reference/agent overlay established without breaking command/path/token compatibility — Phase 3
 - ✓ Korean-first runtime messaging and maintainer-facing source comments established without changing behavior contracts — Phase 4
+- ✓ Compatibility validation, targeted converter repairs, and maintainer release/sync guidance completed — Phase 5
 
 ### Active
 
-- [ ] Run final compatibility validation so tests, installers, references, placeholders, and prompt routing remain intact after localization.
+None. Current milestone goal is complete.
 
 ### Out of Scope
 
@@ -59,6 +60,8 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 | Flatten upstream into the root instead of keeping a nested submodule | Later localization phases need to edit the actual runtime tree in place | ✓ Good |
 | Document upstream sync rules before translating imported content | Future maintenance needs a stable source/version audit trail | ✓ Good |
 | Keep runtime localization scoped to human-facing prose and explanatory comments | Flags, IDs, paths, and machine-sensitive tokens must remain byte-stable for compatibility | ✓ Good |
+| Close release blockers only when validation evidence surfaces them | Phase 5 should finish compatibility and maintainability, not widen product scope | ✓ Good |
+| Add a dedicated Korean maintainer release checklist instead of overloading README | Sync/release operations need a canonical checklist that is easy to re-run | ✓ Good |
 
 ## Evolution
 
@@ -78,4 +81,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after Phase 4 completion*
+*Last updated: 2026-03-23 after Phase 5 completion*

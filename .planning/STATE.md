@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.28.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 4 complete; Phase 5 ready to plan
-last_updated: "2026-03-23T13:18:31Z"
+status: Phase 05 complete
+stopped_at: Phase 5 complete; milestone ready for release or next milestone
+last_updated: "2026-03-23T13:32:17Z"
 progress:
   total_phases: 5
-  completed_phases: 4
-  total_plans: 10
-  completed_plans: 10
+  completed_phases: 5
+  total_plans: 13
+  completed_plans: 13
 ---
 
 # Project State
@@ -19,20 +19,20 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-23)
 
 **Core value:** Korean-speaking users can use GSD end-to-end in Korean without breaking upstream command compatibility.
-**Current focus:** Phase 05 — compatibility-validation-and-release-prep
+**Current focus:** Milestone complete — ready for release or next upstream/localization milestone
 
 ## Current Position
 
-Phase: 05 (compatibility-validation-and-release-prep) — READY TO PLAN
-Plan: Not started
+Phase: 05 (compatibility-validation-and-release-prep) — COMPLETE
+Plan: 3 of 3
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 10
-- Average duration: 9 min
-- Total execution time: 1.5 hours
+- Total plans completed: 13
+- Average duration: 8 min
+- Total execution time: 1.7 hours
 
 **By Phase:**
 
@@ -42,11 +42,12 @@ Plan: Not started
 | 02 | 3 | 25 min | 8 min |
 | 03 | 3 | 52 min | 17 min |
 | 04 | 2 | 10 min | 5 min |
+| 05 | 3 | 10 min | 3 min |
 
 **Recent Trend:**
 
-- Last 5 plans: 18 min, 14 min, 20 min, 6 min, 4 min
-- Trend: Runtime localization closed quickly after prompt/documentation layers stabilized
+- Last 5 plans: 20 min, 6 min, 4 min, 4 min, 6 min
+- Trend: Final compatibility closure stayed narrow because earlier localization phases preserved contracts well
 
 | Phase 01 P01 | 1 | 2 tasks | 21 files |
 | Phase 01 P02 | 1 | 2 tasks | 2 files |
@@ -58,6 +59,9 @@ Plan: Not started
 | Phase 03 P03 | 20 min | 2 tasks | 128 files |
 | Phase 04 P01 | 6 min | 2 tasks | 14 files |
 | Phase 04 P02 | 4 min | 2 tasks | 3 files |
+| Phase 05 P01 | 4 min | 2 tasks | 0 files |
+| Phase 05 P02 | 6 min | 2 tasks | 4 files |
+| Phase 05 P03 | 4 min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -77,6 +81,8 @@ Recent decisions affecting current work:
 - [Phase 03]: Kept command and agent frontmatter descriptions in English for installer compatibility — Korean localization now happens in prompt bodies so generated config and skill installers continue to match existing tests.
 - [Phase 04]: Localized runtime-facing installer/CLI/helper copy while preserving executable tokens — Human-facing runtime messages are now Korean-first without changing flags, IDs, or paths.
 - [Phase 04]: Translated representative maintainer-facing comments/docblocks in core source modules — Source explanations can now stay Korean-first without altering parser-sensitive literals or contracts.
+- [Phase 05]: Repaired bare `.claude` config-root leaks only where validation surfaced non-Claude runtime warnings — Compatibility closure stayed narrow and evidence-driven.
+- [Phase 05]: Added dedicated Korean maintainer release and sync guidance — Future releases can reuse the same validation commands and caveat rules without rediscovering them.
 
 ### Pending Todos
 
@@ -84,10 +90,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 5 still needs release-oriented integrity checks across installer fixtures, reference surfaces, and token preservation rules.
+None.
 
 ## Session Continuity
 
-Last session: 2026-03-23T13:18:31Z
-Stopped at: Phase 4 complete; Phase 5 ready to plan
+Last session: 2026-03-23T13:32:17Z
+Stopped at: Phase 5 complete; milestone ready for release or next milestone
 Resume file: None

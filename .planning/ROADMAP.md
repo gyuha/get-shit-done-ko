@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Korean-First Documentation** - Make docs/readme/navigation Korean-first while preserving English and removing Chinese. (completed 2026-03-23)
 - [x] **Phase 3: Workflow Asset Localization** - Translate command/workflow/template/reference surfaces without breaking structured tokens. (completed 2026-03-23)
 - [x] **Phase 4: Runtime Text and Comment Localization** - Localize remaining user-facing source strings and explanatory comments safely. (completed 2026-03-23)
-- [ ] **Phase 5: Compatibility Validation and Release Prep** - Verify integrity, repair regressions, and prepare the fork for ongoing maintenance.
+- [x] **Phase 5: Compatibility Validation and Release Prep** - Verify integrity, repair regressions, and prepare the fork for ongoing maintenance. (completed 2026-03-23)
 
 ## Phase Details
 
@@ -89,9 +89,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: Run automated validation and capture breakages caused by localization.
-- [ ] 05-02: Repair broken references, snippets, or runtime text issues found during validation.
-- [ ] 05-03: Finalize release notes and maintainer guidance for future upstream syncs.
+- [x] 05-01: Run automated validation and capture breakages caused by localization.
+- [x] 05-02: Repair broken references, snippets, or runtime text issues found during validation.
+- [x] 05-03: Finalize release notes and maintainer guidance for future upstream syncs.
 
 ## Progress
 
@@ -104,4 +104,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Korean-First Documentation | 3/3 | Complete | 2026-03-23 |
 | 3. Workflow Asset Localization | 3/3 | Complete | 2026-03-23 |
 | 4. Runtime Text and Comment Localization | 2/2 | Complete   | 2026-03-23 |
-| 5. Compatibility Validation and Release Prep | 0/3 | Not started | - |
+| 5. Compatibility Validation and Release Prep | 3/3 | Complete | 2026-03-23 |
