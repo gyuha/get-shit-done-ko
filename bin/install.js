@@ -114,7 +114,7 @@ Please install a Linux-native Node.js inside WSL:
   curl -fsSL https://fnm.vercel.app/install | bash
   fnm install --lts
 
-Then re-run: npx get-shit-done-cc@latest
+Then re-run: npx get-shit-done-ko@latest
 `);
     process.exit(1);
   }
@@ -312,7 +312,7 @@ if (hasUninstall) {
 
 // Show help if requested
 if (hasHelp) {
-  console.log(`  ${yellow}사용법:${reset} npx get-shit-done-cc [options]\n\n  ${yellow}옵션:${reset}\n    ${cyan}-g, --global${reset}              전역 설치(설정 디렉터리 대상)\n    ${cyan}-l, --local${reset}               로컬 설치(현재 디렉터리 대상)\n    ${cyan}--claude${reset}                  Claude Code 전용 설치\n    ${cyan}--opencode${reset}                OpenCode 전용 설치\n    ${cyan}--gemini${reset}                  Gemini 전용 설치\n    ${cyan}--codex${reset}                   Codex 전용 설치\n    ${cyan}--copilot${reset}                 Copilot 전용 설치\n    ${cyan}--antigravity${reset}             Antigravity 전용 설치\n    ${cyan}--cursor${reset}                  Cursor 전용 설치\n    ${cyan}--all${reset}                     모든 runtime에 설치\n    ${cyan}-u, --uninstall${reset}           GSD 제거(모든 GSD 파일 삭제)\n    ${cyan}-c, --config-dir <path>${reset}   사용자 지정 config 디렉터리 지정\n    ${cyan}-h, --help${reset}                도움말 표시\n    ${cyan}--force-statusline${reset}        기존 statusline 설정 교체\n\n  ${yellow}예시:${reset}\n    ${dim}# 대화형 설치(runtime과 위치를 물어봄)${reset}\n    npx get-shit-done-cc\n\n    ${dim}# Claude Code 전역 설치${reset}\n    npx get-shit-done-cc --claude --global\n\n    ${dim}# Gemini 전역 설치${reset}\n    npx get-shit-done-cc --gemini --global\n\n    ${dim}# Codex 전역 설치${reset}\n    npx get-shit-done-cc --codex --global\n\n    ${dim}# Copilot 전역 설치${reset}\n    npx get-shit-done-cc --copilot --global\n\n    ${dim}# Copilot 로컬 설치${reset}\n    npx get-shit-done-cc --copilot --local\n\n    ${dim}# Antigravity 전역 설치${reset}\n    npx get-shit-done-cc --antigravity --global\n\n    ${dim}# Antigravity 로컬 설치${reset}\n    npx get-shit-done-cc --antigravity --local\n\n    ${dim}# Cursor 전역 설치${reset}\n    npx get-shit-done-cc --cursor --global\n\n    ${dim}# Cursor 로컬 설치${reset}\n    npx get-shit-done-cc --cursor --local\n\n    ${dim}# 모든 runtime 전역 설치${reset}\n    npx get-shit-done-cc --all --global\n\n    ${dim}# 사용자 지정 config 디렉터리에 설치${reset}\n    npx get-shit-done-cc --codex --global --config-dir ~/.codex-work\n\n    ${dim}# 현재 프로젝트에만 설치${reset}\n    npx get-shit-done-cc --claude --local\n\n    ${dim}# Cursor 전역 설치를 제거${reset}\n    npx get-shit-done-cc --cursor --global --uninstall\n\n  ${yellow}참고:${reset}\n    --config-dir 옵션은 여러 설정을 나눠 쓸 때 유용합니다.\n    이 값은 CLAUDE_CONFIG_DIR / GEMINI_CONFIG_DIR / CODEX_HOME / COPILOT_CONFIG_DIR / ANTIGRAVITY_CONFIG_DIR / CURSOR_CONFIG_DIR 환경 변수보다 우선합니다.\n`);
+  console.log(`  ${yellow}사용법:${reset} npx get-shit-done-ko [options]\n\n  ${yellow}옵션:${reset}\n    ${cyan}-g, --global${reset}              전역 설치(설정 디렉터리 대상)\n    ${cyan}-l, --local${reset}               로컬 설치(현재 디렉터리 대상)\n    ${cyan}--claude${reset}                  Claude Code 전용 설치\n    ${cyan}--opencode${reset}                OpenCode 전용 설치\n    ${cyan}--gemini${reset}                  Gemini 전용 설치\n    ${cyan}--codex${reset}                   Codex 전용 설치\n    ${cyan}--copilot${reset}                 Copilot 전용 설치\n    ${cyan}--antigravity${reset}             Antigravity 전용 설치\n    ${cyan}--cursor${reset}                  Cursor 전용 설치\n    ${cyan}--all${reset}                     모든 runtime에 설치\n    ${cyan}-u, --uninstall${reset}           GSD 제거(모든 GSD 파일 삭제)\n    ${cyan}-c, --config-dir <path>${reset}   사용자 지정 config 디렉터리 지정\n    ${cyan}-h, --help${reset}                도움말 표시\n    ${cyan}--force-statusline${reset}        기존 statusline 설정 교체\n\n  ${yellow}예시:${reset}\n    ${dim}# 대화형 설치(runtime과 위치를 물어봄)${reset}\n    npx get-shit-done-ko\n\n    ${dim}# Claude Code 전역 설치${reset}\n    npx get-shit-done-ko --claude --global\n\n    ${dim}# Gemini 전역 설치${reset}\n    npx get-shit-done-ko --gemini --global\n\n    ${dim}# Codex 전역 설치${reset}\n    npx get-shit-done-ko --codex --global\n\n    ${dim}# Copilot 전역 설치${reset}\n    npx get-shit-done-ko --copilot --global\n\n    ${dim}# Copilot 로컬 설치${reset}\n    npx get-shit-done-ko --copilot --local\n\n    ${dim}# Antigravity 전역 설치${reset}\n    npx get-shit-done-ko --antigravity --global\n\n    ${dim}# Antigravity 로컬 설치${reset}\n    npx get-shit-done-ko --antigravity --local\n\n    ${dim}# Cursor 전역 설치${reset}\n    npx get-shit-done-ko --cursor --global\n\n    ${dim}# Cursor 로컬 설치${reset}\n    npx get-shit-done-ko --cursor --local\n\n    ${dim}# 모든 runtime 전역 설치${reset}\n    npx get-shit-done-ko --all --global\n\n    ${dim}# 사용자 지정 config 디렉터리에 설치${reset}\n    npx get-shit-done-ko --codex --global --config-dir ~/.codex-work\n\n    ${dim}# 현재 프로젝트에만 설치${reset}\n    npx get-shit-done-ko --claude --local\n\n    ${dim}# Cursor 전역 설치를 제거${reset}\n    npx get-shit-done-ko --cursor --global --uninstall\n\n  ${yellow}참고:${reset}\n    --config-dir 옵션은 여러 설정을 나눠 쓸 때 유용합니다.\n    이 값은 CLAUDE_CONFIG_DIR / GEMINI_CONFIG_DIR / CODEX_HOME / COPILOT_CONFIG_DIR / ANTIGRAVITY_CONFIG_DIR / CURSOR_CONFIG_DIR 환경 변수보다 우선합니다.\n`);
   process.exit(0);
 }
 
@@ -947,6 +947,70 @@ Result parsing:
 </codex_skill_adapter>`;
 }
 
+const codexSkillDescriptionOverrides = {
+  'gsd-add-backlog': '아이디어를 backlog parking lot(999.x)에 추가',
+  'gsd-add-phase': '현재 milestone 끝에 새 phase 추가',
+  'gsd-add-tests': '완료된 phase 기준으로 테스트 생성',
+  'gsd-add-todo': '현재 대화 맥락에서 todo 캡처',
+  'gsd-audit-milestone': '완료된 milestone이 원래 목표를 충족하는지 감사',
+  'gsd-audit-uat': '남은 UAT와 verification 항목을 전체 점검',
+  'gsd-autonomous': '남은 phase를 discuss→plan→execute로 자동 진행',
+  'gsd-check-todos': '대기 중인 todo를 보고 작업 선택',
+  'gsd-cleanup': '완료된 milestone의 phase 디렉터리 정리',
+  'gsd-complete-milestone': '완료된 milestone을 아카이브하고 다음 버전 준비',
+  'gsd-debug': '지속 상태를 유지하는 체계적 디버깅',
+  'gsd-discuss-phase': 'phase 계획 전에 필요한 맥락을 질문으로 수집',
+  'gsd-do': '자유 입력을 알맞은 GSD 명령으로 라우팅',
+  'gsd-execute-phase': 'phase의 모든 plan을 wave 단위로 실행',
+  'gsd-fast': '아주 작은 작업을 즉시 실행',
+  'gsd-forensics': '실패한 GSD 흐름의 사후 분석',
+  'gsd-health': 'planning 디렉터리 상태를 진단하고 필요시 복구',
+  'gsd-help': '사용 가능한 GSD 명령과 사용법 보기',
+  'gsd-insert-phase': '기존 phase 사이에 긴급 phase 삽입',
+  'gsd-join-discord': 'GSD Discord 커뮤니티 참여',
+  'gsd-list-phase-assumptions': 'phase 접근에 대한 가정 확인',
+  'gsd-list-workspaces': '활성 GSD workspace 목록과 상태 보기',
+  'gsd-manager': '여러 phase를 관리하는 대화형 커맨드 센터',
+  'gsd-map-codebase': '병렬 mapper로 코드베이스 분석 문서 생성',
+  'gsd-milestone-summary': 'milestone 산출물 기반 종합 요약 생성',
+  'gsd-new-milestone': '새 milestone을 시작하고 PROJECT와 requirements 갱신',
+  'gsd-new-project': '깊은 컨텍스트 수집과 함께 새 프로젝트 초기화',
+  'gsd-new-workspace': '분리된 repo 사본과 .planning으로 새 workspace 생성',
+  'gsd-next': '다음 논리적 GSD 단계로 자동 진행',
+  'gsd-note': '메모를 빠르게 추가하고 todo로 승격',
+  'gsd-pause-work': '작업 중단 시 컨텍스트 handoff 생성',
+  'gsd-plan-milestone-gaps': 'milestone audit에서 나온 gap을 메우는 phase 생성',
+  'gsd-plan-phase': '검증 루프가 포함된 상세 phase 계획 생성',
+  'gsd-plant-seed': '조건이 맞을 때 떠오를 미래 아이디어 심기',
+  'gsd-pr-branch': '.planning 커밋을 제외한 깔끔한 PR 브랜치 생성',
+  'gsd-profile-user': '개발자 행동 프로필과 Claude 발견용 산출물 생성',
+  'gsd-progress': '프로젝트 진행 상태를 확인하고 다음 액션 안내',
+  'gsd-quick': 'GSD 보장을 유지하면서 빠르게 작업 실행',
+  'gsd-reapply-patches': 'GSD 업데이트 후 로컬 수정사항 재적용',
+  'gsd-remove-phase': '미래 phase를 제거하고 뒤 번호를 재정렬',
+  'gsd-remove-workspace': 'GSD workspace 제거 및 worktree 정리',
+  'gsd-research-phase': 'phase 구현 방식을 독립적으로 조사',
+  'gsd-resume-work': '이전 세션 컨텍스트를 복원해 작업 재개',
+  'gsd-review': 'phase 계획에 대한 외부 AI peer review 요청',
+  'gsd-review-backlog': 'backlog를 검토하고 active milestone로 승격',
+  'gsd-session-report': '세션 요약과 토큰 사용 추정 리포트 생성',
+  'gsd-set-profile': 'GSD agent model profile 전환',
+  'gsd-settings': 'GSD workflow 토글과 model profile 설정',
+  'gsd-ship': 'PR 생성, 리뷰 실행, merge 준비',
+  'gsd-stats': 'phase, plan, requirements, git 통계 표시',
+  'gsd-thread': '세션 간 persistent context thread 관리',
+  'gsd-ui-phase': 'frontend phase용 UI design contract 생성',
+  'gsd-ui-review': '구현된 frontend의 6개 축 시각 리뷰',
+  'gsd-update': '최신 GSD로 업데이트하고 changelog 표시',
+  'gsd-validate-phase': '완료된 phase의 Nyquist 검증 공백 보강',
+  'gsd-verify-work': '대화형 UAT로 구현 결과 검증',
+  'gsd-workstreams': 'parallel workstream 생성·전환·상태·완료 관리',
+};
+
+function getCodexSkillDescription(skillName, fallbackDescription) {
+  return codexSkillDescriptionOverrides[skillName] || fallbackDescription;
+}
+
 function convertClaudeCommandToCodexSkill(content, skillName) {
   const converted = convertClaudeToCodexMarkdown(content);
   const { frontmatter, body } = extractFrontmatterAndBody(converted);
@@ -957,7 +1021,7 @@ function convertClaudeCommandToCodexSkill(content, skillName) {
       description = maybeDescription;
     }
   }
-  description = toSingleLine(description);
+  description = toSingleLine(getCodexSkillDescription(skillName, description));
   const shortDescription = description.length > 180 ? `${description.slice(0, 177)}...` : description;
   const adapter = getCodexSkillAdapterHeader(skillName);
 

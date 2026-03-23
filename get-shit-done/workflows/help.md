@@ -22,7 +22,7 @@ Display the complete GSD command reference. Output ONLY the reference content. D
 GSD evolves fast. Update periodically:
 
 ```bash
-npx get-shit-done-cc@latest
+npx get-shit-done-ko@latest
 ```
 
 ## 핵심 워크플로
@@ -455,7 +455,7 @@ Update GSD to latest version with changelog preview.
 - Displays changelog entries for versions you've missed
 - Highlights breaking changes
 - Confirms before running install
-- Better than raw `npx get-shit-done-cc`
+- Better than raw `npx get-shit-done-ko`
 
 Usage: `/gsd:update`
 
