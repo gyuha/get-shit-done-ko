@@ -23,8 +23,8 @@
 
 ### Runtime Messaging
 
-- [ ] **TEXT-01**: User sees Korean help, checkpoint, and error-style messaging wherever those strings are defined in maintained source assets.
-- [ ] **TEXT-02**: Maintainer can keep explanatory comments in Korean without changing executable identifiers or logic contracts.
+- [x] **TEXT-01**: User sees Korean help, checkpoint, and error-style messaging wherever those strings are defined in maintained source assets.
+- [x] **TEXT-02**: Maintainer can keep explanatory comments in Korean without changing executable identifiers or logic contracts.
 
 ### Quality Assurance
 
@@ -59,8 +59,8 @@
 | DOCS-03 | Phase 2 | Complete |
 | FLOW-01 | Phase 3 | Complete |
 | FLOW-02 | Phase 3 | Complete |
-| TEXT-01 | Phase 4 | Pending |
-| TEXT-02 | Phase 4 | Pending |
+| TEXT-01 | Phase 4 | Complete |
+| TEXT-02 | Phase 4 | Complete |
 | QUAL-01 | Phase 5 | Pending |
 | QUAL-02 | Phase 5 | Pending |
 
@@ -71,4 +71,4 @@
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after Phase 3 completion*
+*Last updated: 2026-03-23 after Phase 4 completion*

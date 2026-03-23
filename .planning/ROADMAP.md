@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Upstream Baseline Import** - Bring upstream `v1.28.0` into the repo root with traceable parity.
 - [x] **Phase 2: Korean-First Documentation** - Make docs/readme/navigation Korean-first while preserving English and removing Chinese. (completed 2026-03-23)
 - [x] **Phase 3: Workflow Asset Localization** - Translate command/workflow/template/reference surfaces without breaking structured tokens. (completed 2026-03-23)
-- [ ] **Phase 4: Runtime Text and Comment Localization** - Localize remaining user-facing source strings and explanatory comments safely.
+- [x] **Phase 4: Runtime Text and Comment Localization** - Localize remaining user-facing source strings and explanatory comments safely. (completed 2026-03-23)
 - [ ] **Phase 5: Compatibility Validation and Release Prep** - Verify integrity, repair regressions, and prepare the fork for ongoing maintenance.
 
 ## Phase Details
@@ -75,8 +75,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Translate user-facing source strings in scripts, helpers, and related maintained assets.
-- [ ] 04-02: Translate explanatory comments selectively and review for semantic drift.
+- [x] 04-01: Translate user-facing source strings in scripts, helpers, and related maintained assets.
+- [x] 04-02: Translate explanatory comments selectively and review for semantic drift.
 
 ### Phase 5: Compatibility Validation and Release Prep
 **Goal**: Validate that localization preserved command compatibility, references, and runtime behavior, then prepare the fork for ongoing maintenance.
@@ -103,5 +103,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Upstream Baseline Import | 2/2 | Complete | 2026-03-23 |
 | 2. Korean-First Documentation | 3/3 | Complete | 2026-03-23 |
 | 3. Workflow Asset Localization | 3/3 | Complete | 2026-03-23 |
-| 4. Runtime Text and Comment Localization | 0/2 | Not started | - |
+| 4. Runtime Text and Comment Localization | 2/2 | Complete   | 2026-03-23 |
 | 5. Compatibility Validation and Release Prep | 0/3 | Not started | - |
