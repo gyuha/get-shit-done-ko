@@ -1,19 +1,21 @@
 <purpose>
+한국어 우선 안내: 이 워크플로는 전체 GSD 명령 레퍼런스를 한국어 기준으로 먼저 보여 줍니다. 아래 영문 원문은 upstream 동기화와 세부 의미 확인을 위해 함께 유지합니다.
+
 Display the complete GSD command reference. Output ONLY the reference content. Do NOT add project-specific analysis, git status, next-step suggestions, or any commentary beyond the reference.
 </purpose>
 
 <reference>
-# GSD Command Reference
+# GSD 명령어 레퍼런스
 
 **GSD** (Get Shit Done) creates hierarchical project plans optimized for solo agentic development with Claude Code.
 
-## Quick Start
+## 빠른 시작
 
 1. `/gsd:new-project` - Initialize project (includes research, requirements, roadmap)
 2. `/gsd:plan-phase 1` - Create detailed plan for first phase
 3. `/gsd:execute-phase 1` - Execute the phase
 
-## Staying Updated
+## 업데이트 유지
 
 GSD evolves fast. Update periodically:
 
@@ -21,13 +23,13 @@ GSD evolves fast. Update periodically:
 npx get-shit-done-cc@latest
 ```
 
-## Core Workflow
+## 핵심 워크플로
 
 ```
 /gsd:new-project → /gsd:plan-phase → /gsd:execute-phase → repeat
 ```
 
-### Project Initialization
+### 프로젝트 초기화
 
 **`/gsd:new-project`**
 Initialize new project through unified flow.
@@ -58,7 +60,7 @@ Map an existing codebase for brownfield projects.
 
 Usage: `/gsd:map-codebase`
 
-### Phase Planning
+### Phase 계획
 
 **`/gsd:discuss-phase <number>`**
 Help articulate your vision for a phase before planning.
@@ -104,7 +106,7 @@ Result: Creates `.planning/phases/01-foundation/01-01-PLAN.md`
 
 **PRD Express Path:** Pass `--prd path/to/requirements.md` to skip discuss-phase entirely. Your PRD becomes locked decisions in CONTEXT.md. Useful when you already have clear acceptance criteria.
 
-### Execution
+### 실행
 
 **`/gsd:execute-phase <phase-number>`**
 Execute all plans in a phase, or run a specific wave.
@@ -118,7 +120,7 @@ Execute all plans in a phase, or run a specific wave.
 Usage: `/gsd:execute-phase 5`
 Usage: `/gsd:execute-phase 5 --wave 2`
 
-### Smart Router
+### 스마트 라우터
 
 **`/gsd:do <description>`**
 Route freeform text to the right GSD command automatically.
@@ -132,7 +134,7 @@ Usage: `/gsd:do fix the login button`
 Usage: `/gsd:do refactor the auth system`
 Usage: `/gsd:do I want to start a new milestone`
 
-### Quick Mode
+### 빠른 모드
 
 **`/gsd:quick [--full] [--discuss] [--research]`**
 Execute small, ad-hoc tasks with GSD guarantees but skip optional agents.
@@ -168,7 +170,7 @@ For tasks too small to justify planning: typo fixes, config changes, forgotten c
 Usage: `/gsd:fast "fix the typo in README"`
 Usage: `/gsd:fast "add .env to gitignore"`
 
-### Roadmap Management
+### 로드맵 관리
 
 **`/gsd:add-phase <description>`**
 Add new phase to end of current milestone.
@@ -200,7 +202,7 @@ Remove a future phase and renumber subsequent phases.
 Usage: `/gsd:remove-phase 17`
 Result: Phase 17 deleted, phases 18-20 become 17-19
 
-### Milestone Management
+### 마일스톤 관리
 
 **`/gsd:new-milestone <name>`**
 Start a new milestone through unified flow.
@@ -226,7 +228,7 @@ Archive completed milestone and prepare for next version.
 
 Usage: `/gsd:complete-milestone 1.0.0`
 
-### Progress Tracking
+### 진행 상황 추적
 
 **`/gsd:progress`**
 Check project status and intelligently route to next action.
@@ -240,7 +242,7 @@ Check project status and intelligently route to next action.
 
 Usage: `/gsd:progress`
 
-### Session Management
+### 세션 관리
 
 **`/gsd:resume-work`**
 Resume work from previous session with full context restoration.
@@ -260,7 +262,7 @@ Create context handoff when pausing work mid-phase.
 
 Usage: `/gsd:pause-work`
 
-### Debugging
+### 디버깅
 
 **`/gsd:debug [issue description]`**
 Systematic debugging with persistent state across context resets.
@@ -274,7 +276,7 @@ Systematic debugging with persistent state across context resets.
 Usage: `/gsd:debug "login button doesn't work"`
 Usage: `/gsd:debug` (resume active session)
 
-### Quick Notes
+### 빠른 메모
 
 **`/gsd:note <text>`**
 Zero-friction idea capture — one command, instant save, no questions.
@@ -289,7 +291,7 @@ Usage: `/gsd:note list`
 Usage: `/gsd:note promote 3`
 Usage: `/gsd:note --global cross-project idea`
 
-### Todo Management
+### Todo 관리
 
 **`/gsd:add-todo [description]`**
 Capture idea or task as todo from current conversation.
@@ -315,7 +317,7 @@ List pending todos and select one to work on.
 Usage: `/gsd:check-todos`
 Usage: `/gsd:check-todos api`
 
-### User Acceptance Testing
+### 사용자 승인 테스트
 
 **`/gsd:verify-work [phase]`**
 Validate built features through conversational UAT.
@@ -327,7 +329,7 @@ Validate built features through conversational UAT.
 
 Usage: `/gsd:verify-work 3`
 
-### Ship Work
+### 배포 준비
 
 **`/gsd:ship [phase]`**
 Create a PR from completed phase work with an auto-generated body.
@@ -386,7 +388,7 @@ Cross-phase audit of all outstanding UAT and verification items.
 
 Usage: `/gsd:audit-uat`
 
-### Milestone Auditing
+### 마일스톤 감사
 
 **`/gsd:audit-milestone [version]`**
 Audit milestone completion against original intent.
@@ -408,7 +410,7 @@ Create phases to close gaps identified by audit.
 
 Usage: `/gsd:plan-milestone-gaps`
 
-### Configuration
+### 설정
 
 **`/gsd:settings`**
 Configure workflow toggles and model profile interactively.
@@ -429,7 +431,7 @@ Quick switch model profile for GSD agents.
 
 Usage: `/gsd:set-profile budget`
 
-### Utility Commands
+### 유틸리티 명령
 
 **`/gsd:cleanup`**
 Archive accumulated phase directories from completed milestones.
@@ -463,7 +465,7 @@ Join the GSD Discord community.
 
 Usage: `/gsd:join-discord`
 
-## Files & Structure
+## 파일과 구조
 
 ```
 .planning/
@@ -500,7 +502,7 @@ Usage: `/gsd:join-discord`
         └── 02-01-SUMMARY.md
 ```
 
-## Workflow Modes
+## 워크플로 모드
 
 Set during `/gsd:new-project`:
 
@@ -518,7 +520,7 @@ Set during `/gsd:new-project`:
 
 Change anytime by editing `.planning/config.json`
 
-## Planning Configuration
+## 계획 설정
 
 Configure how planning artifacts are managed in `.planning/config.json`:
 
@@ -545,7 +547,7 @@ Example config:
 }
 ```
 
-## Common Workflows
+## 자주 쓰는 워크플로
 
 **Starting a new project:**
 
@@ -597,7 +599,7 @@ Example config:
 /gsd:debug                                    # Resume from where you left off
 ```
 
-## Getting Help
+## 도움말 받기
 
 - Read `.planning/PROJECT.md` for project vision
 - Read `.planning/STATE.md` for current context

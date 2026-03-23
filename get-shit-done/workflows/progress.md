@@ -1,4 +1,6 @@
 <purpose>
+한국어 우선 안내: 이 워크플로는 현재 프로젝트의 진행 상황과 다음 행동을 한국어 기준으로 설명합니다. 아래 영문 규칙과 명령 리터럴은 그대로 유지합니다.
+
 Check project progress, summarize recent work and what's ahead, then intelligently route to the next action — either executing an existing plan or creating the next one. Provides situational awareness before continuing work.
 </purpose>
 
@@ -25,9 +27,9 @@ DISCUSS_MODE=$(node "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" config-get w
 If `project_exists` is false (no `.planning/` directory):
 
 ```
-No planning structure found.
+planning 구조를 찾지 못했습니다.
 
-Run /gsd:new-project to start a new project.
+새 프로젝트를 시작하려면 /gsd:new-project 를 실행하세요.
 ```
 
 Exit.
@@ -99,37 +101,37 @@ PROGRESS_BAR=$(node "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" progress bar
 Present:
 
 ```
-# [Project Name]
+# [프로젝트 이름]
 
 **Progress:** {PROGRESS_BAR}
 **Profile:** [quality/balanced/budget/inherit]
 **Discuss mode:** {DISCUSS_MODE}
 
-## Recent Work
+## 최근 작업
 - [Phase X, Plan Y]: [what was accomplished - 1 line from summary-extract]
 - [Phase X, Plan Z]: [what was accomplished - 1 line from summary-extract]
 
-## Current Position
+## 현재 위치
 Phase [N] of [total]: [phase-name]
 Plan [M] of [phase-total]: [status]
 CONTEXT: [✓ if has_context | - if not]
 
-## Key Decisions Made
+## 주요 결정 사항
 - [extract from $STATE.decisions[]]
 - [e.g. jq -r '.decisions[].decision' from state-snapshot]
 
-## Blockers/Concerns
+## 막힘 요소 / 우려 사항
 - [extract from $STATE.blockers[]]
 - [e.g. jq -r '.blockers[].text' from state-snapshot]
 
-## Pending Todos
+## 남아 있는 Todo
 - [count] pending — /gsd:check-todos to review
 
-## Active Debug Sessions
+## 진행 중인 디버그 세션
 - [count] active — /gsd:debug to continue
 (Only show this section if count > 0)
 
-## What's Next
+## 다음 단계
 [Next phase/plan objective from roadmap analyze]
 ```
 
@@ -178,15 +180,15 @@ Track: `outstanding_debt` — `summary.total_items` from the audit.
 **If outstanding_debt > 0:** Add a warning section to the progress report output (in the `report` step), placed between "## What's Next" and the route suggestion:
 
 ```markdown
-## Verification Debt ({N} files across prior phases)
+## 검증 부채 ({N} files across prior phases)
 
 | Phase | File | Issue |
 |-------|------|-------|
 | {phase} | {filename} | {pending_count} pending, {skipped_count} skipped, {blocked_count} blocked |
 | {phase} | {filename} | human_needed — {count} items |
 
-Review: `/gsd:audit-uat ${GSD_WS}` — full cross-phase audit
-Resume testing: `/gsd:verify-work {phase} ${GSD_WS}` — retest specific phase
+검토: `/gsd:audit-uat ${GSD_WS}` — 전체 phase 범위 감사
+테스트 재개: `/gsd:verify-work {phase} ${GSD_WS}` — 특정 phase 재검증
 ```
 
 This is a WARNING, not a blocker — routing proceeds normally. The debt is visible so the user can make an informed choice.
@@ -211,13 +213,13 @@ Read its `<objective>` section.
 ```
 ---
 
-## ▶ Next Up
+## ▶ 다음 작업
 
 **{phase}-{plan}: [Plan Name]** — [objective summary from PLAN.md]
 
 `/gsd:execute-phase {phase} ${GSD_WS}`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 ```
@@ -240,14 +242,14 @@ PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" ||
 ```
 ---
 
-## ▶ Next Up
+## ▶ 다음 작업
 
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
 <sub>✓ Context gathered, ready to plan</sub>
 
 `/gsd:plan-phase {phase-number} ${GSD_WS}`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 ```
@@ -257,20 +259,20 @@ PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" ||
 ```
 ---
 
-## ▶ Next Up
+## ▶ 다음 작업
 
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
 
-`/gsd:discuss-phase {phase}` — gather context and clarify approach
+`/gsd:discuss-phase {phase}` — 컨텍스트를 모으고 접근 방식을 정리
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 
-**Also available:**
-- `/gsd:ui-phase {phase}` — generate UI design contract (recommended for frontend phases)
-- `/gsd:plan-phase {phase}` — skip discussion, plan directly
-- `/gsd:list-phase-assumptions {phase}` — see Claude's assumptions
+**함께 사용할 수 있음:**
+- `/gsd:ui-phase {phase}` — UI 설계 계약 생성 (프런트엔드 phase에 권장)
+- `/gsd:plan-phase {phase}` — discussion 없이 바로 계획
+- `/gsd:list-phase-assumptions {phase}` — Claude의 가정 확인
 
 ---
 ```
@@ -280,19 +282,19 @@ PHASE_HAS_UI=$(echo "$PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true" ||
 ```
 ---
 
-## ▶ Next Up
+## ▶ 다음 작업
 
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
 
-`/gsd:discuss-phase {phase} ${GSD_WS}` — gather context and clarify approach
+`/gsd:discuss-phase {phase} ${GSD_WS}` — 컨텍스트를 모으고 접근 방식을 정리
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 
-**Also available:**
-- `/gsd:plan-phase {phase} ${GSD_WS}` — skip discussion, plan directly
-- `/gsd:list-phase-assumptions {phase} ${GSD_WS}` — see Claude's assumptions
+**함께 사용할 수 있음:**
+- `/gsd:plan-phase {phase} ${GSD_WS}` — discussion 없이 바로 계획
+- `/gsd:list-phase-assumptions {phase} ${GSD_WS}` — Claude의 가정 확인
 
 ---
 ```
@@ -306,19 +308,19 @@ UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
 ```
 ---
 
-## ⚠ UAT Gaps Found
+## ⚠ UAT 간극 발견
 
-**{phase_num}-UAT.md** has {N} gaps requiring fixes.
+**{phase_num}-UAT.md** 에 수정이 필요한 간극 {N}개가 있습니다.
 
 `/gsd:plan-phase {phase} --gaps ${GSD_WS}`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 
-**Also available:**
-- `/gsd:execute-phase {phase} ${GSD_WS}` — execute phase plans
-- `/gsd:verify-work {phase} ${GSD_WS}` — run more UAT testing
+**함께 사용할 수 있음:**
+- `/gsd:execute-phase {phase} ${GSD_WS}` — phase 계획 실행
+- `/gsd:verify-work {phase} ${GSD_WS}` — UAT 테스트 계속 진행
 
 ---
 ```
@@ -332,19 +334,19 @@ UAT.md exists with `status: partial` — testing session ended before all items 
 ```
 ---
 
-## Incomplete UAT Testing
+## 미완료 UAT 테스트
 
-**{phase_num}-UAT.md** has {N} unresolved tests (pending, blocked, or skipped).
+**{phase_num}-UAT.md** 에 아직 해결되지 않은 테스트 {N}개가 있습니다 (pending, blocked, skipped).
 
-`/gsd:verify-work {phase} ${GSD_WS}` — resume testing from where you left off
+`/gsd:verify-work {phase} ${GSD_WS}` — 중단한 지점부터 테스트 재개
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 
-**Also available:**
-- `/gsd:audit-uat ${GSD_WS}` — full cross-phase UAT audit
-- `/gsd:execute-phase {phase} ${GSD_WS}` — execute phase plans
+**함께 사용할 수 있음:**
+- `/gsd:audit-uat ${GSD_WS}` — 전체 phase UAT 감사
+- `/gsd:execute-phase {phase} ${GSD_WS}` — phase 계획 실행
 
 ---
 ```
@@ -386,22 +388,22 @@ NEXT_HAS_UI=$(echo "$NEXT_PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true
 ```
 ---
 
-## ✓ Phase {Z} Complete
+## ✓ Phase {Z} 완료
 
-## ▶ Next Up
+## ▶ 다음 작업
 
 **Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
 
-`/gsd:discuss-phase {Z+1}` — gather context and clarify approach
+`/gsd:discuss-phase {Z+1}` — 컨텍스트를 모으고 접근 방식을 정리
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 
-**Also available:**
-- `/gsd:ui-phase {Z+1}` — generate UI design contract (recommended for frontend phases)
-- `/gsd:plan-phase {Z+1}` — skip discussion, plan directly
-- `/gsd:verify-work {Z}` — user acceptance test before continuing
+**함께 사용할 수 있음:**
+- `/gsd:ui-phase {Z+1}` — UI 설계 계약 생성 (프런트엔드 phase에 권장)
+- `/gsd:plan-phase {Z+1}` — discussion 없이 바로 계획
+- `/gsd:verify-work {Z}` — 계속 진행하기 전 사용자 승인 테스트
 
 ---
 ```
@@ -411,21 +413,21 @@ NEXT_HAS_UI=$(echo "$NEXT_PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true
 ```
 ---
 
-## ✓ Phase {Z} Complete
+## ✓ Phase {Z} 완료
 
-## ▶ Next Up
+## ▶ 다음 작업
 
 **Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
 
-`/gsd:discuss-phase {Z+1} ${GSD_WS}` — gather context and clarify approach
+`/gsd:discuss-phase {Z+1} ${GSD_WS}` — 컨텍스트를 모으고 접근 방식을 정리
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 
-**Also available:**
-- `/gsd:plan-phase {Z+1} ${GSD_WS}` — skip discussion, plan directly
-- `/gsd:verify-work {Z} ${GSD_WS}` — user acceptance test before continuing
+**함께 사용할 수 있음:**
+- `/gsd:plan-phase {Z+1} ${GSD_WS}` — discussion 없이 바로 계획
+- `/gsd:verify-work {Z} ${GSD_WS}` — 계속 진행하기 전 사용자 승인 테스트
 
 ---
 ```
@@ -437,22 +439,22 @@ NEXT_HAS_UI=$(echo "$NEXT_PHASE_SECTION" | grep -qi "UI hint.*yes" && echo "true
 ```
 ---
 
-## 🎉 Milestone Complete
+## 🎉 마일스톤 완료
 
-All {N} phases finished!
+모든 {N}개 phase가 완료되었습니다.
 
-## ▶ Next Up
+## ▶ 다음 작업
 
-**Complete Milestone** — archive and prepare for next
+**마일스톤 마무리** — 보관하고 다음 사이클 준비
 
 `/gsd:complete-milestone ${GSD_WS}`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 
-**Also available:**
-- `/gsd:verify-work ${GSD_WS}` — user acceptance test before completing milestone
+**함께 사용할 수 있음:**
+- `/gsd:verify-work ${GSD_WS}` — 마일스톤 마무리 전 사용자 승인 테스트
 
 ---
 ```
@@ -468,17 +470,17 @@ Read MILESTONES.md to find the last completed milestone version.
 ```
 ---
 
-## ✓ Milestone v{X.Y} Complete
+## ✓ 마일스톤 v{X.Y} 완료
 
-Ready to plan the next milestone.
+다음 마일스톤을 계획할 준비가 되었습니다.
 
-## ▶ Next Up
+## ▶ 다음 작업
 
-**Start Next Milestone** — questioning → research → requirements → roadmap
+**다음 마일스톤 시작** — questioning → research → requirements → roadmap
 
 `/gsd:new-milestone ${GSD_WS}`
 
-<sub>`/clear` first → fresh context window</sub>
+<sub>`/clear` 를 먼저 실행해 새 컨텍스트 창에서 진행</sub>
 
 ---
 ```

@@ -1,4 +1,6 @@
 <purpose>
+한국어 우선 안내: 이 워크플로는 `.planning/` 무결성을 점검하고 수리 가능한 문제를 한국어 기준으로 안내합니다. 아래 영문 규칙과 코드 식별자는 그대로 유지합니다.
+
 Validate `.planning/` directory integrity and report actionable issues. Checks for missing files, invalid configurations, inconsistent state, and orphaned plans. Optionally repairs auto-fixable issues.
 </purpose>
 
@@ -42,16 +44,16 @@ Parse JSON output:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD Health Check
+ GSD 상태 점검
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Status: HEALTHY | DEGRADED | BROKEN
-Errors: N | Warnings: N | Info: N
+상태: HEALTHY | DEGRADED | BROKEN
+오류: N | 경고: N | 정보: N
 ```
 
 **If repairs were performed:**
 ```
-## Repairs Performed
+## 수행된 자동 수리
 
 - ✓ config.json: Created with defaults
 - ✓ STATE.md: Regenerated from roadmap
@@ -59,38 +61,38 @@ Errors: N | Warnings: N | Info: N
 
 **If errors exist:**
 ```
-## Errors
+## 오류
 
 - [E001] config.json: JSON parse error at line 5
-  Fix: Run /gsd:health --repair to reset to defaults
+  Fix: 기본값으로 되돌리려면 /gsd:health --repair 실행
 
 - [E002] PROJECT.md not found
-  Fix: Run /gsd:new-project to create
+  Fix: 생성하려면 /gsd:new-project 실행
 ```
 
 **If warnings exist:**
 ```
-## Warnings
+## 경고
 
 - [W002] STATE.md references phase 5, but only phases 1-3 exist
-  Fix: Review STATE.md manually before changing it; repair will not overwrite an existing STATE.md
+  Fix: STATE.md를 바꾸기 전에 수동으로 검토하세요. repair는 기존 STATE.md를 덮어쓰지 않습니다.
 
 - [W005] Phase directory "1-setup" doesn't follow NN-name format
-  Fix: Rename to match pattern (e.g., 01-setup)
+  Fix: 패턴에 맞게 이름을 바꾸세요 (예: 01-setup)
 ```
 
 **If info exists:**
 ```
-## Info
+## 정보
 
 - [I001] 02-implementation/02-01-PLAN.md has no SUMMARY.md
-  Note: May be in progress
+  Note: 진행 중일 수 있습니다
 ```
 
 **Footer (if repairable issues exist and --repair was NOT used):**
 ```
 ---
-N issues can be auto-repaired. Run: /gsd:health --repair
+N개의 문제는 자동 수리할 수 있습니다. 실행: /gsd:health --repair
 ```
 </step>
 
@@ -100,7 +102,7 @@ N issues can be auto-repaired. Run: /gsd:health --repair
 Ask user if they want to run repairs:
 
 ```
-Would you like to run /gsd:health --repair to fix N issues automatically?
+N개의 문제를 자동으로 고치기 위해 /gsd:health --repair 를 실행할까요?
 ```
 
 If yes, re-run with --repair flag and display results.
