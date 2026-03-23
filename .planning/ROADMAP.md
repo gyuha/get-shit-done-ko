@@ -31,7 +31,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Import upstream repository contents into the project root while preserving destination git history.
+- [x] 01-01: Import upstream repository contents into the project root while preserving destination git history.
 - [ ] 01-02: Audit imported structure, note parity decisions, and resolve any immediate path/layout mismatches.
 
 ### Phase 2: Korean-First Documentation
