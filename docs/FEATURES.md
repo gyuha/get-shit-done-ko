@@ -12,198 +12,198 @@
 
 ---
 
-## Table of Contents
+## 목차
 
-- [Core Features](#core-features)
-  - [Project Initialization](#1-project-initialization)
-  - [Phase Discussion](#2-phase-discussion)
-  - [UI Design Contract](#3-ui-design-contract)
-  - [Phase Planning](#4-phase-planning)
-  - [Phase Execution](#5-phase-execution)
-  - [Work Verification](#6-work-verification)
-  - [UI Review](#7-ui-review)
-  - [Milestone Management](#8-milestone-management)
-- [Planning Features](#planning-features)
-  - [Phase Management](#9-phase-management)
-  - [Quick Mode](#10-quick-mode)
-  - [Autonomous Mode](#11-autonomous-mode)
-  - [Freeform Routing](#12-freeform-routing)
-  - [Note Capture](#13-note-capture)
-  - [Auto-Advance (Next)](#14-auto-advance-next)
-- [Quality Assurance Features](#quality-assurance-features)
-  - [Nyquist Validation](#15-nyquist-validation)
-  - [Plan Checking](#16-plan-checking)
-  - [Post-Execution Verification](#17-post-execution-verification)
-  - [Node Repair](#18-node-repair)
-  - [Health Validation](#19-health-validation)
-  - [Cross-Phase Regression Gate](#20-cross-phase-regression-gate)
-  - [Requirements Coverage Gate](#21-requirements-coverage-gate)
-- [Context Engineering Features](#context-engineering-features)
-  - [Context Window Monitoring](#22-context-window-monitoring)
-  - [Session Management](#23-session-management)
-  - [Session Reporting](#24-session-reporting)
-  - [Multi-Agent Orchestration](#25-multi-agent-orchestration)
-  - [Model Profiles](#26-model-profiles)
-- [Brownfield Features](#brownfield-features)
-  - [Codebase Mapping](#27-codebase-mapping)
-- [Utility Features](#utility-features)
-  - [Debug System](#28-debug-system)
-  - [Todo Management](#29-todo-management)
-  - [Statistics Dashboard](#30-statistics-dashboard)
-  - [Update System](#31-update-system)
-  - [Settings Management](#32-settings-management)
-  - [Test Generation](#33-test-generation)
-- [Infrastructure Features](#infrastructure-features)
-  - [Git Integration](#34-git-integration)
-  - [CLI Tools](#35-cli-tools)
-  - [Multi-Runtime Support](#36-multi-runtime-support)
-  - [Hook System](#37-hook-system)
-  - [Developer Profiling](#38-developer-profiling)
-  - [Execution Hardening](#39-execution-hardening)
-  - [Verification Debt Tracking](#40-verification-debt-tracking)
-- [v1.27 Features](#v127-features)
-  - [Fast Mode](#41-fast-mode)
-  - [Cross-AI Peer Review](#42-cross-ai-peer-review)
-  - [Backlog Parking Lot](#43-backlog-parking-lot)
-  - [Persistent Context Threads](#44-persistent-context-threads)
-  - [PR Branch Filtering](#45-pr-branch-filtering)
-  - [Security Hardening](#46-security-hardening)
-  - [Multi-Repo Workspace Support](#47-multi-repo-workspace-support)
-  - [Discussion Audit Trail](#48-discussion-audit-trail)
+- [핵심 기능](#core-features)
+  - [프로젝트 초기화](#1-project-initialization)
+  - [단계 논의](#2-phase-discussion)
+  - [UI 디자인 계약](#3-ui-design-contract)
+  - [단계 계획](#4-phase-planning)
+  - [단계 실행](#5-phase-execution)
+  - [작업 검증](#6-work-verification)
+  - [UI 검토](#7-ui-review)
+  - [마일스톤 관리](#8-milestone-management)
+- [기획 기능](#planning-features)
+  - [단계 관리](#9-phase-management)
+  - [빠른 모드](#10-quick-mode)
+  - [자율 모드](#11-autonomous-mode)
+  - [자유 형식 라우팅](#12-freeform-routing)
+  - [메모 캡처](#13-note-capture)
+  - [자동 진행(Next)](#14-auto-advance-next)
+- [품질 보증 기능](#quality-assurance-features)
+  - [나이퀴스트 검증](#15-nyquist-validation)
+  - [계획 확인](#16-plan-checking)
+  - [실행 후 확인](#17-post-execution-verification)
+  - [노드 수리](#18-node-repair)
+  - [건강확인](#19-health-validation)
+  - [교차 위상 회귀 게이트](#20-cross-phase-regression-gate)
+  - [요구사항 적용 게이트](#21-requirements-coverage-gate)
+- [컨텍스트 엔지니어링 기능](#context-engineering-features)
+  - [컨텍스트 창 모니터링](#22-context-window-monitoring)
+  - [세션 관리](#23-session-management)
+  - [세션 보고](#24-session-reporting)
+  - [다중 에이전트 오케스트레이션](#25-multi-agent-orchestration)
+  - [모델 프로필](#26-model-profiles)
+- [브라운필드 기능](#brownfield-features)
+  - [코드베이스 매핑](#27-codebase-mapping)
+- [유틸리티 기능](#utility-features)
+  - [디버그 시스템](#28-debug-system)
+  - [할일관리](#29-todo-management)
+  - [통계 대시보드](#30-statistics-dashboard)
+  - [업데이트 시스템](#31-update-system)
+  - [설정관리](#32-settings-management)
+  - [테스트 생성](#33-test-generation)
+- [인프라 기능](#infrastructure-features)
+  - [Git 통합](#34-git-integration)
+  - [CLI 도구](#35-cli-tools)
+  - [다중 런타임 지원](#36-multi-runtime-support)
+  - [Hook 시스템](#37-hook-system)
+  - [개발자 프로파일링](#38-developer-profiling)
+  - [실행 강화](#39-execution-hardening)
+  - [검증 부채 추적](#40-verification-debt-tracking)
+- [v1.27 기능](#v127-features)
+  - [빠른 모드](#41-fast-mode)
+  - [교차 AI 동료 검토](#42-cross-ai-peer-review)
+  - [백로그 주차장](#43-backlog-parking-lot)
+  - [지속적 컨텍스트 스레드](#44-persistent-context-threads)
+  - [PR 분기 필터링](#45-pr-branch-filtering)
+  - [보안 강화](#46-security-hardening)
+  - [다중 저장소 작업공간 지원](#47-multi-repo-workspace-support)
+  - [토론 감사 추적](#48-discussion-audit-trail)
 
 ---
 
-## Core Features
+## 핵심 기능
 
-### 1. Project Initialization
+### 1. 프로젝트 초기화
 
-**Command:** `/gsd:new-project [--auto @file.md]`
+**명령:** `/gsd:new-project [--auto @file.md]`
 
-**Purpose:** Transform a user's idea into a fully structured project with research, scoped requirements, and a phased roadmap.
+**목적:** 사용자의 아이디어를 연구, 범위가 지정된 요구 사항 및 단계별 로드맵을 통해 완전히 구조화된 프로젝트로 변환합니다.
 
-**Requirements:**
-- REQ-INIT-01: System MUST conduct adaptive questioning until project scope is fully understood
-- REQ-INIT-02: System MUST spawn parallel research agents to investigate the domain ecosystem
-- REQ-INIT-03: System MUST extract requirements into v1 (must-have), v2 (future), and out-of-scope categories
-- REQ-INIT-04: System MUST generate a phased roadmap with requirement traceability
-- REQ-INIT-05: System MUST require user approval of the roadmap before proceeding
-- REQ-INIT-06: System MUST prevent re-initialization when `.planning/PROJECT.md` already exists
-- REQ-INIT-07: System MUST support `--auto @file.md` flag to skip interactive questions and extract from a document
+**요구사항:**
+- REQ-INIT-01: 시스템은 프로젝트 범위가 완전히 이해될 때까지 적응형 질문을 수행해야 합니다.
+- REQ-INIT-02: 시스템은 도메인 생태계를 조사하기 위해 병렬 연구 에이전트를 생성해야 합니다.
+- REQ-INIT-03: 시스템은 요구사항을 v1(필수), v2(향후) 및 범위 밖 범주로 추출해야 합니다(MUST).
+- REQ-INIT-04: 시스템은 요구사항 추적성을 갖춘 단계별 로드맵을 생성해야 합니다.
+- REQ-INIT-05: 시스템은 진행하기 전에 로드맵에 대한 사용자 승인을 요구해야 합니다(MUST).
+- REQ-INIT-06: 시스템은 `.planning/PROJECT.md`이 이미 존재할 때 재초기화를 방지해야 합니다(MUST).
+- REQ-INIT-07: 대화형 질문을 건너뛰고 문서에서 추출하려면 시스템이 `--auto @file.md` 플래그를 지원해야 합니다.
 
-**Produces:**
-| Artifact | Description |
+**생성 결과:**
+| 산출물 | 설명 |
 |----------|-------------|
-| `PROJECT.md` | Project vision, constraints, technical decisions, evolution rules |
-| `REQUIREMENTS.md` | Scoped requirements with unique IDs (REQ-XX) |
-| `ROADMAP.md` | Phase breakdown with status tracking and requirement mapping |
-| `STATE.md` | Initial project state with position, decisions, metrics |
-| `config.json` | Workflow configuration |
-| `research/SUMMARY.md` | Synthesized domain research |
-| `research/STACK.md` | Technology stack investigation |
-| `research/FEATURES.md` | Feature implementation patterns |
-| `research/ARCHITECTURE.md` | Architecture patterns and trade-offs |
-| `research/PITFALLS.md` | Common failure modes and mitigations |
+| `PROJECT.md` | 프로젝트 비전, 제약, 기술적 결정, 진화 규칙 |
+| `REQUIREMENTS.md` | 고유 ID(REQ-XX)가 있는 범위 요구사항 |
+| `ROADMAP.md` | 상태 추적 및 요구 사항 매핑을 통한 단계 분석 |
+| `STATE.md` | 위치, 결정, 지표가 포함된 초기 프로젝트 상태 |
+| `config.json` | 워크플로우 구성 |
+| `research/SUMMARY.md` | 합성 도메인 연구 |
+| `research/STACK.md` | 기술 스택 조사 |
+| `research/FEATURES.md` | 기능 구현 패턴 |
+| `research/ARCHITECTURE.md` | 아키텍처 패턴 및 장단점 ​​|
+| `research/PITFALLS.md` | 일반적인 오류 모드 및 완화 |
 
-**Process:**
-1. **Questions** — Adaptive questioning guided by the "dream extraction" philosophy (not requirements gathering)
-2. **Research** — 4 parallel researcher agents investigate stack, features, architecture, and pitfalls
-3. **Synthesis** — Research synthesizer combines findings into SUMMARY.md
-4. **Requirements** — Extracted from user responses + research, categorized by scope
-5. **Roadmap** — Phase breakdown mapped to requirements, with granularity setting controlling phase count
+**프로세스:**
+1. **질문** — "꿈 추출" 철학에 따른 적응형 질문(요구사항 수집 아님)
+2. **연구** — 4개의 병렬 researcher 에이전트가 스택, 기능, 아키텍처, 함정을 조사합니다.
+3. **합성** — 연구 합성기는 결과를 SUMMARY.md로 결합합니다.
+4. **요구사항** — 사용자 응답 + 조사에서 추출, 범위별로 분류
+5. **로드맵** — 단계 수를 제어하는 세분성 설정을 사용하여 요구 사항에 매핑된 단계 분석
 
-**Functional Requirements:**
-- Questions adapt based on detected project type (web app, CLI, mobile, API, etc.)
-- Research agents have web search capability for current ecosystem information
-- Granularity setting controls phase count: `coarse` (3-5), `standard` (5-8), `fine` (8-12)
-- `--auto` mode extracts all information from the provided document without interactive questioning
-- Existing codebase context (from `/gsd:map-codebase`) is loaded if present
-
----
-
-### 2. Phase Discussion
-
-**Command:** `/gsd:discuss-phase [N] [--auto] [--batch]`
-
-**Purpose:** Capture user's implementation preferences and decisions before research and planning begin. Eliminates the gray areas that cause AI to guess.
-
-**Requirements:**
-- REQ-DISC-01: System MUST analyze the phase scope and identify decision areas (gray areas)
-- REQ-DISC-02: System MUST categorize gray areas by type (visual, API, content, organization, etc.)
-- REQ-DISC-03: System MUST ask only questions not already answered in prior CONTEXT.md files
-- REQ-DISC-04: System MUST persist decisions in `{phase}-CONTEXT.md` with canonical references
-- REQ-DISC-05: System MUST support `--auto` flag to auto-select recommended defaults
-- REQ-DISC-06: System MUST support `--batch` flag for grouped question intake
-- REQ-DISC-07: System MUST scout relevant source files before identifying gray areas (code-aware discussion)
-
-**Produces:** `{padded_phase}-CONTEXT.md` — User preferences that feed into research and planning
-
-**Gray Area Categories:**
-| Category | Example Decisions |
-|----------|-------------------|
-| Visual features | Layout, density, interactions, empty states |
-| APIs/CLIs | Response format, flags, error handling, verbosity |
-| Content systems | Structure, tone, depth, flow |
-| Organization | Grouping criteria, naming, duplicates, exceptions |
+**기능적 요구 사항:**
+- 감지된 프로젝트 유형(웹앱, CLI, 모바일, API 등)에 따라 질문이 조정됩니다.
+- researcher 에이전트는 현재 생태계 정보를 위한 웹 검색 기능을 갖추고 있습니다.
+- 세분성 설정 제어 위상 수: `coarse` (3-5), `standard` (5-8), `fine` (8-12)
+- `--auto` 모드는 대화형 질문 없이 제공된 문서에서 모든 정보를 추출합니다.
+- 기존 코드베이스 컨텍스트(`/gsd:map-codebase`에서)가 있는 경우 로드됩니다.
 
 ---
 
-### 3. UI Design Contract
+### 2. 단계 논의
 
-**Command:** `/gsd:ui-phase [N]`
+**명령:** `/gsd:discuss-phase [N] [--auto] [--batch]`
 
-**Purpose:** Lock design decisions before planning so that all components in a phase share consistent visual standards.
+**목적:** 연구 및 계획이 시작되기 전에 사용자의 구현 선호도와 결정을 파악합니다. AI가 추측하게 만드는 회색 영역을 제거합니다.
 
-**Requirements:**
-- REQ-UI-01: System MUST detect existing design system state (shadcn components.json, Tailwind config, tokens)
-- REQ-UI-02: System MUST ask only unanswered design contract questions
-- REQ-UI-03: System MUST validate against 6 dimensions (Copywriting, Visuals, Color, Typography, Spacing, Registry Safety)
-- REQ-UI-04: System MUST enter revision loop if validation returns BLOCKED (max 2 iterations)
-- REQ-UI-05: System MUST offer shadcn initialization for React/Next.js/Vite projects without `components.json`
-- REQ-UI-06: System MUST enforce registry safety gate for third-party shadcn registries
+**요구사항:**
+- REQ-DISC-01: 시스템은 단계 범위를 분석하고 결정 영역(회색 영역)을 식별해야 합니다(MUST).
+- REQ-DISC-02: 시스템은 회색 영역을 유형(시각적, API, 콘텐츠, 조직 등)별로 분류해야 합니다.
+- REQ-DISC-03: 시스템은 이전 CONTEXT.md 파일에서 아직 답변되지 않은 질문만 질문해야 합니다.
+- REQ-DISC-04: 시스템은 정식 참조를 사용하여 `{phase}-CONTEXT.md`의 결정을 지속해야 합니다.
+- REQ-DISC-05: 시스템은 권장 기본값을 자동 선택하기 위해 `--auto` 플래그를 지원해야 합니다.
+- REQ-DISC-06: 시스템은 그룹화된 질문 접수를 위해 `--batch` 플래그를 지원해야 합니다.
+- REQ-DISC-07: 시스템은 회색 영역을 식별하기 전에 관련 소스 파일을 검색해야 합니다(코드 인식 토론).
 
-**Produces:** `{padded_phase}-UI-SPEC.md` — Design contract consumed by executors
+**생성:** `{padded_phase}-CONTEXT.md` — 연구 및 계획에 반영되는 사용자 기본 설정
 
-**6 Validation Dimensions:**
-1. **Copywriting** — CTA labels, empty states, error messages
-2. **Visuals** — Focal points, visual hierarchy, icon accessibility
-3. **Color** — Accent usage discipline, 60/30/10 compliance
-4. **Typography** — Font size/weight constraint adherence
-5. **Spacing** — Grid alignment, token consistency
-6. **Registry Safety** — Third-party component inspection requirements
-
-**shadcn Integration:**
-- Detects missing `components.json` in React/Next.js/Vite projects
-- Guides user through `ui.shadcn.com/create` preset configuration
-- Preset string becomes a planning artifact reproducible across phases
-- Safety gate requires `npx shadcn view` and `npx shadcn diff` before third-party components
+**회색 영역 카테고리:**
+| 카테고리 | 예시 결정 |
+|------------|------|
+| 시각적 특징 | 레이아웃, 밀도, 상호 작용, 빈 상태 |
+| API/CLI | 응답 형식, 플래그, 오류 처리, 자세한 정보 |
+| 콘텐츠 시스템 | 구조, 톤, 깊이, 흐름 |
+| 조직 | 그룹화 기준, 이름 지정, 중복, 예외 |
 
 ---
 
-### 4. Phase Planning
+### 3. UI 디자인 계약
 
-**Command:** `/gsd:plan-phase [N] [--auto] [--skip-research] [--skip-verify]`
+**명령:** `/gsd:ui-phase [N]`
 
-**Purpose:** Research the implementation domain and produce verified, atomic execution plans.
+**목적:** 한 단계의 모든 구성요소가 일관된 시각적 표준을 공유하도록 계획하기 전에 설계 결정을 잠급니다.
 
-**Requirements:**
-- REQ-PLAN-01: System MUST spawn a phase researcher to investigate implementation approaches
-- REQ-PLAN-02: System MUST produce plans with 2-3 tasks each, sized for a single context window
-- REQ-PLAN-03: System MUST structure plans as XML with `<task>` elements containing `name`, `files`, `action`, `verify`, and `done` fields
-- REQ-PLAN-04: System MUST include `read_first` and `acceptance_criteria` sections in every plan
-- REQ-PLAN-05: System MUST run plan checker verification loop (up to 3 iterations) unless `--skip-verify` is set
-- REQ-PLAN-06: System MUST support `--skip-research` flag to bypass research phase
-- REQ-PLAN-07: System MUST prompt user to run `/gsd:ui-phase` if frontend phase detected and no UI-SPEC.md exists (UI safety gate)
-- REQ-PLAN-08: System MUST include Nyquist validation mapping when `workflow.nyquist_validation` is enabled
-- REQ-PLAN-09: System MUST verify all phase requirements are covered by at least one plan before planning completes (requirements coverage gate)
+**요구사항:**
+- REQ-UI-01: 시스템은 기존 설계 시스템 상태(shadcn Components.json, Tailwind 구성, 토큰)를 감지해야 합니다(MUST).
+- REQ-UI-02: 시스템은 답변이 없는 설계 계약 질문만 물어봐야 합니다(MUST).
+- REQ-UI-03: 시스템은 6가지 차원(카피라이팅, 시각적 요소, 색상, 타이포그래피, 간격, 레지스트리 안전)에 대해 유효성을 검사해야 합니다.
+- REQ-UI-04: 검증이 BLOCKED를 반환하는 경우 시스템은 개정 루프에 들어가야 합니다(최대 2회 반복).
+- REQ-UI-05: 시스템은 `components.json` 없이 React/Next.js/Vite 프로젝트에 대해 shadcn 초기화를 제공해야 합니다(MUST).
+- REQ-UI-06: 시스템은 타사 shadcn 레지스트리에 대해 레지스트리 안전 게이트를 시행해야 합니다(MUST).
 
-**Produces:**
-| Artifact | Description |
+**생성:** `{padded_phase}-UI-SPEC.md` — 실행자가 소비한 설계 계약
+
+**6가지 검증 차원:**
+1. **카피라이팅** — CTA 라벨, 빈 상태, 오류 메시지
+2. **시각적** — 초점, 시각적 계층 구조, 아이콘 접근성
+3. **색상** — 악센트 사용 규율, 60/30/10 준수
+4. **타이포그래피** — 글꼴 크기/무게 제한 준수
+5. **간격** — 그리드 정렬, 토큰 일관성
+6. **레지스트리 안전** — 제3자 구성 요소 검사 요구 사항
+
+**shadcn 통합:**
+- React/Next.js/Vite 프로젝트에서 누락된 `components.json` 감지
+- `ui.shadcn.com/create` 사전 설정 구성을 통해 사용자를 안내합니다.
+- 사전 설정된 문자열은 여러 단계에 걸쳐 재현 가능한 계획 산출물이 됩니다.
+- 안전 게이트에는 타사 구성 요소보다 먼저 `npx shadcn view` 및 `npx shadcn diff`이 필요합니다.
+
+---
+
+### 4. 단계 계획
+
+**명령:** `/gsd:plan-phase [N] [--auto] [--skip-research] [--skip-verify]`
+
+**목적:** 구현 영역을 연구하고 검증된 원자적 실행 계획을 생성합니다.
+
+**요구사항:**
+- REQ-PLAN-01: 시스템은 구현 접근 방식을 조사하기 위해 단계 연구원을 생성해야 합니다.
+- REQ-PLAN-02: 시스템은 단일 컨텍스트 창에 맞는 크기의 각각 2~3개의 작업으로 계획을 생성해야 합니다.
+- REQ-PLAN-03: 시스템은 `name`, `files`, `action`, `verify` 및 `done` 필드를 포함하는 `<task>` 요소가 있는 XML로 계획을 구조화해야 합니다.
+- REQ-PLAN-04: 시스템은 모든 계획에 `read_first` 및 `acceptance_criteria` 섹션을 포함해야 합니다.
+- REQ-PLAN-05: `--skip-verify`이 설정되지 않은 한 시스템은 계획 검사기 확인 루프(최대 3회 반복)를 실행해야 합니다.
+- REQ-PLAN-06: 시스템은 연구 단계를 우회하기 위해 `--skip-research` 플래그를 지원해야 합니다.
+- REQ-PLAN-07: 프런트엔드 단계가 감지되고 UI-SPEC.md가 없는 경우 시스템은 사용자에게 `/gsd:ui-phase`을 실행하라는 메시지를 표시해야 합니다(UI 안전 게이트).
+- REQ-PLAN-08: `workflow.nyquist_validation`이 활성화된 경우 시스템은 Nyquist 검증 매핑을 포함해야 합니다.
+- REQ-PLAN-09: 시스템은 계획이 완료되기 전에 모든 단계 요구 사항이 최소한 하나의 계획에 포함되는지 확인해야 합니다(요구 사항 적용 게이트).
+
+**생성 결과:**
+| 산출물 | 설명 |
 |----------|-------------|
-| `{phase}-RESEARCH.md` | Ecosystem research findings |
-| `{phase}-{N}-PLAN.md` | Atomic execution plans (2-3 tasks each) |
-| `{phase}-VALIDATION.md` | Test coverage mapping (Nyquist layer) |
+| `{phase}-RESEARCH.md` | 생태계 연구 결과 |
+| `{phase}-{N}-PLAN.md` | 원자적 실행 계획(각각 2-3개 작업) |
+| `{phase}-VALIDATION.md` | 테스트 커버리지 매핑(Nyquist 레이어) |
 
-**Plan Structure (XML):**
+**계획 구조(XML):**
 ```xml
 <task type="auto">
   <name>Create login endpoint</name>
@@ -216,623 +216,622 @@
   <done>Valid credentials return cookie, invalid return 401</done>
 </task>
 ```
-
-**Plan Checker Verification (8 Dimensions):**
-1. Requirement coverage — Plans address all phase requirements
-2. Task atomicity — Each task is independently committable
-3. Dependency ordering — Tasks sequence correctly
-4. File scope — No excessive file overlap between plans
-5. Verification commands — Each task has testable done criteria
-6. Context fit — Tasks fit within a single context window
-7. Gap detection — No missing implementation steps
-8. Nyquist compliance — Tasks have automated verify commands (when enabled)
+**계획 검사기 확인(8개 차원):**
+1. 요구 사항 적용 범위 - 계획은 모든 단계 요구 사항을 해결합니다.
+2. 작업 원자성 — 각 작업은 독립적으로 커밋 가능합니다.
+3. 종속성 순서 - 작업 순서가 올바르게 지정됨
+4. 파일 범위 — 계획 간에 과도한 파일 중복이 없습니다.
+5. 확인 명령 - 각 작업에는 테스트 가능한 완료 기준이 있습니다.
+6. 컨텍스트 적합성 - 단일 컨텍스트 창에 작업이 적합합니다.
+7. 격차 감지 — 누락된 구현 단계 없음
+8. Nyquist 규정 준수 - 작업에 자동화된 확인 명령이 있습니다(활성화된 경우).
 
 ---
 
-### 5. Phase Execution
+### 5. 단계 실행
 
-**Command:** `/gsd:execute-phase <N>`
+**명령:** `/gsd:execute-phase <N>`
 
-**Purpose:** Execute all plans in a phase using wave-based parallelization with fresh context windows per executor.
+**목적:** 실행자당 새로운 컨텍스트 창을 갖춘 웨이브 기반 병렬화를 사용하여 한 단계에서 모든 계획을 실행합니다.
 
-**Requirements:**
-- REQ-EXEC-01: System MUST analyze plan dependencies and group into execution waves
-- REQ-EXEC-02: System MUST spawn independent plans in parallel within each wave
-- REQ-EXEC-03: System MUST give each executor a fresh context window (200K tokens)
-- REQ-EXEC-04: System MUST produce atomic git commits per task
-- REQ-EXEC-05: System MUST produce a SUMMARY.md for each completed plan
-- REQ-EXEC-06: System MUST run post-execution verifier to check phase goals were met
-- REQ-EXEC-07: System MUST support git branching strategies (`none`, `phase`, `milestone`)
-- REQ-EXEC-08: System MUST invoke node repair operator on task verification failure (when enabled)
-- REQ-EXEC-09: System MUST run prior phases' test suites before verification to catch cross-phase regressions
+**요구사항:**
+- REQ-EXEC-01: 시스템은 계획 종속성을 분석하고 실행 웨이브로 그룹화해야 합니다.
+- REQ-EXEC-02: 시스템은 각 웨이브 내에서 병렬로 독립적인 계획을 생성해야 합니다.
+- REQ-EXEC-03: 시스템은 각 실행자에게 새로운 컨텍스트 창(200K 토큰)을 제공해야 합니다.
+- REQ-EXEC-04: 시스템은 작업당 원자적 git 커밋을 생성해야 합니다(MUST).
+- REQ-EXEC-05: 시스템은 완료된 각 계획에 대해 SUMMARY.md를 생성해야 합니다.
+- REQ-EXEC-06: 시스템은 단계 목표가 충족되었는지 확인하기 위해 실행 후 검증기를 실행해야 합니다.
+- REQ-EXEC-07: 시스템은 Git 분기 전략(`none`, `phase`, `milestone`)을 지원해야 합니다.
+- REQ-EXEC-08: 시스템은 작업 확인 실패 시 노드 복구 연산자를 호출해야 합니다(활성화된 경우).
+- REQ-EXEC-09: 시스템은 교차 단계 회귀를 포착하기 위해 검증 전에 이전 단계의 테스트 스위트를 실행해야 합니다.
 
-**Produces:**
-| Artifact | Description |
+**생성 결과:**
+| 산출물 | 설명 |
 |----------|-------------|
-| `{phase}-{N}-SUMMARY.md` | Execution outcomes per plan |
-| `{phase}-VERIFICATION.md` | Post-execution verification report |
-| Git commits | Atomic commits per task |
+| `{phase}-{N}-SUMMARY.md` | 계획별 실행실적 |
+| `{phase}-VERIFICATION.md` | 실행 후 검증 보고서 |
+| 힘내 커밋 | 작업당 원자적 커밋 |
 
-**Wave Execution:**
-- Plans with no dependencies → Wave 1 (parallel)
-- Plans depending on Wave 1 → Wave 2 (parallel, waits for Wave 1)
-- Continues until all plans complete
-- File conflicts force sequential execution within same wave
+**웨이브 실행:**
+- 종속성이 없는 계획 → Wave 1(병렬)
+- Wave 1 → Wave 2에 따른 계획 (병렬, Wave 1 대기)
+- 모든 계획이 완료될 때까지 계속됩니다.
+- 파일 충돌로 인해 동일한 웨이브 내에서 순차적 실행이 강제됩니다.
 
-**Executor Capabilities:**
-- Reads PLAN.md with full task instructions
-- Has access to PROJECT.md, STATE.md, CONTEXT.md, RESEARCH.md
-- Commits each task atomically with structured commit messages
-- Uses `--no-verify` on commits during parallel execution to avoid build lock contention
-- Handles checkpoint types: `auto`, `checkpoint:human-verify`, `checkpoint:decision`, `checkpoint:human-action`
-- Reports deviations from plan in SUMMARY.md
+**실행자 기능:**
+- 전체 작업 지침이 포함된 PLAN.md를 읽습니다.
+- PROJECT.md, STATE.md, CONTEXT.md, RESEARCH.md에 액세스할 수 있습니다.
+- 구조화된 커밋 메시지를 사용하여 각 작업을 원자적으로 커밋합니다.
+- 빌드 잠금 경합을 피하기 위해 병렬 실행 중 커밋에 `--no-verify`을 사용합니다.
+- 체크포인트 유형 처리: `auto`, `checkpoint:human-verify`, `checkpoint:decision`, `checkpoint:human-action`
+- SUMMARY.md의 계획과의 편차를 보고합니다.
 
-**Parallel Safety:**
-- **Pre-commit hooks**: Skipped by parallel agents (`--no-verify`), run once by orchestrator after each wave
-- **STATE.md locking**: File-level lockfile prevents concurrent write corruption across agents
-
----
-
-### 6. Work Verification
-
-**Command:** `/gsd:verify-work [N]`
-
-**Purpose:** User acceptance testing — walk the user through testing each deliverable and auto-diagnose failures.
-
-**Requirements:**
-- REQ-VERIFY-01: System MUST extract testable deliverables from the phase
-- REQ-VERIFY-02: System MUST present deliverables one at a time for user confirmation
-- REQ-VERIFY-03: System MUST spawn debug agents to diagnose failures automatically
-- REQ-VERIFY-04: System MUST create fix plans for identified issues
-- REQ-VERIFY-05: System MUST inject cold-start smoke test for phases modifying server/database/seed/startup files
-- REQ-VERIFY-06: System MUST produce UAT.md with pass/fail results
-
-**Produces:** `{phase}-UAT.md` — User acceptance test results, plus fix plans if issues found
+**병렬 안전:**
+- **사전 커밋 후크**: 병렬 에이전트(`--no-verify`)에 의해 건너뛰고, 각 웨이브 후에 오케스트레이터에 의해 한 번 실행됩니다.
+- **STATE.md 잠금**: 파일 수준 잠금 파일은 에이전트 전체에서 동시 쓰기 손상을 방지합니다.
 
 ---
 
-### 6.5. Ship
+### 6. 작업 확인
 
-**Command:** `/gsd:ship [N] [--draft]`
+**명령:** `/gsd:verify-work [N]`
 
-**Purpose:** Bridge local completion → merged PR. After verification passes, push branch, create PR with auto-generated body from planning artifacts, optionally trigger review, and track in STATE.md.
+**목적:** 사용자 승인 테스트 — 각 결과물을 테스트하고 오류를 자동 진단하는 과정을 사용자에게 안내합니다.
 
-**Requirements:**
-- REQ-SHIP-01: System MUST verify phase has passed verification before shipping
-- REQ-SHIP-02: System MUST push branch and create PR via `gh` CLI
-- REQ-SHIP-03: System MUST auto-generate PR body from SUMMARY.md, VERIFICATION.md, and REQUIREMENTS.md
-- REQ-SHIP-04: System MUST update STATE.md with shipping status and PR number
-- REQ-SHIP-05: System MUST support `--draft` flag for draft PRs
+**요구사항:**
+- REQ-VERIFY-01: 시스템은 단계에서 테스트 가능한 결과물을 추출해야 합니다.
+- REQ-VERIFY-02: 시스템은 사용자 확인을 위해 한 번에 하나씩 결과물을 제시해야 합니다.
+- REQ-VERIFY-03: 시스템은 오류를 자동으로 진단하기 위해 디버그 에이전트를 생성해야 합니다.
+- REQ-VERIFY-04: 시스템은 식별된 문제에 대한 수정 계획을 생성해야 합니다.
+- REQ-VERIFY-05: 시스템은 서버/데이터베이스/시드/시작 파일을 수정하는 단계에 대해 콜드 스타트 스모크 테스트를 삽입해야 합니다.
+- REQ-VERIFY-06: 시스템은 통과/실패 결과가 포함된 UAT.md를 생성해야 합니다.
 
-**Prerequisites:** Phase verified, `gh` CLI installed and authenticated, work on feature branch
-
-**Produces:** GitHub PR with rich body, STATE.md updated
-
----
-
-### 7. UI Review
-
-**Command:** `/gsd:ui-review [N]`
-
-**Purpose:** Retroactive 6-pillar visual audit of implemented frontend code. Works standalone on any project.
-
-**Requirements:**
-- REQ-UIREVIEW-01: System MUST score each of the 6 pillars on a 1-4 scale
-- REQ-UIREVIEW-02: System MUST capture screenshots via Playwright CLI to `.planning/ui-reviews/`
-- REQ-UIREVIEW-03: System MUST create `.gitignore` for screenshot directory
-- REQ-UIREVIEW-04: System MUST identify top 3 priority fixes
-- REQ-UIREVIEW-05: System MUST work standalone (without UI-SPEC.md) using abstract quality standards
-
-**6 Audit Pillars (scored 1-4):**
-1. **Copywriting** — CTA labels, empty states, error states
-2. **Visuals** — Focal points, visual hierarchy, icon accessibility
-3. **Color** — Accent usage discipline, 60/30/10 compliance
-4. **Typography** — Font size/weight constraint adherence
-5. **Spacing** — Grid alignment, token consistency
-6. **Experience Design** — Loading/error/empty state coverage
-
-**Produces:** `{padded_phase}-UI-REVIEW.md` — Scores and prioritized fixes
+**생성:** `{phase}-UAT.md` — 사용자 수용 테스트 결과 및 문제 발견 시 수정 계획 추가
 
 ---
 
-### 8. Milestone Management
+### 6.5. 선박
 
-**Commands:** `/gsd:audit-milestone`, `/gsd:complete-milestone`, `/gsd:new-milestone [name]`
+**명령:** `/gsd:ship [N] [--draft]`
 
-**Purpose:** Verify milestone completion, archive, tag release, and start the next development cycle.
+**목적:** 브릿지 로컬 완성 → 병합 PR. 검증이 통과된 후 분기를 푸시하고 계획 아티팩트에서 자동 생성된 본문으로 PR을 생성하고 선택적으로 검토를 트리거하고 STATE.md에서 추적합니다.
 
-**Requirements:**
-- REQ-MILE-01: Audit MUST verify all milestone requirements are met
-- REQ-MILE-02: Audit MUST detect stubs, placeholder implementations, and untested code
-- REQ-MILE-03: Audit MUST check Nyquist validation compliance across phases
-- REQ-MILE-04: Complete MUST archive milestone data to MILESTONES.md
-- REQ-MILE-05: Complete MUST offer git tag creation for the release
-- REQ-MILE-06: Complete MUST offer squash merge or merge with history for branching strategies
-- REQ-MILE-07: Complete MUST clean up UI review screenshots
-- REQ-MILE-08: New milestone MUST follow same flow as new-project (questions → research → requirements → roadmap)
-- REQ-MILE-09: New milestone MUST NOT reset existing workflow configuration
+**요구사항:**
+- REQ-SHIP-01: 시스템은 배송 전에 단계가 확인을 통과했는지 확인해야 합니다.
+- REQ-SHIP-02: 시스템은 `gh` CLI를 통해 분기를 푸시하고 PR을 생성해야 합니다.
+- REQ-SHIP-03: 시스템은 SUMMARY.md, VERIFICATION.md 및 REQUIREMENTS.md에서 PR 본문을 자동 생성해야 합니다.
+- REQ-SHIP-04: 시스템은 배송 상태 및 PR 번호로 STATE.md를 업데이트해야 합니다.
+- REQ-SHIP-05: 시스템은 초안 PR에 대해 `--draft` 플래그를 지원해야 합니다.
 
-**Gap Closure:** `/gsd:plan-milestone-gaps` creates phases to close gaps identified by audit.
+**전제 조건:** 단계 확인, `gh` CLI 설치 및 인증, 기능 분기 작업
+
+**생산:** 풍부한 본문이 포함된 GitHub PR, STATE.md 업데이트됨
 
 ---
 
-## Planning Features
+### 7. UI 검토
 
-### 9. Phase Management
+**명령:** `/gsd:ui-review [N]`
 
-**Commands:** `/gsd:add-phase`, `/gsd:insert-phase [N]`, `/gsd:remove-phase [N]`
+**목적:** 구현된 프런트엔드 코드의 소급 6필러 시각적 감사입니다. 모든 프로젝트에서 독립형으로 작동합니다.
 
-**Purpose:** Dynamic roadmap modification during development.
+**요구사항:**
+- REQ-UIREVIEW-01: 시스템은 6개 요소 각각에 대해 1~4 척도의 점수를 매겨야 합니다.
+- REQ-UIREVIEW-02: 시스템은 Playwright CLI를 통해 `.planning/ui-reviews/`에 대한 스크린샷을 캡처해야 합니다.
+- REQ-UIREVIEW-03: 시스템은 스크린샷 디렉터리에 대해 `.gitignore`을 생성해야 합니다.
+- REQ-UIREVIEW-04: 시스템은 상위 3가지 우선순위 수정 사항을 식별해야 합니다.
+- REQ-UIREVIEW-05: 시스템은 추상 품질 표준을 사용하여 UI-SPEC.md 없이 독립형으로 작동해야 합니다.
 
-**Requirements:**
-- REQ-PHASE-01: Add MUST append a new phase to the end of the current roadmap
-- REQ-PHASE-02: Insert MUST use decimal numbering (e.g., 3.1) between existing phases
-- REQ-PHASE-03: Remove MUST renumber all subsequent phases
-- REQ-PHASE-04: Remove MUST prevent removing phases that have been executed
-- REQ-PHASE-05: All operations MUST update ROADMAP.md and create/remove phase directories
+**6가지 감사 원칙(1~4점):**
+1. **카피라이팅** — CTA 라벨, 빈 상태, 오류 상태
+2. **시각적** — 초점, 시각적 계층 구조, 아이콘 접근성
+3. **색상** — 악센트 사용 규율, 60/30/10 준수
+4. **타이포그래피** — 글꼴 크기/무게 제한 준수
+5. **간격** — 그리드 정렬, 토큰 일관성
+6. **경험 디자인** — 로딩/오류/빈 상태 커버리지
 
----
-
-### 10. Quick Mode
-
-**Command:** `/gsd:quick [--full] [--discuss] [--research]`
-
-**Purpose:** Ad-hoc task execution with GSD guarantees but a faster path.
-
-**Requirements:**
-- REQ-QUICK-01: System MUST accept freeform task description
-- REQ-QUICK-02: System MUST use same planner + executor agents as full workflow
-- REQ-QUICK-03: System MUST skip research, plan checker, and verifier by default
-- REQ-QUICK-04: `--full` flag MUST enable plan checking (max 2 iterations) and post-execution verification
-- REQ-QUICK-05: `--discuss` flag MUST run lightweight pre-planning discussion
-- REQ-QUICK-06: `--research` flag MUST spawn focused research agent before planning
-- REQ-QUICK-07: Flags MUST be composable (`--discuss --research --full`)
-- REQ-QUICK-08: System MUST track quick tasks in `.planning/quick/YYMMDD-xxx-slug/`
-- REQ-QUICK-09: System MUST produce atomic commits for quick task execution
+**생산:** `{padded_phase}-UI-REVIEW.md` — 점수 및 우선순위 수정 사항
 
 ---
 
-### 11. Autonomous Mode
+### 8. 마일스톤 관리
 
-**Command:** `/gsd:autonomous [--from N]`
+**명령:** `/gsd:audit-milestone`, `/gsd:complete-milestone`, `/gsd:new-milestone [name]`
 
-**Purpose:** Run all remaining phases autonomously — discuss → plan → execute per phase.
+**목적:** 마일스톤 완료, 보관, 태그 릴리스를 확인하고 다음 개발 주기를 시작합니다.
 
-**Requirements:**
-- REQ-AUTO-01: System MUST iterate through all incomplete phases in roadmap order
-- REQ-AUTO-02: System MUST run discuss → plan → execute for each phase
-- REQ-AUTO-03: System MUST pause for explicit user decisions (gray area acceptance, blockers, validation)
-- REQ-AUTO-04: System MUST re-read ROADMAP.md after each phase to catch dynamically inserted phases
-- REQ-AUTO-05: `--from N` flag MUST start from a specific phase number
+**요구사항:**
+- REQ-MILE-01: 감사에서는 모든 마일스톤 요구 사항이 충족되었는지 확인해야 합니다.
+- REQ-MILE-02: 감사에서는 스텁, 자리 표시자 구현 및 테스트되지 않은 코드를 감지해야 합니다.
+- REQ-MILE-03: 감사에서는 여러 단계에 걸쳐 Nyquist 검증 준수 여부를 확인해야 합니다.
+- REQ-MILE-04: 전체 마일스톤 데이터를 MILESTONES.md에 보관해야 합니다.
+- REQ-MILE-05: 전체 버전은 릴리스에 대한 git 태그 생성을 제공해야 합니다.
+- REQ-MILE-06: 전체는 스쿼시 병합 또는 분기 전략에 대한 기록과의 병합을 제공해야 합니다.
+- REQ-MILE-07: 전체 UI 검토 스크린샷을 정리해야 합니다.
+- REQ-MILE-08: 새 마일스톤은 새 프로젝트와 동일한 흐름을 따라야 합니다(질문 → 연구 → 요구 사항 → 로드맵).
+- REQ-MILE-09: 새 마일스톤은 기존 워크플로 구성을 재설정하면 안 됩니다.
 
----
-
-### 12. Freeform Routing
-
-**Command:** `/gsd:do`
-
-**Purpose:** Analyze freeform text and route to the appropriate GSD command.
-
-**Requirements:**
-- REQ-DO-01: System MUST parse user intent from natural language input
-- REQ-DO-02: System MUST map intent to the best matching GSD command
-- REQ-DO-03: System MUST confirm the routing with the user before executing
-- REQ-DO-04: System MUST handle project-exists vs no-project contexts differently
+**간격 해소:** `/gsd:plan-milestone-gaps`은 감사를 통해 식별된 격차를 해소하기 위한 단계를 만듭니다.
 
 ---
 
-### 13. Note Capture
+## 계획 기능
 
-**Command:** `/gsd:note`
+### 9. 단계 관리
 
-**Purpose:** Zero-friction idea capture without interrupting workflow. Append timestamped notes, list all notes, or promote notes to structured todos.
+**명령:** `/gsd:add-phase`, `/gsd:insert-phase [N]`, `/gsd:remove-phase [N]`
 
-**Requirements:**
-- REQ-NOTE-01: System MUST save timestamped note files with a single Write call
-- REQ-NOTE-02: System MUST support `list` subcommand to show all notes from project and global scopes
-- REQ-NOTE-03: System MUST support `promote N` subcommand to convert a note into a structured todo
-- REQ-NOTE-04: System MUST support `--global` flag for global scope operations
-- REQ-NOTE-05: System MUST NOT use Task, AskUserQuestion, or Bash — runs inline only
+**목적:** 개발 중 동적 로드맵 수정.
 
----
-
-### 14. Auto-Advance (Next)
-
-**Command:** `/gsd:next`
-
-**Purpose:** Automatically detect current project state and advance to the next logical workflow step, eliminating the need to remember which phase/step you're on.
-
-**Requirements:**
-- REQ-NEXT-01: System MUST read STATE.md, ROADMAP.md, and phase directories to determine current position
-- REQ-NEXT-02: System MUST detect whether discuss, plan, execute, or verify is needed
-- REQ-NEXT-03: System MUST invoke the correct command automatically
-- REQ-NEXT-04: System MUST suggest `/gsd:new-project` if no project exists
-- REQ-NEXT-05: System MUST suggest `/gsd:complete-milestone` when all phases are complete
-
-**State Detection Logic:**
-| State | Action |
-|-------|--------|
-| No `.planning/` directory | Suggest `/gsd:new-project` |
-| Phase has no CONTEXT.md | Run `/gsd:discuss-phase` |
-| Phase has no PLAN.md files | Run `/gsd:plan-phase` |
-| Phase has plans but no SUMMARY.md | Run `/gsd:execute-phase` |
-| Phase executed but no VERIFICATION.md | Run `/gsd:verify-work` |
-| All phases complete | Suggest `/gsd:complete-milestone` |
+**요구사항:**
+- REQ-PHASE-01: 추가는 현재 로드맵의 끝에 새로운 단계를 추가해야 합니다.
+- REQ-PHASE-02: 삽입은 기존 단계 사이에 10진수(예: 3.1)를 사용해야 합니다.
+- REQ-PHASE-03: 제거는 모든 후속 단계의 번호를 다시 매겨야 합니다.
+- REQ-PHASE-04: 제거는 실행된 단계 제거를 방지해야 합니다(MUST).
+- REQ-PHASE-05: 모든 작업은 ROADMAP.md를 업데이트하고 단계 디렉터리를 생성/제거해야 합니다.
 
 ---
 
-## Quality Assurance Features
+### 10. 퀵 모드
 
-### 15. Nyquist Validation
+**명령:** `/gsd:quick [--full] [--discuss] [--research]`
 
-**Purpose:** Map automated test coverage to phase requirements before any code is written. Named after the Nyquist sampling theorem — ensures a feedback signal exists for every requirement.
+**목적:** GSD를 사용한 임시 작업 실행은 더 빠른 경로를 보장합니다.
 
-**Requirements:**
-- REQ-NYQ-01: System MUST detect existing test infrastructure during plan-phase research
-- REQ-NYQ-02: System MUST map each requirement to a specific test command
-- REQ-NYQ-03: System MUST identify Wave 0 tasks (test scaffolding needed before implementation)
-- REQ-NYQ-04: Plan checker MUST enforce Nyquist compliance as 8th verification dimension
-- REQ-NYQ-05: System MUST support retroactive validation via `/gsd:validate-phase`
-- REQ-NYQ-06: System MUST be disableable via `workflow.nyquist_validation: false`
-
-**Produces:** `{phase}-VALIDATION.md` — Test coverage contract
-
-**Retroactive Validation (`/gsd:validate-phase [N]`):**
-- Scans implementation and maps requirements to tests
-- Identifies gaps where requirements lack automated verification
-- Spawns auditor to generate tests (max 3 attempts)
-- Never modifies implementation code — only test files and VALIDATION.md
-- Flags implementation bugs as escalations for user to address
+**요구사항:**
+- REQ-QUICK-01: 시스템은 자유 형식 작업 설명을 수락해야 합니다.
+- REQ-QUICK-02: 시스템은 전체 워크플로와 동일한 플래너 + 실행자 에이전트를 사용해야 합니다.
+- REQ-QUICK-03: 시스템은 기본적으로 연구, 계획 검사기 및 검증기를 건너뛰어야 합니다.
+- REQ-QUICK-04: `--full` 플래그는 계획 확인(최대 2회 반복) 및 실행 후 확인을 활성화해야 합니다.
+- REQ-QUICK-05: `--discuss` 플래그는 가벼운 사전 계획 논의를 실행해야 합니다.
+- REQ-QUICK-06: `--research` 플래그는 계획하기 전에 집중적인 연구 에이전트를 생성해야 합니다.
+- REQ-QUICK-07: 플래그는 구성 가능해야 합니다(`--discuss --research --full`).
+- REQ-QUICK-08: 시스템은 `.planning/quick/YYMMDD-xxx-slug/`의 빠른 작업을 추적해야 합니다(MUST).
+- REQ-QUICK-09: 시스템은 빠른 작업 실행을 위해 원자성 커밋을 생성해야 합니다.
 
 ---
 
-### 16. Plan Checking
+### 11. 자율 모드
 
-**Purpose:** Goal-backward verification that plans will achieve phase objectives before execution.
+**명령:** `/gsd:autonomous [--from N]`
 
-**Requirements:**
-- REQ-PLANCK-01: System MUST verify plans against 8 quality dimensions
-- REQ-PLANCK-02: System MUST loop up to 3 iterations until plans pass
-- REQ-PLANCK-03: System MUST produce specific, actionable feedback on failures
-- REQ-PLANCK-04: System MUST be disableable via `workflow.plan_check: false`
+**목적:** 나머지 모든 단계를 자율적으로 실행합니다. 단계별로 논의 → 계획 → 실행합니다.
 
----
-
-### 17. Post-Execution Verification
-
-**Purpose:** Automated check that the codebase delivers what the phase promised.
-
-**Requirements:**
-- REQ-POSTVER-01: System MUST check against phase goals, not just task completion
-- REQ-POSTVER-02: System MUST produce VERIFICATION.md with pass/fail analysis
-- REQ-POSTVER-03: System MUST log issues for `/gsd:verify-work` to address
-- REQ-POSTVER-04: System MUST be disableable via `workflow.verifier: false`
+**요구사항:**
+- REQ-AUTO-01: 시스템은 로드맵 순서에 따라 모든 불완전한 단계를 반복해야 합니다.
+- REQ-AUTO-02: 시스템은 각 단계에 대해 논의 → 계획 → 실행을 실행해야 합니다.
+- REQ-AUTO-03: 명시적인 사용자 결정(회색 영역 허용, 차단, 검증)을 위해 시스템을 일시 중지해야 합니다.
+- REQ-AUTO-04: 시스템은 동적으로 삽입된 단계를 포착하기 위해 각 단계 후에 ROADMAP.md를 다시 읽어야 합니다.
+- REQ-AUTO-05: `--from N` 플래그는 특정 단계 번호에서 시작해야 합니다.
 
 ---
 
-### 18. Node Repair
+### 12. 자유 형식 라우팅
 
-**Purpose:** Autonomous recovery when task verification fails during execution.
+**명령:** `/gsd:do`
 
-**Requirements:**
-- REQ-REPAIR-01: System MUST analyze failure and choose one strategy: RETRY, DECOMPOSE, or PRUNE
-- REQ-REPAIR-02: RETRY MUST attempt with a concrete adjustment
-- REQ-REPAIR-03: DECOMPOSE MUST break task into smaller verifiable sub-steps
-- REQ-REPAIR-04: PRUNE MUST remove unachievable tasks and escalate to user
-- REQ-REPAIR-05: System MUST respect repair budget (default: 2 attempts per task)
-- REQ-REPAIR-06: System MUST be configurable via `workflow.node_repair_budget` and `workflow.node_repair`
+**목적:** 자유 형식 텍스트를 분석하고 적절한 GSD 명령으로 라우팅합니다.
 
----
-
-### 19. Health Validation
-
-**Command:** `/gsd:health [--repair]`
-
-**Purpose:** Validate `.planning/` directory integrity and auto-repair issues.
-
-**Requirements:**
-- REQ-HEALTH-01: System MUST check for missing required files
-- REQ-HEALTH-02: System MUST validate configuration consistency
-- REQ-HEALTH-03: System MUST detect orphaned plans without summaries
-- REQ-HEALTH-04: System MUST check phase numbering and roadmap sync
-- REQ-HEALTH-05: `--repair` flag MUST auto-fix recoverable issues
+**요구사항:**
+- REQ-DO-01: 시스템은 자연어 입력에서 사용자 의도를 구문 분석해야 합니다(MUST).
+- REQ-DO-02: 시스템은 가장 일치하는 GSD 명령에 의도를 매핑해야 합니다.
+- REQ-DO-03: 시스템은 실행하기 전에 사용자와 라우팅을 확인해야 합니다.
+- REQ-DO-04: 시스템은 프로젝트 존재 컨텍스트와 프로젝트 없음 컨텍스트를 다르게 처리해야 합니다.
 
 ---
 
-### 20. Cross-Phase Regression Gate
+### 13. 메모 캡처
 
-**Purpose:** Prevent regressions from compounding across phases by running prior phases' test suites after execution.
+**명령:** `/gsd:note`
 
-**Requirements:**
-- REQ-REGR-01: System MUST run test suites from all completed prior phases after phase execution
-- REQ-REGR-02: System MUST report any test failures as cross-phase regressions
-- REQ-REGR-03: Regressions MUST be surfaced before post-execution verification
-- REQ-REGR-04: System MUST identify which prior phase's tests were broken
+**목적:** 작업흐름을 방해하지 않고 원활하게 아이디어를 포착합니다. 타임스탬프가 표시된 메모를 추가하거나, 모든 메모를 나열하거나, 메모를 구조화된 할 일로 승격하세요.
 
-**When:** Runs automatically during `/gsd:execute-phase` before the verifier step.
-
----
-
-### 21. Requirements Coverage Gate
-
-**Purpose:** Ensure all phase requirements are covered by at least one plan before planning completes.
-
-**Requirements:**
-- REQ-COVGATE-01: System MUST extract all requirement IDs assigned to the phase from ROADMAP.md
-- REQ-COVGATE-02: System MUST verify each requirement appears in at least one PLAN.md
-- REQ-COVGATE-03: Uncovered requirements MUST block planning completion
-- REQ-COVGATE-04: System MUST report which specific requirements lack plan coverage
-
-**When:** Runs automatically at the end of `/gsd:plan-phase` after the plan checker loop.
+**요구사항:**
+- REQ-NOTE-01: 시스템은 단일 쓰기 호출로 타임스탬프가 있는 메모 파일을 저장해야 합니다.
+- REQ-NOTE-02: 시스템은 프로젝트 및 전역 범위의 모든 메모를 표시하기 위해 `list` 하위 명령을 지원해야 합니다.
+- REQ-NOTE-03: 시스템은 메모를 구조화된 할일로 변환하기 위해 `promote N` 하위 명령을 지원해야 합니다.
+- REQ-NOTE-04: 시스템은 전역 범위 작업을 위해 `--global` 플래그를 지원해야 합니다.
+- REQ-NOTE-05: 시스템은 Task, AskUserQuestion 또는 Bash를 사용해서는 안 됩니다. 인라인으로만 실행됩니다.
 
 ---
 
-## Context Engineering Features
+### 14. 자동 진행(다음)
 
-### 22. Context Window Monitoring
+**명령:** `/gsd:next`
 
-**Purpose:** Prevent context rot by alerting both user and agent when context is running low.
+**목적:** 현재 프로젝트 상태를 자동으로 감지하고 다음 논리적 워크플로 단계로 진행하므로 현재 진행 중인 단계/단계를 기억할 필요가 없습니다.
 
-**Requirements:**
-- REQ-CTX-01: Statusline MUST display context usage percentage to user
-- REQ-CTX-02: Context monitor MUST inject agent-facing warnings at ≤35% remaining (WARNING)
-- REQ-CTX-03: Context monitor MUST inject agent-facing warnings at ≤25% remaining (CRITICAL)
-- REQ-CTX-04: Warnings MUST debounce (5 tool uses between repeated warnings)
-- REQ-CTX-05: Severity escalation (WARNING→CRITICAL) MUST bypass debounce
-- REQ-CTX-06: Context monitor MUST differentiate GSD-active vs non-GSD-active projects
-- REQ-CTX-07: Warnings MUST be advisory, never imperative commands that override user preferences
-- REQ-CTX-08: All hooks MUST fail silently and never block tool execution
+**요구사항:**
+- REQ-NEXT-01: 시스템은 현재 위치를 결정하기 위해 STATE.md, ROADMAP.md 및 위상 디렉터리를 읽어야 합니다.
+- REQ-NEXT-02: 시스템은 논의, 계획, 실행 또는 검증이 필요한지 여부를 감지해야 합니다(MUST).
+- REQ-NEXT-03: 시스템은 올바른 명령을 자동으로 호출해야 합니다.
+- REQ-NEXT-04: 프로젝트가 존재하지 않는 경우 시스템은 `/gsd:new-project`을 제안해야 합니다.
+- REQ-NEXT-05: 시스템은 모든 단계가 완료되면 `/gsd:complete-milestone`을 제안해야 합니다(MUST).
 
-**Architecture:** Two-part bridge system:
-1. Statusline writes metrics to `/tmp/claude-ctx-{session}.json`
-2. Context monitor reads metrics and injects `additionalContext` warnings
-
----
-
-### 23. Session Management
-
-**Commands:** `/gsd:pause-work`, `/gsd:resume-work`, `/gsd:progress`
-
-**Purpose:** Maintain project continuity across context resets and sessions.
-
-**Requirements:**
-- REQ-SESSION-01: Pause MUST save current position and next steps to `continue-here.md` and structured `HANDOFF.json`
-- REQ-SESSION-02: Resume MUST restore full project context from HANDOFF.json (preferred) or state files (fallback)
-- REQ-SESSION-03: Progress MUST show current position, next action, and overall completion
-- REQ-SESSION-04: Progress MUST read all state files (STATE.md, ROADMAP.md, phase directories)
-- REQ-SESSION-05: All session operations MUST work after `/clear` (context reset)
-- REQ-SESSION-06: HANDOFF.json MUST include blockers, human actions pending, and in-progress task state
-- REQ-SESSION-07: Resume MUST surface human actions and blockers immediately on session start
+**상태 감지 논리:**
+| 상태 | 액션 |
+|-------|---------|
+| `.planning/` 디렉터리 없음 | `/gsd:new-project` 제안 |
+| 단계에 CONTEXT.md가 없습니다 | `/gsd:discuss-phase` 실행 |
+| 단계에 PLAN.md 파일이 없습니다 | `/gsd:plan-phase` 실행 |
+| 단계에는 계획이 있지만 SUMMARY.md는 없습니다. `/gsd:execute-phase` 실행 |
+| 단계가 실행되었지만 VERIFICATION.md가 없습니다. | `/gsd:verify-work` 실행 |
+| 모든 단계 완료 | `/gsd:complete-milestone` 제안 |
 
 ---
 
-### 24. Session Reporting
+## 품질 보증 기능
 
-**Command:** `/gsd:session-report`
+### 15. 나이퀴스트 검증
 
-**Purpose:** Generate a structured post-session summary document capturing work performed, outcomes achieved, and estimated resource usage.
+**목적:** 코드를 작성하기 전에 자동화된 테스트 범위를 단계 요구 사항에 매핑합니다. 나이퀴스트 샘플링 정리(Nyquist sampling theorem)의 이름을 따서 명명된 — 모든 요구 사항에 대해 피드백 신호가 존재하도록 보장합니다.
 
-**Requirements:**
-- REQ-REPORT-01: System MUST gather data from STATE.md, git log, and plan/summary files
-- REQ-REPORT-02: System MUST include commits made, plans executed, and phases progressed
-- REQ-REPORT-03: System MUST estimate token usage and cost based on session activity
-- REQ-REPORT-04: System MUST include active blockers and decisions made
-- REQ-REPORT-05: System MUST recommend next steps
+**요구사항:**
+- REQ-NYQ-01: 시스템은 계획 단계 연구 중에 기존 테스트 인프라를 감지해야 합니다(MUST).
+- REQ-NYQ-02: 시스템은 각 요구 사항을 특정 테스트 명령에 매핑해야 합니다.
+- REQ-NYQ-03: 시스템은 Wave 0 작업을 식별해야 합니다(구현 전에 테스트 스캐폴딩 필요).
+- REQ-NYQ-04: 계획 검사기는 Nyquist 준수를 8번째 확인 차원으로 시행해야 합니다.
+- REQ-NYQ-05: 시스템은 `/gsd:validate-phase`을 통한 소급 검증을 지원해야 합니다(MUST).
+- REQ-NYQ-06: 시스템은 `workflow.nyquist_validation: false`을 통해 비활성화되어야 합니다.
 
-**Produces:** `.planning/reports/SESSION_REPORT.md`
+**생성:** `{phase}-VALIDATION.md` — 테스트 적용 범위 계약
 
-**Report Sections:**
-- Session overview (duration, milestone, phase)
-- Work performed (commits, plans, phases)
-- Outcomes and deliverables
-- Blockers and decisions
-- Resource estimates (tokens, cost)
-- Next steps recommendation
-
----
-
-### 25. Multi-Agent Orchestration
-
-**Purpose:** Coordinate specialized agents with fresh context windows for each task.
-
-**Requirements:**
-- REQ-ORCH-01: Each agent MUST receive a fresh context window
-- REQ-ORCH-02: Orchestrators MUST be thin — spawn agents, collect results, route next
-- REQ-ORCH-03: Context payload MUST include all relevant project artifacts
-- REQ-ORCH-04: Parallel agents MUST be truly independent (no shared mutable state)
-- REQ-ORCH-05: Agent results MUST be written to disk before orchestrator processes them
-- REQ-ORCH-06: Failed agents MUST be detected (spot-check actual output vs reported failure)
+**소급 검증(`/gsd:validate-phase [N]`):**
+- 구현을 스캔하고 요구사항을 테스트에 매핑합니다.
+- 요구사항에 자동화된 검증이 부족한 부분을 식별합니다.
+- 감사자를 생성하여 테스트 생성(최대 3회 시도)
+- 구현 코드를 수정하지 않습니다. 테스트 파일과 VALIDATION.md만 수정합니다.
+- 사용자가 해결할 수 있도록 구현 버그를 에스컬레이션으로 표시합니다.
 
 ---
 
-### 26. Model Profiles
+### 16. 계획 확인
 
-**Command:** `/gsd:set-profile <quality|balanced|budget|inherit>`
+**목적:** 계획이 실행되기 전에 단계 목표를 달성할 것인지에 대한 목표 역방향 검증.
 
-**Purpose:** Control which AI model each agent uses, balancing quality vs cost.
-
-**Requirements:**
-- REQ-MODEL-01: System MUST support 4 profiles: `quality`, `balanced`, `budget`, `inherit`
-- REQ-MODEL-02: Each profile MUST define model tier per agent (see profile table)
-- REQ-MODEL-03: Per-agent overrides MUST take precedence over profile
-- REQ-MODEL-04: `inherit` profile MUST defer to runtime's current model selection
-- REQ-MODEL-04a: `inherit` profile MUST be used when running non-Anthropic providers (OpenRouter, local models) to avoid unexpected API costs
-- REQ-MODEL-05: Profile switch MUST be programmatic (script, not LLM-driven)
-- REQ-MODEL-06: Model resolution MUST happen once per orchestration, not per spawn
-
-**Profile Assignments:**
-
-| Agent | `quality` | `balanced` | `budget` | `inherit` |
-|-------|-----------|------------|----------|-----------|
-| gsd-planner | Opus | Opus | Sonnet | Inherit |
-| gsd-roadmapper | Opus | Sonnet | Sonnet | Inherit |
-| gsd-executor | Opus | Sonnet | Sonnet | Inherit |
-| gsd-phase-researcher | Opus | Sonnet | Haiku | Inherit |
-| gsd-project-researcher | Opus | Sonnet | Haiku | Inherit |
-| gsd-research-synthesizer | Sonnet | Sonnet | Haiku | Inherit |
-| gsd-debugger | Opus | Sonnet | Sonnet | Inherit |
-| gsd-codebase-mapper | Sonnet | Haiku | Haiku | Inherit |
-| gsd-verifier | Sonnet | Sonnet | Haiku | Inherit |
-| gsd-plan-checker | Sonnet | Sonnet | Haiku | Inherit |
-| gsd-integration-checker | Sonnet | Sonnet | Haiku | Inherit |
-| gsd-nyquist-auditor | Sonnet | Sonnet | Haiku | Inherit |
+**요구사항:**
+- REQ-PLANCK-01: 시스템은 8가지 품질 차원에 대한 계획을 검증해야 합니다.
+- REQ-PLANCK-02: 시스템은 계획이 통과될 때까지 최대 3번의 반복을 반복해야 합니다.
+- REQ-PLANCK-03: 시스템은 실패에 대해 구체적이고 실행 가능한 피드백을 생성해야 합니다.
+- REQ-PLANCK-04: 시스템은 `workflow.plan_check: false`을 통해 비활성화되어야 합니다.
 
 ---
 
-## Brownfield Features
+### 17. 실행 후 확인
 
-### 27. Codebase Mapping
+**목적:** 코드베이스가 단계에서 약속한 내용을 제공하는지 자동으로 확인합니다.
 
-**Command:** `/gsd:map-codebase [area]`
-
-**Purpose:** Analyze an existing codebase before starting a new project, so GSD understands what exists.
-
-**Requirements:**
-- REQ-MAP-01: System MUST spawn parallel mapper agents for each analysis area
-- REQ-MAP-02: System MUST produce structured documents in `.planning/codebase/`
-- REQ-MAP-03: System MUST detect: tech stack, architecture patterns, coding conventions, concerns
-- REQ-MAP-04: Subsequent `/gsd:new-project` MUST load codebase mapping and focus questions on what's being added
-- REQ-MAP-05: Optional `[area]` argument MUST scope mapping to a specific area
-
-**Produces:**
-| Document | Content |
-|----------|---------|
-| `STACK.md` | Languages, frameworks, databases, infrastructure |
-| `ARCHITECTURE.md` | Patterns, layers, data flow, boundaries |
-| `CONVENTIONS.md` | Naming, file organization, code style, testing patterns |
-| `CONCERNS.md` | Technical debt, security issues, performance bottlenecks |
-| `STRUCTURE.md` | Directory layout and file organization |
-| `TESTING.md` | Test infrastructure, coverage, patterns |
-| `INTEGRATIONS.md` | External services, APIs, third-party dependencies |
+**요구사항:**
+- REQ-POSTVER-01: 시스템은 작업 완료뿐 아니라 단계 목표를 확인해야 합니다.
+- REQ-POSTVER-02: 시스템은 합격/불합격 분석을 통해 VERIFICATION.md를 생성해야 합니다.
+- REQ-POSTVER-03: 시스템은 `/gsd:verify-work`에 대한 문제를 기록하여 해결해야 합니다.
+- REQ-POSTVER-04: 시스템은 `workflow.verifier: false`를 통해 비활성화되어야 합니다.
 
 ---
 
-## Utility Features
+### 18. 노드 수리
 
-### 28. Debug System
+**목적:** 실행 중 작업 확인이 실패할 경우 자동 복구합니다.
 
-**Command:** `/gsd:debug [description]`
-
-**Purpose:** Systematic debugging with persistent state across context resets.
-
-**Requirements:**
-- REQ-DEBUG-01: System MUST create debug session file in `.planning/debug/`
-- REQ-DEBUG-02: System MUST track hypotheses, evidence, and eliminated theories
-- REQ-DEBUG-03: System MUST persist state so debugging survives context resets
-- REQ-DEBUG-04: System MUST require human verification before marking resolved
-- REQ-DEBUG-05: Resolved sessions MUST append to `.planning/debug/knowledge-base.md`
-- REQ-DEBUG-06: Knowledge base MUST be consulted on new debug sessions to prevent re-investigation
-
-**Debug Session States:** `gathering` → `investigating` → `fixing` → `verifying` → `awaiting_human_verify` → `resolved`
+**요구사항:**
+- REQ-REPAIR-01: 시스템은 실패를 분석하고 RETRY, DECOMPOSE 또는 PRUNE 중 하나의 전략을 선택해야 합니다.
+- REQ-REPAIR-02: 재시도는 구체적인 조정을 통해 시도해야 합니다.
+- REQ-REPAIR-03: DECOMPOSE는 작업을 검증 가능한 더 작은 하위 단계로 나누어야 합니다.
+- REQ-REPAIR-04: PRUNE은 달성할 수 없는 작업을 제거하고 사용자에게 에스컬레이션해야 합니다.
+- REQ-REPAIR-05: 시스템은 수리 예산을 준수해야 합니다(기본값: 작업당 2회 시도).
+- REQ-REPAIR-06: 시스템은 `workflow.node_repair_budget` 및 `workflow.node_repair`을 통해 구성 가능해야 합니다.
 
 ---
 
-### 29. Todo Management
+### 19. 상태 검증
 
-**Commands:** `/gsd:add-todo [desc]`, `/gsd:check-todos`
+**명령:** `/gsd:health [--repair]`
 
-**Purpose:** Capture ideas and tasks during sessions for later work.
+**목적:** `.planning/` 디렉터리 무결성 및 자동 복구 문제를 확인합니다.
 
-**Requirements:**
-- REQ-TODO-01: System MUST capture todo from current conversation context
-- REQ-TODO-02: Todos MUST be stored in `.planning/todos/pending/`
-- REQ-TODO-03: Completed todos MUST move to `.planning/todos/done/`
-- REQ-TODO-04: Check-todos MUST list all pending items with selection to work on one
-
----
-
-### 30. Statistics Dashboard
-
-**Command:** `/gsd:stats`
-
-**Purpose:** Display project metrics — phases, plans, requirements, git history, and timeline.
-
-**Requirements:**
-- REQ-STATS-01: System MUST show phase/plan completion counts
-- REQ-STATS-02: System MUST show requirement coverage
-- REQ-STATS-03: System MUST show git commit metrics
-- REQ-STATS-04: System MUST support multiple output formats (json, table, bar)
+**요구사항:**
+- REQ-HEALTH-01: 시스템은 누락된 필수 파일을 확인해야 합니다.
+- REQ-HEALTH-02: 시스템은 구성 일관성을 검증해야 합니다.
+- REQ-HEALTH-03: 시스템은 요약 없이 고아 계획을 감지해야 합니다(MUST).
+- REQ-HEALTH-04: 시스템은 단계 번호 지정 및 로드맵 동기화를 확인해야 합니다.
+- REQ-HEALTH-05: `--repair` 플래그는 복구 가능한 문제를 자동으로 수정해야 합니다.
 
 ---
 
-### 31. Update System
+### 20. 교차 위상 회귀 게이트
 
-**Command:** `/gsd:update`
+**목적:** 실행 후 이전 단계의 테스트 스위트를 실행하여 회귀가 여러 단계에 걸쳐 복잡해지는 것을 방지합니다.
 
-**Purpose:** Update GSD to the latest version with changelog preview.
+**요구사항:**
+- REQ-REGR-01: 시스템은 단계 실행 후 완료된 모든 이전 단계에서 테스트 스위트를 실행해야 합니다.
+- REQ-REGR-02: 시스템은 모든 테스트 실패를 교차 단계 회귀로 보고해야 합니다.
+- REQ-REGR-03: 회귀는 실행 후 검증 전에 표면화되어야 합니다.
+- REQ-REGR-04: 시스템은 어떤 이전 단계의 테스트가 중단되었는지 식별해야 합니다.
 
-**Requirements:**
-- REQ-UPDATE-01: System MUST check for new versions via npm
-- REQ-UPDATE-02: System MUST display changelog for new version before updating
-- REQ-UPDATE-03: System MUST be runtime-aware and target the correct directory
-- REQ-UPDATE-04: System MUST back up locally modified files to `gsd-local-patches/`
-- REQ-UPDATE-05: `/gsd:reapply-patches` MUST restore local modifications after update
+**시기:** 검증 단계 전 `/gsd:execute-phase` 중에 자동으로 실행됩니다.
 
 ---
 
-### 32. Settings Management
+### 21. 요구 사항 적용 범위 게이트
 
-**Command:** `/gsd:settings`
+**목적:** 계획이 완료되기 전에 모든 단계 요구 사항이 하나 이상의 계획에 포함되는지 확인합니다.
 
-**Purpose:** Interactive configuration of workflow toggles and model profile.
+**요구사항:**
+- REQ-COVGATE-01: 시스템은 ROADMAP.md에서 단계에 할당된 모든 요구 사항 ID를 추출해야 합니다.
+- REQ-COVGATE-02: 시스템은 각 요구 사항이 최소한 하나의 PLAN.md에 나타나는지 확인해야 합니다.
+- REQ-COVGATE-03: 발견된 요구 사항은 계획 완료를 차단해야 합니다.
+- REQ-COVGATE-04: 시스템은 계획 적용 범위가 부족한 특정 요구 사항을 보고해야 합니다.
 
-**Requirements:**
-- REQ-SETTINGS-01: System MUST present current settings with toggle options
-- REQ-SETTINGS-02: System MUST update `.planning/config.json`
-- REQ-SETTINGS-03: System MUST support saving as global defaults (`~/.gsd/defaults.json`)
+**시기:** 계획 검사기 루프 후 `/gsd:plan-phase`이 끝나면 자동으로 실행됩니다.
 
-**Configurable Settings:**
-| Setting | Type | Default | Description |
+---
+
+## 컨텍스트 엔지니어링 기능
+
+### 22. 컨텍스트 창 모니터링
+
+**목적:** 컨텍스트가 부족할 때 사용자와 상담원 모두에게 경고하여 컨텍스트 부패를 방지합니다.
+
+**요구사항:**
+- REQ-CTX-01: Statusline은 사용자에게 컨텍스트 사용 비율을 표시해야 합니다.
+- REQ-CTX-02: 컨텍스트 모니터는 35% 이하로 남은 에이전트 측 경고를 삽입해야 합니다(경고).
+- REQ-CTX-03: 컨텍스트 모니터는 25% 이하로 남은 상태에서 에이전트 관련 경고를 삽입해야 합니다(CRITICAL).
+- REQ-CTX-04: 경고는 반드시 디바운스되어야 합니다(반복되는 경고 사이에 5개의 도구 사용).
+- REQ-CTX-05: 심각도 에스컬레이션(WARNING→CRITICAL)은 디바운스를 우회해야 합니다.
+- REQ-CTX-06: 컨텍스트 모니터는 GSD 활성 프로젝트와 비GSD 활성 프로젝트를 구별해야 합니다.
+- REQ-CTX-07: 경고는 권고사항이어야 하며 사용자 기본 설정을 무시하는 필수 명령이 아니어야 합니다.
+- REQ-CTX-08: 모든 후크는 자동으로 실패해야 하며 도구 실행을 차단하지 않아야 합니다.
+
+**아키텍처:** 두 부분으로 구성된 브리지 시스템:
+1. Statusline은 `/tmp/claude-ctx-{session}.json`에 측정항목을 기록합니다.
+2. 컨텍스트 모니터는 측정항목을 읽고 `additionalContext` 경고를 삽입합니다.
+
+---
+
+### 23. 세션 관리
+
+**명령:** `/gsd:pause-work`, `/gsd:resume-work`, `/gsd:progress`
+
+**목적:** 컨텍스트 재설정 및 세션 전반에 걸쳐 프로젝트 연속성을 유지합니다.
+
+**요구사항:**
+- REQ-SESSION-01: 일시 중지는 현재 위치와 다음 단계를 `continue-here.md` 및 구조화된 `HANDOFF.json`에 저장해야 합니다.
+- REQ-SESSION-02: 이력서는 HANDOFF.json(선호) 또는 상태 파일(대체)에서 전체 프로젝트 컨텍스트를 복원해야 합니다.
+- REQ-SESSION-03: 진행 상황은 현재 위치, 다음 작업 및 전체 완료를 표시해야 합니다.
+- REQ-SESSION-04: 진행 상황은 모든 상태 파일(STATE.md, ROADMAP.md, 단계 디렉터리)을 읽어야 합니다.
+- REQ-SESSION-05: 모든 세션 작업은 `/clear`(컨텍스트 재설정) 이후에 작동해야 합니다.
+- REQ-SESSION-06: HANDOFF.json에는 차단기, 보류 중인 인간 작업 및 진행 중인 작업 상태가 포함되어야 합니다.
+- REQ-SESSION-07: 이력서는 세션 시작 시 즉시 사람의 행동과 방해 요소를 표면화해야 합니다.
+
+---
+
+### 24. 세션 보고
+
+**명령:** `/gsd:session-report`
+
+**목적:** 수행된 작업, 달성된 결과 및 예상 리소스 사용량을 기록하는 구조화된 세션 후 요약 문서를 생성합니다.
+
+**요구사항:**
+- REQ-REPORT-01: 시스템은 STATE.md, git 로그 및 계획/요약 파일에서 데이터를 수집해야 합니다.
+- REQ-REPORT-02: 시스템에는 작성된 커밋, 실행된 계획 및 진행된 단계가 포함되어야 합니다.
+- REQ-REPORT-03: 시스템은 세션 활동을 기반으로 토큰 사용량과 비용을 추정해야 합니다(MUST).
+- REQ-REPORT-04: 시스템에는 활성 차단 프로그램과 내린 결정이 포함되어야 합니다.
+- REQ-REPORT-05: 시스템은 다음 단계를 권장해야 합니다.
+
+**생산량:** `.planning/reports/SESSION_REPORT.md`
+
+**보고서 섹션:**
+- 세션 개요(기간, 마일스톤, 단계)
+- 수행된 작업(커밋, 계획, 단계)
+- 성과 및 결과물
+- 방해 요소 및 결정
+- 자원 추정(토큰, 비용)
+- 다음 단계 추천
+
+---
+
+### 25. 다중 에이전트 오케스트레이션
+
+**목적:** 각 작업에 대한 새로운 컨텍스트 창을 사용하여 전문 에이전트를 조정합니다.
+
+**요구사항:**
+- REQ-ORCH-01: 각 에이전트는 반드시 새로운 컨텍스트 창을 받아야 합니다.
+- REQ-ORCH-02: 오케스트레이터는 씬이어야 합니다. 에이전트 생성, 결과 수집, 다음 라우팅
+- REQ-ORCH-03: 컨텍스트 페이로드에는 모든 관련 프로젝트 아티팩트가 포함되어야 합니다.
+- REQ-ORCH-04: 병렬 에이전트는 진정으로 독립적이어야 합니다(공유된 변경 가능 상태가 아님).
+- REQ-ORCH-05: 오케스트레이터가 에이전트 결과를 처리하기 전에 에이전트 결과를 디스크에 기록해야 합니다.
+- REQ-ORCH-06: 실패한 에이전트를 반드시 감지해야 합니다(실제 출력과 보고된 실패 비교 즉석 확인).
+
+---
+
+### 26. 모델 프로필
+
+**명령:** `/gsd:set-profile <quality|balanced|budget|inherit>`
+
+**목적:** 각 에이전트가 사용하는 AI 모델을 제어하여 품질과 비용의 균형을 맞춥니다.
+
+**요구사항:**
+- REQ-MODEL-01: 시스템은 4개의 프로필(`quality`, `balanced`, `budget`, `inherit`)을 지원해야 합니다.
+- REQ-MODEL-02: 각 프로필은 에이전트별로 모델 계층을 정의해야 합니다(프로필 테이블 참조).
+- REQ-MODEL-03: 에이전트별 재정의는 프로필보다 우선해야 합니다.
+- REQ-MODEL-04: `inherit` 프로필은 런타임의 현재 모델 선택을 따라야 합니다.
+- REQ-MODEL-04a: 예상치 못한 API 비용을 피하기 위해 비인류 공급자(OpenRouter, 로컬 모델)를 실행할 때 `inherit` 프로필을 사용해야 합니다.
+- REQ-MODEL-05: 프로필 스위치는 프로그래밍 방식이어야 합니다(LLM 기반이 아닌 스크립트).
+- REQ-MODEL-06: 모델 해결은 생성당이 아니라 오케스트레이션당 한 번 발생해야 합니다.
+
+**프로필 할당:**
+
+| 에이전트 | `quality` | `balanced` | `budget` | `inherit` |
+|-------|------------|------------|----------|-----------|
+| gsd 플래너 | 오퍼스 | 오퍼스 | 소네트 | 상속 |
+| gsd-로드매퍼 | 오퍼스 | 소네트 | 소네트 | 상속 |
+| gsd 실행자 | 오퍼스 | 소네트 | 소네트 | 상속 |
+| gsd-단계-연구원 | 오퍼스 | 소네트 | 하이쿠 | 상속 |
+| gsd-프로젝트-연구원 | 오퍼스 | 소네트 | 하이쿠 | 상속 |
+| gsd-연구-합성기 | 소네트 | 소네트 | 하이쿠 | 상속 |
+| gsd 디버거 | 오퍼스 | 소네트 | 소네트 | 상속 |
+| gsd-코드베이스-매퍼 | 소네트 | 하이쿠 | 하이쿠 | 상속 |
+| gsd 검증기 | 소네트 | 소네트 | 하이쿠 | 상속 |
+| gsd 계획 검사기 | 소네트 | 소네트 | 하이쿠 | 상속 |
+| gsd-통합-검사기 | 소네트 | 소네트 | 하이쿠 | 상속 |
+| gsd-nyquist-감사자 | 소네트 | 소네트 | 하이쿠 | 상속 |
+
+---
+
+## 브라운필드 기능
+
+### 27. 코드베이스 매핑
+
+**명령:** `/gsd:map-codebase [area]`
+
+**목적:** 새 프로젝트를 시작하기 전에 기존 코드베이스를 분석하여 GSD가 존재하는 내용을 이해할 수 있도록 합니다.
+
+**요구사항:**
+- REQ-MAP-01: 시스템은 각 분석 영역에 대해 병렬 매퍼 에이전트를 생성해야 합니다.
+- REQ-MAP-02: 시스템은 `.planning/codebase/`에서 구조화된 문서를 생성해야 합니다.
+- REQ-MAP-03: 시스템은 반드시 다음을 감지해야 합니다: 기술 스택, 아키텍처 패턴, 코딩 규칙, 우려 사항
+- REQ-MAP-04: 후속 `/gsd:new-project`는 코드베이스 매핑을 로드하고 추가되는 항목에 대한 질문에 집중해야 합니다.
+- REQ-MAP-05: 선택적 `[area]` 인수는 특정 영역으로 매핑 범위를 설정해야 합니다.
+
+**생성 결과:**
+| 문서 | 내용 |
+|------------|---------|
+| `STACK.md` | 언어, 프레임워크, 데이터베이스, 인프라 |
+| `ARCHITECTURE.md` | 패턴, 레이어, 데이터 흐름, 경계 |
+| `CONVENTIONS.md` | 이름 지정, 파일 구성, 코드 스타일, 테스트 패턴 |
+| `CONCERNS.md` | 기술 부채, 보안 문제, 성능 병목 현상 |
+| `STRUCTURE.md` | 디렉토리 레이아웃 및 파일 구성 |
+| `TESTING.md` | 테스트 인프라, 적용 범위, 패턴 |
+| `INTEGRATIONS.md` | 외부 서비스, API, 타사 종속성 |
+
+---
+
+## 유틸리티 기능
+
+### 28. 디버그 시스템
+
+**명령:** `/gsd:debug [description]`
+
+**목적:** 컨텍스트 재설정 전반에 걸쳐 지속적인 상태를 사용하여 체계적으로 디버깅합니다.
+
+**요구사항:**
+- REQ-DEBUG-01: 시스템은 `.planning/debug/`에 디버그 세션 파일을 생성해야 합니다.
+- REQ-DEBUG-02: 시스템은 가설, 증거 및 제거된 이론을 추적해야 합니다.
+- REQ-DEBUG-03: 디버깅이 컨텍스트 재설정 후에도 유지되도록 시스템은 상태를 유지해야 합니다.
+- REQ-DEBUG-04: 시스템은 해결된 것으로 표시하기 전에 사람의 확인을 요구해야 합니다(MUST).
+- REQ-DEBUG-05: 해결된 세션은 `.planning/debug/knowledge-base.md`에 추가되어야 합니다.
+- REQ-DEBUG-06: 재조사를 방지하려면 새로운 디버그 세션에서 기술 자료를 참조해야 합니다.
+
+**디버그 세션 상태:** `gathering` → `investigating` → `fixing` → `verifying` → `awaiting_human_verify` → `resolved`
+
+---
+
+### 29. 할 일 관리
+
+**명령:** `/gsd:add-todo [desc]`, `/gsd:check-todos`
+
+**목적:** 나중에 작업할 수 있도록 세션 중에 아이디어와 작업을 캡처합니다.
+
+**요구사항:**
+- REQ-TODO-01: 시스템은 현재 대화 컨텍스트에서 할 일을 캡처해야 합니다.
+- REQ-TODO-02: 할 일은 `.planning/todos/pending/`에 저장되어야 합니다.
+- REQ-TODO-03: 완료된 할 일은 `.planning/todos/done/`로 이동해야 합니다.
+- REQ-TODO-04: Check-todo는 하나의 항목을 선택하여 보류 중인 모든 항목을 나열해야 합니다.
+
+---
+
+### 30. 통계 대시보드
+
+**명령:** `/gsd:stats`
+
+**목적:** 단계, 계획, 요구 사항, Git 기록, 타임라인 등 프로젝트 측정항목을 표시합니다.
+
+**요구사항:**
+- REQ-STATS-01: 시스템은 단계/계획 완료 횟수를 표시해야 합니다.
+- REQ-STATS-02: 시스템은 요구사항 적용 범위를 표시해야 합니다.
+- REQ-STATS-03: 시스템은 git 커밋 측정항목을 표시해야 합니다.
+- REQ-STATS-04: 시스템은 여러 출력 형식(json, 테이블, 막대)을 지원해야 합니다.
+
+---
+
+### 31. 업데이트 시스템
+
+**명령:** `/gsd:update`
+
+**목적:** 변경 로그 미리보기를 사용하여 GSD를 최신 버전으로 업데이트합니다.
+
+**요구사항:**
+- REQ-UPDATE-01: 시스템은 npm을 통해 새 버전을 확인해야 합니다.
+- REQ-UPDATE-02: 시스템은 업데이트하기 전에 새 버전에 대한 변경 로그를 표시해야 합니다.
+- REQ-UPDATE-03: 시스템은 런타임을 인식해야 하며 올바른 디렉터리를 대상으로 해야 합니다.
+- REQ-UPDATE-04: 시스템은 로컬에서 수정된 파일을 `gsd-local-patches/`에 백업해야 합니다.
+- REQ-UPDATE-05: `/gsd:reapply-patches`는 업데이트 후 로컬 수정 사항을 복원해야 합니다.
+
+---
+
+### 32. 설정 관리
+
+**명령:** `/gsd:settings`
+
+**목적:** 워크플로 토글 및 모델 프로필의 대화형 구성입니다.
+
+**요구사항:**
+- REQ-SETTINGS-01: 시스템은 토글 옵션과 함께 현재 설정을 제시해야 합니다(MUST).
+- REQ-SETTINGS-02: 시스템은 `.planning/config.json`을(를) 업데이트해야 합니다.
+- REQ-SETTINGS-03: 시스템은 전역 기본값(`~/.gsd/defaults.json`)으로 저장을 지원해야 합니다.
+
+**구성 가능한 설정:**
+| 설정 | 유형 | 기본값 | 설명 |
 |---------|------|---------|-------------|
-| `mode` | enum | `interactive` | `interactive` or `yolo` (auto-approve) |
-| `granularity` | enum | `standard` | `coarse`, `standard`, or `fine` |
-| `model_profile` | enum | `balanced` | `quality`, `balanced`, `budget`, or `inherit` |
-| `workflow.research` | boolean | `true` | Domain research before planning |
-| `workflow.plan_check` | boolean | `true` | Plan verification loop |
-| `workflow.verifier` | boolean | `true` | Post-execution verification |
-| `workflow.auto_advance` | boolean | `false` | Auto-chain discuss→plan→execute |
-| `workflow.nyquist_validation` | boolean | `true` | Nyquist test coverage mapping |
-| `workflow.ui_phase` | boolean | `true` | UI design contract generation |
-| `workflow.ui_safety_gate` | boolean | `true` | Prompt for ui-phase on frontend phases |
-| `workflow.node_repair` | boolean | `true` | Autonomous task repair |
-| `workflow.node_repair_budget` | number | `2` | Max repair attempts per task |
-| `planning.commit_docs` | boolean | `true` | Commit `.planning/` files to git |
-| `planning.search_gitignored` | boolean | `false` | Include gitignored files in searches |
-| `parallelization.enabled` | boolean | `true` | Run independent plans simultaneously |
-| `git.branching_strategy` | enum | `none` | `none`, `phase`, or `milestone` |
+| `mode` | 열거형 | `interactive` | `interactive` 또는 `yolo`(자동 승인) |
+| `granularity` | 열거형 | `standard` | `coarse`, `standard` 또는 `fine` |
+| `model_profile` | 열거형 | `balanced` | `quality`, `balanced`, `budget` 또는 `inherit` |
+| `workflow.research` | 부울 | `true` | 계획 전 도메인 조사 |
+| `workflow.plan_check` | 부울 | `true` | 계획 검증 루프 |
+| `workflow.verifier` | 부울 | `true` | 실행 후 검증 |
+| `workflow.auto_advance` | 부울 | `false` | 오토체인 논의→계획→실행 |
+| `workflow.nyquist_validation` | 부울 | `true` | 나이퀴스트 테스트 커버리지 매핑 |
+| `workflow.ui_phase` | 부울 | `true` | UI 디자인 계약 생성 |
+| `workflow.ui_safety_gate` | 부울 | `true` | 프런트엔드 단계에서 ui 단계에 대한 프롬프트 |
+| `workflow.node_repair` | 부울 | `true` | 자율과제 수리 |
+| `workflow.node_repair_budget` | 번호 | `2` | 작업당 최대 복구 시도 횟수 |
+| `planning.commit_docs` | 부울 | `true` | `.planning/` 파일을 git에 커밋 |
+| `planning.search_gitignored` | 부울 | `false` | 검색에 gitignored 파일 포함 |
+| `parallelization.enabled` | 부울 | `true` | 독립적인 계획을 동시에 실행 |
+| `git.branching_strategy` | 열거형 | `none` | `none`, `phase` 또는 `milestone` |
 
 ---
 
-### 33. Test Generation
+### 33. 테스트 생성
 
-**Command:** `/gsd:add-tests [N]`
+**명령:** `/gsd:add-tests [N]`
 
-**Purpose:** Generate tests for a completed phase based on UAT criteria and implementation.
+**목적:** UAT 기준 및 구현을 기반으로 완료된 단계에 대한 테스트를 생성합니다.
 
-**Requirements:**
-- REQ-TEST-01: System MUST analyze completed phase implementation
-- REQ-TEST-02: System MUST generate tests based on UAT criteria and acceptance criteria
-- REQ-TEST-03: System MUST use existing test infrastructure patterns
+**요구사항:**
+- REQ-TEST-01: 시스템은 완료된 단계 구현을 분석해야 합니다.
+- REQ-TEST-02: 시스템은 UAT 기준 및 승인 기준에 따라 테스트를 생성해야 합니다.
+- REQ-TEST-03: 시스템은 기존 테스트 인프라 패턴을 사용해야 합니다.
 
 ---
 
-## Infrastructure Features
+## 인프라 기능
 
-### 34. Git Integration
+### 34. Git 통합
 
-**Purpose:** Atomic commits, branching strategies, and clean history management.
+**목적:** 원자적 커밋, 분기 전략 및 깨끗한 기록 관리.
 
-**Requirements:**
-- REQ-GIT-01: Each task MUST get its own atomic commit
-- REQ-GIT-02: Commit messages MUST follow structured format: `type(scope): description`
-- REQ-GIT-03: System MUST support 3 branching strategies: `none`, `phase`, `milestone`
-- REQ-GIT-04: Phase strategy MUST create one branch per phase
-- REQ-GIT-05: Milestone strategy MUST create one branch per milestone
-- REQ-GIT-06: Complete-milestone MUST offer squash merge (recommended) or merge with history
-- REQ-GIT-07: System MUST respect `commit_docs` setting for `.planning/` files
-- REQ-GIT-08: System MUST auto-detect `.planning/` in `.gitignore` and skip commits
+**요구사항:**
+- REQ-GIT-01: 각 작업은 자체 원자성 커밋을 받아야 합니다.
+- REQ-GIT-02: 커밋 메시지는 구조화된 형식(`type(scope): description`)을 따라야 합니다.
+- REQ-GIT-03: 시스템은 3가지 분기 전략(`none`, `phase`, `milestone`)을 지원해야 합니다.
+- REQ-GIT-04: 단계 전략은 단계당 하나의 분기를 생성해야 합니다.
+- REQ-GIT-05: 마일스톤 전략은 마일스톤당 하나의 분기를 생성해야 합니다.
+- REQ-GIT-06: 전체 마일스톤은 스쿼시 병합(권장) 또는 기록과 병합을 제공해야 합니다.
+- REQ-GIT-07: 시스템은 `.planning/` 파일에 대한 `commit_docs` 설정을 준수해야 합니다.
+- REQ-GIT-08: 시스템은 `.gitignore`에서 `.planning/`을 자동 감지하고 커밋을 건너뛰어야 합니다(MUST).
 
-**Commit Format:**
+**커밋 형식:**
 ```
 type(phase-plan): description
 
@@ -841,294 +840,292 @@ docs(08-02): complete user registration plan
 feat(08-02): add email confirmation flow
 fix(03-01): correct auth token expiry
 ```
+---
+
+### 35. CLI 도구
+
+**목적:** 반복적인 인라인 bash 패턴을 대체하는 워크플로 및 에이전트용 프로그래밍 유틸리티입니다.
+
+**요구사항:**
+- REQ-CLI-01: 시스템은 상태, 구성, 단계, 로드맵 작업에 대한 원자 명령을 제공해야 합니다(MUST).
+- REQ-CLI-02: 시스템은 각 워크플로에 대한 모든 컨텍스트를 로드하는 복합 `init` 명령을 제공해야 합니다.
+- REQ-CLI-03: 시스템은 기계가 읽을 수 있는 출력을 위해 `--raw` 플래그를 지원해야 합니다.
+- REQ-CLI-04: 시스템은 샌드박스 하위 에이전트 작업을 위해 `--cwd` 플래그를 지원해야 합니다.
+- REQ-CLI-05: 모든 작업은 Windows에서 슬래시 경로를 사용해야 합니다.
+
+**명령 카테고리:** 상태(11개 하위 명령), 단계(5), 로드맵(3), 확인(8), 템플릿(2), 서문(4), 비계(4), Init(12), 유효성 검사(2), Progress, Stats, Todo
 
 ---
 
-### 35. CLI Tools
+### 36. 다중 런타임 지원
 
-**Purpose:** Programmatic utilities for workflows and agents, replacing repetitive inline bash patterns.
+**목적:** 6가지 AI 코딩 에이전트 런타임에서 GSD를 실행합니다.
 
-**Requirements:**
-- REQ-CLI-01: System MUST provide atomic commands for state, config, phase, roadmap operations
-- REQ-CLI-02: System MUST provide compound `init` commands that load all context for each workflow
-- REQ-CLI-03: System MUST support `--raw` flag for machine-readable output
-- REQ-CLI-04: System MUST support `--cwd` flag for sandboxed subagent operation
-- REQ-CLI-05: All operations MUST use forward-slash paths on Windows
+**요구사항:**
+- REQ-RUNTIME-01: 시스템은 Claude Code, OpenCode, Gemini CLI, Codex, Copilot, Antigravity를 지원해야 합니다.
+- REQ-RUNTIME-02: 설치 프로그램은 런타임별로 콘텐츠(도구 이름, 경로, 머리말)를 변환해야 합니다.
+- REQ-RUNTIME-03: 설치 프로그램은 대화형 및 비대화형(`--claude --global`) 모드를 지원해야 합니다.
+- REQ-RUNTIME-04: 설치 프로그램은 글로벌 설치와 로컬 설치를 모두 지원해야 합니다.
+- REQ-RUNTIME-05: 제거 시 다른 구성에 영향을 주지 않고 모든 GSD 파일을 완전히 제거해야 합니다.
+- REQ-RUNTIME-06: 설치 프로그램은 플랫폼 차이(Windows, macOS, Linux, WSL, Docker)를 처리해야 합니다.
 
-**Command Categories:** State (11 subcommands), Phase (5), Roadmap (3), Verify (8), Template (2), Frontmatter (4), Scaffold (4), Init (12), Validate (2), Progress, Stats, Todo
+**런타임 변환:**
 
----
-
-### 36. Multi-Runtime Support
-
-**Purpose:** Run GSD across 6 different AI coding agent runtimes.
-
-**Requirements:**
-- REQ-RUNTIME-01: System MUST support Claude Code, OpenCode, Gemini CLI, Codex, Copilot, Antigravity
-- REQ-RUNTIME-02: Installer MUST transform content per runtime (tool names, paths, frontmatter)
-- REQ-RUNTIME-03: Installer MUST support interactive and non-interactive (`--claude --global`) modes
-- REQ-RUNTIME-04: Installer MUST support both global and local installation
-- REQ-RUNTIME-05: Uninstall MUST cleanly remove all GSD files without affecting other configurations
-- REQ-RUNTIME-06: Installer MUST handle platform differences (Windows, macOS, Linux, WSL, Docker)
-
-**Runtime Transformations:**
-
-| Aspect | Claude Code | OpenCode | Gemini | Codex | Copilot | Antigravity |
-|--------|------------|----------|--------|-------|---------|-------------|
-| Commands | Slash commands | Slash commands | Slash commands | Skills (TOML) | Slash commands | Skills |
-| Agent format | Claude native | `mode: subagent` | Claude native | Skills | Tool mapping | Skills |
-| Hook events | `PostToolUse` | N/A | `AfterTool` | N/A | N/A | N/A |
-| Config | `settings.json` | `opencode.json(c)` | `settings.json` | TOML | Instructions | Config |
+| 측면 | 클로드 코드 | 오픈코드 | 쌍둥이자리 | 코덱스 | 부조종사 | 반중력 |
+|---------|------------|------------|---------|-------|---------|-------------|
+| 명령 | 슬래시 명령 | 슬래시 명령 | 슬래시 명령 | 기술(TOML) | 슬래시 명령 | 기술 |
+| 에이전트 형식 | 클로드 원주민 | `mode: subagent` | 클로드 원주민 | 기술 | 도구 매핑 | 기술 |
+| 후크 이벤트 | `PostToolUse` | 해당 없음 | `AfterTool` | 해당 없음 | 해당 없음 | 해당 없음 |
+| 구성 | `settings.json` | `opencode.json(c)` | `settings.json` | TOML | 지침 | 구성 |
 
 ---
 
-### 37. Hook System
+### 37. Hook 시스템
 
-**Purpose:** Runtime event hooks for context monitoring, status display, and update checking.
+**목적:** 컨텍스트 모니터링, 상태 표시 및 업데이트 확인을 위한 런타임 이벤트 후크입니다.
 
-**Requirements:**
-- REQ-HOOK-01: Statusline MUST display model, current task, directory, and context usage
-- REQ-HOOK-02: Context monitor MUST inject agent-facing warnings at threshold levels
-- REQ-HOOK-03: Update checker MUST run in background on session start
-- REQ-HOOK-04: All hooks MUST respect `CLAUDE_CONFIG_DIR` env var
-- REQ-HOOK-05: All hooks MUST include 3-second stdin timeout guard
-- REQ-HOOK-06: All hooks MUST fail silently on any error
-- REQ-HOOK-07: Context usage MUST normalize for autocompact buffer (16.5% reserved)
+**요구사항:**
+- REQ-HOOK-01: Statusline은 모델, 현재 작업, 디렉터리 및 컨텍스트 사용량을 표시해야 합니다.
+- REQ-HOOK-02: 컨텍스트 모니터는 임계값 수준에서 에이전트 지향 경고를 삽입해야 합니다.
+- REQ-HOOK-03: 업데이트 검사기는 세션 시작 시 백그라운드에서 실행되어야 합니다.
+- REQ-HOOK-04: 모든 후크는 `CLAUDE_CONFIG_DIR` env var를 존중해야 합니다.
+- REQ-HOOK-05: 모든 후크에는 3초 표준 입력 시간 제한 가드가 포함되어야 합니다.
+- REQ-HOOK-06: 모든 후크는 오류 발생 시 자동으로 실패해야 합니다.
+- REQ-HOOK-07: 컨텍스트 사용은 자동 압축 버퍼에 대해 정규화되어야 합니다(16.5% 예약됨).
 
-**Statusline Display:**
+**상태 표시줄 표시:**
 ```
 [⬆ /gsd:update │] model │ [current task │] directory [█████░░░░░ 50%]
 ```
+색상 코딩: <50% 녹색, <65% 노란색, <80% 주황색, ≥80% 빨간색(해골 이모티콘 포함)
 
-Color coding: <50% green, <65% yellow, <80% orange, ≥80% red with skull emoji
+### 38. 개발자 프로파일링
 
-### 38. Developer Profiling
+**명령:** `/gsd:profile-user [--questionnaire] [--refresh]`
 
-**Command:** `/gsd:profile-user [--questionnaire] [--refresh]`
+**목적:** Claude Code 세션 기록을 분석하여 8차원에 걸쳐 행동 프로필을 구축하고 개발자 스타일에 대한 Claude의 반응을 개인화하는 아티팩트를 생성합니다.
 
-**Purpose:** Analyze Claude Code session history to build behavioral profiles across 8 dimensions, generating artifacts that personalize Claude's responses to the developer's style.
+**치수:**
+1. 의사소통 스타일(간결함 vs 장황함, 격식 있음 vs 캐주얼함)
+2. 의사결정 패턴(신속 vs 고의, 위험 허용)
+3. 디버깅 접근 방식(체계적 vs 직관적, 로그 선호)
+4. UX 선호도(디자인 감성, 접근성 인식)
+5. 공급업체/기술 선택(프레임워크 선호도, 생태계 친숙도)
+6. 좌절 유발 요인(작업 흐름에 마찰을 일으키는 요인)
+7. 학습 스타일(문서화 vs 예제, 깊이 선호)
+8. 설명 깊이(상위 수준 및 구현 세부 사항)
 
-**Dimensions:**
-1. Communication style (terse vs verbose, formal vs casual)
-2. Decision patterns (rapid vs deliberate, risk tolerance)
-3. Debugging approach (systematic vs intuitive, log preference)
-4. UX preferences (design sensibility, accessibility awareness)
-5. Vendor/technology choices (framework preferences, ecosystem familiarity)
-6. Frustration triggers (what causes friction in workflows)
-7. Learning style (documentation vs examples, depth preference)
-8. Explanation depth (high-level vs implementation detail)
+**생성된 아티팩트:**
+- `USER-PROFILE.md` — 증거 인용이 포함된 전체 행동 프로필
+- `/gsd:dev-preferences` 명령 — 모든 세션의 기본 설정 로드
+- `CLAUDE.md` 프로필 섹션 — Claude Code에 의해 자동 검색됨
 
-**Generated Artifacts:**
-- `USER-PROFILE.md` — Full behavioral profile with evidence citations
-- `/gsd:dev-preferences` command — Load preferences in any session
-- `CLAUDE.md` profile section — Auto-discovered by Claude Code
+**플래그:**
+- `--questionnaire` — 세션 기록을 사용할 수 없는 경우 대화형 설문지 대체
+- `--refresh` — 세션 재분석 및 프로필 재생성
 
-**Flags:**
-- `--questionnaire` — Interactive questionnaire fallback when session history is unavailable
-- `--refresh` — Re-analyze sessions and regenerate profile
+**파이프라인 모듈:**
+- `profile-pipeline.cjs` — 세션 검색, 메시지 추출, 샘플링
+- `profile-output.cjs` — 프로필 렌더링, 설문지, 아티팩트 생성
+- `gsd-user-profiler` 에이전트 — 세션 데이터를 통한 행동 분석
 
-**Pipeline Modules:**
-- `profile-pipeline.cjs` — Session scanning, message extraction, sampling
-- `profile-output.cjs` — Profile rendering, questionnaire, artifact generation
-- `gsd-user-profiler` agent — Behavioral analysis from session data
+**요구사항:**
+- REQ-PROF-01: 세션 분석은 최소 8가지 행동 차원을 포괄해야 합니다.
+- REQ-PROF-02: 프로필은 실제 세션 메시지의 증거를 인용해야 합니다.
+- REQ-PROF-03: 세션 기록이 없을 때 설문지를 대체 수단으로 사용할 수 있어야 합니다.
+- REQ-PROF-04: 생성된 아티팩트는 Claude Code에서 검색 가능해야 합니다(CLAUDE.md 통합).
 
-**Requirements:**
-- REQ-PROF-01: Session analysis MUST cover at least 8 behavioral dimensions
-- REQ-PROF-02: Profile MUST cite evidence from actual session messages
-- REQ-PROF-03: Questionnaire MUST be available as fallback when no session history exists
-- REQ-PROF-04: Generated artifacts MUST be discoverable by Claude Code (CLAUDE.md integration)
+### 39. 실행 강화
 
-### 39. Execution Hardening
+**목적:** 교차 계획 실패가 계단식으로 진행되기 전에 이를 포착하는 실행 파이프라인에 대한 세 가지 추가적인 품질 개선이 이루어졌습니다.
 
-**Purpose:** Three additive quality improvements to the execution pipeline that catch cross-plan failures before they cascade.
+**구성요소:**
 
-**Components:**
+**1. 웨이브 전 종속성 검사**(실행 단계)
+N+1 웨이브를 생성하기 전에 이전 웨이브 아티팩트의 키 링크가 존재하고 올바르게 연결되었는지 확인하세요. 다운스트림 오류가 발생하기 전에 계획 간 종속성 격차를 포착합니다.
 
-**1. Pre-Wave Dependency Check** (execute-phase)
-Before spawning wave N+1, verify key-links from prior wave artifacts exist and are wired correctly. Catches cross-plan dependency gaps before they cascade into downstream failures.
+**2. 교차 계획 데이터 계약 — 차원 9**(계획 검사기)
+데이터 파이프라인을 공유하는 계획에 호환 가능한 변환이 있는지 확인하는 새로운 분석 차원입니다. 한 계획이 다른 계획에 필요한 데이터를 원래 형식으로 제거할 때 플래그를 지정합니다.
 
-**2. Cross-Plan Data Contracts — Dimension 9** (plan-checker)
-New analysis dimension that checks plans sharing data pipelines have compatible transformations. Flags when one plan strips data that another plan needs in its original form.
+**3. 수출 수준 즉석 점검**(검증 단계)
+레벨 3 배선 검증을 통과한 후 개별 내보내기의 실제 사용 여부를 무작위로 확인합니다. 유선 파일에 존재하지만 호출되지 않는 데드 스토어를 포착합니다.
 
-**3. Export-Level Spot Check** (verify-phase)
-After Level 3 wiring verification passes, spot-check individual exports for actual usage. Catches dead stores that exist in wired files but are never called.
-
-**Requirements:**
-- REQ-HARD-01: Pre-wave check MUST verify key-links from all prior wave artifacts before spawning next wave
-- REQ-HARD-02: Cross-plan contract check MUST detect incompatible data transformations between plans
-- REQ-HARD-03: Export spot-check MUST identify dead stores in wired files
+**요구사항:**
+- REQ-HARD-01: 사전 웨이브 검사는 다음 웨이브를 생성하기 전에 모든 이전 웨이브 아티팩트의 키 링크를 확인해야 합니다.
+- REQ-HARD-02: 계획 간 계약 확인은 계획 간 호환되지 않는 데이터 변환을 감지해야 합니다.
+- REQ-HARD-03: 내보내기 무작위 검사는 유선 파일에서 데드 스토어를 식별해야 합니다.
 
 ---
 
-### 40. Verification Debt Tracking
+### 40. 검증 부채 추적
 
-**Command:** `/gsd:audit-uat`
+**명령:** `/gsd:audit-uat`
 
-**Purpose:** Prevent silent loss of UAT/verification items when projects advance past phases with outstanding tests. Surfaces verification debt across all prior phases so items are never forgotten.
+**목적:** 뛰어난 테스트를 통해 프로젝트가 단계를 넘어갈 때 UAT/검증 항목이 자동으로 손실되는 것을 방지합니다. 모든 이전 단계에서 확인 부채를 표면화하므로 항목이 절대 잊혀지지 않습니다.
 
-**Components:**
+**구성요소:**
 
-**1. Cross-Phase Health Check** (progress.md Step 1.6)
-Every `/gsd:progress` call scans ALL phases in the current milestone for outstanding items (pending, skipped, blocked, human_needed). Displays a non-blocking warning section with actionable links.
+**1. 교차 단계 상태 점검**(progress.md 1.6단계)
+모든 `/gsd:progress` 호출은 현재 마일스톤의 모든 단계에서 처리되지 않은 항목(보류 중, 건너뛰기, 차단됨, 사람이 필요함)을 검색합니다. 실행 가능한 링크가 포함된 비차단 경고 섹션을 표시합니다.
 
 **2. `status: partial`** (verify-work.md, UAT.md)
-New UAT status that distinguishes between "session ended" and "all tests resolved". Prevents `status: complete` when tests are still pending, blocked, or skipped without reason.
+"세션 종료"와 "모든 테스트 해결"을 구별하는 새로운 UAT 상태입니다. 테스트가 이유 없이 보류, 차단 또는 건너뛰는 경우 `status: complete`을 방지합니다.
 
-**3. `result: blocked` with `blocked_by` tag** (verify-work.md, UAT.md)
-New test result type for tests blocked by external dependencies (server, physical device, release build, third-party services). Categorized separately from skipped tests.
+**3. `blocked_by` 태그가 포함된 `result: blocked`(verify-work.md, UAT.md)
+외부 종속성(서버, 물리적 장치, 릴리스 빌드, 타사 서비스)에 의해 차단된 테스트에 대한 새로운 테스트 결과 유형입니다. 건너뛴 테스트와 별도로 분류됩니다.
 
-**4. HUMAN-UAT.md Persistence** (execute-phase.md)
-When verification returns `human_needed`, items are persisted as a trackable HUMAN-UAT.md file with `status: partial`. Feeds into the cross-phase health check and audit systems.
+**4. HUMAN-UAT.md 지속성**(execute-phase.md)
+확인 결과 `human_needed`이 반환되면 항목은 `status: partial`이 포함된 추적 가능한 HUMAN-UAT.md 파일로 유지됩니다. 교차 단계 상태 점검 및 감사 시스템에 정보를 제공합니다.
 
-**5. Phase Completion Warnings** (phase.cjs, transition.md)
-`phase complete` CLI returns verification debt warnings in its JSON output. Transition workflow surfaces outstanding items before confirmation.
+**5. 단계 완료 경고**(phase.cjs, Transition.md)
+`phase complete` CLI는 JSON 출력으로 확인 부채 경고를 반환합니다. 전환 워크플로는 확인 전에 미해결 항목을 표시합니다.
 
-**Requirements:**
-- REQ-DEBT-01: System MUST surface outstanding UAT/verification items from ALL prior phases in `/gsd:progress`
-- REQ-DEBT-02: System MUST distinguish incomplete testing (partial) from completed testing (complete)
-- REQ-DEBT-03: System MUST categorize blocked tests with `blocked_by` tags
-- REQ-DEBT-04: System MUST persist human_needed verification items as trackable UAT files
-- REQ-DEBT-05: System MUST warn (non-blocking) during phase completion and transition when verification debt exists
-- REQ-DEBT-06: `/gsd:audit-uat` MUST scan all phases, categorize items by testability, and produce a human test plan
-
----
-
-## v1.27 Features
-
-### 41. Fast Mode
-
-**Command:** `/gsd:fast [task description]`
-
-**Purpose:** Execute trivial tasks inline without spawning subagents or generating PLAN.md files. For tasks too small to justify planning overhead: typo fixes, config changes, small refactors, forgotten commits, simple additions.
-
-**Requirements:**
-- REQ-FAST-01: System MUST execute the task directly in the current context without subagents
-- REQ-FAST-02: System MUST produce an atomic git commit for the change
-- REQ-FAST-03: System MUST track the task in `.planning/quick/` for state consistency
-- REQ-FAST-04: System MUST NOT be used for tasks requiring research, multi-step planning, or verification
-
-**When to use vs `/gsd:quick`:**
-- `/gsd:fast` — One-sentence tasks executable in under 2 minutes (typo, config change, small addition)
-- `/gsd:quick` — Anything needing research, multi-step planning, or verification
+**요구사항:**
+- REQ-DEBT-01: 시스템은 `/gsd:progress`의 모든 이전 단계에서 뛰어난 UAT/검증 항목을 표면화해야 합니다.
+- REQ-DEBT-02: 시스템은 불완전한 테스트(부분)와 완료된 테스트(전체)를 구별해야 합니다.
+- REQ-DEBT-03: 시스템은 차단된 테스트를 `blocked_by` 태그로 분류해야 합니다.
+- REQ-DEBT-04: 시스템은 인간에게 필요한 검증 항목을 추적 가능한 UAT 파일로 유지해야 합니다(MUST).
+- REQ-DEBT-05: 확인 부채가 있을 때 단계 완료 및 전환 중에 시스템이 경고(비차단)해야 합니다.
+- REQ-DEBT-06: `/gsd:audit-uat`는 모든 단계를 스캔하고, 테스트 가능성에 따라 항목을 분류하고, 인간 테스트 계획을 생성해야 합니다.
 
 ---
 
-### 42. Cross-AI Peer Review
+## v1.27 기능
 
-**Command:** `/gsd:review --phase N [--gemini] [--claude] [--codex] [--all]`
+### 41. 빠른 모드
 
-**Purpose:** Invoke external AI CLIs (Gemini, Claude, Codex) to independently review phase plans. Produces structured REVIEWS.md with per-reviewer feedback.
+**명령:** `/gsd:fast [task description]`
 
-**Requirements:**
-- REQ-REVIEW-01: System MUST detect available AI CLIs on the system
-- REQ-REVIEW-02: System MUST build a structured review prompt from phase plans
-- REQ-REVIEW-03: System MUST invoke each selected CLI independently
-- REQ-REVIEW-04: System MUST collect responses and produce `REVIEWS.md`
-- REQ-REVIEW-05: Reviews MUST be consumable by `/gsd:plan-phase --reviews`
+**목적:** 하위 에이전트를 생성하거나 PLAN.md 파일을 생성하지 않고 간단한 작업을 인라인으로 실행합니다. 계획 오버헤드를 정당화하기에는 너무 작은 작업의 경우: 오타 수정, 구성 변경, 작은 리팩터링, 잊어버린 커밋, 간단한 추가.
 
-**Produces:** `{phase}-REVIEWS.md` — Per-reviewer structured feedback
+**요구사항:**
+- REQ-FAST-01: 시스템은 하위 에이전트 없이 현재 컨텍스트에서 직접 작업을 실행해야 합니다.
+- REQ-FAST-02: 시스템은 변경 사항에 대해 원자적인 git 커밋을 생성해야 합니다.
+- REQ-FAST-03: 시스템은 상태 일관성을 위해 `.planning/quick/`의 작업을 추적해야 합니다.
+- REQ-FAST-04: 시스템은 연구, 다단계 계획 또는 검증이 필요한 작업에 사용되어서는 안 됩니다.
+
+**사용 시기 대 `/gsd:quick`:**
+- `/gsd:fast` — 2분 이내에 실행 가능한 한 문장 작업(오타, 구성 변경, 작은 추가)
+- `/gsd:quick` — 연구, 다단계 계획 또는 검증이 필요한 모든 것
 
 ---
 
-### 43. Backlog Parking Lot
+### 42. 교차 AI 동료 검토
 
-**Commands:** `/gsd:add-backlog <description>`, `/gsd:review-backlog`, `/gsd:plant-seed <idea>`
+**명령:** `/gsd:review --phase N [--gemini] [--claude] [--codex] [--all]`
 
-**Purpose:** Capture ideas that aren't ready for active planning. Backlog items use 999.x numbering to stay outside the active phase sequence. Seeds are forward-looking ideas with trigger conditions that surface automatically at the right milestone.
+**목적:** 외부 AI CLI(Gemini, Claude, Codex)를 호출하여 단계 계획을 독립적으로 검토합니다. 리뷰어별 피드백을 통해 구조화된 REVIEWS.md를 생성합니다.
 
-**Requirements:**
-- REQ-BACKLOG-01: Backlog items MUST use 999.x numbering to stay outside active phase sequence
-- REQ-BACKLOG-02: Phase directories MUST be created immediately so `/gsd:discuss-phase` and `/gsd:plan-phase` work on them
-- REQ-BACKLOG-03: `/gsd:review-backlog` MUST support promote, keep, and remove actions per item
-- REQ-BACKLOG-04: Promoted items MUST be renumbered into the active milestone sequence
-- REQ-SEED-01: Seeds MUST capture the full WHY and WHEN to surface conditions
-- REQ-SEED-02: `/gsd:new-milestone` MUST scan seeds and present matches
+**요구사항:**
+- REQ-REVIEW-01: 시스템은 시스템에서 사용 가능한 AI CLI를 감지해야 합니다.
+- REQ-REVIEW-02: 시스템은 단계 계획에서 구조화된 검토 프롬프트를 구축해야 합니다.
+- REQ-REVIEW-03: 시스템은 선택된 각 CLI를 독립적으로 호출해야 합니다.
+- REQ-REVIEW-04: 시스템은 응답을 수집하고 `REVIEWS.md`을 생성해야 합니다.
+- REQ-REVIEW-05: 리뷰는 `/gsd:plan-phase --reviews`까지 소비 가능해야 합니다.
 
-**Produces:**
-| Artifact | Description |
+**생성:** `{phase}-REVIEWS.md` — 리뷰어별 구조화된 피드백
+
+---
+
+### 43. 백로그 주차장
+
+**명령:** `/gsd:add-backlog <description>`, `/gsd:review-backlog`, `/gsd:plant-seed <idea>`
+
+**목적:** 아직 적극적으로 계획할 준비가 되지 않은 아이디어를 포착합니다. 백로그 항목은 999.x 번호 매기기를 사용하여 활성 단계 시퀀스 외부에 유지됩니다. 씨앗은 올바른 이정표에서 자동으로 나타나는 트리거 조건을 갖춘 미래 지향적인 아이디어입니다.
+
+**요구사항:**
+- REQ-BACKLOG-01: 백로그 항목은 활성 단계 순서를 벗어나도록 999.x 번호 매기기를 사용해야 합니다.
+- REQ-BACKLOG-02: `/gsd:discuss-phase` 및 `/gsd:plan-phase`이 작동하도록 단계 디렉터리를 즉시 생성해야 합니다.
+- REQ-BACKLOG-03: `/gsd:review-backlog`은 항목당 작업 승격, 유지 및 제거를 지원해야 합니다.
+- REQ-BACKLOG-04: 승격된 항목은 활성 마일스톤 시퀀스로 번호를 다시 매겨야 합니다.
+- REQ-SEED-01: 씨앗은 표면 조건에 대한 전체 이유와 시기를 포착해야 합니다.
+- REQ-SEED-02: `/gsd:new-milestone`는 시드를 스캔하고 일치하는 항목을 제시해야 합니다.
+
+**생성 결과:**
+| 산출물 | 설명 |
 |----------|-------------|
-| `.planning/phases/999.x-slug/` | Backlog item directory |
-| `.planning/seeds/SEED-NNN-slug.md` | Seed with trigger conditions |
+| `.planning/phases/999.x-slug/` | 백로그 항목 디렉토리 |
+| `.planning/seeds/SEED-NNN-slug.md` | 트리거 조건이 있는 시드 |
 
 ---
 
-### 44. Persistent Context Threads
+### 44. 지속적인 컨텍스트 스레드
 
-**Command:** `/gsd:thread [name | description]`
+**명령:** `/gsd:thread [name | description]`
 
-**Purpose:** Lightweight cross-session knowledge stores for work that spans multiple sessions but doesn't belong to any specific phase. Lighter weight than `/gsd:pause-work` — no phase state, no plan context.
+**목적:** 여러 세션에 걸쳐 있지만 특정 단계에 속하지 않는 작업을 위한 경량 교차 세션 지식 저장소입니다. `/gsd:pause-work`보다 가벼운 무게 — 단계 상태도 없고 계획 컨텍스트도 없습니다.
 
-**Requirements:**
-- REQ-THREAD-01: System MUST support create, list, and resume modes
-- REQ-THREAD-02: Threads MUST be stored in `.planning/threads/` as markdown files
-- REQ-THREAD-03: Thread files MUST include Goal, Context, References, and Next Steps sections
-- REQ-THREAD-04: Resuming a thread MUST load its full context into the current session
-- REQ-THREAD-05: Threads MUST be promotable to phases or backlog items
+**요구사항:**
+- REQ-THREAD-01: 시스템은 생성, 나열 및 재개 모드를 지원해야 합니다(MUST).
+- REQ-THREAD-02: 스레드는 `.planning/threads/`에 마크다운 파일로 저장되어야 합니다.
+- REQ-THREAD-03: 스레드 파일에는 목표, 컨텍스트, 참조 및 다음 단계 섹션이 포함되어야 합니다.
+- REQ-THREAD-04: 스레드를 재개하려면 전체 컨텍스트를 현재 세션에 로드해야 합니다.
+- REQ-THREAD-05: 스레드는 단계 또는 백로그 항목으로 승격 가능해야 합니다.
 
-**Produces:** `.planning/threads/{slug}.md` — Persistent context thread
-
----
-
-### 45. PR Branch Filtering
-
-**Command:** `/gsd:pr-branch [target branch]`
-
-**Purpose:** Create a clean branch suitable for pull requests by filtering out `.planning/` commits. Reviewers see only code changes, not GSD planning artifacts.
-
-**Requirements:**
-- REQ-PRBRANCH-01: System MUST identify commits that only modify `.planning/` files
-- REQ-PRBRANCH-02: System MUST create a new branch with planning commits filtered out
-- REQ-PRBRANCH-03: Code changes MUST be preserved exactly as committed
+**생성:** `.planning/threads/{slug}.md` — 영구 컨텍스트 스레드
 
 ---
 
-### 46. Security Hardening
+### 45. PR 분기 필터링
 
-**Purpose:** Defense-in-depth security for GSD's planning artifacts. Because GSD generates markdown files that become LLM system prompts, user-controlled text flowing into these files is a potential indirect prompt injection vector.
+**명령:** `/gsd:pr-branch [target branch]`
 
-**Components:**
+**목적:** `.planning/` 커밋을 필터링하여 풀 요청에 적합한 클린 브랜치를 만듭니다. 검토자는 GSD 계획 아티팩트가 아닌 코드 변경 사항만 볼 수 있습니다.
 
-**1. Centralized Security Module** (`security.cjs`)
-- Path traversal prevention — validates file paths resolve within the project directory
-- Prompt injection detection — scans for known injection patterns in user-supplied text
-- Safe JSON parsing — catches malformed input before state corruption
-- Field name validation — prevents injection through config field names
-- Shell argument validation — sanitizes user text before shell interpolation
-
-**2. Prompt Injection Guard Hook** (`gsd-prompt-guard.js`)
-PreToolUse hook that scans Write/Edit calls targeting `.planning/` for injection patterns. Advisory-only — logs detection for awareness without blocking legitimate operations.
-
-**3. Workflow Guard Hook** (`gsd-workflow-guard.js`)
-PreToolUse hook that detects when Claude attempts file edits outside a GSD workflow context. Advises using `/gsd:quick` or `/gsd:fast` instead of direct edits. Configurable via `hooks.workflow_guard` (default: false).
-
-**4. CI-Ready Injection Scanner** (`prompt-injection-scan.test.cjs`)
-Test suite that scans all agent, workflow, and command files for embedded injection vectors.
-
-**Requirements:**
-- REQ-SEC-01: All user-supplied file paths MUST be validated against the project directory
-- REQ-SEC-02: Prompt injection patterns MUST be detected before text enters planning artifacts
-- REQ-SEC-03: Security hooks MUST be advisory-only (never block legitimate operations)
-- REQ-SEC-04: JSON parsing of user input MUST catch malformed data gracefully
-- REQ-SEC-05: macOS `/var` → `/private/var` symlink resolution MUST be handled in path validation
+**요구사항:**
+- REQ-PRBRANCH-01: 시스템은 `.planning/` 파일만 수정하는 커밋을 식별해야 합니다.
+- REQ-PRBRANCH-02: 시스템은 필터링된 계획 커밋을 사용하여 새 분기를 생성해야 합니다.
+- REQ-PRBRANCH-03: 코드 변경 사항은 커밋된 그대로 정확하게 보존되어야 합니다.
 
 ---
 
-### 47. Multi-Repo Workspace Support
+### 46. 보안 강화
 
-**Purpose:** Auto-detection and project root resolution for monorepos and multi-repo setups. Supports workspaces where `.planning/` may need to resolve across repository boundaries.
+**목적:** GSD의 계획 아티팩트에 대한 심층 방어 보안입니다. GSD는 LLM 시스템 프롬프트가 되는 마크다운 파일을 생성하기 때문에 이러한 파일로 흐르는 사용자 제어 텍스트는 잠재적인 간접 프롬프트 삽입 벡터입니다.
 
-**Requirements:**
-- REQ-MULTIREPO-01: System MUST auto-detect multi-repo workspace configuration
-- REQ-MULTIREPO-02: System MUST resolve project root across repository boundaries
-- REQ-MULTIREPO-03: Executor MUST record per-repo commit hashes in multi-repo mode
+**구성요소:**
+
+**1. 중앙 집중식 보안 모듈** (`security.cjs`)
+- 경로 탐색 방지 - 프로젝트 디렉터리 내에서 확인된 파일 경로의 유효성을 검사합니다.
+- 신속한 주입 감지 — 사용자가 제공한 텍스트에서 알려진 주입 패턴을 검색합니다.
+- 안전한 JSON 구문 분석 — 상태가 손상되기 전에 잘못된 입력을 포착합니다.
+- 필드 이름 유효성 검사 - 구성 필드 이름을 통한 삽입을 방지합니다.
+- 셸 인수 유효성 검사 — 셸 보간 전에 사용자 텍스트를 삭제합니다.
+
+**2. 신속한 주입 가드 후크** (`gsd-prompt-guard.js`)
+주입 패턴에 대해 `.planning/`을 대상으로 하는 쓰기/편집 호출을 검색하는 PreToolUse 후크입니다. 자문 전용 — 합법적인 작업을 차단하지 않고 인식을 위한 탐지를 기록합니다.
+
+**3. 워크플로 가드 후크** (`gsd-workflow-guard.js`)
+Claude가 GSD 작업 흐름 컨텍스트 외부에서 파일 편집을 시도할 때를 감지하는 PreToolUse 후크입니다. 직접 편집하는 대신 `/gsd:quick` 또는 `/gsd:fast`을 사용하는 것이 좋습니다. `hooks.workflow_guard`을 통해 구성 가능합니다(기본값: false).
+
+**4. CI 지원 주입 스캐너**(`prompt-injection-scan.test.cjs`)
+모든 에이전트, 워크플로 및 명령 파일에 포함된 주입 벡터를 검사하는 테스트 모음입니다.
+
+**요구사항:**
+- REQ-SEC-01: 모든 사용자 제공 파일 경로는 프로젝트 디렉터리에 대해 검증되어야 합니다.
+- REQ-SEC-02: 텍스트가 계획 아티팩트에 입력되기 전에 프롬프트 삽입 패턴을 감지해야 합니다.
+- REQ-SEC-03: 보안 후크는 권고 전용이어야 합니다(합법적인 작업을 절대 차단하지 않음).
+- REQ-SEC-04: 사용자 입력의 JSON 구문 분석은 잘못된 형식의 데이터를 정상적으로 포착해야 합니다.
+- REQ-SEC-05: macOS `/var` → `/private/var` 심볼릭 링크 확인은 경로 검증에서 처리되어야 합니다.
 
 ---
 
-### 48. Discussion Audit Trail
+### 47. 다중 저장소 작업공간 지원
 
-**Purpose:** Auto-generate `DISCUSSION-LOG.md` during `/gsd:discuss-phase` for full audit trail of decisions made during discussion.
+**목적:** 단일 저장소 및 다중 저장소 설정에 대한 자동 감지 및 프로젝트 루트 해결입니다. `.planning/`이 저장소 경계를 넘어 해결해야 할 수 있는 작업 공간을 지원합니다.
 
-**Requirements:**
-- REQ-DISCLOG-01: System MUST auto-generate DISCUSSION-LOG.md during discuss-phase
-- REQ-DISCLOG-02: Log MUST capture questions asked, options presented, and decisions made
-- REQ-DISCLOG-03: Decision IDs MUST enable traceability from discuss-phase to plan-phase
+**요구사항:**
+- REQ-MULTIREPO-01: 시스템은 다중 저장소 작업공간 구성을 자동으로 감지해야 합니다(MUST).
+- REQ-MULTIREPO-02: 시스템은 저장소 경계를 넘어 프로젝트 루트를 확인해야 합니다.
+- REQ-MULTIREPO-03: 실행자는 다중 저장소 모드에서 저장소별 커밋 해시를 기록해야 합니다.
+
+---
+
+### 48. 토론 감사 추적
+
+**목적:** 토론 중에 내려진 결정에 대한 전체 감사 추적을 위해 `/gsd:discuss-phase` 중에 `DISCUSSION-LOG.md`을 자동 생성합니다.
+
+**요구사항:**
+- REQ-DISCLOG-01: 시스템은 토론 단계 중에 DISCUSSION-LOG.md를 자동 생성해야 합니다.
+- REQ-DISCLOG-02: 로그는 질문, 제시된 옵션 및 결정을 캡처해야 합니다.
+- REQ-DISCLOG-03: 결정 ID는 논의 단계부터 계획 단계까지 추적성을 활성화해야 합니다.

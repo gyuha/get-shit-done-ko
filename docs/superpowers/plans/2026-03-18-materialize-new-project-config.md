@@ -1,19 +1,18 @@
-# Materialize new-project config on initialization
+# 초기화 시 새 프로젝트 구성을 구체화합니다.
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **에이전트 작업자의 경우:** 필수 하위 기술: 초능력:하위 에이전트 중심 개발(권장) 또는 초능력:실행 계획을 사용하여 작업별로 이 계획을 구현합니다. 단계에서는 추적을 위해 체크박스(`- [ ]`) 구문을 사용합니다.
 
-**Goal:** When `/gsd:new-project` creates `.planning/config.json`, the file contains all effective defaults — not just the 6 user-chosen keys — so developers can see every setting without reading source code.
+**목표:** `/gsd:new-project`이 `.planning/config.json`을 생성하면 파일에는 사용자가 선택한 6개의 키뿐만 아니라 모든 유효한 기본값이 포함되므로 개발자는 소스 코드를 읽지 않고도 모든 설정을 볼 수 있습니다.
 
-**Architecture:** Add a single JS function `buildNewProjectConfig(cwd, userChoices)` in `config.cjs` as the one source of truth for a new project's full config. Expose it as a CLI command `config-new-project`. Update the `new-project.md` workflow to call this command instead of writing a partial JSON inline.
+**아키텍처:** 새 프로젝트의 전체 구성에 대한 단일 정보 소스로 `config.cjs`에 단일 JS 함수 `buildNewProjectConfig(cwd, userChoices)`을 추가합니다. CLI 명령 `config-new-project`로 노출합니다. 부분 JSON 인라인을 작성하는 대신 이 명령을 호출하도록 `new-project.md` 워크플로를 업데이트하세요.
 
-**Tech Stack:** Node.js/CommonJS, existing gsd-tools CLI, `node:test` for tests.
+**기술 스택:** Node.js/CommonJS, 기존 gsd-tools CLI, 테스트용 `node:test`.
 
 ---
 
-## Background: what exists today
+## 배경: 오늘날 존재하는 것
 
-`new-project.md` Step 5 writes this partial config (the AI fills the template):
-
+`new-project.md` 5단계에서는 다음 부분 구성을 작성합니다(AI가 템플릿을 채움).
 ```json
 {
   "mode": "...", "granularity": "...", "parallelization": "...",
@@ -21,17 +20,15 @@
   "workflow": { "research", "plan_check", "verifier", "nyquist_validation" }
 }
 ```
-
-Missing keys silently resolved by `loadConfig()` at runtime:
+누락된 키는 런타임 시 `loadConfig()`에 의해 자동으로 해결됩니다.
 
 - `search_gitignored: false`
-- `brave_search: false` (or env-detected `true`)
+- `brave_search: false`(또는 환경에서 감지된 `true`)
 - `git.branching_strategy: "none"`
 - `git.phase_branch_template: "gsd/phase-{phase}-{slug}"`
 - `git.milestone_branch_template: "gsd/{milestone}-{slug}"`
 
-Full config that should exist from the start:
-
+처음부터 존재해야 하는 전체 구성:
 ```json
 {
   "mode": "yolo|interactive",
@@ -54,30 +51,28 @@ Full config that should exist from the start:
   }
 }
 ```
+---
+
+## 파일 맵
+
+| 파일 | 액션 | 목적 |
+|------|---------|---------|
+| `get-shit-done/bin/lib/config.cjs` | 수정 | `buildNewProjectConfig()` + `cmdConfigNewProject()` 추가 |
+| `get-shit-done/bin/gsd-tools.cjs` | 수정 | `config-new-project` 케이스 등록 + 사용 문자열 업데이트 |
+| `get-shit-done/workflows/new-project.md` | 수정 | 2a + 5단계: 인라인 JSON 쓰기를 CLI 호출로 바꾸기 |
+| `tests/config.test.cjs` | 수정 | `config-new-project` 테스트 스위트 추가 |
 
 ---
 
-## File map
+## 작업 1: config.cjs에 `buildNewProjectConfig` 및 `cmdConfigNewProject` 추가
 
-| File | Action | Purpose |
-|------|--------|---------|
-| `get-shit-done/bin/lib/config.cjs` | Modify | Add `buildNewProjectConfig()` + `cmdConfigNewProject()` |
-| `get-shit-done/bin/gsd-tools.cjs` | Modify | Register `config-new-project` case + update usage string |
-| `get-shit-done/workflows/new-project.md` | Modify | Steps 2a + 5: replace inline JSON write with CLI call |
-| `tests/config.test.cjs` | Modify | Add `config-new-project` test suite |
+**파일:**
 
----
+- 수정: `get-shit-done/bin/lib/config.cjs`
 
-## Task 1: Add `buildNewProjectConfig` and `cmdConfigNewProject` to config.cjs
+- [ ] **1.1단계: 실패한 테스트를 먼저 작성**
 
-**Files:**
-
-- Modify: `get-shit-done/bin/lib/config.cjs`
-
-- [ ] **Step 1.1: Write the failing tests first**
-
-Add to `tests/config.test.cjs` (after the `config-get` suite, before `module.exports`):
-
+`tests/config.test.cjs`에 추가합니다(`config-get` 제품군 뒤, `module.exports` 앞):
 ```js
 // ─── config-new-project ──────────────────────────────────────────────────────
 
@@ -223,20 +218,16 @@ describe('config-new-project command', () => {
   });
 });
 ```
-
-- [ ] **Step 1.2: Run failing tests to confirm they fail**
-
+- [ ] **1.2단계: 실패한 테스트를 실행하여 실패했는지 확인**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 node --test tests/config.test.cjs 2>&1 | grep -E "config-new-project|FAIL|Error"
 ```
+예상: "config-new-project는 유효한 명령이 아닙니다." 또는 이와 유사한 오류로 인해 모든 `config-new-project` 테스트가 실패합니다.
 
-Expected: All `config-new-project` tests fail with "config-new-project is not a valid command" or similar.
+- [ ] **1.3단계: config.cjs에서 `buildNewProjectConfig` 및 `cmdConfigNewProject` 구현**
 
-- [ ] **Step 1.3: Implement `buildNewProjectConfig` and `cmdConfigNewProject` in config.cjs**
-
-In `get-shit-done/bin/lib/config.cjs`, add the following after the `validateKnownConfigKeyPath` function (around line 35) and before `ensureConfigFile`:
-
+`get-shit-done/bin/lib/config.cjs`에서 `validateKnownConfigKeyPath` 함수 뒤(약 35번째 줄)와 `ensureConfigFile` 앞에 다음을 추가합니다.
 ```js
 /**
  * Build a fully-materialized config for a new project.
@@ -361,217 +352,191 @@ function cmdConfigNewProject(cwd, choicesJson, raw) {
   }
 }
 ```
+또한 `config.cjs` 하단의 `module.exports`에 `cmdConfigNewProject`을 추가합니다.
 
-Also add `cmdConfigNewProject` to the `module.exports` at the bottom of `config.cjs`.
-
-- [ ] **Step 1.4: Run tests to verify they pass**
-
+- [ ] **1.4단계: 테스트를 실행하여 통과하는지 확인**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 node --test tests/config.test.cjs 2>&1 | tail -20
 ```
+예상: 모든 `config-new-project` 테스트가 통과되었습니다. 기존 테스트는 여전히 통과합니다.
 
-Expected: All `config-new-project` tests pass. Existing tests still pass.
-
-- [ ] **Step 1.5: Commit**
-
+- [ ] **1.5단계: 커밋**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 git add get-shit-done/bin/lib/config.cjs tests/config.test.cjs
 git commit -m "feat: add config-new-project command for full config materialization"
 ```
-
 ---
 
-## Task 2: Register `config-new-project` in gsd-tools.cjs
+## 작업 2: gsd-tools.cjs에 `config-new-project` 등록
 
-**Files:**
+**파일:**
 
-- Modify: `get-shit-done/bin/gsd-tools.cjs`
+- 수정: `get-shit-done/bin/gsd-tools.cjs`
 
-- [ ] **Step 2.1: Add the case to the switch in gsd-tools.cjs**
+- [ ] **2.1단계: gsd-tools.cjs의 스위치에 사례 추가**
 
-After the `config-get` case (around line 401), add:
-
+`config-get` 케이스 뒤에(라인 401) 다음을 추가합니다.
 ```js
     case 'config-new-project': {
       config.cmdConfigNewProject(cwd, args[1], raw);
       break;
     }
 ```
+또한 `config-new-project`을 포함하도록 178행의 사용법 문자열을 업데이트합니다.
 
-Also update the usage string on line 178 to include `config-new-project`:
+현재: `...config-ensure-section, init`
+신규: `...config-ensure-section, config-new-project, init`
 
-Current: `...config-ensure-section, init`
-New: `...config-ensure-section, config-new-project, init`
-
-- [ ] **Step 2.2: Smoke-test the CLI registration**
-
+- [ ] **2.2단계: CLI 등록 스모크 테스트**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 node get-shit-done/bin/gsd-tools.cjs config-new-project '{"mode":"interactive","granularity":"standard"}' --cwd /tmp/gsd-smoke-$(date +%s)
 ```
+예상: `{"created":true,"path":".planning/config.json"}`(또는 유사)을 출력합니다.
 
-Expected: outputs `{"created":true,"path":".planning/config.json"}` (or similar).
+정리: `rm -rf /tmp/gsd-smoke-*`
 
-Clean up: `rm -rf /tmp/gsd-smoke-*`
-
-- [ ] **Step 2.3: Run full test suite**
-
+- [ ] **2.3단계: 전체 테스트 스위트 실행**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 node --test tests/config.test.cjs 2>&1 | tail -10
 ```
+예상: 모두 통과.
 
-Expected: All pass.
-
-- [ ] **Step 2.4: Commit**
-
+- [ ] **2.4단계: 커밋**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 git add get-shit-done/bin/gsd-tools.cjs
 git commit -m "feat: register config-new-project in gsd-tools CLI router"
 ```
-
 ---
 
-## Task 3: Update new-project.md workflow to use config-new-project
+## 작업 3: config-new-project를 사용하도록 new-project.md 워크플로 업데이트
 
-**Files:**
+**파일:**
 
-- Modify: `get-shit-done/workflows/new-project.md`
+- 수정: `get-shit-done/workflows/new-project.md`
 
-This is the core change. Two places need updating:
+이것이 핵심 변화입니다. 두 곳을 업데이트해야 합니다.
 
-- **Step 2a** (auto mode config creation, around line 168–195)
-- **Step 5** (interactive mode config creation, around line 470–498)
+- **2a단계**(자동 모드 구성 생성, 168~195행 주변)
+- **5단계**(대화형 모드 구성 생성, 470~498행 주변)
 
-- [ ] **Step 3.1: Update Step 2a (auto mode)**
+- [ ] **3.1단계: 2a단계 업데이트(자동 모드)**
 
-Find the block in Step 2a that creates config.json:
-
+2a단계에서 config.json을 생성하는 블록을 찾습니다.
 ```markdown
 Create `.planning/config.json` with mode set to "yolo":
 
-```json
+```JSON
 {
-  "mode": "yolo",
-  "granularity": "[selected]",
+  "모드": "욜로",
+  "세분성": "[선택됨]",
   ...
 }
 ```
 
 ```
-
-Replace the inline JSON write instruction with:
-
+인라인 JSON 쓰기 명령을 다음으로 바꿉니다.
 ```markdown
 Create `.planning/config.json` using the CLI (fills in all defaults automatically):
 
-```bash
+```
+강타
 mkdir -p .planning
-node "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" config-new-project "$(cat <<'CHOICES'
+노드 "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" config-new-project "$(cat <<'CHOICES'
 {
-  "mode": "yolo",
-  "granularity": "[selected: coarse|standard|fine]",
-  "parallelization": [true|false],
-  "commit_docs": [true|false],
-  "model_profile": "[selected: quality|balanced|budget|inherit]",
-  "workflow": {
-    "research": [true|false],
-    "plan_check": [true|false],
-    "verifier": [true|false],
+  "모드": "욜로",
+  "granularity": "[선택됨: 거친|표준|세밀함]",
+  "병렬화": [true|false],
+  "commit_docs": [참|거짓],
+  "model_profile": "[선택됨: 품질|균형|예산|상속]",
+  "워크플로": {
+    "연구": [참|거짓],
+    "plan_check": [참|거짓],
+    "검증기": [true|false],
     "nyquist_validation": [true|false],
-    "auto_advance": true
+    "auto_advance": 사실
   }
 }
-CHOICES
+선택
 )"
 ```
 
 The command merges your selections with all runtime defaults (`search_gitignored`, `brave_search`, `git` section), producing a fully-materialized config.
 
 ```
+- [ ] **3.2단계: 업데이트 5단계(대화형 모드)**
 
-- [ ] **Step 3.2: Update Step 5 (interactive mode)**
-
-Find the block in Step 5 that creates config.json:
-
+5단계에서 config.json을 생성하는 블록을 찾습니다.
 ```markdown
 Create `.planning/config.json` with all settings:
 
-```json
+```JSON
 {
-  "mode": "yolo|interactive",
+  "mode": "욜로|대화형",
   ...
 }
 ```
 
 ```
-
-Replace with:
-
+다음으로 교체:
 ```markdown
 Create `.planning/config.json` using the CLI (fills in all defaults automatically):
 
-```bash
+```
+강타
 mkdir -p .planning
-node "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" config-new-project "$(cat <<'CHOICES'
+노드 "$HOME/.claude/get-shit-done/bin/gsd-tools.cjs" config-new-project "$(cat <<'CHOICES'
 {
-  "mode": "[selected: yolo|interactive]",
-  "granularity": "[selected: coarse|standard|fine]",
-  "parallelization": [true|false],
-  "commit_docs": [true|false],
-  "model_profile": "[selected: quality|balanced|budget|inherit]",
-  "workflow": {
-    "research": [true|false],
-    "plan_check": [true|false],
-    "verifier": [true|false],
+  "mode": "[선택됨: 욜로|대화형]",
+  "granularity": "[선택됨: 거친|표준|세밀함]",
+  "병렬화": [true|false],
+  "commit_docs": [참|거짓],
+  "model_profile": "[선택됨: 품질|균형|예산|상속]",
+  "워크플로": {
+    "연구": [참|거짓],
+    "plan_check": [참|거짓],
+    "검증기": [true|false],
     "nyquist_validation": [true|false]
   }
 }
-CHOICES
+선택
 )"
 ```
 
 The command merges your selections with all runtime defaults (`search_gitignored`, `brave_search`, `git` section), producing a fully-materialized config.
 
 ```
-
-- [ ] **Step 3.3: Verify the workflow file reads correctly**
-
+- [ ] **3.3단계: 워크플로 파일이 올바르게 읽히는지 확인**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 grep -n "config-new-project\|config\.json\|CHOICES" get-shit-done/workflows/new-project.md
 ```
+예상: `config-new-project` 2회 발생(단계당 1회), 구성 생성을 위한 인라인 JSON 템플릿이 더 이상 없습니다.
 
-Expected: 2 occurrences of `config-new-project` (one per step), no more inline JSON templates for config creation.
-
-- [ ] **Step 3.4: Commit**
-
+- [ ] **3.4단계: 커밋**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 git add get-shit-done/workflows/new-project.md
 git commit -m "feat: use config-new-project in new-project workflow for full config materialization"
 ```
-
 ---
 
-## Task 4: Validation
+## 작업 4: 검증
 
-- [ ] **Step 4.1: Run the full test suite**
-
+- [ ] **4.1단계: 전체 테스트 스위트 실행**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 node --test tests/ 2>&1 | tail -30
 ```
+예상: 모든 테스트가 통과되었습니다(회귀 없음).
 
-Expected: All tests pass (no regressions).
+- [ ] **4.2단계: 수동 엔드투엔드 검증**
 
-- [ ] **Step 4.2: Manual end-to-end validation**
-
-Simulate what `new-project.md` does for a new project:
-
+새 프로젝트에 대해 `new-project.md`이 수행하는 작업을 시뮬레이션합니다.
 ```bash
 # Create a fresh project dir
 TMP=$(mktemp -d)
@@ -602,11 +567,9 @@ cat "$TMP/.planning/config.json"
 # Clean up
 rm -rf "$TMP"
 ```
+예상 출력: `mode`, `granularity`, `model_profile`, `commit_docs`, `parallelization`, `search_gitignored`, `brave_search`, `git`(하위 키 3개), `workflow`(하위 키 4개)이 포함된 config.json — 총 12개의 최상위 수준 키(또는 `git` 및 `workflow`을 단일 키로 계산하는 경우 10개).
 
-Expected output: a config.json with `mode`, `granularity`, `model_profile`, `commit_docs`, `parallelization`, `search_gitignored`, `brave_search`, `git` (3 sub-keys), `workflow` (4 sub-keys) — 12 top-level keys total (or 10 if counting `git` and `workflow` as single keys).
-
-- [ ] **Step 4.3: Verify idempotency**
-
+- [ ] **4.3단계: 멱등성 확인**
 ```bash
 TMP=$(mktemp -d)
 CHOICES='{"mode":"yolo","granularity":"coarse"}'
@@ -621,11 +584,9 @@ SECOND=$(cat "$TMP/.planning/config.json")
 [ "$FIRST" = "$SECOND" ] && echo "IDEMPOTENT: OK" || echo "IDEMPOTENT: FAIL"
 rm -rf "$TMP"
 ```
+예상: `IDEMPOTENT: OK`
 
-Expected: `IDEMPOTENT: OK`
-
-- [ ] **Step 4.4: Verify loadConfig still reads the new format correctly**
-
+- [ ] **4.4단계: loadConfig가 여전히 새 형식을 올바르게 읽는지 확인**
 ```bash
 TMP=$(mktemp -d)
 node /Users/diego/Dev/get-shit-done/get-shit-done/bin/gsd-tools.cjs config-new-project '{
@@ -643,20 +604,16 @@ node /Users/diego/Dev/get-shit-done/get-shit-done/bin/gsd-tools.cjs config-get g
 
 rm -rf "$TMP"
 ```
-
-- [ ] **Step 4.5: Final full test suite + commit**
-
+- [ ] **4.5단계: 최종 전체 테스트 스위트 + 커밋**
 ```bash
 cd /Users/diego/Dev/get-shit-done
 node --test tests/ 2>&1 | grep -E "pass|fail|error" | tail -5
 ```
-
-Expected: All pass, 0 failures.
+예상: 모두 통과, 실패 0개.
 
 ---
 
-## Appendix: PR description for upstream
-
+## 부록: 업스트림 홍보 설명
 ```
 feat: materialize all config defaults at new-project initialization
 

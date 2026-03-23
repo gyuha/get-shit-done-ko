@@ -2,12 +2,12 @@
 
 ## Upstream 소스
 
-- Repository: `https://github.com/gsd-build/get-shit-done`
+- 저장소: `https://github.com/gsd-build/get-shit-done`
 - Initial import source: 로컬 `origin/` 서브모듈 스냅샷
 
 ## 고정 버전
 
-- Baseline tag: `v1.28.0`
+- 기준 태그: `v1.28.0`
 - 포크 기준선 의미: 이 포크의 첫 한국어화 기준선이며, 이후 sync diff는 이 버전 대비로 읽습니다.
 
 ## 기계 판독용 기준선
@@ -57,11 +57,11 @@ Phase 1 루트 import에서 다음 upstream 추적 항목을 저장소 루트에
 
 이 한국어화 포크는 다음 토큰을 번역하지 않습니다.
 
-- Commands
-- File names
-- Directory names
-- Identifiers
-- phase/requirement IDs
+- 명령
+- 파일 이름
+- 디렉토리 이름
+- 식별자
+- 단계/요구사항 ID
 
 ## 이 포크의 언어 정책
 
@@ -124,8 +124,8 @@ node scripts/run-tests.cjs
 
 현재 비교 기준은 반드시 다음 두 값입니다.
 
-- tracked upstream baseline: `get-shit-done/UPSTREAM_VERSION`
-- upstream latest release: `https://github.com/gsd-build/get-shit-done/releases`
+- 추적된 업스트림 기준선: `get-shit-done/UPSTREAM_VERSION`
+- 업스트림 최신 릴리스: `https://github.com/gsd-build/get-shit-done/releases`
 
 fork `package.json` version은 참고 정보일 뿐, sync eligibility의 단독 source of truth가 아닙니다.
 

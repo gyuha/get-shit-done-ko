@@ -51,11 +51,11 @@ node scripts/run-tests.cjs
 
 아래 항목은 릴리스 직전에도 바뀌면 안 됩니다.
 
-- Commands
-- File names
-- Directory names
-- Identifiers
-- phase/requirement IDs
+- 명령
+- 파일 이름
+- 디렉토리 이름
+- 식별자
+- 단계/요구사항 ID
 - snippet 안의 machine-sensitive tokens
 
 ## 허용되는 예외

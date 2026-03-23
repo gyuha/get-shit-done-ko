@@ -7,29 +7,29 @@
 
 ---
 
-## Overview
+## 개요
 
 `gsd-tools.cjs`는 GSD의 수십 개 명령어, 워크플로, 에이전트 파일에서 반복되던 인라인 bash 패턴을 치환하는 Node.js CLI 유틸리티입니다. config 파싱, 모델 해석, phase 조회, git commit, summary 검증, state 관리, template 작업을 한곳으로 모아 둡니다.
 
-**Location:** `get-shit-done/bin/gsd-tools.cjs`
-**Modules:** 15 domain modules in `get-shit-done/bin/lib/`
+**위치:** `get-shit-done/bin/gsd-tools.cjs`
+**모듈:** `get-shit-done/bin/lib/` 아래 15개 도메인 모듈
 
-**Usage:**
+**사용법:**
 ```bash
 node gsd-tools.cjs <command> [args] [--raw] [--cwd <path>]
 ```
 
-**Global Flags:**
-| Flag | Description |
-|------|-------------|
-| `--raw` | Machine-readable output (JSON or plain text, no formatting) |
-| `--cwd <path>` | Override working directory (for sandboxed subagents) |
+**전역 Flag:**
+| Flag | 설명 |
+|------|------|
+| `--raw` | 기계 판독용 출력(JSON 또는 일반 텍스트, 서식 없음) |
+| `--cwd <path>` | 작업 디렉터리 override(샌드박스 서브에이전트용) |
 
 ---
 
-## State Commands
+## State 명령
 
-Manage `.planning/STATE.md` — the project's living memory.
+프로젝트의 살아 있는 메모리인 `.planning/STATE.md`를 다룹니다.
 
 ```bash
 # Load full project config + state as JSON
@@ -69,21 +69,21 @@ node gsd-tools.cjs state resolve-blocker --text "..."
 node gsd-tools.cjs state record-session --stopped-at "..." [--resume-file path]
 ```
 
-### State Snapshot
+### State 스냅샷
 
-Structured parse of the full STATE.md:
+전체 `STATE.md`를 구조적으로 파싱합니다.
 
 ```bash
 node gsd-tools.cjs state-snapshot
 ```
 
-Returns JSON with: current position, phase, plan, status, decisions, blockers, metrics, last activity.
+반환 JSON에는 현재 위치, phase, plan, 상태, 결정, blocker, 메트릭, 마지막 활동이 들어 있습니다.
 
 ---
 
-## Phase Commands
+## Phase 명령
 
-Manage phases — directories, numbering, and roadmap sync.
+phase 디렉터리, 번호, roadmap 동기화를 관리합니다.
 
 ```bash
 # Find phase directory by number
@@ -113,9 +113,9 @@ node gsd-tools.cjs phases list [--type planned|executed|all] [--phase N] [--incl
 
 ---
 
-## Roadmap Commands
+## Roadmap 명령
 
-Parse and update `ROADMAP.md`.
+`ROADMAP.md`를 파싱하고 갱신합니다.
 
 ```bash
 # Extract phase section from ROADMAP.md
@@ -130,9 +130,9 @@ node gsd-tools.cjs roadmap update-plan-progress <N>
 
 ---
 
-## Config Commands
+## Config 명령
 
-Read and write `.planning/config.json`.
+`.planning/config.json`을 읽고 씁니다.
 
 ```bash
 # Initialize config.json with defaults
@@ -150,21 +150,21 @@ node gsd-tools.cjs config-set-model-profile <profile>
 
 ---
 
-## Model Resolution
+## 모델 해석
 
 ```bash
-# Get model for agent based on current profile
+# 현재 profile 기준으로 에이전트 모델 조회
 node gsd-tools.cjs resolve-model <agent-name>
-# Returns: opus | sonnet | haiku | inherit
+# 반환값: opus | sonnet | haiku | inherit
 ```
 
-Agent names: `gsd-planner`, `gsd-executor`, `gsd-phase-researcher`, `gsd-project-researcher`, `gsd-research-synthesizer`, `gsd-verifier`, `gsd-plan-checker`, `gsd-integration-checker`, `gsd-roadmapper`, `gsd-debugger`, `gsd-codebase-mapper`, `gsd-nyquist-auditor`
+에이전트 이름: `gsd-planner`, `gsd-executor`, `gsd-phase-researcher`, `gsd-project-researcher`, `gsd-research-synthesizer`, `gsd-verifier`, `gsd-plan-checker`, `gsd-integration-checker`, `gsd-roadmapper`, `gsd-debugger`, `gsd-codebase-mapper`, `gsd-nyquist-auditor`
 
 ---
 
-## Verification Commands
+## 검증 명령
 
-Validate plans, phases, references, and commits.
+plan, phase, reference, commit을 검증합니다.
 
 ```bash
 # Verify SUMMARY.md file
@@ -191,9 +191,9 @@ node gsd-tools.cjs verify key-links <plan-file>
 
 ---
 
-## Validation Commands
+## 무결성 검사 명령
 
-Check project integrity.
+프로젝트 무결성을 점검합니다.
 
 ```bash
 # Check phase numbering, disk/roadmap sync
@@ -205,9 +205,9 @@ node gsd-tools.cjs validate health [--repair]
 
 ---
 
-## Template Commands
+## 템플릿 명령
 
-Template selection and filling.
+템플릿 선택과 치환을 수행합니다.
 
 ```bash
 # Select summary template based on granularity
@@ -217,13 +217,13 @@ node gsd-tools.cjs template select <type>
 node gsd-tools.cjs template fill <type> --phase N [--plan M] [--name "..."] [--type execute|tdd] [--wave N] [--fields '{json}']
 ```
 
-Template types for `fill`: `summary`, `plan`, `verification`
+`fill`에서 사용할 수 있는 템플릿 유형: `summary`, `plan`, `verification`
 
 ---
 
-## Frontmatter Commands
+## Frontmatter 명령
 
-YAML frontmatter CRUD operations on any Markdown file.
+임의의 Markdown 파일에서 YAML frontmatter CRUD 작업을 수행합니다.
 
 ```bash
 # Extract frontmatter as JSON
@@ -241,9 +241,9 @@ node gsd-tools.cjs frontmatter validate <file> --schema plan|summary|verificatio
 
 ---
 
-## Scaffold Commands
+## Scaffold 명령
 
-Create pre-structured files and directories.
+미리 구조화된 파일과 디렉터리를 만듭니다.
 
 ```bash
 # Create CONTEXT.md template
@@ -261,9 +261,9 @@ node gsd-tools.cjs scaffold phase-dir --phase N --name "phase name"
 
 ---
 
-## Init Commands (Compound Context Loading)
+## Init 명령(복합 컨텍스트 로딩)
 
-Load all context needed for a specific workflow in one call. Returns JSON with project info, config, state, and workflow-specific data.
+특정 워크플로에 필요한 모든 컨텍스트를 한 번에 불러옵니다. 프로젝트 정보, config, state, 워크플로별 데이터를 담은 JSON을 반환합니다.
 
 ```bash
 node gsd-tools.cjs init execute-phase <phase>
@@ -280,7 +280,7 @@ node gsd-tools.cjs init map-codebase
 node gsd-tools.cjs init progress
 ```
 
-**Large payload handling:** When output exceeds ~50KB, the CLI writes to a temp file and returns `@file:/tmp/gsd-init-XXXXX.json`. Workflows check for the `@file:` prefix and read from disk:
+**대용량 payload 처리:** 출력이 약 50KB를 넘으면 CLI는 임시 파일에 기록하고 `@file:/tmp/gsd-init-XXXXX.json`을 반환합니다. 워크플로는 `@file:` 접두사를 확인해 디스크에서 읽습니다.
 
 ```bash
 INIT=$(node gsd-tools.cjs init execute-phase "1")
@@ -289,7 +289,7 @@ if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 
 ---
 
-## Milestone Commands
+## Milestone 명령
 
 ```bash
 # Archive milestone
@@ -302,68 +302,69 @@ node gsd-tools.cjs requirements mark-complete <ids>
 
 ---
 
-## Utility Commands
+## 유틸리티 명령
 
 ```bash
-# Convert text to URL-safe slug
+# 텍스트를 URL 안전 slug로 변환
 node gsd-tools.cjs generate-slug "Some Text Here"
 # → some-text-here
 
-# Get timestamp
+# 타임스탬프 얻기
 node gsd-tools.cjs current-timestamp [full|date|filename]
 
-# Count and list pending todos
+# 대기 중인 todo 개수와 목록 조회
 node gsd-tools.cjs list-todos [area]
 
-# Check file/directory existence
+# 파일/디렉터리 존재 여부 확인
 node gsd-tools.cjs verify-path-exists <path>
 
-# Aggregate all SUMMARY.md data
+# 모든 SUMMARY.md 데이터 집계
 node gsd-tools.cjs history-digest
 
-# Extract structured data from SUMMARY.md
+# SUMMARY.md에서 구조화된 데이터 추출
 node gsd-tools.cjs summary-extract <path> [--fields field1,field2]
 
-# Project statistics
+# 프로젝트 통계
 node gsd-tools.cjs stats [json|table]
 
-# Progress rendering
+# 진행 상태 렌더링
 node gsd-tools.cjs progress [json|table|bar]
 
-# Complete a todo
+# todo 완료 처리
 node gsd-tools.cjs todo complete <filename>
 
-# UAT audit — scan all phases for unresolved items
+# UAT audit — 모든 phase에서 미해결 항목 스캔
 node gsd-tools.cjs audit-uat
 
-# Git commit with config checks
+# config 검사와 함께 git commit
 node gsd-tools.cjs commit <message> [--files f1 f2] [--amend] [--no-verify]
 ```
 
-> **`--no-verify`**: Skips pre-commit hooks. Used by parallel executor agents during wave-based execution to avoid build lock contention (e.g., cargo lock fights in Rust projects). The orchestrator runs hooks once after each wave completes. Do not use `--no-verify` during sequential execution — let hooks run normally.
+> **`--no-verify`**: pre-commit hook을 건너뜁니다. wave 기반 병렬 실행 중 build lock 충돌(예: Rust 프로젝트의 cargo lock 경쟁)을 피하려고 병렬 executor 에이전트가 사용합니다. orchestrator는 각 wave가 끝난 뒤 hook을 한 번만 실행합니다. 순차 실행에서는 `--no-verify`를 쓰지 말고 hook이 평소처럼 돌도록 두세요.
 
-# Web search (requires Brave API key)
+## 웹 검색(Brave API key 필요)
+```bash
 node gsd-tools.cjs websearch <query> [--limit N] [--freshness day|week|month]
 ```
 
 ---
 
-## Module Architecture
+## 모듈 아키텍처
 
-| Module | File | Exports |
-|--------|------|---------|
-| Core | `lib/core.cjs` | `error()`, `output()`, `parseArgs()`, shared utilities |
-| State | `lib/state.cjs` | All `state` subcommands, `state-snapshot` |
-| Phase | `lib/phase.cjs` | Phase CRUD, `find-phase`, `phase-plan-index`, `phases list` |
-| Roadmap | `lib/roadmap.cjs` | Roadmap parsing, phase extraction, progress updates |
-| Config | `lib/config.cjs` | Config read/write, section initialization |
-| Verify | `lib/verify.cjs` | All verification and validation commands |
-| Template | `lib/template.cjs` | Template selection and variable filling |
-| Frontmatter | `lib/frontmatter.cjs` | YAML frontmatter CRUD |
-| Init | `lib/init.cjs` | Compound context loading for all workflows |
-| Milestone | `lib/milestone.cjs` | Milestone archival, requirements marking |
-| Commands | `lib/commands.cjs` | Misc: slug, timestamp, todos, scaffold, stats, websearch |
-| Model Profiles | `lib/model-profiles.cjs` | Profile resolution table |
-| UAT | `lib/uat.cjs` | Cross-phase UAT/verification audit |
-| Profile Output | `lib/profile-output.cjs` | Developer profile formatting |
-| Profile Pipeline | `lib/profile-pipeline.cjs` | Session analysis pipeline |
+| 모듈 | 파일 | 내보내는 항목 |
+|--------|------|---------------|
+| Core | `lib/core.cjs` | `error()`, `output()`, `parseArgs()`, 공통 유틸리티 |
+| State | `lib/state.cjs` | 모든 `state` 하위 명령, `state-snapshot` |
+| 단계 | `lib/phase.cjs` | 단계 CRUD, `find-phase`, `phase-plan-index`, `phases list` |
+| Roadmap | `lib/roadmap.cjs` | roadmap 파싱, phase 추출, 진행도 갱신 |
+| Config | `lib/config.cjs` | config 읽기/쓰기, 섹션 초기화 |
+| Verify | `lib/verify.cjs` | 모든 verification 및 validation 명령 |
+| Template | `lib/template.cjs` | 템플릿 선택과 변수 채우기 |
+| 머리말 | `lib/frontmatter.cjs` | YAML 머리말 CRUD |
+| Init | `lib/init.cjs` | 모든 워크플로용 복합 컨텍스트 로딩 |
+| Milestone | `lib/milestone.cjs` | milestone 아카이브, requirements 완료 처리 |
+| Commands | `lib/commands.cjs` | 기타: slug, timestamp, todo, scaffold, stats, websearch |
+| Model Profiles | `lib/model-profiles.cjs` | profile 해석 테이블 |
+| UAT | `lib/uat.cjs` | cross-phase UAT/verification 감사 |
+| Profile Output | `lib/profile-output.cjs` | 개발자 프로필 포맷팅 |
+| Profile Pipeline | `lib/profile-pipeline.cjs` | 세션 분석 파이프라인 |

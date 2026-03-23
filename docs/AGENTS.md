@@ -7,377 +7,377 @@
 
 ---
 
-## Overview
+## 개요
 
 GSD는 얇은 orchestrator(워크플로 파일)가 새로운 context window를 가진 전문 에이전트를 실행하는 multi-agent 구조를 사용합니다. 각 에이전트는 역할이 좁고, 도구 권한이 제한되며, 특정 산출물을 만들도록 설계되어 있습니다.
 
-### Agent Categories
+### 에이전트 분류
 
-| Category | Count | Agents |
-|----------|-------|--------|
-| Researchers | 3 | project-researcher, phase-researcher, ui-researcher |
-| Synthesizers | 1 | research-synthesizer |
-| Planners | 1 | planner |
-| Roadmappers | 1 | roadmapper |
-| Executors | 1 | executor |
-| Checkers | 3 | plan-checker, integration-checker, ui-checker |
-| Verifiers | 1 | verifier |
-| Auditors | 2 | nyquist-auditor, ui-auditor |
-| Mappers | 1 | codebase-mapper |
-| Debuggers | 1 | debugger |
-
----
-
-## Agent Details
-
-### gsd-project-researcher
-
-**Role:** Researches domain ecosystem before roadmap creation.
-
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:new-project`, `/gsd:new-milestone` |
-| **Parallelism** | 4 instances (stack, features, architecture, pitfalls) |
-| **Tools** | Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp (context7) |
-| **Model (balanced)** | Sonnet |
-| **Produces** | `.planning/research/STACK.md`, `FEATURES.md`, `ARCHITECTURE.md`, `PITFALLS.md` |
-
-**Capabilities:**
-- Web search for current ecosystem information
-- Context7 MCP integration for library documentation
-- Writes research documents directly to disk (reduces orchestrator context load)
+| 분류 | 수 | 에이전트 |
+|------|----|-----------|
+| 연구원 | 3 | 프로젝트연구원, 단계연구원, ui연구원 |
+| 신디사이저 | 1 | 연구 합성기 |
+| 기획자 | 1 | 플래너 |
+| 로드맵 작성자 | 1 | 로드매퍼 |
+| 집행자 | 1 | 집행자 |
+| 체커 | 3 | 계획 검사기, 통합 검사기, UI 검사기 |
+| 검증자 | 1 | 검증자 |
+| 감사 | 2 | 나이퀴스트 감사자, ui 감사자 |
+| 매퍼 | 1 | 코드베이스 매퍼 |
+| 디버거 | 1 | 디버거 |
 
 ---
 
-### gsd-phase-researcher
+## 에이전트 상세
 
-**Role:** Researches how to implement a specific phase before planning.
+### gsd-프로젝트-연구원
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:plan-phase` |
-| **Parallelism** | 4 instances (same focus areas as project researcher) |
-| **Tools** | Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp (context7) |
-| **Model (balanced)** | Sonnet |
-| **Produces** | `{phase}-RESEARCH.md` |
+**역할:** roadmap를 만들기 전에 도메인 생태계를 조사합니다.
 
-**Capabilities:**
-- Reads CONTEXT.md to focus research on user's decisions
-- Investigates implementation patterns for the specific phase domain
-- Detects test infrastructure for Nyquist validation mapping
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:new-project`, `/gsd:new-milestone` |
+| **Parallelism** | 4개 인스턴스(stack, features, architecture, pitfalls) |
+| **도구** | 읽기, 쓰기, Bash, Grep, Glob, WebSearch, WebFetch, mcp(context7) |
+| **모델(균형)** | 소네트 |
+| **프로듀스** | `.planning/research/STACK.md`, `FEATURES.md`, `ARCHITECTURE.md`, `PITFALLS.md` |
 
----
-
-### gsd-ui-researcher
-
-**Role:** Produces UI design contracts for frontend phases.
-
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:ui-phase` |
-| **Parallelism** | Single instance |
-| **Tools** | Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp (context7) |
-| **Model (balanced)** | Sonnet |
-| **Color** | `#E879F9` (fuchsia) |
-| **Produces** | `{phase}-UI-SPEC.md` |
-
-**Capabilities:**
-- Detects design system state (shadcn components.json, Tailwind config, existing tokens)
-- Offers shadcn initialization for React/Next.js/Vite projects
-- Asks only unanswered design contract questions
-- Enforces registry safety gate for third-party components
+**주요 기능:**
+- 현재 생태계 정보를 위한 웹 검색
+- 라이브러리 문서를 위한 Context7 MCP 연동
+- 연구 문서를 디스크에 직접 작성해 orchestrator 컨텍스트 부담 감소
 
 ---
 
-### gsd-research-synthesizer
+### gsd-단계-연구원
 
-**Role:** Combines outputs from parallel researchers into a unified summary.
+**역할:** 특정 phase를 어떻게 구현할지 planning 전에 조사합니다.
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:new-project` (after 4 researchers complete) |
-| **Parallelism** | Single instance (sequential after researchers) |
-| **Tools** | Read, Write, Bash |
-| **Model (balanced)** | Sonnet |
-| **Color** | Purple |
-| **Produces** | `.planning/research/SUMMARY.md` |
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:plan-phase` |
+| **Parallelism** | 4개 인스턴스(프로젝트 researcher와 같은 집중 영역) |
+| **도구** | 읽기, 쓰기, Bash, Grep, Glob, WebSearch, WebFetch, mcp(context7) |
+| **모델(균형)** | 소네트 |
+| **프로듀스** | `{phase}-RESEARCH.md` |
 
----
-
-### gsd-planner
-
-**Role:** Creates executable phase plans with task breakdown, dependency analysis, and goal-backward verification.
-
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:plan-phase`, `/gsd:quick` |
-| **Parallelism** | Single instance |
-| **Tools** | Read, Write, Bash, Glob, Grep, WebFetch, mcp (context7) |
-| **Model (balanced)** | Opus |
-| **Color** | Green |
-| **Produces** | `{phase}-{N}-PLAN.md` files |
-
-**Key behaviors:**
-- Reads PROJECT.md, REQUIREMENTS.md, CONTEXT.md, RESEARCH.md
-- Creates 2-3 atomic task plans sized for single context windows
-- Uses XML structure with `<task>` elements
-- Includes `read_first` and `acceptance_criteria` sections
-- Groups plans into dependency waves
+**주요 기능:**
+- CONTEXT.md를 읽고 사용자 결정에 맞춰 조사 범위를 집중
+- 해당 phase 도메인의 구현 패턴 조사
+- Nyquist validation 매핑을 위한 테스트 인프라 탐지
 
 ---
 
-### gsd-roadmapper
+### gsd-ui-연구원
 
-**Role:** Creates project roadmaps with phase breakdown and requirement mapping.
+**역할:** 프론트엔드 phase를 위한 UI 디자인 계약을 생성합니다.
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:new-project` |
-| **Parallelism** | Single instance |
-| **Tools** | Read, Write, Bash, Glob, Grep |
-| **Model (balanced)** | Sonnet |
-| **Color** | Purple |
-| **Produces** | `ROADMAP.md` |
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:ui-phase` |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기, 쓰기, Bash, Grep, Glob, WebSearch, WebFetch, mcp(context7) |
+| **모델(균형)** | 소네트 |
+| **색상** | `#E879F9`(자홍색) |
+| **프로듀스** | `{phase}-UI-SPEC.md` |
 
-**Key behaviors:**
-- Maps requirements to phases (traceability)
-- Derives success criteria from requirements
-- Respects granularity setting for phase count
-- Validates coverage (every v1 requirement mapped to a phase)
-
----
-
-### gsd-executor
-
-**Role:** Executes GSD plans with atomic commits, deviation handling, and checkpoint protocols.
-
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:execute-phase`, `/gsd:quick` |
-| **Parallelism** | Multiple (parallel within waves, sequential across waves) |
-| **Tools** | Read, Write, Edit, Bash, Grep, Glob |
-| **Model (balanced)** | Sonnet |
-| **Color** | Yellow |
-| **Produces** | Code changes, git commits, `{phase}-{N}-SUMMARY.md` |
-
-**Key behaviors:**
-- Fresh 200K context window per plan
-- Follows XML task instructions precisely
-- Atomic git commit per completed task
-- Handles checkpoint types: auto, human-verify, decision, human-action
-- Reports deviations from plan in SUMMARY.md
-- Invokes node repair on verification failure
+**주요 기능:**
+- 디자인 시스템 상태(shadcn `components.json`, Tailwind config, 기존 token) 감지
+- React/Next.js/Vite 프로젝트에 shadcn 초기화 제안
+- 아직 답하지 않은 디자인 계약 질문만 제시
+- 서드파티 컴포넌트에 registry safety gate 적용
 
 ---
 
-### gsd-plan-checker
+### gsd-연구-합성기
 
-**Role:** Verifies plans will achieve phase goals before execution.
+**역할:** 병렬 researcher의 출력을 하나의 통합 요약으로 합칩니다.
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:plan-phase` (verification loop, max 3 iterations) |
-| **Parallelism** | Single instance (iterative) |
-| **Tools** | Read, Bash, Glob, Grep |
-| **Model (balanced)** | Sonnet |
-| **Color** | Green |
-| **Produces** | PASS/FAIL verdict with specific feedback |
-
-**8 Verification Dimensions:**
-1. Requirement coverage
-2. Task atomicity
-3. Dependency ordering
-4. File scope
-5. Verification commands
-6. Context fit
-7. Gap detection
-8. Nyquist compliance (when enabled)
+| 속성 | 값 |
+|------|----|
+| **Spawned by** | `/gsd:new-project`(4개 researcher 완료 후) |
+| **Parallelism** | 단일 인스턴스(researcher 이후 순차 실행) |
+| **도구** | 읽기, 쓰기, 배쉬 |
+| **모델(균형)** | 소네트 |
+| **색상** | 보라색 |
+| **프로듀스** | `.planning/research/SUMMARY.md` |
 
 ---
 
-### gsd-integration-checker
+### gsd 플래너
 
-**Role:** Verifies cross-phase integration and end-to-end flows.
+**역할:** 작업 분해, 의존성 분석, 목표 역산 검증을 포함한 실행 가능한 phase plan을 만듭니다.
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:audit-milestone` |
-| **Parallelism** | Single instance |
-| **Tools** | Read, Bash, Grep, Glob |
-| **Model (balanced)** | Sonnet |
-| **Color** | Blue |
-| **Produces** | Integration verification report |
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:plan-phase`, `/gsd:quick` |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기, 쓰기, Bash, Glob, Grep, WebFetch, mcp(context7) |
+| **모델(균형)** | 오퍼스 |
+| **색상** | 그린 |
+| **Produces** | `{phase}-{N}-PLAN.md` 파일 |
 
----
-
-### gsd-ui-checker
-
-**Role:** Validates UI-SPEC.md design contracts against quality dimensions.
-
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:ui-phase` (validation loop, max 2 iterations) |
-| **Parallelism** | Single instance |
-| **Tools** | Read, Bash, Glob, Grep |
-| **Model (balanced)** | Sonnet |
-| **Color** | `#22D3EE` (cyan) |
-| **Produces** | BLOCK/FLAG/PASS verdict |
+**핵심 동작:**
+- PROJECT.md, REQUIREMENTS.md, CONTEXT.md, RESEARCH.md를 읽음
+- 단일 컨텍스트 창에 맞는 2~3개의 원자적 task plan 생성
+- `<task>` 요소를 포함한 XML 구조 사용
+- `read_first`, `acceptance_criteria` 섹션 포함
+- plan을 의존성 wave로 그룹화
 
 ---
 
-### gsd-verifier
+### gsd-로드매퍼
 
-**Role:** Verifies phase goal achievement through goal-backward analysis.
+**역할:** phase 분해와 requirement 매핑이 포함된 프로젝트 roadmap를 생성합니다.
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:execute-phase` (after all executors complete) |
-| **Parallelism** | Single instance |
-| **Tools** | Read, Write, Bash, Grep, Glob |
-| **Model (balanced)** | Sonnet |
-| **Color** | Green |
-| **Produces** | `{phase}-VERIFICATION.md` |
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:new-project` |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기, 쓰기, Bash, Glob, Grep |
+| **모델(균형)** | 소네트 |
+| **색상** | 보라색 |
+| **프로듀스** | `ROADMAP.md` |
 
-**Key behaviors:**
-- Checks codebase against phase goals, not just task completion
-- PASS/FAIL with specific evidence
-- Logs issues for `/gsd:verify-work` to address
-
----
-
-### gsd-nyquist-auditor
-
-**Role:** Fills Nyquist validation gaps by generating tests.
-
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:validate-phase` |
-| **Parallelism** | Single instance |
-| **Tools** | Read, Write, Edit, Bash, Grep, Glob |
-| **Model (balanced)** | Sonnet |
-| **Produces** | Test files, updated `VALIDATION.md` |
-
-**Key behaviors:**
-- Never modifies implementation code — only test files
-- Max 3 attempts per gap
-- Flags implementation bugs as escalations for user
+**핵심 동작:**
+- requirement를 phase에 매핑해 traceability 확보
+- requirement에서 success criteria 도출
+- phase 수에 대해 granularity 설정 반영
+- coverage 검증(v1 requirement가 모두 phase에 매핑되었는지 확인)
 
 ---
 
-### gsd-ui-auditor
+### gsd 실행자
 
-**Role:** Retroactive 6-pillar visual audit of implemented frontend code.
+**역할:** 원자적 commit, deviation 처리, checkpoint 프로토콜에 따라 GSD plan을 실행합니다.
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:ui-review` |
-| **Parallelism** | Single instance |
-| **Tools** | Read, Write, Bash, Grep, Glob |
-| **Model (balanced)** | Sonnet |
-| **Color** | `#F472B6` (pink) |
-| **Produces** | `{phase}-UI-REVIEW.md` with scores |
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:execute-phase`, `/gsd:quick` |
+| **Parallelism** | 다중 인스턴스(wave 내부 병렬, wave 간 순차) |
+| **도구** | 읽기, 쓰기, 편집, Bash, Grep, Glob |
+| **모델(균형)** | 소네트 |
+| **색상** | 노란색 |
+| **Produces** | 코드 변경, git commit, `{phase}-{N}-SUMMARY.md` |
 
-**6 Audit Pillars (scored 1-4):**
-1. Copywriting
-2. Visuals
-3. Color
-4. Typography
-5. Spacing
-6. Experience Design
-
----
-
-### gsd-codebase-mapper
-
-**Role:** Explores codebase and writes structured analysis documents.
-
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:map-codebase` |
-| **Parallelism** | 4 instances (tech, architecture, quality, concerns) |
-| **Tools** | Read, Bash, Grep, Glob, Write |
-| **Model (balanced)** | Haiku |
-| **Color** | Cyan |
-| **Produces** | `.planning/codebase/*.md` (7 documents) |
-
-**Key behaviors:**
-- Read-only exploration + structured output
-- Writes documents directly to disk
-- No reasoning required — pattern extraction from file contents
+**핵심 동작:**
+- plan마다 새 200K 컨텍스트 창 사용
+- XML task 지시를 정확히 따름
+- 완료된 task마다 원자적 git commit 생성
+- checkpoint 유형(auto, human-verify, decision, human-action) 처리
+- plan 대비 deviation을 SUMMARY.md에 기록
+- verification 실패 시 node repair 호출
 
 ---
 
-### gsd-debugger
+### gsd-계획-검사기
 
-**Role:** Investigates bugs using scientific method with persistent state.
+**역할:** 실행 전에 plan이 phase 목표를 달성할 수 있는지 검증합니다.
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:debug`, `/gsd:verify-work` (for failures) |
-| **Parallelism** | Single instance (interactive) |
-| **Tools** | Read, Write, Edit, Bash, Grep, Glob, WebSearch |
-| **Model (balanced)** | Sonnet |
-| **Color** | Orange |
-| **Produces** | `.planning/debug/*.md`, knowledge-base updates |
+| 속성 | 값 |
+|------|----|
+| **Spawned by** | `/gsd:plan-phase`(검증 루프, 최대 3회 반복) |
+| **Parallelism** | 단일 인스턴스(반복형) |
+| **도구** | 읽기, Bash, Glob, Grep |
+| **모델(균형)** | 소네트 |
+| **색상** | 그린 |
+| **Produces** | 구체적 피드백이 담긴 PASS/FAIL 판정 |
 
-**Debug Session Lifecycle:**
+**8개 검증 차원:**
+1. 요구사항 적용 범위
+2. 태스크 원자성
+3. 의존성 순서
+4. 파일 범위
+5. 확인 명령
+6. 상황에 맞는
+7. 갭 감지
+8. Nyquist 규정 준수(활성화된 경우)
+
+---
+
+### gsd-통합-검사기
+
+**역할:** phase 간 통합과 end-to-end 흐름을 검증합니다.
+
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:audit-milestone` |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기, Bash, Grep, Glob |
+| **모델(균형)** | 소네트 |
+| **색상** | 블루 |
+| **Produces** | 통합 검증 리포트 |
+
+---
+
+### gsd-ui-검사기
+
+**역할:** UI-SPEC.md 디자인 계약을 품질 차원에 맞춰 검증합니다.
+
+| 속성 | 값 |
+|------|----|
+| **Spawned by** | `/gsd:ui-phase`(검증 루프, 최대 2회 반복) |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기, Bash, Glob, Grep |
+| **모델(균형)** | 소네트 |
+| **색상** | `#22D3EE`(청록색) |
+| **Produces** | BLOCK/FLAG/PASS 판정 |
+
+---
+
+### gsd-검증기
+
+**역할:** goal-backward 분석으로 phase 목표 달성 여부를 검증합니다.
+
+| 속성 | 값 |
+|------|----|
+| **Spawned by** | `/gsd:execute-phase`(모든 executor 완료 후) |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기, 쓰기, Bash, Grep, Glob |
+| **모델(균형)** | 소네트 |
+| **색상** | 그린 |
+| **프로듀스** | `{phase}-VERIFICATION.md` |
+
+**핵심 동작:**
+- task 완료 여부뿐 아니라 phase 목표 기준으로 코드베이스 점검
+- 구체적 근거와 함께 PASS/FAIL 판정
+- `/gsd:verify-work`에서 다룰 이슈 기록
+
+---
+
+### gsd-nyquist-감사자
+
+**역할:** 테스트를 생성해 Nyquist validation gap을 메웁니다.
+
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:validate-phase` |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기, 쓰기, 편집, Bash, Grep, Glob |
+| **모델(균형)** | 소네트 |
+| **Produces** | 테스트 파일, 갱신된 `VALIDATION.md` |
+
+**핵심 동작:**
+- 구현 코드는 절대 수정하지 않고 테스트 파일만 수정
+- gap당 최대 3회 시도
+- 구현 버그는 사용자에게 escalation으로 표시
+
+---
+
+### gsd-ui-감사자
+
+**역할:** 구현된 프론트엔드 코드를 대상으로 사후 6축 시각 감사를 수행합니다.
+
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:ui-review` |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기, 쓰기, Bash, Grep, Glob |
+| **모델(균형)** | 소네트 |
+| **색상** | `#F472B6`(핑크) |
+| **Produces** | 점수가 포함된 `{phase}-UI-REVIEW.md` |
+
+**6개 감사 축(각 1~4점):**
+1. 카피라이팅
+2. 비주얼
+3. 색상
+4. 타이포그래피
+5. 간격
+6. 경험 디자인
+
+---
+
+### gsd-코드베이스-매퍼
+
+**역할:** 코드베이스를 탐색하고 구조화된 분석 문서를 작성합니다.
+
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:map-codebase` |
+| **Parallelism** | 4개 인스턴스(tech, architecture, quality, concerns) |
+| **도구** | 읽기, Bash, Grep, Glob, 쓰기 |
+| **모델(균형)** | 하이쿠 |
+| **색상** | 청록색 |
+| **Produces** | `.planning/codebase/*.md`(문서 7개) |
+
+**핵심 동작:**
+- 읽기 전용 탐색 + 구조화된 출력
+- 문서를 디스크에 직접 작성
+- 깊은 reasoning보다 파일 내용에서 패턴 추출에 집중
+
+---
+
+### gsd-디버거
+
+**역할:** 지속 상태를 유지하면서 과학적 방법으로 버그를 조사합니다.
+
+| 속성 | 값 |
+|------|----|
+| **Spawned by** | `/gsd:debug`, `/gsd:verify-work`(실패 시) |
+| **Parallelism** | 단일 인스턴스(대화형) |
+| **도구** | 읽기, 쓰기, 편집, Bash, Grep, Glob, WebSearch |
+| **모델(균형)** | 소네트 |
+| **색상** | 오렌지 |
+| **Produces** | `.planning/debug/*.md`, knowledge-base 업데이트 |
+
+**디버그 세션 생명주기:**
 `gathering` → `investigating` → `fixing` → `verifying` → `awaiting_human_verify` → `resolved`
 
-**Key behaviors:**
-- Tracks hypotheses, evidence, and eliminated theories
-- State persists across context resets
-- Requires human verification before marking resolved
-- Appends to persistent knowledge base on resolution
-- Consults knowledge base on new sessions
+**핵심 동작:**
+- 가설, 증거, 배제된 이론을 추적
+- 상태가 context reset을 넘어 지속됨
+- resolved 처리 전 사람의 검증 필요
+- 해결 시 지속 knowledge base에 기록 추가
+- 새 세션에서 knowledge base 참고
 
 ---
 
-### gsd-user-profiler
+### gsd-사용자-프로파일러
 
-**Role:** Analyzes session messages across 8 behavioral dimensions to produce a scored developer profile.
+**역할:** 세션 메시지를 8개 행동 차원으로 분석해 점수화된 개발자 프로필을 생성합니다.
 
-| Property | Value |
-|----------|-------|
-| **Spawned by** | `/gsd:profile-user` |
-| **Parallelism** | Single instance |
-| **Tools** | Read |
-| **Model (balanced)** | Sonnet |
-| **Color** | Magenta |
-| **Produces** | `USER-PROFILE.md`, `/gsd:dev-preferences`, `CLAUDE.md` profile section |
+| 속성 | 값 |
+|------|----|
+| **생성자** | `/gsd:profile-user` |
+| **Parallelism** | 단일 인스턴스 |
+| **도구** | 읽기 |
+| **모델(균형)** | 소네트 |
+| **색상** | 마젠타 |
+| **Produces** | `USER-PROFILE.md`, `/gsd:dev-preferences`, `CLAUDE.md` 프로필 섹션 |
 
-**Behavioral Dimensions:**
-Communication style, decision patterns, debugging approach, UX preferences, vendor choices, frustration triggers, learning style, explanation depth.
+**행동 차원:**
+커뮤니케이션 스타일, 결정 패턴, 디버깅 접근 방식, UX 선호도, 공급업체 선택, 좌절 유발 요인, 학습 스타일, 설명 깊이.
 
-**Key behaviors:**
-- Read-only agent — analyzes extracted session data, does not modify files
-- Produces scored dimensions with confidence levels and evidence citations
-- Questionnaire fallback when session history is unavailable
+**핵심 동작:**
+- 읽기 전용 에이전트로, 추출된 세션 데이터를 분석하며 파일은 수정하지 않음
+- 신뢰도와 근거 인용이 포함된 점수화 차원 생성
+- 세션 이력이 없을 때 설문 fallback 제공
 
 ---
 
-## Agent Tool Permissions Summary
+## 에이전트 도구 권한 요약
 
-| Agent | Read | Write | Edit | Bash | Grep | Glob | WebSearch | WebFetch | MCP |
+| 에이전트 | 읽기 | 쓰기 | 편집 | 배쉬 | 그렙 | 글로브 | 웹검색 | 웹페치 | MCP |
 |-------|------|-------|------|------|------|------|-----------|----------|-----|
-| project-researcher | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| phase-researcher | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| ui-researcher | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| research-synthesizer | ✓ | ✓ | | ✓ | | | | | |
-| planner | ✓ | ✓ | | ✓ | ✓ | ✓ | | ✓ | ✓ |
-| roadmapper | ✓ | ✓ | | ✓ | ✓ | ✓ | | | |
-| executor | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | | | |
-| plan-checker | ✓ | | | ✓ | ✓ | ✓ | | | |
-| integration-checker | ✓ | | | ✓ | ✓ | ✓ | | | |
-| ui-checker | ✓ | | | ✓ | ✓ | ✓ | | | |
-| verifier | ✓ | ✓ | | ✓ | ✓ | ✓ | | | |
-| nyquist-auditor | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | | | |
-| ui-auditor | ✓ | ✓ | | ✓ | ✓ | ✓ | | | |
-| codebase-mapper | ✓ | ✓ | | ✓ | ✓ | ✓ | | | |
-| debugger | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | | |
-| user-profiler | ✓ | | | | | | | | |
+| 프로젝트연구원 | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 위상연구원 | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| ui연구원 | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 연구 합성기 | ✓ | ✓ | | ✓ | | | | | |
+| 플래너 | ✓ | ✓ | | ✓ | ✓ | ✓ | | ✓ | ✓ |
+| 로드매퍼 | ✓ | ✓ | | ✓ | ✓ | ✓ | | | |
+| 집행자 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | | | |
+| 계획 검사기 | ✓ | | | ✓ | ✓ | ✓ | | | |
+| 통합 검사기 | ✓ | | | ✓ | ✓ | ✓ | | | |
+| UI 검사기 | ✓ | | | ✓ | ✓ | ✓ | | | |
+| 검증자 | ✓ | ✓ | | ✓ | ✓ | ✓ | | | |
+| 나이퀴스트 감사관 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | | | |
+| UI 감사자 | ✓ | ✓ | | ✓ | ✓ | ✓ | | | |
+| 코드베이스 매퍼 | ✓ | ✓ | | ✓ | ✓ | ✓ | | | |
+| 디버거 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | | |
+| 사용자 프로파일러 | ✓ | | | | | | | | |
 
-**Principle of Least Privilege:**
-- Checkers are read-only (no Write/Edit) — they evaluate, never modify
-- Researchers have web access — they need current ecosystem information
-- Executors have Edit — they modify code but not web access
-- Mappers have Write — they write analysis documents but not Edit (no code changes)
+**최소 권한 원칙:**
+- Checker는 읽기 전용(Write/Edit 없음)으로, 평가만 하고 수정하지 않음
+- Researcher는 최신 생태계 정보를 위해 웹 접근 권한 보유
+- Executor는 Edit 권한이 있어 코드를 수정하지만 웹 접근은 없음
+- Mapper는 분석 문서를 작성하는 Write 권한은 있지만 Edit는 없어 코드 변경은 하지 않음
