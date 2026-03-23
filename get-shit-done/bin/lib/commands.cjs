@@ -1,5 +1,5 @@
 /**
- * Commands — Standalone utility commands
+ * Commands — 독립 실행형 유틸리티 명령
  */
 const fs = require('fs');
 const path = require('path');
@@ -60,7 +60,7 @@ function cmdListTodos(cwd, area, raw) {
 
         const todoArea = areaMatch ? areaMatch[1].trim() : 'general';
 
-        // Apply area filter if specified
+        // area 필터가 지정되면 적용
         if (area && todoArea !== area) continue;
 
         count++;
@@ -84,7 +84,7 @@ function cmdVerifyPathExists(cwd, targetPath, raw) {
     error('path required for verification');
   }
 
-  // Reject null bytes and validate path does not contain traversal attempts
+  // null byte를 거부하고 path traversal 시도가 없는지 확인
   if (targetPath.includes('\0')) {
     error('path contains null bytes');
   }
@@ -106,16 +106,16 @@ function cmdHistoryDigest(cwd, raw) {
   const phasesDir = planningPaths(cwd).phases;
   const digest = { phases: {}, decisions: [], tech_stack: new Set() };
 
-  // Collect all phase directories: archived + current
+  // 모든 phase 디렉터리 수집: archived + current
   const allPhaseDirs = [];
 
-  // Add archived phases first (oldest milestones first)
+  // archived phase를 먼저 추가(가장 오래된 milestone부터)
   const archived = getArchivedPhaseDirs(cwd);
   for (const a of archived) {
     allPhaseDirs.push({ name: a.name, fullPath: a.fullPath, milestone: a.milestone });
   }
 
-  // Add current phases
+  // 현재 phase를 추가
   if (fs.existsSync(phasesDir)) {
     try {
       const currentDirs = fs.readdirSync(phasesDir, { withFileTypes: true })
@@ -154,42 +154,42 @@ function cmdHistoryDigest(cwd, raw) {
             };
           }
 
-          // Merge provides
+          // provides 병합
           if (fm['dependency-graph'] && fm['dependency-graph'].provides) {
             fm['dependency-graph'].provides.forEach(p => digest.phases[phaseNum].provides.add(p));
           } else if (fm.provides) {
             fm.provides.forEach(p => digest.phases[phaseNum].provides.add(p));
           }
 
-          // Merge affects
+          // affects 병합
           if (fm['dependency-graph'] && fm['dependency-graph'].affects) {
             fm['dependency-graph'].affects.forEach(a => digest.phases[phaseNum].affects.add(a));
           }
 
-          // Merge patterns
+          // patterns 병합
           if (fm['patterns-established']) {
             fm['patterns-established'].forEach(p => digest.phases[phaseNum].patterns.add(p));
           }
 
-          // Merge decisions
+          // decisions 병합
           if (fm['key-decisions']) {
             fm['key-decisions'].forEach(d => {
               digest.decisions.push({ phase: phaseNum, decision: d });
             });
           }
 
-          // Merge tech stack
+          // tech stack 병합
           if (fm['tech-stack'] && fm['tech-stack'].added) {
             fm['tech-stack'].added.forEach(t => digest.tech_stack.add(typeof t === 'string' ? t : t.name));
           }
 
         } catch (e) {
-          // Skip malformed summaries
+          // 형식이 깨진 summary는 건너뜀
         }
       }
     }
 
-    // Convert Sets to Arrays for JSON output
+    // JSON 출력을 위해 Set을 Array로 변환
     Object.keys(digest.phases).forEach(p => {
       digest.phases[p].provides = [...digest.phases[p].provides];
       digest.phases[p].affects = [...digest.phases[p].affects];
@@ -224,8 +224,8 @@ function cmdCommit(cwd, message, files, raw, amend, noVerify) {
     error('commit message required');
   }
 
-  // Sanitize commit message: strip invisible chars and injection markers
-  // that could hijack agent context when commit messages are read back
+  // commit message 정리: 보이지 않는 문자와 injection marker를 제거해
+  // 나중에 commit message를 다시 읽을 때 agent context가 오염되지 않게 한다.
   if (message) {
     const { sanitizeForPrompt } = require('./security.cjs');
     message = sanitizeForPrompt(message);
@@ -233,27 +233,27 @@ function cmdCommit(cwd, message, files, raw, amend, noVerify) {
 
   const config = loadConfig(cwd);
 
-  // Check commit_docs config
+  // commit_docs 설정 확인
   if (!config.commit_docs) {
     const result = { committed: false, hash: null, reason: 'skipped_commit_docs_false' };
     output(result, raw, 'skipped');
     return;
   }
 
-  // Check if .planning is gitignored
+  // .planning이 gitignored인지 확인
   if (isGitIgnored(cwd, '.planning')) {
     const result = { committed: false, hash: null, reason: 'skipped_gitignored' };
     output(result, raw, 'skipped');
     return;
   }
 
-  // Ensure branching strategy branch exists before first commit (#1278).
-  // Pre-execution workflows (discuss, plan, research) commit artifacts but the branch
-  // was previously only created during execute-phase — too late.
+  // 첫 commit 전에 branching strategy 대상 브랜치가 존재하도록 보장한다 (#1278).
+  // discuss/plan/research 같은 사전 실행 워크플로도 산출물을 commit하므로,
+  // execute-phase 때까지 브랜치를 미루면 너무 늦다.
   if (config.branching_strategy && config.branching_strategy !== 'none') {
     let branchName = null;
     if (config.branching_strategy === 'phase') {
-      // Determine which phase we're committing for from the file paths
+      // 파일 경로를 기준으로 어떤 phase에 대한 commit인지 추정
       const phaseMatch = (files || []).join(' ').match(/(\d+)-/);
       if (phaseMatch) {
         const phaseNum = phaseMatch[1];
@@ -275,7 +275,7 @@ function cmdCommit(cwd, message, files, raw, amend, noVerify) {
     if (branchName) {
       const currentBranch = execGit(cwd, ['rev-parse', '--abbrev-ref', 'HEAD']);
       if (currentBranch.exitCode === 0 && currentBranch.stdout.trim() !== branchName) {
-        // Create branch if it doesn't exist, or switch to it if it does
+        // 브랜치가 없으면 생성하고, 있으면 그 브랜치로 전환
         const create = execGit(cwd, ['checkout', '-b', branchName]);
         if (create.exitCode !== 0) {
           execGit(cwd, ['checkout', branchName]);
@@ -284,19 +284,19 @@ function cmdCommit(cwd, message, files, raw, amend, noVerify) {
     }
   }
 
-  // Stage files
+  // 파일 스테이징
   const filesToStage = files && files.length > 0 ? files : ['.planning/'];
   for (const file of filesToStage) {
     const fullPath = path.join(cwd, file);
     if (!fs.existsSync(fullPath)) {
-      // File was deleted/moved — stage the deletion
+      // 파일이 삭제/이동된 경우 삭제 상태를 스테이징
       execGit(cwd, ['rm', '--cached', '--ignore-unmatch', file]);
     } else {
       execGit(cwd, ['add', file]);
     }
   }
 
-  // Commit (--no-verify skips pre-commit hooks, used by parallel executor agents)
+  // Commit (--no-verify는 pre-commit hook을 건너뛰며 병렬 executor agent가 사용)
   const commitArgs = amend ? ['commit', '--amend', '--no-edit'] : ['commit', '-m', message];
   if (noVerify) commitArgs.push('--no-verify');
   const commitResult = execGit(cwd, commitArgs);
@@ -311,7 +311,7 @@ function cmdCommit(cwd, message, files, raw, amend, noVerify) {
     return;
   }
 
-  // Get short hash
+  // 짧은 hash 조회
   const hashResult = execGit(cwd, ['rev-parse', '--short', 'HEAD']);
   const hash = hashResult.exitCode === 0 ? hashResult.stdout : null;
   const result = { committed: true, hash, reason: 'committed' };
@@ -334,7 +334,7 @@ function cmdCommitToSubrepo(cwd, message, files, raw) {
     error('--files required for commit-to-subrepo');
   }
 
-  // Group files by sub-repo prefix
+  // 파일을 sub-repo prefix 기준으로 그룹화
   const grouped = {};
   const unmatched = [];
   for (const file of files) {

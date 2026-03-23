@@ -1,5 +1,5 @@
 /**
- * Core — Shared utilities, constants, and internal helpers
+ * Core — 공용 유틸리티, 상수, 내부 헬퍼
  */
 
 const fs = require('fs');
@@ -7,17 +7,17 @@ const path = require('path');
 const { execSync, execFileSync, spawnSync } = require('child_process');
 const { MODEL_PROFILES } = require('./model-profiles.cjs');
 
-// ─── Path helpers ────────────────────────────────────────────────────────────
+// ─── 경로 헬퍼 ────────────────────────────────────────────────────────────────
 
-/** Normalize a relative path to always use forward slashes (cross-platform). */
+/** 상대 경로를 항상 슬래시(`/`) 기준으로 정규화한다. */
 function toPosixPath(p) {
   return p.split(path.sep).join('/');
 }
 
 /**
- * Scan immediate child directories for separate git repos.
- * Returns a sorted array of directory names that have their own `.git`.
- * Excludes hidden directories and node_modules.
+ * 직계 하위 디렉터리에서 별도 git 저장소를 스캔한다.
+ * 각 디렉터리가 자체 `.git`을 가지면 이름을 수집해 정렬된 배열로 반환한다.
+ * 숨김 디렉터리와 node_modules는 제외한다.
  */
 function detectSubRepos(cwd) {
   const results = [];
@@ -38,29 +38,29 @@ function detectSubRepos(cwd) {
 }
 
 /**
- * Walk up from `startDir` to find the project root that owns `.planning/`.
+ * `startDir`에서 상위로 올라가며 `.planning/`을 소유한 프로젝트 루트를 찾는다.
  *
- * In multi-repo workspaces, Claude may open inside a sub-repo (e.g. `backend/`)
- * instead of the project root. This function prevents `.planning/` from being
- * created inside the sub-repo by locating the nearest ancestor that already has
- * a `.planning/` directory.
+ * 멀티 리포 워크스페이스에서는 Claude가 프로젝트 루트 대신
+ * 서브 리포(예: `backend/`) 안에서 열릴 수 있다. 이 함수는 이미
+ * `.planning/`을 가진 가장 가까운 상위 디렉터리를 찾아서, 서브 리포
+ * 내부에 `.planning/`이 잘못 생성되는 일을 막는다.
  *
- * Detection strategy (checked in order for each ancestor):
- * 1. Parent has `.planning/config.json` with `sub_repos` listing this directory
- * 2. Parent has `.planning/config.json` with `multiRepo: true` (legacy format)
- * 3. Parent has `.planning/` and current dir has its own `.git` (heuristic)
+ * 감지 전략은 각 상위 디렉터리마다 다음 순서로 확인한다.
+ * 1. 부모의 `.planning/config.json`에 `sub_repos`로 현재 디렉터리가 등록돼 있음
+ * 2. 부모의 `.planning/config.json`에 `multiRepo: true`가 있음(레거시 형식)
+ * 3. 부모에 `.planning/`이 있고 현재 디렉터리 계층 어딘가에 `.git`이 있음(휴리스틱)
  *
- * Returns `startDir` unchanged when no ancestor `.planning/` is found (first-run
- * or single-repo projects).
+ * 상위에 `.planning/`이 하나도 없으면(첫 실행 또는 단일 리포 프로젝트)
+ * `startDir`를 그대로 반환한다.
  */
 function findProjectRoot(startDir) {
   const resolved = path.resolve(startDir);
   const root = path.parse(resolved).root;
   const homedir = require('os').homedir();
 
-  // Check if startDir or any of its ancestors (up to but not including a
-  // candidate project root) contains a .git directory. This handles both
-  // `backend/` (direct sub-repo) and `backend/src/modules/` (nested inside).
+  // startDir부터 후보 프로젝트 루트 직전까지의 상위 경로 중 어느 지점이든
+  // `.git`이 있는지 확인한다. `backend/` 같은 직접 서브 리포와
+  // `backend/src/modules/` 같은 더 깊은 경로를 모두 처리한다.
   function isInsideGitRepo(candidateParent) {
     let d = resolved;
     while (d !== candidateParent && d !== root) {
@@ -73,8 +73,8 @@ function findProjectRoot(startDir) {
   let dir = resolved;
   while (dir !== root) {
     const parent = path.dirname(dir);
-    if (parent === dir) break; // filesystem root
-    if (parent === homedir) break; // never go above home
+    if (parent === dir) break; // 파일시스템 루트
+    if (parent === homedir) break; // 홈 디렉터리 위로는 올라가지 않음
 
     const parentPlanning = path.join(parent, '.planning');
     if (fs.existsSync(parentPlanning) && fs.statSync(parentPlanning).isDirectory()) {
@@ -83,7 +83,7 @@ function findProjectRoot(startDir) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         const subRepos = config.sub_repos || config.planning?.sub_repos || [];
 
-        // Check explicit sub_repos list
+        // 명시된 sub_repos 목록을 우선 확인
         if (Array.isArray(subRepos) && subRepos.length > 0) {
           const relPath = path.relative(parent, resolved);
           const topSegment = relPath.split(path.sep)[0];
@@ -92,15 +92,15 @@ function findProjectRoot(startDir) {
           }
         }
 
-        // Check legacy multiRepo flag
+        // 레거시 multiRepo 플래그 확인
         if (config.multiRepo === true && isInsideGitRepo(parent)) {
           return parent;
         }
       } catch {
-        // config.json missing or malformed — fall back to .git heuristic
+        // config.json이 없거나 손상되면 `.git` 기반 휴리스틱으로 폴백
       }
 
-      // Heuristic: parent has .planning/ and we're inside a git repo
+      // 휴리스틱: 부모에 `.planning/`이 있고 현재 경로가 git 저장소 내부라면 채택
       if (isInsideGitRepo(parent)) {
         return parent;
       }
@@ -110,15 +110,15 @@ function findProjectRoot(startDir) {
   return startDir;
 }
 
-// ─── Output helpers ───────────────────────────────────────────────────────────
+// ─── 출력 헬퍼 ────────────────────────────────────────────────────────────────
 
 /**
- * Remove stale gsd-* temp files/dirs older than maxAgeMs (default: 5 minutes).
- * Runs opportunistically before each new temp file write to prevent unbounded accumulation.
- * @param {string} prefix - filename prefix to match (e.g., 'gsd-')
+ * 오래된 gsd-* 임시 파일/디렉터리를 제거한다(기본: 5분 초과).
+ * 새 임시 파일을 쓰기 전에 기회적으로 실행해 무한 누적을 막는다.
+ * @param {string} prefix - 매칭할 파일명 prefix(예: `gsd-`)
  * @param {object} opts
- * @param {number} opts.maxAgeMs - max age in ms before removal (default: 5 min)
- * @param {boolean} opts.dirsOnly - if true, only remove directories (default: false)
+ * @param {number} opts.maxAgeMs - 제거 기준 최대 경과 시간(ms, 기본 5분)
+ * @param {boolean} opts.dirsOnly - true면 디렉터리만 제거(기본 false)
  */
 function reapStaleTempFiles(prefix = 'gsd-', { maxAgeMs = 5 * 60 * 1000, dirsOnly = false } = {}) {
   try {
@@ -138,11 +138,11 @@ function reapStaleTempFiles(prefix = 'gsd-', { maxAgeMs = 5 * 60 * 1000, dirsOnl
           }
         }
       } catch {
-        // File may have been removed between readdir and stat — ignore
+        // readdir 이후 stat 전에 파일이 사라질 수 있으므로 무시
       }
     }
   } catch {
-    // Non-critical — don't let cleanup failures break output
+    // 비치명적 정리 작업이므로 실패해도 출력 흐름은 유지한다
   }
 }
 
@@ -152,8 +152,8 @@ function output(result, raw, rawValue) {
     data = String(rawValue);
   } else {
     const json = JSON.stringify(result, null, 2);
-    // Large payloads exceed Claude Code's Bash tool buffer (~50KB).
-    // Write to tmpfile and output the path prefixed with @file: so callers can detect it.
+    // 큰 payload는 Claude Code Bash 도구 버퍼(~50KB)를 넘길 수 있다.
+    // 임시 파일로 우회하고 `@file:` 접두사 경로를 반환해 호출자가 감지하게 한다.
     if (json.length > 50000) {
       reapStaleTempFiles();
       const tmpPath = path.join(require('os').tmpdir(), `gsd-${Date.now()}.json`);
@@ -163,10 +163,10 @@ function output(result, raw, rawValue) {
       data = json;
     }
   }
-  // process.stdout.write() is async when stdout is a pipe — process.exit()
-  // can tear down the process before the reader consumes the buffer.
-  // fs.writeSync(1, ...) blocks until the kernel accepts the bytes, and
-  // skipping process.exit() lets the event loop drain naturally.
+  // stdout이 pipe일 때 process.stdout.write()는 비동기라서 process.exit()가
+  // 버퍼 소비 전에 프로세스를 종료시킬 수 있다.
+  // fs.writeSync(1, ...)는 커널이 바이트를 받을 때까지 블로킹하고,
+  // process.exit()를 생략하면 이벤트 루프가 자연스럽게 비워진다.
   fs.writeSync(1, data);
 }
 
@@ -175,7 +175,7 @@ function error(message) {
   process.exit(1);
 }
 
-// ─── File & Config utilities ──────────────────────────────────────────────────
+// ─── 파일 및 설정 유틸리티 ───────────────────────────────────────────────────
 
 function safeReadFile(filePath) {
   try {
@@ -203,18 +203,18 @@ function loadConfig(cwd) {
     brave_search: false,
     firecrawl: false,
     exa_search: false,
-    text_mode: false, // when true, use plain-text numbered lists instead of AskUserQuestion menus
+    text_mode: false, // true면 AskUserQuestion 메뉴 대신 일반 텍스트 번호 목록을 사용
     sub_repos: [],
-    resolve_model_ids: false, // false: return alias as-is | true: map to full Claude model ID | "omit": return '' (runtime uses its default)
-    context_window: 200000, // default 200k; set to 1000000 for Opus/Sonnet 4.6 1M models
-    phase_naming: 'sequential', // 'sequential' (default, auto-increment) or 'custom' (arbitrary string IDs)
+    resolve_model_ids: false, // false: alias 그대로 반환 | true: 전체 Claude model ID로 매핑 | "omit": '' 반환(런타임 기본값 사용)
+    context_window: 200000, // 기본 200k, Opus/Sonnet 4.6 1M 모델은 1000000 사용
+    phase_naming: 'sequential', // 'sequential'(기본, 자동 증가) 또는 'custom'(임의 문자열 ID)
   };
 
   try {
     const raw = fs.readFileSync(configPath, 'utf-8');
     const parsed = JSON.parse(raw);
 
-    // Migrate deprecated "depth" key to "granularity" with value mapping
+    // deprecated된 "depth" 키를 값 매핑과 함께 "granularity"로 마이그레이션
     if ('depth' in parsed && !('granularity' in parsed)) {
       const depthToGranularity = { quick: 'coarse', standard: 'standard', comprehensive: 'fine' };
       parsed.granularity = depthToGranularity[parsed.depth] || parsed.depth;
@@ -222,10 +222,10 @@ function loadConfig(cwd) {
       try { fs.writeFileSync(configPath, JSON.stringify(parsed, null, 2), 'utf-8'); } catch { /* intentionally empty */ }
     }
 
-    // Auto-detect and sync sub_repos: scan for child directories with .git
+    // sub_repos 자동 감지 및 동기화: 하위 디렉터리의 `.git`을 스캔
     let configDirty = false;
 
-    // Migrate legacy "multiRepo: true" boolean → sub_repos array
+    // 레거시 "multiRepo: true" boolean을 sub_repos 배열로 마이그레이션
     if (parsed.multiRepo === true && !parsed.sub_repos && !parsed.planning?.sub_repos) {
       const detected = detectSubRepos(cwd);
       if (detected.length > 0) {
@@ -237,7 +237,7 @@ function loadConfig(cwd) {
       }
     }
 
-    // Keep sub_repos in sync with actual filesystem
+    // sub_repos를 실제 파일시스템 상태와 동기화
     const currentSubRepos = parsed.sub_repos || parsed.planning?.sub_repos || [];
     if (Array.isArray(currentSubRepos) && currentSubRepos.length > 0) {
       const detected = detectSubRepos(cwd);
@@ -250,7 +250,7 @@ function loadConfig(cwd) {
       }
     }
 
-    // Persist sub_repos changes (migration or sync)
+    // sub_repos 변경 사항을 저장(마이그레이션 또는 동기화)
     if (configDirty) {
       try { fs.writeFileSync(configPath, JSON.stringify(parsed, null, 2), 'utf-8'); } catch {}
     }
@@ -922,12 +922,12 @@ function getRoadmapPhaseInternal(cwd, phaseNum) {
   }
 }
 
-// ─── Model alias resolution ───────────────────────────────────────────────────
+// ─── 모델 alias 해석 ──────────────────────────────────────────────────────────
 
 /**
- * Map short model aliases to full model IDs.
- * Updated each release to match current model versions.
- * Users can override with model_overrides in config.json for custom/latest models.
+ * 짧은 모델 alias를 전체 model ID로 매핑한다.
+ * 현재 모델 버전에 맞추어 릴리스마다 갱신한다.
+ * 사용자는 config.json의 model_overrides로 커스텀/최신 모델을 덮어쓸 수 있다.
  */
 const MODEL_ALIAS_MAP = {
   'opus': 'claude-opus-4-0',
@@ -938,29 +938,29 @@ const MODEL_ALIAS_MAP = {
 function resolveModelInternal(cwd, agentType) {
   const config = loadConfig(cwd);
 
-  // Check per-agent override first — always respected regardless of resolve_model_ids.
-  // Users who set fully-qualified model IDs (e.g., "openai/gpt-5.4") get exactly that.
+  // agent별 override를 먼저 확인한다. resolve_model_ids 값과 무관하게 항상 우선한다.
+  // 완전한 model ID(예: "openai/gpt-5.4")를 넣은 사용자는 그 값을 그대로 받는다.
   const override = config.model_overrides?.[agentType];
   if (override) {
     return override;
   }
 
-  // resolve_model_ids: "omit" — return empty string so the runtime uses its configured
-  // default model. For non-Claude runtimes (OpenCode, Codex, etc.) that don't recognize
-  // Claude aliases (opus/sonnet/haiku/inherit). Set automatically during install. See #1156.
+  // resolve_model_ids: "omit"이면 빈 문자열을 반환해 런타임이 자체 기본 모델을 쓰게 한다.
+  // Claude alias(opus/sonnet/haiku/inherit)를 이해하지 못하는 OpenCode, Codex 등의
+  // 비-Claude 런타임을 위한 동작이며, 설치 과정에서 자동 설정된다. See #1156.
   if (config.resolve_model_ids === 'omit') {
     return '';
   }
 
-  // Fall back to profile lookup
+  // override가 없으면 profile 기반 조회로 폴백
   const profile = String(config.model_profile || 'balanced').toLowerCase();
   const agentModels = MODEL_PROFILES[agentType];
   if (!agentModels) return 'sonnet';
   if (profile === 'inherit') return 'inherit';
   const alias = agentModels[profile] || agentModels['balanced'] || 'sonnet';
 
-  // resolve_model_ids: true — map alias to full Claude model ID
-  // Prevents 404s when the Task tool passes aliases directly to the API
+  // resolve_model_ids: true면 alias를 전체 Claude model ID로 확장한다.
+  // Task 도구가 alias를 그대로 API에 전달해 404가 나는 일을 막는다.
   if (config.resolve_model_ids) {
     return MODEL_ALIAS_MAP[alias] || alias;
   }
@@ -968,24 +968,24 @@ function resolveModelInternal(cwd, agentType) {
   return alias;
 }
 
-// ─── Summary body helpers ─────────────────────────────────────────────────
+// ─── Summary 본문 헬퍼 ───────────────────────────────────────────────────────
 
 /**
- * Extract a one-liner from the summary body when it's not in frontmatter.
- * The summary template defines one-liner as a bold markdown line after the heading:
+ * frontmatter에 one-liner가 없을 때 summary 본문에서 추출한다.
+ * summary 템플릿은 heading 다음 굵은 markdown 줄을 one-liner로 사용한다.
  *   # Phase X: Name Summary
  *   **[substantive one-liner text]**
  */
 function extractOneLinerFromBody(content) {
   if (!content) return null;
-  // Strip frontmatter first
+  // 먼저 frontmatter를 제거
   const body = content.replace(/^---\n[\s\S]*?\n---\n*/, '');
-  // Find the first **...** line after a # heading
+  // # heading 다음에 오는 첫 번째 **...** 줄을 찾는다
   const match = body.match(/^#[^\n]*\n+\*\*([^*]+)\*\*/m);
   return match ? match[1].trim() : null;
 }
 
-// ─── Misc utilities ───────────────────────────────────────────────────────────
+// ─── 기타 유틸리티 ────────────────────────────────────────────────────────────
 
 function pathExistsInternal(cwd, targetPath) {
   const fullPath = path.isAbsolute(targetPath) ? targetPath : path.join(cwd, targetPath);
@@ -1006,7 +1006,7 @@ function getMilestoneInfo(cwd) {
   try {
     const roadmap = fs.readFileSync(path.join(planningDir(cwd), 'ROADMAP.md'), 'utf-8');
 
-    // First: check for list-format roadmaps using 🚧 (in-progress) marker
+    // 1차: 🚧(in-progress) 마커를 쓰는 목록형 roadmap 형식을 확인
     // e.g. "- 🚧 **v2.1 Belgium** — Phases 24-28 (in progress)"
     // e.g. "- 🚧 **v1.2.1 Tech Debt** — Phases 1-8 (in progress)"
     const inProgressMatch = roadmap.match(/🚧\s*\*\*v(\d+(?:\.\d+)+)\s+([^*]+)\*\*/);
@@ -1017,10 +1017,10 @@ function getMilestoneInfo(cwd) {
       };
     }
 
-    // Second: heading-format roadmaps — strip shipped milestones in <details> blocks
+    // 2차: heading형 roadmap을 확인하되 <details> 안 shipped milestone은 제거
     const cleaned = stripShippedMilestones(roadmap);
-    // Extract version and name from the same ## heading for consistency
-    // Supports 2+ segment versions: v1.2, v1.2.1, v2.0.1, etc.
+    // 일관성을 위해 같은 ## heading에서 version과 name을 함께 추출
+    // v1.2, v1.2.1, v2.0.1 같은 2개 이상 세그먼트 버전을 지원
     const headingMatch = cleaned.match(/## .*v(\d+(?:\.\d+)+)[:\s]+([^\n(]+)/);
     if (headingMatch) {
       return {
@@ -1028,7 +1028,7 @@ function getMilestoneInfo(cwd) {
         name: headingMatch[2].trim(),
       };
     }
-    // Fallback: try bare version match (greedy — capture longest version string)
+    // 마지막 폴백: bare version 매칭 시도(가장 긴 version 문자열을 우선 캡처)
     const versionMatch = cleaned.match(/v(\d+(?:\.\d+)+)/);
     return {
       version: versionMatch ? versionMatch[0] : 'v1.0',
@@ -1040,15 +1040,15 @@ function getMilestoneInfo(cwd) {
 }
 
 /**
- * Returns a filter function that checks whether a phase directory belongs
- * to the current milestone based on ROADMAP.md phase headings.
- * If no ROADMAP exists or no phases are listed, returns a pass-all filter.
+ * ROADMAP.md phase heading을 기준으로 특정 phase 디렉터리가
+ * 현재 milestone에 속하는지 판별하는 필터 함수를 반환한다.
+ * ROADMAP이 없거나 phase가 하나도 없으면 모두 통과시키는 필터를 반환한다.
  */
 function getMilestonePhaseFilter(cwd) {
   const milestonePhaseNums = new Set();
   try {
     const roadmap = extractCurrentMilestone(fs.readFileSync(path.join(planningDir(cwd), 'ROADMAP.md'), 'utf-8'), cwd);
-    // Match both numeric phases (Phase 1:) and custom IDs (Phase PROJ-42:)
+    // 숫자형 phase(Phase 1:)와 사용자 정의 ID(Phase PROJ-42:) 모두 매칭
     const phasePattern = /#{2,4}\s*Phase\s+([\w][\w.-]*)\s*:/gi;
     let m;
     while ((m = phasePattern.exec(roadmap)) !== null) {
@@ -1067,10 +1067,10 @@ function getMilestonePhaseFilter(cwd) {
   );
 
   function isDirInMilestone(dirName) {
-    // Try numeric match first
+    // 먼저 숫자형 prefix 매칭 시도
     const m = dirName.match(/^0*(\d+[A-Za-z]?(?:\.\d+)*)/);
     if (m && normalized.has(m[1].toLowerCase())) return true;
-    // Try custom ID match (e.g. PROJ-42-description → PROJ-42)
+    // 그다음 사용자 정의 ID 매칭 시도(e.g. PROJ-42-description → PROJ-42)
     const customMatch = dirName.match(/^([A-Za-z][A-Za-z0-9]*(?:-[A-Za-z0-9]+)*)/);
     if (customMatch && normalized.has(customMatch[1].toLowerCase())) return true;
     return false;
@@ -1079,22 +1079,21 @@ function getMilestonePhaseFilter(cwd) {
   return isDirInMilestone;
 }
 
-// ─── Phase file helpers ──────────────────────────────────────────────────────
+// ─── Phase 파일 헬퍼 ─────────────────────────────────────────────────────────
 
-/** Filter a file list to just PLAN.md / *-PLAN.md entries. */
+/** 파일 목록에서 PLAN.md / *-PLAN.md 항목만 남긴다. */
 function filterPlanFiles(files) {
   return files.filter(f => f.endsWith('-PLAN.md') || f === 'PLAN.md');
 }
 
-/** Filter a file list to just SUMMARY.md / *-SUMMARY.md entries. */
+/** 파일 목록에서 SUMMARY.md / *-SUMMARY.md 항목만 남긴다. */
 function filterSummaryFiles(files) {
   return files.filter(f => f.endsWith('-SUMMARY.md') || f === 'SUMMARY.md');
 }
 
 /**
- * Read a phase directory and return counts/flags for common file types.
- * Returns an object with plans[], summaries[], and boolean flags for
- * research/context/verification files.
+ * phase 디렉터리를 읽고 공통 산출물 파일 타입의 개수/플래그를 반환한다.
+ * plans[], summaries[]와 research/context/verification 여부를 포함한다.
  */
 function getPhaseFileStats(phaseDir) {
   const files = fs.readdirSync(phaseDir);
@@ -1109,9 +1108,9 @@ function getPhaseFileStats(phaseDir) {
 }
 
 /**
- * Read immediate child directories from a path.
- * Returns [] if the path doesn't exist or can't be read.
- * Pass sort=true to apply comparePhaseNum ordering.
+ * 지정한 경로의 직계 하위 디렉터리를 읽는다.
+ * 경로가 없거나 읽을 수 없으면 []를 반환한다.
+ * sort=true면 comparePhaseNum 순서를 적용한다.
  */
 function readSubdirectories(dirPath, sort = false) {
   try {

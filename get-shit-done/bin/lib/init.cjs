@@ -1,5 +1,5 @@
 /**
- * Init — Compound init commands for workflow bootstrapping
+ * Init — 워크플로 부트스트래핑용 복합 init 명령
  */
 
 const fs = require('fs');
@@ -25,9 +25,9 @@ function getLatestCompletedMilestone(cwd) {
 }
 
 /**
- * Inject `project_root` into an init result object.
- * Workflows use this to prefix `.planning/` paths correctly when Claude's CWD
- * differs from the project root (e.g., inside a sub-repo).
+ * init 결과 객체에 `project_root`를 주입한다.
+ * Claude의 CWD가 프로젝트 루트와 다를 때(예: 서브 리포 내부)
+ * 워크플로가 `.planning/` 경로에 올바른 prefix를 붙이도록 돕는다.
  */
 function withProjectRoot(cwd, result) {
   result.project_root = cwd;
@@ -45,7 +45,7 @@ function cmdInitExecutePhase(cwd, phase, raw) {
 
   const roadmapPhase = getRoadmapPhaseInternal(cwd, phase);
 
-  // Fallback to ROADMAP.md if no phase directory exists yet
+  // 아직 phase 디렉터리가 없으면 ROADMAP.md 기준으로 폴백
   if (!phaseInfo && roadmapPhase?.found) {
     const phaseName = roadmapPhase.phase_name;
     phaseInfo = {
@@ -70,11 +70,11 @@ function cmdInitExecutePhase(cwd, phase, raw) {
   const phase_req_ids = (reqExtracted && reqExtracted !== 'TBD') ? reqExtracted : null;
 
   const result = {
-    // Models
+    // 모델
     executor_model: resolveModelInternal(cwd, 'gsd-executor'),
     verifier_model: resolveModelInternal(cwd, 'gsd-verifier'),
 
-    // Config flags
+    // 설정 플래그
     commit_docs: config.commit_docs,
     sub_repos: config.sub_repos,
     parallelization: config.parallelization,
@@ -84,7 +84,7 @@ function cmdInitExecutePhase(cwd, phase, raw) {
     milestone_branch_template: config.milestone_branch_template,
     verifier_enabled: config.verifier,
 
-    // Phase info
+    // Phase 정보
     phase_found: !!phaseInfo,
     phase_dir: phaseInfo?.directory || null,
     phase_number: phaseInfo?.phase_number || null,
@@ -92,14 +92,14 @@ function cmdInitExecutePhase(cwd, phase, raw) {
     phase_slug: phaseInfo?.phase_slug || null,
     phase_req_ids,
 
-    // Plan inventory
+    // Plan 인벤토리
     plans: phaseInfo?.plans || [],
     summaries: phaseInfo?.summaries || [],
     incomplete_plans: phaseInfo?.incomplete_plans || [],
     plan_count: phaseInfo?.plans?.length || 0,
     incomplete_count: phaseInfo?.incomplete_plans?.length || 0,
 
-    // Branch name (pre-computed)
+    // 브랜치 이름(미리 계산)
     branch_name: config.branching_strategy === 'phase' && phaseInfo
       ? config.phase_branch_template
           .replace('{phase}', phaseInfo.phase_number)
@@ -110,16 +110,16 @@ function cmdInitExecutePhase(cwd, phase, raw) {
             .replace('{slug}', generateSlugInternal(milestone.name) || 'milestone')
         : null,
 
-    // Milestone info
+    // Milestone 정보
     milestone_version: milestone.version,
     milestone_name: milestone.name,
     milestone_slug: generateSlugInternal(milestone.name),
 
-    // File existence
+    // 파일 존재 여부
     state_exists: fs.existsSync(path.join(planningDir(cwd), 'STATE.md')),
     roadmap_exists: fs.existsSync(path.join(planningDir(cwd), 'ROADMAP.md')),
     config_exists: fs.existsSync(path.join(planningDir(cwd), 'config.json')),
-    // File paths
+    // 파일 경로
     state_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'STATE.md'))),
     roadmap_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'ROADMAP.md'))),
     config_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'config.json'))),
@@ -138,7 +138,7 @@ function cmdInitPlanPhase(cwd, phase, raw) {
 
   const roadmapPhase = getRoadmapPhaseInternal(cwd, phase);
 
-  // Fallback to ROADMAP.md if no phase directory exists yet
+  // 아직 phase 디렉터리가 없으면 ROADMAP.md 기준으로 폴백
   if (!phaseInfo && roadmapPhase?.found) {
     const phaseName = roadmapPhase.phase_name;
     phaseInfo = {
@@ -163,19 +163,19 @@ function cmdInitPlanPhase(cwd, phase, raw) {
   const phase_req_ids = (reqExtracted && reqExtracted !== 'TBD') ? reqExtracted : null;
 
   const result = {
-    // Models
+    // 모델
     researcher_model: resolveModelInternal(cwd, 'gsd-phase-researcher'),
     planner_model: resolveModelInternal(cwd, 'gsd-planner'),
     checker_model: resolveModelInternal(cwd, 'gsd-plan-checker'),
 
-    // Workflow flags
+    // 워크플로 플래그
     research_enabled: config.research,
     plan_checker_enabled: config.plan_checker,
     nyquist_validation_enabled: config.nyquist_validation,
     commit_docs: config.commit_docs,
     text_mode: config.text_mode,
 
-    // Phase info
+    // Phase 정보
     phase_found: !!phaseInfo,
     phase_dir: phaseInfo?.directory || null,
     phase_number: phaseInfo?.phase_number || null,
@@ -184,25 +184,25 @@ function cmdInitPlanPhase(cwd, phase, raw) {
     padded_phase: phaseInfo?.phase_number ? normalizePhaseName(phaseInfo.phase_number) : null,
     phase_req_ids,
 
-    // Existing artifacts
+    // 기존 산출물
     has_research: phaseInfo?.has_research || false,
     has_context: phaseInfo?.has_context || false,
     has_reviews: phaseInfo?.has_reviews || false,
     has_plans: (phaseInfo?.plans?.length || 0) > 0,
     plan_count: phaseInfo?.plans?.length || 0,
 
-    // Environment
+    // 환경
     planning_exists: fs.existsSync(planningDir(cwd)),
     roadmap_exists: fs.existsSync(path.join(planningDir(cwd), 'ROADMAP.md')),
 
-    // File paths
+    // 파일 경로
     state_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'STATE.md'))),
     roadmap_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'ROADMAP.md'))),
     requirements_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'REQUIREMENTS.md'))),
   };
 
   if (phaseInfo?.directory) {
-    // Find *-CONTEXT.md in phase directory
+    // phase 디렉터리에서 *-CONTEXT.md를 찾는다
     const phaseDirFull = path.join(cwd, phaseInfo.directory);
     try {
       const files = fs.readdirSync(phaseDirFull);
@@ -235,20 +235,20 @@ function cmdInitPlanPhase(cwd, phase, raw) {
 function cmdInitNewProject(cwd, raw) {
   const config = loadConfig(cwd);
 
-  // Detect Brave Search API key availability
+  // Brave Search API 키 사용 가능 여부 감지
   const homedir = require('os').homedir();
   const braveKeyFile = path.join(homedir, '.gsd', 'brave_api_key');
   const hasBraveSearch = !!(process.env.BRAVE_API_KEY || fs.existsSync(braveKeyFile));
 
-  // Detect Firecrawl API key availability
+  // Firecrawl API 키 사용 가능 여부 감지
   const firecrawlKeyFile = path.join(homedir, '.gsd', 'firecrawl_api_key');
   const hasFirecrawl = !!(process.env.FIRECRAWL_API_KEY || fs.existsSync(firecrawlKeyFile));
 
-  // Detect Exa API key availability
+  // Exa API 키 사용 가능 여부 감지
   const exaKeyFile = path.join(homedir, '.gsd', 'exa_api_key');
   const hasExaSearch = !!(process.env.EXA_API_KEY || fs.existsSync(exaKeyFile));
 
-  // Detect existing code (cross-platform — no Unix `find` dependency)
+  // 기존 코드 존재 여부 감지(cross-platform, Unix `find` 의존 없음)
   let hasCode = false;
   let hasPackageFile = false;
   try {
@@ -267,7 +267,7 @@ function cmdInitNewProject(cwd, raw) {
       return false;
     }
     hasCode = findCodeFiles(cwd, 0);
-  } catch { /* intentionally empty — best-effort detection */ }
+  } catch { /* 의도적으로 비움 - best-effort 감지 */ }
 
   hasPackageFile = pathExistsInternal(cwd, 'package.json') ||
                    pathExistsInternal(cwd, 'requirements.txt') ||
@@ -276,34 +276,34 @@ function cmdInitNewProject(cwd, raw) {
                    pathExistsInternal(cwd, 'Package.swift');
 
   const result = {
-    // Models
+    // 모델
     researcher_model: resolveModelInternal(cwd, 'gsd-project-researcher'),
     synthesizer_model: resolveModelInternal(cwd, 'gsd-research-synthesizer'),
     roadmapper_model: resolveModelInternal(cwd, 'gsd-roadmapper'),
 
-    // Config
+    // 설정
     commit_docs: config.commit_docs,
 
-    // Existing state
+    // 기존 상태
     project_exists: pathExistsInternal(cwd, '.planning/PROJECT.md'),
     has_codebase_map: pathExistsInternal(cwd, '.planning/codebase'),
     planning_exists: pathExistsInternal(cwd, '.planning'),
 
-    // Brownfield detection
+    // Brownfield 감지
     has_existing_code: hasCode,
     has_package_file: hasPackageFile,
     is_brownfield: hasCode || hasPackageFile,
     needs_codebase_map: (hasCode || hasPackageFile) && !pathExistsInternal(cwd, '.planning/codebase'),
 
-    // Git state
+    // Git 상태
     has_git: pathExistsInternal(cwd, '.git'),
 
-    // Enhanced search
+    // 확장 검색
     brave_search_available: hasBraveSearch,
     firecrawl_available: hasFirecrawl,
     exa_search_available: hasExaSearch,
 
-    // File paths
+    // 파일 경로
     project_path: '.planning/PROJECT.md',
   };
 
@@ -326,16 +326,16 @@ function cmdInitNewMilestone(cwd, raw) {
   } catch {}
 
   const result = {
-    // Models
+    // 모델
     researcher_model: resolveModelInternal(cwd, 'gsd-project-researcher'),
     synthesizer_model: resolveModelInternal(cwd, 'gsd-research-synthesizer'),
     roadmapper_model: resolveModelInternal(cwd, 'gsd-roadmapper'),
 
-    // Config
+    // 설정
     commit_docs: config.commit_docs,
     research_enabled: config.research,
 
-    // Current milestone
+    // 현재 milestone
     current_milestone: milestone.version,
     current_milestone_name: milestone.name,
     latest_completed_milestone: latestCompleted?.version || null,
@@ -343,12 +343,12 @@ function cmdInitNewMilestone(cwd, raw) {
     phase_dir_count: phaseDirCount,
     phase_archive_path: latestCompleted ? toPosixPath(path.relative(cwd, path.join(planningRoot(cwd), 'milestones', `${latestCompleted.version}-phases`))) : null,
 
-    // File existence
+    // 파일 존재 여부
     project_exists: pathExistsInternal(cwd, '.planning/PROJECT.md'),
     roadmap_exists: fs.existsSync(path.join(planningDir(cwd), 'ROADMAP.md')),
     state_exists: fs.existsSync(path.join(planningDir(cwd), 'STATE.md')),
 
-    // File paths
+    // 파일 경로
     project_path: '.planning/PROJECT.md',
     roadmap_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'ROADMAP.md'))),
     state_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'STATE.md'))),
@@ -362,10 +362,10 @@ function cmdInitQuick(cwd, description, raw) {
   const now = new Date();
   const slug = description ? generateSlugInternal(description)?.substring(0, 40) : null;
 
-  // Generate collision-resistant quick task ID: YYMMDD-xxx
-  // xxx = 2-second precision blocks since midnight, encoded as 3-char Base36 (lowercase)
-  // Range: 000 (00:00:00) to xbz (23:59:58), guaranteed 3 chars for any time of day.
-  // Provides ~2s uniqueness window per user — practically collision-free across a team.
+  // 충돌에 강한 quick task ID를 생성한다: YYMMDD-xxx
+  // xxx는 자정 이후 시간을 2초 단위 블록으로 나눈 뒤 3자리 Base36 소문자로 인코딩한다.
+  // 범위는 000(00:00:00)부터 xbz(23:59:58)까지이며, 하루 내내 항상 3자리다.
+  // 사용자별로 약 2초의 유니크 윈도를 제공해 팀 단위에서도 사실상 충돌이 없다.
   const yy = String(now.getFullYear()).slice(-2);
   const mm = String(now.getMonth() + 1).padStart(2, '0');
   const dd = String(now.getDate()).padStart(2, '0');
@@ -383,30 +383,30 @@ function cmdInitQuick(cwd, description, raw) {
     : null;
 
   const result = {
-    // Models
+    // 모델
     planner_model: resolveModelInternal(cwd, 'gsd-planner'),
     executor_model: resolveModelInternal(cwd, 'gsd-executor'),
     checker_model: resolveModelInternal(cwd, 'gsd-plan-checker'),
     verifier_model: resolveModelInternal(cwd, 'gsd-verifier'),
 
-    // Config
+    // 설정
     commit_docs: config.commit_docs,
     branch_name: quickBranchName,
 
-    // Quick task info
+    // Quick task 정보
     quick_id: quickId,
     slug: slug,
     description: description || null,
 
-    // Timestamps
+    // 타임스탬프
     date: now.toISOString().split('T')[0],
     timestamp: now.toISOString(),
 
-    // Paths
+    // 경로
     quick_dir: '.planning/quick',
     task_dir: slug ? `.planning/quick/${quickId}-${slug}` : null,
 
-    // File existence
+    // 파일 존재 여부
     roadmap_exists: fs.existsSync(path.join(planningDir(cwd), 'ROADMAP.md')),
     planning_exists: fs.existsSync(planningRoot(cwd)),
 
@@ -418,29 +418,29 @@ function cmdInitQuick(cwd, description, raw) {
 function cmdInitResume(cwd, raw) {
   const config = loadConfig(cwd);
 
-  // Check for interrupted agent
+  // 중단된 agent가 있는지 확인
   let interruptedAgentId = null;
   try {
     interruptedAgentId = fs.readFileSync(path.join(planningRoot(cwd), 'current-agent-id.txt'), 'utf-8').trim();
   } catch { /* intentionally empty */ }
 
   const result = {
-    // File existence
+    // 파일 존재 여부
     state_exists: fs.existsSync(path.join(planningDir(cwd), 'STATE.md')),
     roadmap_exists: fs.existsSync(path.join(planningDir(cwd), 'ROADMAP.md')),
     project_exists: pathExistsInternal(cwd, '.planning/PROJECT.md'),
     planning_exists: fs.existsSync(planningRoot(cwd)),
 
-    // File paths
+    // 파일 경로
     state_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'STATE.md'))),
     roadmap_path: toPosixPath(path.relative(cwd, path.join(planningDir(cwd), 'ROADMAP.md'))),
     project_path: '.planning/PROJECT.md',
 
-    // Agent state
+    // Agent 상태
     has_interrupted_agent: !!interruptedAgentId,
     interrupted_agent_id: interruptedAgentId,
 
-    // Config
+    // 설정
     commit_docs: config.commit_docs,
   };
 
@@ -766,10 +766,10 @@ function cmdInitManager(cwd, raw) {
   const config = loadConfig(cwd);
   const milestone = getMilestoneInfo(cwd);
 
-  // Use planningPaths for forward-compatibility with workstream scoping (#1268)
+  // workstream scoping과의 forward-compatibility를 위해 planningPaths 사용 (#1268)
   const paths = planningPaths(cwd);
 
-  // Validate prerequisites
+  // 선행 조건 검증
   if (!fs.existsSync(paths.roadmap)) {
     error('No ROADMAP.md found. Run /gsd:new-milestone first.');
   }
@@ -830,7 +830,7 @@ function cmdInitManager(cwd, raw) {
         else if (hasContext) diskStatus = 'discussed';
         else diskStatus = 'empty';
 
-        // Activity detection: check most recent file mtime
+        // 활동 감지: 가장 최근 파일 mtime 확인
         const now = Date.now();
         let newestMtime = 0;
         for (const f of phaseFiles) {
@@ -846,7 +846,7 @@ function cmdInitManager(cwd, raw) {
       }
     } catch { /* intentionally empty */ }
 
-    // Check ROADMAP checkbox status
+    // ROADMAP 체크박스 상태 확인
     const checkboxPattern = new RegExp(`-\\s*\\[(x| )\\]\\s*.*Phase\\s+${phaseNum.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[:\\s]`, 'i');
     const checkboxMatch = content.match(checkboxPattern);
     const roadmapComplete = checkboxMatch ? checkboxMatch[1] === 'x' : false;
@@ -870,7 +870,7 @@ function cmdInitManager(cwd, raw) {
     });
   }
 
-  // Compute display names: truncate to keep table aligned
+  // 표시 이름 계산: 표 정렬을 위해 필요한 경우 자른다
   const MAX_NAME_WIDTH = 20;
   for (const phase of phases) {
     if (phase.name.length > MAX_NAME_WIDTH) {
@@ -880,27 +880,27 @@ function cmdInitManager(cwd, raw) {
     }
   }
 
-  // Dependency satisfaction: check if all depends_on phases are complete
+  // 의존성 충족 여부: depends_on에 있는 phase가 모두 완료됐는지 확인
   const completedNums = new Set(phases.filter(p => p.disk_status === 'complete').map(p => p.number));
   for (const phase of phases) {
     if (!phase.depends_on || /^none$/i.test(phase.depends_on.trim())) {
       phase.deps_satisfied = true;
     } else {
-      // Parse "Phase 1, Phase 3" or "1, 3" formats
+      // "Phase 1, Phase 3" 또는 "1, 3" 형식을 파싱
       const depNums = phase.depends_on.match(/\d+(?:\.\d+)*/g) || [];
       phase.deps_satisfied = depNums.every(n => completedNums.has(n));
       phase.dep_phases = depNums;
     }
   }
 
-  // Compact dependency display for dashboard
+  // 대시보드용 의존성 표시를 간결하게 정리
   for (const phase of phases) {
     phase.deps_display = (phase.dep_phases && phase.dep_phases.length > 0)
       ? phase.dep_phases.join(',')
       : '—';
   }
 
-  // Sliding window: discuss is sequential — only the first undiscussed phase is available
+  // 슬라이딩 윈도우: discuss는 순차적이므로 첫 번째 미논의 phase만 노출
   let foundNextToDiscuss = false;
   for (const phase of phases) {
     if (!foundNextToDiscuss && (phase.disk_status === 'empty' || phase.disk_status === 'no_directory')) {
@@ -911,7 +911,7 @@ function cmdInitManager(cwd, raw) {
     }
   }
 
-  // Check for WAITING.json signal
+  // WAITING.json 시그널 확인
   let waitingSignal = null;
   try {
     const waitingPath = path.join(cwd, '.planning', 'WAITING.json');
@@ -920,7 +920,7 @@ function cmdInitManager(cwd, raw) {
     }
   } catch { /* intentionally empty */ }
 
-  // Compute recommended actions (execute > plan > discuss)
+  // 추천 액션 계산(execute > plan > discuss)
   const recommendedActions = [];
   for (const phase of phases) {
     if (phase.disk_status === 'complete') continue;
@@ -952,8 +952,8 @@ function cmdInitManager(cwd, raw) {
     }
   }
 
-  // Filter recommendations: no parallel execute/plan unless phases are independent
-  // Two phases are "independent" if neither depends on the other (directly or transitively)
+  // 추천 액션 필터링: phase가 독립적이지 않으면 execute/plan 병렬 추천을 막는다.
+  // 두 phase는 어느 쪽도 서로를 직접/간접 의존하지 않을 때만 "독립"으로 본다.
   const phaseMap = new Map(phases.map(p => [p.number, p]));
 
   function reaches(from, to, visited = new Set()) {
@@ -969,7 +969,7 @@ function cmdInitManager(cwd, raw) {
     return reaches(numA, numB) || reaches(numB, numA);
   }
 
-  // Detect phases with active work (file modified in last 5 min)
+  // 활성 작업이 있는 phase 감지(최근 5분 내 파일 수정)
   const activeExecuting = phases.filter(p =>
     p.disk_status === 'partial' ||
     (p.disk_status === 'planned' && p.is_active)
@@ -980,11 +980,11 @@ function cmdInitManager(cwd, raw) {
 
   const filteredActions = recommendedActions.filter(action => {
     if (action.action === 'execute' && activeExecuting.length > 0) {
-      // Only allow if independent of ALL actively-executing phases
+      // 현재 실행 중인 모든 phase와 독립적일 때만 허용
       return activeExecuting.every(active => !hasDepRelationship(action.phase, active.number));
     }
     if (action.action === 'plan' && activePlanning.length > 0) {
-      // Only allow if independent of ALL actively-planning phases
+      // 현재 계획 중인 모든 phase와 독립적일 때만 허용
       return activePlanning.every(active => !hasDepRelationship(action.phase, active.number));
     }
     return true;
