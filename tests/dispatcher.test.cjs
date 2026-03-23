@@ -31,14 +31,14 @@ describe('dispatcher error paths', () => {
   test('no-command invocation prints usage and exits non-zero', () => {
     const result = runGsdTools('', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Usage:'), `Expected "Usage:" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('사용법:'), `Expected Korean usage text in stderr, got: ${result.error}`);
   });
 
   // Unknown command
   test('unknown command produces clear error and exits non-zero', () => {
     const result = runGsdTools('nonexistent-cmd', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown command'), `Expected "Unknown command" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 명령입니다'), `Expected Korean unknown-command text in stderr, got: ${result.error}`);
   });
 
   // --cwd= form with valid directory
@@ -56,91 +56,91 @@ describe('dispatcher error paths', () => {
   test('--cwd= with empty value produces error', () => {
     const result = runGsdTools('--cwd= state load', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Missing value for --cwd'), `Expected "Missing value for --cwd" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('--cwd 값이 필요합니다'), `Expected Korean --cwd value error in stderr, got: ${result.error}`);
   });
 
   // --cwd with nonexistent path
   test('--cwd with invalid path produces error', () => {
     const result = runGsdTools('--cwd /nonexistent/path/xyz state load', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Invalid --cwd'), `Expected "Invalid --cwd" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('잘못된 --cwd 경로입니다'), `Expected Korean invalid --cwd error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: template
   test('template unknown subcommand errors', () => {
     const result = runGsdTools('template bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown template subcommand'), `Expected "Unknown template subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 template 하위 명령'), `Expected Korean template subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: frontmatter
   test('frontmatter unknown subcommand errors', () => {
     const result = runGsdTools('frontmatter bogus file.md', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown frontmatter subcommand'), `Expected "Unknown frontmatter subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 frontmatter 하위 명령'), `Expected Korean frontmatter subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: verify
   test('verify unknown subcommand errors', () => {
     const result = runGsdTools('verify bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown verify subcommand'), `Expected "Unknown verify subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 verify 하위 명령'), `Expected Korean verify subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: phases
   test('phases unknown subcommand errors', () => {
     const result = runGsdTools('phases bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown phases subcommand'), `Expected "Unknown phases subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 phases 하위 명령'), `Expected Korean phases subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: roadmap
   test('roadmap unknown subcommand errors', () => {
     const result = runGsdTools('roadmap bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown roadmap subcommand'), `Expected "Unknown roadmap subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 roadmap 하위 명령'), `Expected Korean roadmap subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: requirements
   test('requirements unknown subcommand errors', () => {
     const result = runGsdTools('requirements bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown requirements subcommand'), `Expected "Unknown requirements subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 requirements 하위 명령'), `Expected Korean requirements subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: phase
   test('phase unknown subcommand errors', () => {
     const result = runGsdTools('phase bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown phase subcommand'), `Expected "Unknown phase subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 phase 하위 명령'), `Expected Korean phase subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: milestone
   test('milestone unknown subcommand errors', () => {
     const result = runGsdTools('milestone bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown milestone subcommand'), `Expected "Unknown milestone subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 milestone 하위 명령'), `Expected Korean milestone subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: validate
   test('validate unknown subcommand errors', () => {
     const result = runGsdTools('validate bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown validate subcommand'), `Expected "Unknown validate subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 validate 하위 명령'), `Expected Korean validate subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: todo
   test('todo unknown subcommand errors', () => {
     const result = runGsdTools('todo bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown todo subcommand'), `Expected "Unknown todo subcommand" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 todo 하위 명령'), `Expected Korean todo subcommand error in stderr, got: ${result.error}`);
   });
 
   // Unknown subcommand: init
   test('init unknown workflow errors', () => {
     const result = runGsdTools('init bogus', tmpDir);
     assert.strictEqual(result.success, false, 'Should exit non-zero');
-    assert.ok(result.error.includes('Unknown init workflow'), `Expected "Unknown init workflow" in stderr, got: ${result.error}`);
+    assert.ok(result.error.includes('알 수 없는 init 워크플로'), `Expected Korean init workflow error in stderr, got: ${result.error}`);
   });
 });
 

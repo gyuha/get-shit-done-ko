@@ -217,8 +217,8 @@ describe('config-set command', () => {
     const result = runGsdTools('config-set workflow.nyquist_validation_enabled false', tmpDir);
     assert.strictEqual(result.success, false);
     assert.ok(
-      result.error.includes('Unknown config key'),
-      `Expected "Unknown config key" in error: ${result.error}`
+      result.error.includes('알 수 없는 config key'),
+      `Expected Korean unknown-config-key text in error: ${result.error}`
     );
   });
 
@@ -240,7 +240,7 @@ describe('config-set command', () => {
   test('rejects known invalid nyquist alias keys with a suggestion', () => {
     const result = runGsdTools('config-set workflow.nyquist_validation_enabled false', tmpDir);
     assert.strictEqual(result.success, false);
-    assert.match(result.error, /Unknown config key: workflow\.nyquist_validation_enabled/);
+    assert.match(result.error, /알 수 없는 config key입니다: workflow\.nyquist_validation_enabled/);
     assert.match(result.error, /workflow\.nyquist_validation/);
 
     const config = readConfig(tmpDir);
@@ -284,8 +284,8 @@ describe('config-get command', () => {
     const result = runGsdTools('config-get nonexistent_key', tmpDir);
     assert.strictEqual(result.success, false);
     assert.ok(
-      result.error.includes('Key not found'),
-      `Expected "Key not found" in error: ${result.error}`
+      result.error.includes('키를 찾을 수 없습니다'),
+      `Expected Korean key-not-found text in error: ${result.error}`
     );
   });
 
@@ -293,8 +293,8 @@ describe('config-get command', () => {
     const result = runGsdTools('config-get workflow.nonexistent', tmpDir);
     assert.strictEqual(result.success, false);
     assert.ok(
-      result.error.includes('Key not found'),
-      `Expected "Key not found" in error: ${result.error}`
+      result.error.includes('키를 찾을 수 없습니다'),
+      `Expected Korean key-not-found text in error: ${result.error}`
     );
   });
 
@@ -304,8 +304,8 @@ describe('config-get command', () => {
       const result = runGsdTools('config-get model_profile', emptyTmpDir);
       assert.strictEqual(result.success, false);
       assert.ok(
-        result.error.includes('No config.json'),
-        `Expected "No config.json" in error: ${result.error}`
+        result.error.includes('config.json을 찾을 수 없습니다'),
+        `Expected Korean missing-config text in error: ${result.error}`
       );
     } finally {
       cleanup(emptyTmpDir);
@@ -464,7 +464,7 @@ describe('config-new-project command', () => {
   test('rejects invalid JSON choices', () => {
     const result = runGsdTools(['config-new-project', '{not-json}'], tmpDir);
     assert.strictEqual(result.success, false);
-    assert.ok(result.error.includes('Invalid JSON'), `Expected "Invalid JSON" in: ${result.error}`);
+    assert.ok(result.error.includes('JSON이 올바르지 않습니다'), `Expected Korean invalid-JSON text in: ${result.error}`);
   });
 
   test('output has created:true and path on success', () => {
@@ -521,8 +521,8 @@ describe('config-set research_before_questions and discuss_mode', () => {
     const result = runGsdTools('config-set hooks.research_questions true', tmpDir);
     assert.strictEqual(result.success, false);
     assert.ok(
-      result.error.includes('Unknown config key'),
-      `Expected "Unknown config key" in error: ${result.error}`
+      result.error.includes('알 수 없는 config key'),
+      `Expected Korean unknown-config-key text in error: ${result.error}`
     );
     assert.ok(
       result.error.includes('workflow.research_before_questions'),
@@ -549,8 +549,8 @@ describe('config-set unknown key (no suggestion)', () => {
     const result = runGsdTools('config-set totally.unknown.key value', tmpDir);
     assert.strictEqual(result.success, false);
     assert.ok(
-      result.error.includes('Unknown config key'),
-      `Expected "Unknown config key" in error: ${result.error}`
+      result.error.includes('알 수 없는 config key'),
+      `Expected Korean unknown-config-key text in error: ${result.error}`
     );
   });
 });
@@ -574,8 +574,8 @@ describe('config-get edge cases', () => {
     const result = runGsdTools('config-get model_profile.something', tmpDir);
     assert.strictEqual(result.success, false);
     assert.ok(
-      result.error.includes('Key not found'),
-      `Expected "Key not found" in error: ${result.error}`
+      result.error.includes('키를 찾을 수 없습니다'),
+      `Expected Korean key-not-found text in error: ${result.error}`
     );
   });
 
@@ -586,8 +586,8 @@ describe('config-get edge cases', () => {
     const result = runGsdTools('config-get model_profile', tmpDir);
     assert.strictEqual(result.success, false);
     assert.ok(
-      result.error.includes('Failed to read config.json'),
-      `Expected "Failed to read config.json" in error: ${result.error}`
+      result.error.includes('config.json 읽기에 실패했습니다'),
+      `Expected Korean config-read-failed text in error: ${result.error}`
     );
   });
 });
@@ -651,8 +651,8 @@ describe('config-set-model-profile command', () => {
     const result = runGsdTools('config-set-model-profile turbo', tmpDir);
     assert.strictEqual(result.success, false);
     assert.ok(
-      result.error.includes('Invalid profile'),
-      `Expected "Invalid profile" in error: ${result.error}`
+      result.error.includes('올바르지 않은 profile'),
+      `Expected Korean invalid-profile text in error: ${result.error}`
     );
   });
 

@@ -176,7 +176,7 @@ describe('state-snapshot command', () => {
     const invalid = path.join(tmpDir, 'does-not-exist');
     const result = runGsdTools(`state-snapshot --cwd "${invalid}"`, tmpDir);
     assert.ok(!result.success, 'should fail for invalid --cwd');
-    assert.ok(result.error.includes('Invalid --cwd'), 'error should mention invalid --cwd');
+    assert.ok(result.error.includes('잘못된 --cwd 경로입니다'), 'error should mention invalid --cwd in Korean');
   });
 });
 
@@ -776,7 +776,7 @@ describe('cmdStateGet (state get)', () => {
 
     const output = JSON.parse(result.output);
     assert.ok(output.error !== undefined, 'output should have error field');
-    assert.ok(output.error.toLowerCase().includes('not found'), 'error should mention "not found"');
+    assert.ok(output.error.includes('찾을 수 없습니다'), 'error should mention missing field in Korean');
   });
 
   test('returns error when STATE.md missing', () => {
@@ -909,7 +909,7 @@ describe('cmdStateAdvancePlan (state advance-plan)', () => {
 
     const updated = fs.readFileSync(path.join(tmpDir, '.planning', 'STATE.md'), 'utf-8');
     assert.ok(updated.includes('**Current Plan:** 2'), 'Current Plan should be updated to 2');
-    assert.ok(updated.includes('**Status:** Ready to execute'), 'Status should be Ready to execute');
+    assert.ok(updated.includes('**Status:** 실행 준비 완료'), 'Status should be updated to Korean ready-to-execute text');
     const after = new Date().toISOString().split('T')[0];
     assert.ok(
       updated.includes(`**Last Activity:** ${before}`) || updated.includes(`**Last Activity:** ${after}`),
@@ -930,7 +930,7 @@ describe('cmdStateAdvancePlan (state advance-plan)', () => {
     assert.strictEqual(output.status, 'ready_for_verification', 'status should be ready_for_verification');
 
     const updated = fs.readFileSync(path.join(tmpDir, '.planning', 'STATE.md'), 'utf-8');
-    assert.ok(updated.includes('Phase complete'), 'Status should contain Phase complete');
+    assert.ok(updated.includes('Phase 완료'), 'Status should contain Korean phase-complete text');
   });
 
   test('returns error when STATE.md missing', () => {
@@ -953,7 +953,7 @@ describe('cmdStateAdvancePlan (state advance-plan)', () => {
 
     const output = JSON.parse(result.output);
     assert.ok(output.error !== undefined, 'output should have error field');
-    assert.ok(output.error.toLowerCase().includes('cannot parse'), 'error should mention Cannot parse');
+    assert.ok(output.error.includes('해석할 수 없습니다'), 'error should mention parse failure in Korean');
   });
 
   test('advances plan in compound "Plan: X of Y" format', () => {
@@ -974,8 +974,8 @@ describe('cmdStateAdvancePlan (state advance-plan)', () => {
     const updated = fs.readFileSync(path.join(tmpDir, '.planning', 'STATE.md'), 'utf-8');
     assert.ok(updated.includes('Plan: 3 of 5 in current phase'),
       'should preserve compound format with updated plan number');
-    assert.ok(updated.includes('Status: Ready to execute'),
-      'Status should be updated');
+    assert.ok(updated.includes('Status: 실행 준비 완료'),
+      'Status should be updated to Korean ready-to-execute text');
   });
 
   test('marks phase complete on last plan in compound format', () => {
@@ -992,7 +992,7 @@ describe('cmdStateAdvancePlan (state advance-plan)', () => {
     assert.strictEqual(output.reason, 'last_plan');
 
     const updated = fs.readFileSync(path.join(tmpDir, '.planning', 'STATE.md'), 'utf-8');
-    assert.ok(updated.includes('Phase complete'), 'Status should contain Phase complete');
+    assert.ok(updated.includes('Phase 완료'), 'Status should contain Korean phase-complete text');
   });
 });
 

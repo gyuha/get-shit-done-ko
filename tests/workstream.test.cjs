@@ -389,7 +389,7 @@ describe('path traversal rejection', () => {
       test(`rejects --ws=${name}`, () => {
         const result = runGsdTools(['workstream', 'list', '--raw', '--ws', name], tmpDir);
         assert.ok(!result.success, `should reject --ws=${name}`);
-        assert.ok(result.error.includes('Invalid workstream name'), `error should mention invalid name for: ${name}`);
+        assert.ok(result.error.includes('잘못된 workstream 이름'), `error should mention invalid name for: ${name}`);
       });
     }
   });
@@ -399,7 +399,7 @@ describe('path traversal rejection', () => {
       test(`rejects GSD_WORKSTREAM=${name}`, () => {
         const result = runGsdTools(['workstream', 'list', '--raw'], tmpDir, { GSD_WORKSTREAM: name });
         assert.ok(!result.success, `should reject GSD_WORKSTREAM=${name}`);
-        assert.ok(result.error.includes('Invalid workstream name'), `error should mention invalid name for: ${name}`);
+        assert.ok(result.error.includes('잘못된 workstream 이름'), `error should mention invalid name for: ${name}`);
       });
     }
   });

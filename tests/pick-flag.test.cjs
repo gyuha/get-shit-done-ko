@@ -33,13 +33,13 @@ describe('--pick flag', () => {
   test('errors when --pick has no value', () => {
     const result = runGsdTools('generate-slug "test" --pick');
     assert.strictEqual(result.success, false);
-    assert.match(result.error, /Missing value for --pick/);
+    assert.match(result.error, /--pick 값이 필요합니다/);
   });
 
   test('errors when --pick value starts with --', () => {
     const result = runGsdTools(['generate-slug', 'test', '--pick', '--raw']);
     assert.strictEqual(result.success, false);
-    assert.match(result.error, /Missing value for --pick/);
+    assert.match(result.error, /--pick 값이 필요합니다/);
   });
 
   test('does not collide with frontmatter --field flag', () => {

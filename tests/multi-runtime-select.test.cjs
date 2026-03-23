@@ -124,7 +124,7 @@ describe('install.js source contains multi-select support', () => {
 
   test('prompt text shows multi-select hint', () => {
     assert.ok(
-      installSrc.includes('Select multiple'),
+      installSrc.includes('여러 개 선택 가능'),
       'prompt includes multi-select instructions'
     );
   });
