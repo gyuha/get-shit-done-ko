@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Upstream Baseline Import** - Bring upstream `v1.28.0` into the repo root with traceable parity.
 - [x] **Phase 2: Korean-First Documentation** - Make docs/readme/navigation Korean-first while preserving English and removing Chinese. (completed 2026-03-23)
-- [ ] **Phase 3: Workflow Asset Localization** - Translate command/workflow/template/reference surfaces without breaking structured tokens.
+- [x] **Phase 3: Workflow Asset Localization** - Translate command/workflow/template/reference surfaces without breaking structured tokens. (completed 2026-03-23)
 - [ ] **Phase 4: Runtime Text and Comment Localization** - Localize remaining user-facing source strings and explanatory comments safely.
 - [ ] **Phase 5: Compatibility Validation and Release Prep** - Verify integrity, repair regressions, and prepare the fork for ongoing maintenance.
 
@@ -62,7 +62,7 @@ Plans:
 Plans:
 - [x] 03-01: Translate command docs and help-facing workflow entry points.
 - [x] 03-02: Translate workflow/template/reference files while preserving markup and tokens.
-- [ ] 03-03: Review agent prompts and shared terminology for consistency across assets.
+- [x] 03-03: Review agent prompts and shared terminology for consistency across assets.
 
 ### Phase 4: Runtime Text and Comment Localization
 **Goal**: Localize remaining user-facing source strings and explanatory comments in code without changing behavior contracts.
@@ -102,6 +102,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Upstream Baseline Import | 2/2 | Complete | 2026-03-23 |
 | 2. Korean-First Documentation | 3/3 | Complete | 2026-03-23 |
-| 3. Workflow Asset Localization | 0/3 | Not started | - |
+| 3. Workflow Asset Localization | 3/3 | Complete | 2026-03-23 |
 | 4. Runtime Text and Comment Localization | 0/2 | Not started | - |
 | 5. Compatibility Validation and Release Prep | 0/3 | Not started | - |

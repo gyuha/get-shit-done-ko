@@ -16,13 +16,13 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 
 - ✓ Root-level upstream `get-shit-done` `v1.28.0` baseline imported and documented — Phase 1
 - ✓ Korean-first public documentation established, English reference access preserved, and Simplified Chinese docs removed — Phase 2
+- ✓ Korean-first command/workflow/template/reference/agent overlay established without breaking command/path/token compatibility — Phase 3
 
 ### Active
 
-- [ ] Keep commands, file names, directory names, identifiers, and phase/requirement IDs unchanged while translating non-command prose.
-- [ ] Make Korean the default documentation language while keeping English documentation and removing Simplified Chinese content and links.
-- [ ] Translate workflow prompts, templates, references, error/help/checkpoint copy, and source comments that are part of the maintained user experience.
-- [ ] Verify that references, placeholders, snippets, commands, and automated flows still work after localization.
+- [ ] Translate remaining runtime help/checkpoint/error-style source strings into Korean without changing executable behavior.
+- [ ] Translate explanatory comments where useful while preserving identifiers and runtime semantics.
+- [ ] Run final compatibility validation so tests, installers, references, placeholders, and prompt routing remain intact after localization.
 
 ### Out of Scope
 
@@ -55,7 +55,8 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 | Pin initial import to upstream `v1.28.0` | Gives the fork a stable baseline and makes future sync work auditable | ✓ Good |
 | Keep command/file/path/ID tokens in English | These tokens are part of the runtime contract and must not drift | ✓ Good |
 | Korean-first with English retained, Chinese removed | Matches the requested reading experience and lowers maintenance burden | ✓ Good |
-| Translate prompts/templates/comments in source, not just end-user docs | Most of the product experience is encoded in markdown workflow assets | — Pending |
+| Translate prompt/template/reference assets in source, not just end-user docs | Most of the product experience is encoded in markdown workflow assets | ✓ Good |
+| Keep frontmatter descriptions stable where installer tooling depends on them | Some generated skills/config files assert original descriptions for compatibility | ✓ Good |
 | Flatten upstream into the root instead of keeping a nested submodule | Later localization phases need to edit the actual runtime tree in place | ✓ Good |
 | Document upstream sync rules before translating imported content | Future maintenance needs a stable source/version audit trail | ✓ Good |
 
@@ -77,4 +78,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after Phase 2 completion*
+*Last updated: 2026-03-23 after Phase 3 completion*

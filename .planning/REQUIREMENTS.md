@@ -18,8 +18,8 @@
 
 ### Workflow Localization
 
-- [ ] **FLOW-01**: User sees Korean explanatory text in command docs, workflow prompts, references, and templates while command literals remain unchanged.
-- [ ] **FLOW-02**: Downstream agents can read localized workflow/template/reference content without broken `@` references, placeholders, or structured markup.
+- [x] **FLOW-01**: User sees Korean explanatory text in command docs, workflow prompts, references, and templates while command literals remain unchanged.
+- [x] **FLOW-02**: Downstream agents can read localized workflow/template/reference content without broken `@` references, placeholders, or structured markup.
 
 ### Runtime Messaging
 
@@ -57,8 +57,8 @@
 | DOCS-01 | Phase 2 | Complete |
 | DOCS-02 | Phase 2 | Complete |
 | DOCS-03 | Phase 2 | Complete |
-| FLOW-01 | Phase 3 | Pending |
-| FLOW-02 | Phase 3 | Pending |
+| FLOW-01 | Phase 3 | Complete |
+| FLOW-02 | Phase 3 | Complete |
 | TEXT-01 | Phase 4 | Pending |
 | TEXT-02 | Phase 4 | Pending |
 | QUAL-01 | Phase 5 | Pending |
@@ -71,4 +71,4 @@
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after Phase 2 completion*
+*Last updated: 2026-03-23 after Phase 3 completion*
