@@ -143,6 +143,32 @@ Body.`;
   });
 });
 
+// ─── package identity regression coverage ──────────────────────────────────────
+
+describe('package identity rename regression coverage', () => {
+  test('package metadata publishes get-shit-done-ko as the canonical bin', () => {
+    const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'));
+    const lock = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package-lock.json'), 'utf8'));
+
+    assert.strictEqual(pkg.name, 'get-shit-done-ko');
+    assert.strictEqual(pkg.bin['get-shit-done-ko'], 'bin/install.js');
+    assert.strictEqual(lock.name, 'get-shit-done-ko');
+    assert.strictEqual(lock.packages[''].name, 'get-shit-done-ko');
+    assert.strictEqual(lock.packages[''].bin['get-shit-done-ko'], 'bin/install.js');
+  });
+
+  test('installer source and README use get-shit-done-ko in canonical commands', () => {
+    const installSource = fs.readFileSync(path.join(__dirname, '..', 'bin', 'install.js'), 'utf8');
+    const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf8');
+
+    assert.ok(installSource.includes('npx get-shit-done-ko [options]'));
+    assert.ok(installSource.includes('npx get-shit-done-ko --codex --global'));
+    assert.ok(!installSource.includes('npx get-shit-done-cc'));
+    assert.ok(readme.includes('npx get-shit-done-ko@latest'));
+    assert.ok(!readme.includes('get-shit-done-cc'));
+  });
+});
+
 // ─── convertClaudeAgentToCodexAgent ─────────────────────────────────────────────
 
 describe('convertClaudeAgentToCodexAgent', () => {
