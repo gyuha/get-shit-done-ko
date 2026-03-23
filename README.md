@@ -4,6 +4,8 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
+> Maintainer note: this fork starts from upstream `v1.28.0`. See [docs/UPSTREAM-SYNC.md](docs/UPSTREAM-SYNC.md) for sync and localization guardrails.
+
 **A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code, OpenCode, Gemini CLI, Codex, Copilot, and Antigravity.**
 
 **Solves context rot — the quality degradation that happens as Claude fills its context window.**
