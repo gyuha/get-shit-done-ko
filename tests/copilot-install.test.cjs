@@ -296,6 +296,27 @@ describe('convertClaudeToCopilotContent', () => {
     );
   });
 
+  test('replaces bare ~/.claude with .github in local mode (default)', () => {
+    assert.strictEqual(
+      convertClaudeToCopilotContent('configDir = ~/.claude'),
+      'configDir = .github'
+    );
+  });
+
+  test('replaces bare ~/.claude with ~/.copilot in global mode', () => {
+    assert.strictEqual(
+      convertClaudeToCopilotContent('configDir = ~/.claude', true),
+      'configDir = ~/.copilot'
+    );
+  });
+
+  test('replaces bare $HOME/.claude with $HOME/.copilot in global mode', () => {
+    assert.strictEqual(
+      convertClaudeToCopilotContent('configDir = $HOME/.claude', true),
+      'configDir = $HOME/.copilot'
+    );
+  });
+
   test('converts gsd: to gsd- in command names', () => {
     assert.strictEqual(
       convertClaudeToCopilotContent('run /gsd:health or gsd:progress'),

@@ -545,6 +545,17 @@ function convertCopilotToolName(claudeTool) {
   return claudeTool.toLowerCase();
 }
 
+function replaceClaudeConfigRootReferences(content, replacements) {
+  let converted = content;
+  if (replacements.home) {
+    converted = converted.replace(/\$HOME\/\.claude\b/g, replacements.home);
+  }
+  if (replacements.tilde) {
+    converted = converted.replace(/~\/\.claude\b/g, replacements.tilde);
+  }
+  return converted;
+}
+
 /**
  * Apply Copilot-specific content conversion — CONV-06 (paths) + CONV-07 (command names).
  * Path mappings depend on install mode:
@@ -560,9 +571,17 @@ function convertClaudeToCopilotContent(content, isGlobal = false) {
   if (isGlobal) {
     c = c.replace(/\$HOME\/\.claude\//g, '$HOME/.copilot/');
     c = c.replace(/~\/\.claude\//g, '~/.copilot/');
+    c = replaceClaudeConfigRootReferences(c, {
+      home: '$HOME/.copilot',
+      tilde: '~/.copilot',
+    });
   } else {
     c = c.replace(/\$HOME\/\.claude\//g, '.github/');
     c = c.replace(/~\/\.claude\//g, '.github/');
+    c = replaceClaudeConfigRootReferences(c, {
+      home: '.github',
+      tilde: '.github',
+    });
   }
   c = c.replace(/\.\/\.claude\//g, './.github/');
   c = c.replace(/\.claude\//g, '.github/');
@@ -652,9 +671,17 @@ function convertClaudeToAntigravityContent(content, isGlobal = false) {
   if (isGlobal) {
     c = c.replace(/\$HOME\/\.claude\//g, '$HOME/.gemini/antigravity/');
     c = c.replace(/~\/\.claude\//g, '~/.gemini/antigravity/');
+    c = replaceClaudeConfigRootReferences(c, {
+      home: '$HOME/.gemini/antigravity',
+      tilde: '~/.gemini/antigravity',
+    });
   } else {
     c = c.replace(/\$HOME\/\.claude\//g, '.agent/');
     c = c.replace(/~\/\.claude\//g, '.agent/');
+    c = replaceClaudeConfigRootReferences(c, {
+      home: '.agent',
+      tilde: '.agent',
+    });
   }
   c = c.replace(/\.\/\.claude\//g, './.agent/');
   c = c.replace(/\.claude\//g, '.agent/');
@@ -2100,12 +2127,21 @@ function installCodexConfig(targetDir, agentsSrc) {
 
   // Compute the Codex GSD install path (absolute, so subagents with empty $HOME work — #820)
   const codexGsdPath = `${path.resolve(targetDir, 'get-shit-done').replace(/\\/g, '/')}/`;
+  const homeDir = os.homedir().replace(/\\/g, '/');
+  const resolvedTargetDir = path.resolve(targetDir).replace(/\\/g, '/');
+  const codexConfigRoot = resolvedTargetDir.startsWith(homeDir)
+    ? '$HOME' + resolvedTargetDir.slice(homeDir.length)
+    : resolvedTargetDir;
 
   for (const file of agentEntries) {
     let content = fs.readFileSync(path.join(agentsSrc, file), 'utf8');
     // Replace full .claude/get-shit-done prefix so path resolves to codex GSD install
     content = content.replace(/~\/\.claude\/get-shit-done\//g, codexGsdPath);
     content = content.replace(/\$HOME\/\.claude\/get-shit-done\//g, codexGsdPath);
+    content = replaceClaudeConfigRootReferences(content, {
+      home: codexConfigRoot,
+      tilde: codexConfigRoot,
+    });
     const { frontmatter } = extractFrontmatterAndBody(content);
     const name = extractFrontmatterField(frontmatter, 'name') || file.replace('.md', '');
     const description = extractFrontmatterField(frontmatter, 'description') || '';
@@ -2507,6 +2543,10 @@ function copyFlattenedCommands(srcDir, destDir, prefix, pathPrefix, runtime) {
       content = content.replace(globalClaudeRegex, pathPrefix);
       content = content.replace(globalClaudeHomeRegex, pathPrefix);
       content = content.replace(localClaudeRegex, `./${getDirName(runtime)}/`);
+      content = replaceClaudeConfigRootReferences(content, {
+        home: pathPrefix.replace(/\/$/, ''),
+        tilde: pathPrefix.replace(/\/$/, ''),
+      });
       content = content.replace(opencodeDirRegex, pathPrefix);
       content = processAttribution(content, getCommitAttribution(runtime));
       content = convertClaudeToOpencodeFrontmatter(content);
@@ -2568,6 +2608,10 @@ function copyCommandsAsCodexSkills(srcDir, skillsDir, prefix, pathPrefix, runtim
       content = content.replace(globalClaudeRegex, pathPrefix);
       content = content.replace(globalClaudeHomeRegex, pathPrefix);
       content = content.replace(localClaudeRegex, `./${getDirName(runtime)}/`);
+      content = replaceClaudeConfigRootReferences(content, {
+        home: pathPrefix.replace(/\/$/, ''),
+        tilde: pathPrefix.replace(/\/$/, ''),
+      });
       content = content.replace(codexDirRegex, pathPrefix);
       content = processAttribution(content, getCommitAttribution(runtime));
       content = convertClaudeCommandToCodexSkill(content, skillName);
@@ -2621,6 +2665,10 @@ function copyCommandsAsCursorSkills(srcDir, skillsDir, prefix, pathPrefix, runti
       content = content.replace(globalClaudeRegex, pathPrefix);
       content = content.replace(globalClaudeHomeRegex, pathPrefix);
       content = content.replace(localClaudeRegex, `./${getDirName(runtime)}/`);
+      content = replaceClaudeConfigRootReferences(content, {
+        home: pathPrefix.replace(/\/$/, ''),
+        tilde: pathPrefix.replace(/\/$/, ''),
+      });
       content = content.replace(cursorDirRegex, pathPrefix);
       content = processAttribution(content, getCommitAttribution(runtime));
       content = convertClaudeCommandToCursorSkill(content, skillName);
@@ -2776,6 +2824,10 @@ function copyWithPathReplacement(srcDir, destDir, pathPrefix, runtime, isCommand
         content = content.replace(globalClaudeRegex, pathPrefix);
         content = content.replace(globalClaudeHomeRegex, pathPrefix);
         content = content.replace(localClaudeRegex, `./${dirName}/`);
+        content = replaceClaudeConfigRootReferences(content, {
+          home: pathPrefix.replace(/\/$/, ''),
+          tilde: pathPrefix.replace(/\/$/, ''),
+        });
       }
       content = processAttribution(content, getCommitAttribution(runtime));
 
@@ -3813,6 +3865,10 @@ function install(isGlobal, runtime = 'claude') {
         if (!isCopilot && !isAntigravity) {
           content = content.replace(dirRegex, pathPrefix);
           content = content.replace(homeDirRegex, pathPrefix);
+          content = replaceClaudeConfigRootReferences(content, {
+            home: pathPrefix.replace(/\/$/, ''),
+            tilde: pathPrefix.replace(/\/$/, ''),
+          });
         }
         content = processAttribution(content, getCommitAttribution(runtime));
         // Convert frontmatter for runtime compatibility (agents need different handling)

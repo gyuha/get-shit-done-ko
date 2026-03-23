@@ -677,6 +677,11 @@ describe('installCodexConfig (integration)', () => {
     const checkerToml = fs.readFileSync(path.join(agentsDir, 'gsd-plan-checker.toml'), 'utf8');
     assert.ok(checkerToml.includes('name = "gsd-plan-checker"'), 'plan-checker has name');
     assert.ok(checkerToml.includes('sandbox_mode = "read-only"'), 'plan-checker is read-only');
+
+    const debuggerToml = fs.readFileSync(path.join(agentsDir, 'gsd-debugger.toml'), 'utf8');
+    assert.ok(!debuggerToml.includes('~/.claude'), 'debugger toml has no bare ~/.claude references');
+    assert.ok(!debuggerToml.includes('$HOME/.claude'), 'debugger toml has no bare $HOME/.claude references');
+    assert.ok(debuggerToml.includes('$HOME') || debuggerToml.includes(tmpTarget.replace(/\\/g, '/')), 'debugger toml rewrites config root references');
   });
 });
 

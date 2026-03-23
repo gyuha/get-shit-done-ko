@@ -117,6 +117,13 @@ describe('convertClaudeToAntigravityContent', () => {
       assert.ok(result.includes('$HOME/.gemini/antigravity/'), result);
       assert.ok(!result.includes('$HOME/.claude/'), result);
     });
+
+    test('replaces bare ~/.claude with ~/.gemini/antigravity/', () => {
+      const input = 'configDir = ~/.claude';
+      const result = convertClaudeToAntigravityContent(input, true);
+      assert.ok(result.includes('configDir = ~/.gemini/antigravity'), result);
+      assert.ok(!result.includes('~/.claude'), result);
+    });
   });
 
   describe('local install path replacements', () => {
@@ -139,6 +146,13 @@ describe('convertClaudeToAntigravityContent', () => {
       const result = convertClaudeToAntigravityContent(input, false);
       assert.ok(result.includes('.agent/hooks/gsd-statusline.js'), result);
       assert.ok(!result.includes('.claude/'), result);
+    });
+
+    test('replaces bare ~/.claude with .agent for local installs', () => {
+      const input = 'configDir = ~/.claude';
+      const result = convertClaudeToAntigravityContent(input, false);
+      assert.ok(result.includes('configDir = .agent'), result);
+      assert.ok(!result.includes('~/.claude'), result);
     });
   });
 
