@@ -22,6 +22,14 @@ node scripts/check-upstream-release.cjs --current-file get-shit-done/UPSTREAM_VE
 
 이 파일은 fork의 `package.json` 버전과 별개로 관리합니다. 현재 이 포크의 npm package version은 upstream baseline보다 앞설 수 있으므로, upstream sync 판단은 `package.json`만으로 하지 않습니다.
 
+비교 결과는 항상 다음 필드를 함께 읽습니다.
+
+- tracked upstream baseline
+- latest upstream release
+- latest upstream release published date
+- fork `package.json` version
+- compare status (`current`, `update_available`, `ahead`)
+
 ## 가져온 최상위 항목
 
 Phase 1 루트 import에서 다음 upstream 추적 항목을 저장소 루트에 그대로 복사했습니다.
@@ -108,6 +116,12 @@ Maintainer-only repo sync는 `$gsd-update`가 아니라 `$gsd-sync-upstream`로 
 4. upstream latest가 같거나 더 낮으면 비교한 버전과 날짜를 보여 주고 no-op으로 종료합니다.
 5. dry-run은 `node scripts/apply-upstream-refresh.cjs --from-current --to-tag <tag> --dry-run`로 먼저 실행하고, touched paths / preserved paths / overlay reapply 목록을 확인합니다.
 
+compare status 해석:
+
+- `current`: tracked baseline과 upstream latest가 같다. no-op으로 종료합니다.
+- `ahead`: tracked baseline이 upstream latest보다 앞선다. local-ahead를 설명하고 no-op으로 종료합니다.
+- `update_available`: upstream latest가 더 새롭다. 이 경우에만 dry-run/apply로 넘어갑니다.
+
 권장 실행 순서:
 
 ```bash
@@ -121,6 +135,11 @@ node scripts/run-tests.cjs
 ```
 
 `check-upstream-release.cjs` 결과에서 `update_available`이 `false`면 여기서 멈추고 no-op으로 끝냅니다. 이때는 tracked upstream baseline이 upstream latest와 같거나 더 앞선 상태입니다.
+
+즉:
+- `status: current` → no-op, worktree untouched
+- `status: ahead` → no-op, worktree untouched
+- `status: update_available` → dry-run 가능
 
 현재 비교 기준은 반드시 다음 두 값입니다.
 

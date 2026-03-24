@@ -18,6 +18,14 @@ node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --d
 - 실제 반영은 dry-run 결과를 확인한 뒤 `node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag>`로 진행합니다.
 - sync 직후에는 아래 기준 검증 명령을 다시 실행합니다.
 
+compare status 해석:
+
+- `current` → tracked baseline과 upstream latest가 같다. 날짜/태그를 기록하고 종료합니다.
+- `ahead` → tracked baseline이 upstream latest보다 앞서 있다. local-ahead 상태를 설명하고 종료합니다.
+- `update_available` → dry-run과 실제 apply 검토로 넘어갑니다.
+
+`current`와 `ahead`는 둘 다 no-op이며, 이 경우 worktree를 건드리면 안 됩니다.
+
 ## 기준 검증 명령
 
 아래 명령을 순서대로 실행합니다.
