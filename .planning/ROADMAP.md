@@ -163,11 +163,11 @@ Plans:
 
 ## Backlog
 
-### Phase 999.1: Make `gsd:help` command output Korean-first instead of mixed Korean-English (BACKLOG)
+### Phase 999.1: Make `gsd:help` command output Korean-first instead of mixed Korean-English (BACKLOG, completed 2026-03-24)
 
 **Goal:** Ensure `gsd:help` outputs a Korean-first command reference in installed runtimes instead of showing only a Korean heading with largely English body content.
 **Requirements:** [FLOW-01, TEXT-01]
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 
 **Success Criteria** (what must be TRUE):
   1. The main help reference emitted by `gsd:help` reads Korean-first across the source and installed runtime paths users actually hit.
@@ -175,5 +175,5 @@ Plans:
   3. Regression coverage fails if the help reference drifts back to mixed Korean/English body output.
 
 Plans:
-- [ ] 999.1-01: Localize the canonical `gsd:help` reference content in the source and installed help workflows.
-- [ ] 999.1-02: Add regression coverage and final validation for Korean-first `gsd:help` output.
+- [x] 999.1-01: Localize the canonical `gsd:help` reference content in the source and installed help workflows.
+- [x] 999.1-02: Add regression coverage and final validation for Korean-first `gsd:help` output.

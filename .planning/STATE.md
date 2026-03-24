@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.28.0
 milestone_name: milestone
 status: Milestone complete
-stopped_at: Phase 08 completed
-last_updated: "2026-03-24T11:49:13.000Z"
+stopped_at: Phase 999.1 completed
+last_updated: "2026-03-24T12:42:00.000Z"
 progress:
-  total_phases: 8
-  completed_phases: 8
-  total_plans: 18
-  completed_plans: 18
+  total_phases: 9
+  completed_phases: 9
+  total_plans: 7
+  completed_plans: 7
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-24)
 
 **Core value:** Korean-speaking users can use GSD end-to-end in Korean without breaking upstream command compatibility.
-**Current focus:** Milestone `v1.28.0` is complete, including Korean-first planning document generation for installed Codex skills.
+**Current focus:** No active phase - Phase 999.1 completed and validated on 2026-03-24
 
 ## Current Position
 
-Phase: 08 (make-generated-planning-documents-korean-first-for-installed-skills) — COMPLETE
-Plan: 2 of 2 complete
+Phase: Complete
+Plan: Complete
 
 ## Performance Metrics
 
@@ -49,8 +49,8 @@ Plan: 2 of 2 complete
 
 **Recent Trend:**
 
-- Last 5 plans: 6 min, 2 min, 3 min, 4 min, 3 min
-- Trend: Installed-runtime localization stayed targeted because Phase 08 narrowed the fix to the authoritative `.codex/get-shit-done/` generation path and validated it with direct regression tests.
+- Last 5 plans: 2 min, 3 min, 4 min, 3 min, 11 min
+- Trend: Korean-first maintenance fixes stay narrow when we patch the exact installed runtime surface first, then lock behavior in with focused regression coverage and broader suite validation.
 
 | Phase 01 P01 | 1 | 2 tasks | 21 files |
 | Phase 01 P02 | 1 | 2 tasks | 2 files |
@@ -70,6 +70,8 @@ Plan: 2 of 2 complete
 | Phase 06 P03 | 3 min | 2 tasks | 1 file |
 | Phase 08 P01 | 4 min | 2 tasks | 15 files |
 | Phase 08 P02 | 3 min | 2 tasks | 3 files |
+| Phase 999.1 P01 | 14 min | 2 tasks | 2 files |
+| Phase 999.1 P02 | 11 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -96,12 +98,15 @@ Recent decisions affecting current work:
 - [Phase 07 planning]: Compare upstream release state against the tracked upstream baseline rather than `package.json` alone because the fork package version (`1.28.1`) can move ahead of the imported upstream tag (`v1.28.0`).
 - [Phase 08 planning]: Installed-skill planning output must be fixed in the authoritative `.codex/get-shit-done/` runtime generation helpers and reusable templates, not only in repository-facing docs or the mirrored root runtime.
 - [Phase 08 planning]: Parser-sensitive labels such as `Tasks`, `Goal-Backward Verification`, and `Test Results` stay unchanged where downstream tooling expects them.
+- [Phase 999.1]: Fix `gsd:help` at the workflow content layer rather than adding wrapper commentary so installed runtimes and source docs stay aligned.
+- [Phase 999.1]: Protect help localization with paired root-vs-codex assertions so Korean-first wording and runtime-specific command/path differences cannot silently drift apart.
 
 ### Roadmap Evolution
 
 - Phase 6 added: Rename npm package and installer entrypoint to get-shit-done-ko
 - Phase 7 added: Automated upstream GSD sync skill
 - Phase 8 added: Make generated planning documents Korean-first for installed skills
+- Phase 999.1 added and completed: Make `gsd:help` command output Korean-first instead of mixed Korean-English
 
 ### Pending Todos
 
@@ -113,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T11:49:13Z
-Stopped at: Phase 08 completed
+Last session: 2026-03-24T12:42:00Z
+Stopped at: Phase 999.1 completed
 Resume file: None
