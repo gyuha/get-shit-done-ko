@@ -101,9 +101,14 @@ node scripts/audit-localization-gap.cjs --to-tag <latest_tag> --mode source-of-t
 audit 결과에서는 아래 필드를 우선 확인합니다.
 
 - changed_files
+- translation_candidates
+- overlay_missing
+- zh_cn_reintroduced
+- token_sensitive_candidates
 - overlay_reapply
 - overlay_delete
-- translation_candidates
+
+`token_sensitive_candidates`는 commands, file paths, placeholders, `@` references, XML/markdown structure, identifiers를 특히 조심해서 수동 검토해야 하는 항목입니다.
 
 10. apply가 끝나면 다음 canonical validation을 실행합니다.
 

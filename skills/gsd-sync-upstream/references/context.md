@@ -78,3 +78,4 @@ node scripts/run-tests.cjs
 - maintainer에게는 항상 compare -> dry-run -> apply -> validation 순서로 안내합니다.
 - localization audit에서는 `overlay_missing`을 한국어 overlay 후속 작업 후보로, `zh_cn_reintroduced`를 금지된 재유입 경고로 해석합니다.
 - `zh-CN` 파일이나 링크는 이 포크에 다시 들어오면 안 됩니다.
+- `token_sensitive_candidates`는 commands, file paths, placeholders, `@` references, XML/markdown structure, identifiers를 수동 검증해야 하는 고위험 후보입니다.
