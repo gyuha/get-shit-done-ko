@@ -97,7 +97,11 @@ describe('execute-phase docs: user-facing wave flag', () => {
   test('help workflow documents --wave behavior', () => {
     const content = fs.readFileSync(HELP_PATH, 'utf-8');
     assert.ok(
-      content.includes('Optional `--wave N` flag executes only Wave `N`'),
+      content.includes('phase 안의 모든 plan을 실행하거나, 특정 wave만 실행합니다.'),
+      'help.md should keep Korean-first execute-phase guidance'
+    );
+    assert.ok(
+      content.includes('선택적인 `--wave N`은 Wave `N`만 실행하고, phase가 완전히 끝난 경우가 아니면 그 자리에서 멈춥니다'),
       'help.md should describe wave-specific execution'
     );
     assert.ok(
