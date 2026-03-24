@@ -9,7 +9,7 @@ const { test, describe, beforeEach, afterEach } = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
 const path = require('path');
-const { runGsdTools, createTempProject, cleanup } = require('./helpers.cjs');
+const { runGsdTools, runCodexGsdTools, createTempProject, cleanup } = require('./helpers.cjs');
 
 // ─── template select ──────────────────────────────────────────────────────────
 
@@ -187,5 +187,34 @@ describe('template fill command', () => {
     assert.ok(result.success, `Failed: ${result.error}`);
     const out = JSON.parse(result.output);
     assert.ok(out.path.includes('01-03-PLAN.md'), `Expected plan 03 in path, got ${out.path}`);
+  });
+
+  test('installed codex runtime fills Korean-first summary template', () => {
+    const result = runCodexGsdTools(['template', 'fill', 'summary', '--phase', '1'], tmpDir);
+    assert.ok(result.success, `Failed: ${result.error}`);
+    const out = JSON.parse(result.output);
+    const content = fs.readFileSync(path.join(tmpDir, out.path), 'utf-8');
+
+    assert.ok(content.includes('요약 (Summary)'), 'should use Korean-first summary heading in installed runtime');
+    assert.ok(content.includes('## Accomplishments (주요 성과)'), 'should use Korean-first accomplishments section in installed runtime');
+    assert.ok(content.includes('**Tasks:**'), 'should preserve machine-readable Tasks label in installed runtime');
+  });
+
+  test('installed codex runtime fills Korean-first plan and verification templates', () => {
+    const planResult = runCodexGsdTools(['template', 'fill', 'plan', '--phase', '1'], tmpDir);
+    assert.ok(planResult.success, `Plan failed: ${planResult.error}`);
+    const planOut = JSON.parse(planResult.output);
+    const planContent = fs.readFileSync(path.join(tmpDir, planOut.path), 'utf-8');
+
+    assert.ok(planContent.includes('[이 plan이 구축할 내용]'), 'should use Korean-first objective guidance in installed runtime plan');
+    assert.ok(planContent.includes('<task type="code">'), 'should preserve task XML in installed runtime plan');
+
+    const verificationResult = runCodexGsdTools(['template', 'fill', 'verification', '--phase', '1'], tmpDir);
+    assert.ok(verificationResult.success, `Verification failed: ${verificationResult.error}`);
+    const verificationOut = JSON.parse(verificationResult.output);
+    const verificationContent = fs.readFileSync(path.join(tmpDir, verificationOut.path), 'utf-8');
+
+    assert.ok(verificationContent.includes('검증 (Verification)'), 'should use Korean-first verification title in installed runtime');
+    assert.ok(verificationContent.includes('status: pending'), 'should preserve pending status field in installed runtime verification');
   });
 });

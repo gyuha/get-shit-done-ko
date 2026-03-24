@@ -7,7 +7,7 @@ const assert = require('node:assert');
 const { execSync } = require('node:child_process');
 const fs = require('fs');
 const path = require('path');
-const { runGsdTools, createTempProject, cleanup } = require('./helpers.cjs');
+const { runGsdTools, runCodexGsdTools, createTempProject, cleanup } = require('./helpers.cjs');
 
 describe('history-digest command', () => {
   let tmpDir;
@@ -785,6 +785,41 @@ describe('scaffold command', () => {
     const output = JSON.parse(result.output);
     assert.strictEqual(output.created, false, 'should not overwrite');
     assert.strictEqual(output.reason, 'already_exists');
+  });
+
+  test('installed codex runtime scaffolds Korean-first context', () => {
+    fs.mkdirSync(path.join(tmpDir, '.planning', 'phases', '03-api'), { recursive: true });
+
+    const result = runCodexGsdTools(['scaffold', 'context', '--phase', '3'], tmpDir);
+    assert.ok(result.success, `Command failed: ${result.error}`);
+
+    const output = JSON.parse(result.output);
+    const content = fs.readFileSync(path.join(tmpDir, output.path), 'utf-8');
+
+    assert.ok(content.includes('컨텍스트 (Context)'), 'should use Korean-first context heading in installed runtime');
+    assert.ok(content.includes('## Decisions'), 'should preserve Decisions heading in installed runtime context');
+  });
+
+  test('installed codex runtime scaffolds Korean-first UAT and verification', () => {
+    fs.mkdirSync(path.join(tmpDir, '.planning', 'phases', '03-api'), { recursive: true });
+
+    const uatResult = runCodexGsdTools(['scaffold', 'uat', '--phase', '3'], tmpDir);
+    assert.ok(uatResult.success, `UAT failed: ${uatResult.error}`);
+    const uatOutput = JSON.parse(uatResult.output);
+    const uatContent = fs.readFileSync(path.join(tmpDir, uatOutput.path), 'utf-8');
+
+    assert.ok(uatContent.includes('사용자 수용 테스트'), 'should use Korean-first UAT title in installed runtime');
+    assert.ok(uatContent.includes('## Test Results'), 'should preserve Test Results heading in installed runtime UAT');
+    assert.ok(uatContent.includes('status: pending'), 'should preserve pending status in installed runtime UAT');
+
+    const verificationResult = runCodexGsdTools(['scaffold', 'verification', '--phase', '3'], tmpDir);
+    assert.ok(verificationResult.success, `Verification failed: ${verificationResult.error}`);
+    const verificationOutput = JSON.parse(verificationResult.output);
+    const verificationContent = fs.readFileSync(path.join(tmpDir, verificationOutput.path), 'utf-8');
+
+    assert.ok(verificationContent.includes('검증 (Verification)'), 'should use Korean-first verification title in installed runtime');
+    assert.ok(verificationContent.includes('## Goal-Backward Verification'), 'should preserve Goal-Backward Verification heading in installed runtime');
+    assert.ok(verificationContent.includes('status: pending'), 'should preserve pending status in installed runtime verification');
   });
 });
 

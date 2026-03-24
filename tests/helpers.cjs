@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const TOOLS_PATH = path.join(__dirname, '..', 'get-shit-done', 'bin', 'gsd-tools.cjs');
+const CODEX_TOOLS_PATH = path.join(__dirname, '..', '.codex', 'get-shit-done', 'bin', 'gsd-tools.cjs');
 
 /**
  * Run gsd-tools command.
@@ -18,19 +19,19 @@ const TOOLS_PATH = path.join(__dirname, '..', 'get-shit-done', 'bin', 'gsd-tools
  *   Pass { HOME: cwd } to sandbox ~/.gsd/ lookups in tests that assert concrete
  *   config values that could be overridden by a developer's defaults.json.
  */
-function runGsdTools(args, cwd = process.cwd(), env = {}) {
+function runGsdToolsAt(toolsPath, args, cwd = process.cwd(), env = {}) {
   try {
     let result;
     const childEnv = { ...process.env, ...env };
     if (Array.isArray(args)) {
-      result = execFileSync(process.execPath, [TOOLS_PATH, ...args], {
+      result = execFileSync(process.execPath, [toolsPath, ...args], {
         cwd,
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
         env: childEnv,
       });
     } else {
-      result = execSync(`node "${TOOLS_PATH}" ${args}`, {
+      result = execSync(`node "${toolsPath}" ${args}`, {
         cwd,
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
@@ -45,6 +46,14 @@ function runGsdTools(args, cwd = process.cwd(), env = {}) {
       error: err.stderr?.toString().trim() || err.message,
     };
   }
+}
+
+function runGsdTools(args, cwd = process.cwd(), env = {}) {
+  return runGsdToolsAt(TOOLS_PATH, args, cwd, env);
+}
+
+function runCodexGsdTools(args, cwd = process.cwd(), env = {}) {
+  return runGsdToolsAt(CODEX_TOOLS_PATH, args, cwd, env);
 }
 
 // Create temp directory structure
@@ -79,4 +88,13 @@ function cleanup(tmpDir) {
   fs.rmSync(tmpDir, { recursive: true, force: true });
 }
 
-module.exports = { runGsdTools, createTempProject, createTempGitProject, cleanup, TOOLS_PATH };
+module.exports = {
+  runGsdTools,
+  runCodexGsdTools,
+  runGsdToolsAt,
+  createTempProject,
+  createTempGitProject,
+  cleanup,
+  TOOLS_PATH,
+  CODEX_TOOLS_PATH,
+};
