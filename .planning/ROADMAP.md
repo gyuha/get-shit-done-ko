@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: compare 입력과 baseline source of truth를 정의하고 skill entry 흐름을 고정한다
+- [x] 01-01: compare 입력과 baseline source of truth를 정의하고 skill entry 흐름을 고정한다
 - [ ] 01-02: latest release 비교 결과를 maintainer-friendly 출력으로 정리한다
 - [ ] 01-03: current/local-ahead/no-op 경로를 검증 가능한 테스트와 함께 마무리한다
 
@@ -83,7 +83,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Baseline Compare Core | 0/3 | Not started | - |
+| 1. Baseline Compare Core | 1/3 | In Progress|  |
 | 2. Safe Apply Flow | 0/3 | Not started | - |
 | 3. Localization Gap Audit | 0/3 | Not started | - |
 | 4. Validation and Reporting | 0/3 | Not started | - |
