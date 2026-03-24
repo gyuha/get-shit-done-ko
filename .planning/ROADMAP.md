@@ -19,6 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 5: Compatibility Validation and Release Prep** - Verify integrity, repair regressions, and prepare the fork for ongoing maintenance. (completed 2026-03-23)
 - [x] **Phase 6: Rename npm package and installer entrypoint to get-shit-done-ko** - Make the fork's published install path match its Korean-localized package identity. (completed 2026-03-23)
 - [x] **Phase 7: Automated Upstream GSD Sync Skill** - Add a maintainer skill that checks upstream GitHub releases and refreshes the vendored GSD tree only when a newer upstream release exists. (completed 2026-03-23)
+- [x] **Phase 8: Make generated planning documents Korean-first for installed skills** - Ensure the authoritative installed Codex runtime emits Korean-first planning documents while preserving parser-sensitive tokens. (completed 2026-03-24)
 
 ## Phase Details
 
@@ -109,7 +110,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 5. Compatibility Validation and Release Prep | 3/3 | Complete | 2026-03-23 |
 | 6. Rename npm package and installer entrypoint to get-shit-done-ko | 3/3 | Complete | 2026-03-23 |
 | 7. Automated Upstream GSD Sync Skill | 3/3 | Complete | 2026-03-23 |
-| 8. Make generated planning documents Korean-first for installed skills | 0/2 | Planned | — |
+| 8. Make generated planning documents Korean-first for installed skills | 2/2 | Complete    | 2026-03-24 |
 
 ### Phase 6: Rename npm package and installer entrypoint to get-shit-done-ko
 
@@ -149,7 +150,7 @@ Plans:
 **Goal:** Ensure installed GSD skills generate Korean-first planning documents across scaffolded and templated outputs while preserving machine-sensitive tokens and parser compatibility.
 **Requirements**: [L10N-07, L10N-08]
 **Depends on:** Phase 7
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 
 **Success Criteria** (what must be TRUE):
   1. Installed skill flows generate Korean-first planning documents for the main scaffold/template entrypoints used by maintainers.
@@ -157,5 +158,5 @@ Plans:
   3. Regression coverage proves the Korean-first output for the affected generation paths.
 
 Plans:
-- [ ] 08-01: Localize the authoritative installed-runtime planning generators and templates under `.codex/get-shit-done/`.
-- [ ] 08-02: Add direct installed-runtime regression coverage for Korean-first planning output and parser-safe guardrails.
+- [x] 08-01: Localize the authoritative installed-runtime planning generators and templates under `.codex/get-shit-done/`.
+- [x] 08-02: Add direct installed-runtime regression coverage for Korean-first planning output and parser-safe guardrails.

@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.28.0
 milestone_name: milestone
-status: Phase 08 planned
-stopped_at: Planned Phase 08 for Korean-first generated planning documents
-last_updated: "2026-03-24T12:40:00.000Z"
+status: Milestone complete
+stopped_at: Phase 08 completed
+last_updated: "2026-03-24T11:49:13.000Z"
 progress:
   total_phases: 8
-  completed_phases: 7
+  completed_phases: 8
   total_plans: 18
-  completed_plans: 16
+  completed_plans: 18
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-24)
 
 **Core value:** Korean-speaking users can use GSD end-to-end in Korean without breaking upstream command compatibility.
-**Current focus:** Phase 08 planning is ready for Korean-first installed-skill planning document generation work in `.codex/get-shit-done/`.
+**Current focus:** Milestone `v1.28.0` is complete, including Korean-first planning document generation for installed Codex skills.
 
 ## Current Position
 
-Phase: 08 (make-generated-planning-documents-korean-first-for-installed-skills) — PLANNED
-Plan: 0 of 2 planned
+Phase: 08 (make-generated-planning-documents-korean-first-for-installed-skills) — COMPLETE
+Plan: 2 of 2 complete
 
 ## Performance Metrics
 
@@ -45,11 +45,12 @@ Plan: 0 of 2 planned
 | 05 | 3 | 10 min | 3 min |
 | 06 | 3 | 7 min | 2 min |
 | 07 | 3 | 14 min | 5 min |
+| 08 | 2 | 7 min | 4 min |
 
 **Recent Trend:**
 
-- Last 5 plans: 4 min, 4 min, 6 min, 2 min, 3 min
-- Trend: Package rename closure stayed narrow because earlier localization work already preserved the package/install contract cleanly
+- Last 5 plans: 6 min, 2 min, 3 min, 4 min, 3 min
+- Trend: Installed-runtime localization stayed targeted because Phase 08 narrowed the fix to the authoritative `.codex/get-shit-done/` generation path and validated it with direct regression tests.
 
 | Phase 01 P01 | 1 | 2 tasks | 21 files |
 | Phase 01 P02 | 1 | 2 tasks | 2 files |
@@ -67,6 +68,8 @@ Plan: 0 of 2 planned
 | Phase 06 P01 | 2 min | 2 tasks | 5 files |
 | Phase 06 P02 | 2 min | 2 tasks | 2 files |
 | Phase 06 P03 | 3 min | 2 tasks | 1 file |
+| Phase 08 P01 | 4 min | 2 tasks | 15 files |
+| Phase 08 P02 | 3 min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -110,6 +113,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-23T13:32:17Z
-Stopped at: Phase 07 completed
+Last session: 2026-03-24T11:49:13Z
+Stopped at: Phase 08 completed
 Resume file: None
