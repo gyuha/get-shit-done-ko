@@ -124,7 +124,9 @@ describe('template fill command', () => {
     const content = fs.readFileSync(path.join(tmpDir, out.path), 'utf-8');
     assert.ok(content.includes('---'), 'should have frontmatter');
     assert.ok(content.includes('Phase 1'), 'should reference phase');
-    assert.ok(content.includes('Accomplishments'), 'should have accomplishments section');
+    assert.ok(content.includes('요약 (Summary)'), 'should use Korean-first summary heading');
+    assert.ok(content.includes('## Accomplishments (주요 성과)'), 'should have Korean-first accomplishments section');
+    assert.ok(content.includes('**Tasks:**'), 'should preserve machine-readable Tasks label');
   });
 
   test('fills plan template', () => {
@@ -136,7 +138,8 @@ describe('template fill command', () => {
 
     const content = fs.readFileSync(path.join(tmpDir, out.path), 'utf-8');
     assert.ok(content.includes('---'), 'should have frontmatter');
-    assert.ok(content.includes('Objective'), 'should have objective section');
+    assert.ok(content.includes('## Objective'), 'should have objective section');
+    assert.ok(content.includes('이 plan이 구축할 내용'), 'should use Korean-first objective guidance');
     assert.ok(content.includes('<task type="code">'), 'should have task XML');
   });
 
@@ -148,8 +151,10 @@ describe('template fill command', () => {
     assert.ok(out.path.includes('01-VERIFICATION.md'));
 
     const content = fs.readFileSync(path.join(tmpDir, out.path), 'utf-8');
-    assert.ok(content.includes('Observable Truths'), 'should have truths section');
-    assert.ok(content.includes('Required Artifacts'), 'should have artifacts section');
+    assert.ok(content.includes('검증 (Verification)'), 'should use Korean-first verification title');
+    assert.ok(content.includes('Observable Truths (관찰 가능한 사실)'), 'should have Korean-first truths section');
+    assert.ok(content.includes('Required Artifacts (필수 산출물)'), 'should have Korean-first artifacts section');
+    assert.ok(content.includes('[검증 대기 중]'), 'should include Korean pending state');
   });
 
   test('rejects existing file', () => {

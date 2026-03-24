@@ -24,13 +24,13 @@ updated: [ISO timestamp]
 number: [N]
 name: [test name]
 expected: |
-  [what user should observe]
+  [사용자가 관찰해야 하는 내용]
 awaiting: user response
 
 ## Tests
 
 ### 1. [Test Name]
-expected: [observable behavior - what user should see]
+expected: [관찰 가능한 동작 - 사용자가 실제로 봐야 하는 내용]
 result: [pending]
 
 ### 2. [Test Name]
@@ -68,9 +68,9 @@ blocked: [N]
 ## Gaps
 
 <!-- YAML format for plan-phase --gaps consumption -->
-- truth: "[expected behavior from test]"
+- truth: "[테스트에서 기대한 동작]"
   status: failed
-  reason: "User reported: [verbatim response]"
+  reason: "User reported: [사용자 응답 원문]"
   severity: blocker | major | minor | cosmetic
   test: [N]
   root_cause: ""     # Filled by diagnosis

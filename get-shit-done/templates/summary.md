@@ -48,26 +48,26 @@ duration: Xmin
 completed: YYYY-MM-DD
 ---
 
-# Phase [X]: [Name] Summary
+# Phase [X]: [Name] 요약 (Summary)
 
-**[Substantive one-liner describing outcome - NOT "phase complete" or "implementation finished"]**
+**[실제로 전달된 결과를 한 줄로 요약 - "phase complete" 같은 표현은 피하기]**
 
-## Performance
+## Performance (수행 결과)
 
 - **Duration:** [time] (e.g., 23 min, 1h 15m)
 - **Started:** [ISO timestamp]
 - **Completed:** [ISO timestamp]
-- **Tasks:** [count completed]
-- **Files modified:** [count]
+- **Tasks:** [완료 수]
+- **Files modified:** [수정 파일 수]
 
-## Accomplishments
-- [Most important outcome]
-- [Second key accomplishment]
-- [Third if applicable]
+## Accomplishments (주요 성과)
+- [가장 중요한 결과]
+- [두 번째 핵심 결과]
+- [필요하면 세 번째 결과]
 
 ## Task Commits
 
-Each task was committed atomically:
+각 task는 atomic commit으로 기록합니다:
 
 1. **Task 1: [task name]** - `abc123f` (feat/fix/test/refactor)
 2. **Task 2: [task name]** - `def456g` (feat/fix/test/refactor)
@@ -77,16 +77,16 @@ Each task was committed atomically:
 
 _Note: TDD tasks may have multiple commits (test → feat → refactor)_
 
-## Files Created/Modified
-- `path/to/file.ts` - What it does
-- `path/to/another.ts` - What it does
+## Files Created/Modified (생성/수정 파일)
+- `path/to/file.ts` - 파일 역할 설명
+- `path/to/another.ts` - 파일 역할 설명
 
-## Decisions Made
-[Key decisions with brief rationale, or "None - followed plan as specified"]
+## Decisions Made (결정 사항)
+[핵심 결정과 짧은 이유, 없으면 "없음 - 계획대로 진행"]
 
 ## Deviations from Plan
 
-[If no deviations: "None - plan executed exactly as written"]
+[없으면: "없음 - 계획대로 실행"]
 
 [If deviations occurred:]
 
@@ -107,12 +107,12 @@ _Note: TDD tasks may have multiple commits (test → feat → refactor)_
 **Total deviations:** [N] auto-fixed ([breakdown by rule])
 **Impact on plan:** [Brief assessment - e.g., "All auto-fixes necessary for correctness/security. No scope creep."]
 
-## Issues Encountered
-[Problems and how they were resolved, or "None"]
+## Issues Encountered (이슈)
+[문제와 해결 방법, 없으면 "없음"]
 
 [Note: "Deviations from Plan" documents unplanned work that was handled automatically via deviation rules. "Issues Encountered" documents problems during planned work that required problem-solving.]
 
-## User Setup Required
+## User Setup Required (사용자 설정 필요 여부)
 
 [If USER-SETUP.md was generated:]
 **External services require manual configuration.** See [{phase}-USER-SETUP.md](./{phase}-USER-SETUP.md) for:
@@ -121,11 +121,11 @@ _Note: TDD tasks may have multiple commits (test → feat → refactor)_
 - Verification commands
 
 [If no USER-SETUP.md:]
-None - no external service configuration required.
+없음 - 외부 서비스 수동 설정이 필요하지 않음.
 
-## Next Phase Readiness
-[What's ready for next phase]
-[Any blockers or concerns]
+## Next Phase Readiness (다음 phase 준비 상태)
+[다음 phase를 위해 준비된 내용]
+[남은 blocker 또는 concern]
 
 ---
 *Phase: XX-name*

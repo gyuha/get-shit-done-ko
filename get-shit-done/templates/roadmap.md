@@ -12,7 +12,7 @@ Template for `.planning/ROADMAP.md`.
 
 ## Overview
 
-[One paragraph describing the journey from start to finish]
+[프로젝트가 시작부터 완료까지 어떤 흐름으로 진행되는지 한 문단으로 설명]
 
 ## Phases
 
@@ -22,27 +22,27 @@ Template for `.planning/ROADMAP.md`.
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: [Name]** - [One-line description]
-- [ ] **Phase 2: [Name]** - [One-line description]
-- [ ] **Phase 3: [Name]** - [One-line description]
-- [ ] **Phase 4: [Name]** - [One-line description]
+- [ ] **Phase 1: [Name]** - [한 줄 설명]
+- [ ] **Phase 2: [Name]** - [한 줄 설명]
+- [ ] **Phase 3: [Name]** - [한 줄 설명]
+- [ ] **Phase 4: [Name]** - [한 줄 설명]
 
 ## Phase Details
 
 ### Phase 1: [Name]
-**Goal**: [What this phase delivers]
+**Goal**: [이 phase가 전달하는 것]
 **Depends on**: Nothing (first phase)
 **Requirements**: [REQ-01, REQ-02, REQ-03]  <!-- brackets optional, parser handles both formats -->
 **Success Criteria** (what must be TRUE):
-  1. [Observable behavior from user perspective]
-  2. [Observable behavior from user perspective]
-  3. [Observable behavior from user perspective]
-**Plans**: [Number of plans, e.g., "3 plans" or "TBD"]
+  1. [사용자 관점에서 관찰 가능한 동작]
+  2. [사용자 관점에서 관찰 가능한 동작]
+  3. [사용자 관점에서 관찰 가능한 동작]
+**Plans**: [plan 수, 예: "3 plans" 또는 "TBD"]
 
 Plans:
-- [ ] 01-01: [Brief description of first plan]
-- [ ] 01-02: [Brief description of second plan]
-- [ ] 01-03: [Brief description of third plan]
+- [ ] 01-01: [첫 번째 plan 설명]
+- [ ] 01-02: [두 번째 plan 설명]
+- [ ] 01-03: [세 번째 plan 설명]
 
 ### Phase 2: [Name]
 **Goal**: [What this phase delivers]

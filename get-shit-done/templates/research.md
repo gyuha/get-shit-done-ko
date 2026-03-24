@@ -12,10 +12,10 @@ Template for `.planning/phases/XX-name/{phase_num}-RESEARCH.md` - comprehensive 
 ## File Template
 
 ```markdown
-# Phase [X]: [Name] - Research
+# Phase [X]: [Name] - 리서치 (Research)
 
 **Researched:** [date]
-**Domain:** [primary technology/problem domain]
+**Domain:** [주요 기술/문제 영역]
 **Confidence:** [HIGH/MEDIUM/LOW]
 
 <user_constraints>
@@ -24,32 +24,32 @@ Template for `.planning/phases/XX-name/{phase_num}-RESEARCH.md` - comprehensive 
 **CRITICAL:** If CONTEXT.md exists from /gsd:discuss-phase, copy locked decisions here verbatim. These MUST be honored by the planner.
 
 ### Locked Decisions
-[Copy from CONTEXT.md `## Decisions` section - these are NON-NEGOTIABLE]
-- [Decision 1]
-- [Decision 2]
+[CONTEXT.md의 `## Decisions` 섹션에서 그대로 복사 - 반드시 지켜야 하는 결정]
+- [결정 1]
+- [결정 2]
 
 ### Claude's Discretion
-[Copy from CONTEXT.md - areas where researcher/planner can choose]
-- [Area 1]
-- [Area 2]
+[CONTEXT.md에서 복사 - researcher/planner가 선택 가능한 영역]
+- [영역 1]
+- [영역 2]
 
 ### Deferred Ideas (OUT OF SCOPE)
-[Copy from CONTEXT.md - do NOT research or plan these]
-- [Deferred 1]
-- [Deferred 2]
+[CONTEXT.md에서 복사 - 이것들은 research/plan 하지 않음]
+- [보류 1]
+- [보류 2]
 
-**If no CONTEXT.md exists:** Write "No user constraints - all decisions at Claude's discretion"
+**If no CONTEXT.md exists:** "사용자 제약 없음 - 모든 결정은 Claude 재량"이라고 적습니다.
 </user_constraints>
 
 <research_summary>
 ## Summary
 
-[2-3 paragraph executive summary]
-- What was researched
-- What the standard approach is
-- Key recommendations
+[2-3문단의 executive summary]
+- 무엇을 조사했는지
+- 표준 접근이 무엇인지
+- 핵심 권장 사항이 무엇인지
 
-**Primary recommendation:** [one-liner actionable guidance]
+**Primary recommendation:** [즉시 실행 가능한 한 줄 권장사항]
 </research_summary>
 
 <standard_stack>

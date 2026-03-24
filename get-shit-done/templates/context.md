@@ -18,42 +18,42 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 ## File Template
 
 ```markdown
-# Phase [X]: [Name] - Context
+# Phase [X]: [Name] - 컨텍스트 (Context)
 
 **Gathered:** [date]
-**Status:** Ready for planning
+**Status:** 계획 준비 완료
 
 <domain>
 ## Phase Boundary
 
-[Clear statement of what this phase delivers — the scope anchor. This comes from ROADMAP.md and is fixed. Discussion clarifies implementation within this boundary.]
+[이 phase가 무엇을 전달하는지 명확히 적습니다. ROADMAP.md에서 온 고정 범위이며, discussion은 이 범위 안의 구현 방식을 구체화합니다.]
 
 </domain>
 
 <decisions>
 ## Implementation Decisions
 
-### [Area 1 that was discussed]
-- **D-01:** [Specific decision made]
-- **D-02:** [Another decision if applicable]
+### [논의한 영역 1]
+- **D-01:** [내린 구체적 결정]
+- **D-02:** [필요하면 추가 결정]
 
-### [Area 2 that was discussed]
-- **D-03:** [Specific decision made]
+### [논의한 영역 2]
+- **D-03:** [내린 구체적 결정]
 
-### [Area 3 that was discussed]
-- **D-04:** [Specific decision made]
+### [논의한 영역 3]
+- **D-04:** [내린 구체적 결정]
 
 ### Claude's Discretion
-[Areas where user explicitly said "you decide" — Claude has flexibility here during planning/implementation]
+[사용자가 "너가 정해도 된다"라고 한 영역. planning/implementation 중 Claude가 재량을 가질 수 있습니다.]
 
 </decisions>
 
 <specifics>
 ## Specific Ideas
 
-[Any particular references, examples, or "I want it like X" moments from discussion. Product references, specific behaviors, interaction patterns.]
+[discussion 중 나온 구체 레퍼런스, 예시, "이런 느낌" 요구를 적습니다. 제품 레퍼런스, 행동 방식, 상호작용 패턴 등을 포함합니다.]
 
-[If none: "No specific requirements — open to standard approaches"]
+[없다면: "구체 요구 없음 — 표준 접근 허용"]
 
 </specifics>
 
@@ -64,14 +64,14 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 
 [List every spec, ADR, feature doc, or design doc that defines requirements or constraints for this phase. Use full relative paths so agents can read them directly. Group by topic area when the phase has multiple concerns.]
 
-### [Topic area 1]
-- `path/to/spec-or-adr.md` — [What this doc decides/defines that's relevant]
-- `path/to/doc.md` §N — [Specific section and what it covers]
+### [주제 영역 1]
+- `path/to/spec-or-adr.md` — [이 phase와 관련해 무엇을 정의/결정하는 문서인지]
+- `path/to/doc.md` §N — [어떤 섹션이며 무엇을 다루는지]
 
-### [Topic area 2]
-- `path/to/feature-doc.md` — [What capability this defines]
+### [주제 영역 2]
+- `path/to/feature-doc.md` — [어떤 기능/제약을 정의하는지]
 
-[If the project has no external specs: "No external specs — requirements are fully captured in decisions above"]
+[외부 spec이 없다면: "외부 spec 없음 — 위 결정 사항에 요구가 모두 담겨 있음"]
 
 </canonical_refs>
 
@@ -79,22 +79,22 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 ## Existing Code Insights
 
 ### Reusable Assets
-- [Component/hook/utility]: [How it could be used in this phase]
+- [컴포넌트/hook/유틸]: [이 phase에서 어떻게 활용할 수 있는지]
 
 ### Established Patterns
-- [Pattern]: [How it constrains/enables this phase]
+- [패턴]: [이 phase에 어떤 제약/기회를 주는지]
 
 ### Integration Points
-- [Where new code connects to existing system]
+- [새 코드가 기존 시스템과 연결되는 지점]
 
 </code_context>
 
 <deferred>
 ## Deferred Ideas
 
-[Ideas that came up during discussion but belong in other phases. Captured here so they're not lost, but explicitly out of scope for this phase.]
+[discussion 중 나왔지만 다른 phase에 속하는 아이디어를 적습니다. 잃어버리지 않도록 남기되, 이번 phase 범위 밖임을 명시합니다.]
 
-[If none: "None — discussion stayed within phase scope"]
+[없다면: "없음 — discussion이 phase 범위 안에서 유지됨"]
 
 </deferred>
 

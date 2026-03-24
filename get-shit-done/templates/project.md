@@ -12,13 +12,13 @@ Template for `.planning/PROJECT.md` — the living project context document.
 
 ## What This Is
 
-[Current accurate description — 2-3 sentences. What does this product do and who is it for?
-Use the user's language and framing. Update whenever reality drifts from this description.]
+[현재 프로젝트를 정확히 설명하는 2-3문장. 이 제품이 무엇을 하고 누구를 위한 것인지 적습니다.
+사용자가 쓴 표현과 맥락을 최대한 유지하고, 실제 상태가 바뀌면 함께 업데이트합니다.]
 
 ## Core Value
 
-[The ONE thing that matters most. If everything else fails, this must work.
-One sentence that drives prioritization when tradeoffs arise.]
+[가장 중요한 단 하나의 가치. 다른 것이 흔들려도 이것만큼은 반드시 지켜야 합니다.
+우선순위 충돌이 생길 때 판단 기준이 되는 한 문장으로 적습니다.]
 
 ## Requirements
 
@@ -26,35 +26,35 @@ One sentence that drives prioritization when tradeoffs arise.]
 
 <!-- Shipped and confirmed valuable. -->
 
-(None yet — ship to validate)
+(아직 없음 — 먼저 ship해서 검증)
 
 ### Active
 
 <!-- Current scope. Building toward these. -->
 
-- [ ] [Requirement 1]
-- [ ] [Requirement 2]
-- [ ] [Requirement 3]
+- [ ] [요구사항 1]
+- [ ] [요구사항 2]
+- [ ] [요구사항 3]
 
 ### Out of Scope
 
 <!-- Explicit boundaries. Includes reasoning to prevent re-adding. -->
 
-- [Exclusion 1] — [why]
-- [Exclusion 2] — [why]
+- [제외 범위 1] — [이유]
+- [제외 범위 2] — [이유]
 
 ## Context
 
-[Background information that informs implementation:
-- Technical environment or ecosystem
-- Relevant prior work or experience
-- User research or feedback themes
-- Known issues to address]
+[구현 판단에 영향을 주는 배경 정보:
+- 기술 환경 또는 생태계
+- 관련 선행 작업 또는 경험
+- 사용자 조사/피드백 패턴
+- 해결해야 할 알려진 이슈]
 
 ## Constraints
 
-- **[Type]**: [What] — [Why]
-- **[Type]**: [What] — [Why]
+- **[유형]**: [무엇] — [이유]
+- **[유형]**: [무엇] — [이유]
 
 Common types: Tech stack, Timeline, Budget, Dependencies, Compatibility, Performance, Security
 
@@ -64,10 +64,10 @@ Common types: Tech stack, Timeline, Budget, Dependencies, Compatibility, Perform
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| [Choice] | [Why] | [✓ Good / ⚠️ Revisit / — Pending] |
+| [선택] | [이유] | [✓ Good / ⚠️ Revisit / — Pending] |
 
 ---
-*Last updated: [date] after [trigger]*
+*Last updated: [date] after [갱신 트리거]*
 ```
 
 </template>

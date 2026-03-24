@@ -15,38 +15,38 @@ Template for `.planning/REQUIREMENTS.md` — checkable requirements that define 
 
 ## v1 Requirements
 
-Requirements for initial release. Each maps to roadmap phases.
+초기 릴리스를 위한 요구사항. 각 항목은 roadmap phase에 매핑됩니다.
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can sign up with email and password
-- [ ] **AUTH-02**: User receives email verification after signup
-- [ ] **AUTH-03**: User can reset password via email link
-- [ ] **AUTH-04**: User session persists across browser refresh
+- [ ] **AUTH-01**: 사용자가 이메일과 비밀번호로 가입할 수 있다
+- [ ] **AUTH-02**: 가입 후 이메일 인증을 받는다
+- [ ] **AUTH-03**: 이메일 링크로 비밀번호를 재설정할 수 있다
+- [ ] **AUTH-04**: 브라우저를 새로고침해도 세션이 유지된다
 
-### [Category 2]
+### [카테고리 2]
 
-- [ ] **[CAT]-01**: [Requirement description]
-- [ ] **[CAT]-02**: [Requirement description]
-- [ ] **[CAT]-03**: [Requirement description]
+- [ ] **[CAT]-01**: [요구사항 설명]
+- [ ] **[CAT]-02**: [요구사항 설명]
+- [ ] **[CAT]-03**: [요구사항 설명]
 
-### [Category 3]
+### [카테고리 3]
 
-- [ ] **[CAT]-01**: [Requirement description]
-- [ ] **[CAT]-02**: [Requirement description]
+- [ ] **[CAT]-01**: [요구사항 설명]
+- [ ] **[CAT]-02**: [요구사항 설명]
 
 ## v2 Requirements
 
-Deferred to future release. Tracked but not in current roadmap.
+차기 릴리스로 미뤄 둔 요구사항. 추적은 하지만 현재 roadmap에는 포함되지 않습니다.
 
-### [Category]
+### [카테고리]
 
-- **[CAT]-01**: [Requirement description]
-- **[CAT]-02**: [Requirement description]
+- **[CAT]-01**: [요구사항 설명]
+- **[CAT]-02**: [요구사항 설명]
 
 ## Out of Scope
 
-Explicitly excluded. Documented to prevent scope creep.
+명시적으로 제외한 범위. 범위 확장을 막기 위해 기록합니다.
 
 | Feature | Reason |
 |---------|--------|
@@ -55,7 +55,7 @@ Explicitly excluded. Documented to prevent scope creep.
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+어떤 phase가 어떤 요구사항을 다루는지 기록합니다. roadmap 생성 과정에서 갱신합니다.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
@@ -72,7 +72,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: [date]*
-*Last updated: [date] after [trigger]*
+*Last updated: [date] after [갱신 트리거]*
 ```
 
 </template>

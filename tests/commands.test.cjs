@@ -721,8 +721,9 @@ describe('scaffold command', () => {
       'utf-8'
     );
     assert.ok(content.includes('Phase 3'), 'should reference phase number');
-    assert.ok(content.includes('Decisions'), 'should have decisions section');
-    assert.ok(content.includes('Discretion Areas'), 'should have discretion section');
+    assert.ok(content.includes('컨텍스트 (Context)'), 'should use Korean-first context title');
+    assert.ok(content.includes('## Decisions'), 'should preserve decisions section token');
+    assert.ok(content.includes('재량으로 선택할 수 있는 영역'), 'should have Korean discretion guidance');
   });
 
   test('scaffolds UAT file', () => {
@@ -738,8 +739,9 @@ describe('scaffold command', () => {
       path.join(tmpDir, '.planning', 'phases', '03-api', '03-UAT.md'),
       'utf-8'
     );
-    assert.ok(content.includes('User Acceptance Testing'), 'should have UAT heading');
+    assert.ok(content.includes('사용자 수용 테스트 (User Acceptance Testing)'), 'should have Korean-first UAT heading');
     assert.ok(content.includes('Test Results'), 'should have test results section');
+    assert.ok(content.includes('UAT 대기 중'), 'should use Korean pending UAT copy');
   });
 
   test('scaffolds verification file', () => {
@@ -755,7 +757,9 @@ describe('scaffold command', () => {
       path.join(tmpDir, '.planning', 'phases', '03-api', '03-VERIFICATION.md'),
       'utf-8'
     );
-    assert.ok(content.includes('Goal-Backward Verification'), 'should have verification heading');
+    assert.ok(content.includes('검증 (Verification)'), 'should use Korean-first verification title');
+    assert.ok(content.includes('Goal-Backward Verification'), 'should preserve verification heading');
+    assert.ok(content.includes('검증 대기 중'), 'should use Korean pending verification copy');
   });
 
   test('scaffolds phase directory', () => {

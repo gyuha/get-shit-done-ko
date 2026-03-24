@@ -21,31 +21,31 @@ completed: YYYY-MM-DD
 > 한국어 우선 안내: 이 템플릿은 `summary-standard` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-# Phase [X]: [Name] Summary
+# Phase [X]: [Name] 요약 (Summary)
 
-**[Substantive one-liner describing outcome]**
+**[무엇이 실제로 전달되었는지 한 줄로 요약]**
 
-## Performance
+## Performance (수행 결과)
 - **Duration:** [time]
-- **Tasks:** [count completed]
-- **Files modified:** [count]
+- **Tasks:** [완료 수]
+- **Files modified:** [수정 파일 수]
 
-## Accomplishments
-- [Key outcome 1]
-- [Key outcome 2]
+## Accomplishments (주요 성과)
+- [핵심 결과 1]
+- [핵심 결과 2]
 
 ## Task Commits
 1. **Task 1: [task name]** - `hash`
 2. **Task 2: [task name]** - `hash`
 3. **Task 3: [task name]** - `hash`
 
-## Files Created/Modified
-- `path/to/file.ts` - What it does
-- `path/to/another.ts` - What it does
+## Files Created/Modified (생성/수정 파일)
+- `path/to/file.ts` - 파일 역할 설명
+- `path/to/another.ts` - 파일 역할 설명
 
-## Decisions & Deviations
-[Key decisions or "None - followed plan as specified"]
-[Minor deviations if any, or "None"]
+## Decisions & Deviations (결정 및 변경 사항)
+[핵심 결정 또는 "없음 - 계획대로 진행"]
+[작은 변경 사항이 있으면 적고, 없으면 "없음"]
 
-## Next Phase Readiness
-[What's ready for next phase]
+## Next Phase Readiness (다음 phase 준비 상태)
+[다음 phase를 위해 준비된 내용]

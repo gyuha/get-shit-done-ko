@@ -17,14 +17,14 @@ Template for `.planning/STATE.md` — the project's living memory.
 See: .planning/PROJECT.md (updated [date])
 
 **Core value:** [One-liner from PROJECT.md Core Value section]
-**Current focus:** [Current phase name]
+**Current focus:** [현재 집중 중인 phase 이름]
 
 ## Current Position
 
 Phase: [X] of [Y] ([Phase name])
 Plan: [A] of [B] in current phase
 Status: [Ready to plan / Planning / Ready to execute / In progress / Phase complete]
-Last activity: [YYYY-MM-DD] — [What happened]
+Last activity: [YYYY-MM-DD] — [무슨 일이 있었는지]
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -61,13 +61,13 @@ Recent decisions affecting current work:
 
 [From .planning/todos/pending/ — ideas captured during sessions]
 
-None yet.
+아직 없음.
 
 ### Blockers/Concerns
 
-[Issues that affect future work]
+[앞으로의 작업에 영향을 주는 이슈]
 
-None yet.
+아직 없음.
 
 ## Session Continuity
 

@@ -17,9 +17,9 @@ status: passed | gaps_found | human_needed
 score: N/M must-haves verified
 ---
 
-# Phase {X}: {Name} Verification Report
+# Phase {X}: {Name} 검증 리포트 (Verification Report)
 
-**Phase Goal:** {goal from ROADMAP.md}
+**Phase Goal:** {ROADMAP.md에서 가져온 목표}
 **Verified:** {timestamp}
 **Status:** {passed | gaps_found | human_needed}
 
@@ -29,9 +29,9 @@ score: N/M must-haves verified
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
-| 1 | {truth from must_haves} | ✓ VERIFIED | {what confirmed it} |
-| 2 | {truth from must_haves} | ✗ FAILED | {what's wrong} |
-| 3 | {truth from must_haves} | ? UNCERTAIN | {why can't verify} |
+| 1 | {must_haves에서 가져온 truth} | ✓ VERIFIED | {무엇으로 확인했는지} |
+| 2 | {must_haves에서 가져온 truth} | ✗ FAILED | {무엇이 잘못됐는지} |
+| 3 | {must_haves에서 가져온 truth} | ? UNCERTAIN | {왜 검증할 수 없는지} |
 
 **Score:** {N}/{M} truths verified
 
@@ -78,7 +78,7 @@ score: N/M must-haves verified
 ## Human Verification Required
 
 {If no human verification needed:}
-None — all verifiable items checked programmatically.
+없음 — 프로그래밍적으로 검증 가능한 항목은 모두 확인됨.
 
 {If human verification needed:}
 
@@ -95,7 +95,7 @@ None — all verifiable items checked programmatically.
 ## Gaps Summary
 
 {If no gaps:}
-**No gaps found.** Phase goal achieved. Ready to proceed.
+**Gap 없음.** Phase 목표 달성. 다음 단계 진행 가능.
 
 {If gaps found:}
 
