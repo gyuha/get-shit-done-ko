@@ -1,6 +1,6 @@
 # GSD Sync Context
 
-이 문서는 `gsd-sync-upstream` 스킬이 `get-shit-done-ko` 저장소에서 upstream sync 결정을 내릴 때 필요한 핵심 context를 짧게 담습니다.
+이 문서는 프로젝트 로컬 `gsd-sync-upstream` 스킬이 `get-shit-done-ko` 저장소에서 upstream sync 결정을 내릴 때 필요한 핵심 context를 짧게 담습니다.
 
 ## Source of Truth
 
@@ -10,9 +10,16 @@
 
 핵심 규칙:
 
-- fork의 `package.json` version은 참고 정보일 뿐입니다.
-- upstream sync eligibility는 `get-shit-done/UPSTREAM_VERSION`와 upstream latest release 비교로 판단합니다.
-- upstream latest가 tracked baseline과 같거나 더 낮으면 no-op이어야 합니다.
+- sync eligibility의 source of truth는 항상 `get-shit-done/UPSTREAM_VERSION`입니다.
+- fork의 `package.json` version은 비교 결과를 설명하는 보조 정보일 뿐, update/no-op/ahead 판단 근거가 아닙니다.
+- compare 결과는 반드시 `current`, `update_available`, `ahead` 중 하나로 귀결되어야 합니다.
+- upstream latest가 tracked baseline과 같거나 더 낮으면 no-op이어야 하며 worktree를 건드리면 안 됩니다.
+
+## Compare Outcomes
+
+- `current`: tracked baseline과 upstream latest가 같다. 비교 결과와 날짜를 보고하고 no-op으로 종료한다.
+- `update_available`: upstream latest가 더 새롭다. dry-run으로 넘어갈 수 있다.
+- `ahead`: tracked baseline이 upstream latest보다 앞선다. local-ahead 상태를 설명하고 no-op으로 종료한다.
 
 ## Import Surface
 
