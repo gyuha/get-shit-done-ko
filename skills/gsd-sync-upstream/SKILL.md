@@ -87,8 +87,10 @@ node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --d
 8. 승인되면 실제 apply를 실행합니다.
 
 ```bash
-node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag>
+node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag> --mode source-of-truth
 ```
+
+이 mode는 tracked upstream surface를 다시 가져오고, local overlay를 재적용하고, 제거된 overlay는 삭제한 뒤 `get-shit-done/UPSTREAM_VERSION`를 새 기준선으로 갱신합니다.
 
 9. apply가 끝나면 다음 canonical validation을 실행합니다.
 

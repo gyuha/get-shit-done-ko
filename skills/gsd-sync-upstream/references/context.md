@@ -69,5 +69,7 @@ node scripts/run-tests.cjs
 
 ## Notes
 
+- canonical apply mode는 `source-of-truth`이며, 명령은 `node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag> --mode source-of-truth`입니다.
+- 이 mode는 tracked upstream import surface를 다시 가져오고, local overlay를 재적용하고, 제거된 overlay를 삭제한 뒤 `get-shit-done/UPSTREAM_VERSION`를 갱신합니다.
 - `validate health`가 degraded일 수 있는데, archived phase directories가 `.planning/milestones/` 아래로 이동한 기존 상태 때문인지 새 sync 변경 때문인지 구분해서 설명해야 합니다.
 - maintainer에게는 항상 compare -> dry-run -> apply -> validation 순서로 안내합니다.

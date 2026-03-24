@@ -137,12 +137,14 @@ compare status 해석:
 ```bash
 node scripts/check-upstream-release.cjs --current-file get-shit-done/UPSTREAM_VERSION --json
 node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --dry-run
-node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag>
+node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag> --mode source-of-truth
 node get-shit-done/bin/gsd-tools.cjs validate health
 node get-shit-done/bin/gsd-tools.cjs validate consistency
 node get-shit-done/bin/gsd-tools.cjs roadmap analyze
 node scripts/run-tests.cjs
 ```
+
+`--mode source-of-truth`는 tracked upstream import surface를 다시 가져오고, local overlay를 재적용하고, 제거된 overlay를 삭제한 뒤 `get-shit-done/UPSTREAM_VERSION`를 새 baseline으로 갱신하는 기본 apply mode입니다.
 
 `check-upstream-release.cjs` 결과에서 `update_available`이 `false`면 여기서 멈추고 no-op으로 끝냅니다. 이때는 tracked upstream baseline이 upstream latest와 같거나 더 앞선 상태입니다.
 
