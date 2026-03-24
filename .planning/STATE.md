@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Phase 1 compare core docs aligned; deterministic no-op verification in progress
-last_updated: "2026-03-24T15:09:00.000Z"
+status: Ready to plan
+stopped_at: Phase 1 complete; Phase 2 planning is next
+last_updated: "2026-03-24T15:15:00.000Z"
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-24)
 
 **Core value:** upstream 변경을 가져온 뒤에도 `get-shit-done-ko`가 동일한 기능을 유지하도록, 안전하게 반영하고 검증 가능한 업데이트 흐름을 제공한다.
-**Current focus:** Phase 01 — Baseline Compare Core
+**Current focus:** Phase 02 — Safe Apply Flow
 
 ## Current Position
 
-Phase: 01 (Baseline Compare Core) — EXECUTING
-Plan: 3 of 3
+Phase: 02
+Plan: Not started
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ Plan: 3 of 3
 - [Phase 1]: compare core는 repo-local helper, skill-bundled helper, maintainer docs, automated tests를 함께 정렬해야 한다
 - [Phase 1]: Baseline-first compare contract locked for upstream sync — Tracked baseline file remains the only sync eligibility source of truth; bundled skill helper mirrors repo-local behavior
 - [Phase 1]: Compare-first maintainer workflow locked across skill and runbooks — Skill flow, runbook, and release checklist now agree that current and ahead are explicit no-op exits and only update_available unlocks dry-run/apply
+- [Phase 1]: Deterministic compare and no-op coverage locked for Phase 1 — Fixture-based tests now verify current, ahead, update_available, and dry-run no-op invariants so Phase 1 does not depend on live upstream state alone
 
 ### Pending Todos
 
@@ -62,10 +63,10 @@ Plan: 3 of 3
 
 ### Blockers/Concerns
 
-- compare core는 deterministic fixture test로 `current`, `ahead`, `update_available`, dry-run no-op 불변식을 검증해야 한다.
+- 현재 blocker 없음. 다음 단계는 Phase 2에서 preserve-aware dry-run/apply 흐름을 계획하는 것이다.
 
 ## Session Continuity
 
 Last session: 2026-03-24 23:10
-Stopped at: Phase 1 deterministic compare/no-op verification and final summary
+Stopped at: Phase 1 complete; ready for `$gsd-plan-phase 2`
 Resume file: None

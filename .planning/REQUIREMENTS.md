@@ -9,9 +9,9 @@
 
 ### Upstream Sync
 
-- [ ] **SYNC-01**: 스킬이 `get-shit-done/UPSTREAM_VERSION`를 읽어 현재 추적 중인 upstream baseline을 확인할 수 있다
-- [ ] **SYNC-02**: 스킬이 upstream latest release tag와 published date를 확인하고 current/update_available/local_ahead 상태를 판단할 수 있다
-- [ ] **SYNC-03**: upstream latest가 tracked baseline보다 새롭지 않으면 no-op으로 종료하고 비교 결과를 보고할 수 있다
+- [x] **SYNC-01**: 스킬이 `get-shit-done/UPSTREAM_VERSION`를 읽어 현재 추적 중인 upstream baseline을 확인할 수 있다
+- [x] **SYNC-02**: 스킬이 upstream latest release tag와 published date를 확인하고 current/update_available/local_ahead 상태를 판단할 수 있다
+- [x] **SYNC-03**: upstream latest가 tracked baseline보다 새롭지 않으면 no-op으로 종료하고 비교 결과를 보고할 수 있다
 
 ### Apply Flow
 
@@ -67,9 +67,9 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SYNC-01 | Phase 1 | Pending |
-| SYNC-02 | Phase 1 | Pending |
-| SYNC-03 | Phase 1 | Pending |
+| SYNC-01 | Phase 1 | Complete |
+| SYNC-02 | Phase 1 | Complete |
+| SYNC-03 | Phase 1 | Complete |
 | APPLY-01 | Phase 2 | Pending |
 | APPLY-02 | Phase 2 | Pending |
 | APPLY-03 | Phase 2 | Pending |
