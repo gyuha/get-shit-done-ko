@@ -56,6 +56,8 @@ refresh 전후에 아래 경로는 protected local paths로 유지합니다.
 - `.claude/`
 - `.opencode/`
 
+이 경로들은 `--include-entry <path>`로도 가져올 수 없습니다. optional import surface 확장이 필요해도 preserved local paths는 항상 보호됩니다.
+
 ## Canonical Validation
 
 apply 이후에는 아래 검증을 canonical sequence로 실행합니다.
@@ -70,6 +72,7 @@ node scripts/run-tests.cjs
 ## Notes
 
 - canonical apply mode는 `source-of-truth`이며, 명령은 `node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag> --mode source-of-truth`입니다.
+- optional import surface 확장은 `node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag> --mode source-of-truth --include-entry <path>`처럼 명시적으로만 허용합니다.
 - 이 mode는 tracked upstream import surface를 다시 가져오고, local overlay를 재적용하고, 제거된 overlay를 삭제한 뒤 `get-shit-done/UPSTREAM_VERSION`를 갱신합니다.
 - `validate health`가 degraded일 수 있는데, archived phase directories가 `.planning/milestones/` 아래로 이동한 기존 상태 때문인지 새 sync 변경 때문인지 구분해서 설명해야 합니다.
 - maintainer에게는 항상 compare -> dry-run -> apply -> validation 순서로 안내합니다.

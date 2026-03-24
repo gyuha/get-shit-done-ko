@@ -17,6 +17,7 @@ node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --d
 - `update_available`이 `false`면 upstream latest가 같거나 더 낮으므로 no-op으로 종료합니다.
 - 실제 반영은 dry-run 결과를 확인한 뒤 `node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag>`로 진행합니다.
 - sync 직후에는 아래 기준 검증 명령을 다시 실행합니다.
+- 루트 import surface를 넓혀야 하는 예외 상황에서는 `--include-entry <path>`를 명시적으로 사용하고, expanded touched paths를 다시 검토한 뒤에만 apply합니다.
 
 compare status 해석:
 
@@ -51,9 +52,10 @@ node scripts/run-tests.cjs
 자동화 뒤에 아래 수동 확인을 합니다.
 
 1. `README.md`, `docs/UPSTREAM-SYNC.md`, `docs/RELEASE-CHECKLIST.md`를 열고 유지보수 링크가 끊기지 않았는지 확인합니다.
-2. 대표 prompt/runtime 파일에서 command literals, file paths, placeholders, identifiers, phase/requirement IDs가 번역되지 않았는지 확인합니다.
-3. installer/runtime 예시에서 Claude 이외 런타임이 `~/.claude`를 그대로 노출하지 않는지 확인합니다.
-4. 중국어 문서나 `zh-CN` 링크가 다시 들어오지 않았는지 확인합니다.
+2. `--include-entry <path>`를 사용했다면 expanded touched paths에 preserved local paths (`.planning/`, `AGENTS.md`, `CLAUDE.md`, `.codex/`, `.claude/`, `.opencode/`)가 들어가지 않았는지 확인합니다.
+3. 대표 prompt/runtime 파일에서 command literals, file paths, placeholders, identifiers, phase/requirement IDs가 번역되지 않았는지 확인합니다.
+4. installer/runtime 예시에서 Claude 이외 런타임이 `~/.claude`를 그대로 노출하지 않는지 확인합니다.
+5. 중국어 문서나 `zh-CN` 링크가 다시 들어오지 않았는지 확인합니다.
 
 ## 토큰 보존 규칙
 

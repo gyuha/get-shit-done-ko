@@ -146,6 +146,14 @@ node scripts/run-tests.cjs
 
 `--mode source-of-truth`는 tracked upstream import surface를 다시 가져오고, local overlay를 재적용하고, 제거된 overlay를 삭제한 뒤 `get-shit-done/UPSTREAM_VERSION`를 새 baseline으로 갱신하는 기본 apply mode입니다.
 
+루트 import surface를 일시적으로 넓혀야 하면 `--include-entry <path>`를 추가할 수 있습니다.
+
+```bash
+node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag> --mode source-of-truth --include-entry prompts
+```
+
+이 escape hatch는 opt-in이며, `.planning/`, `AGENTS.md`, `CLAUDE.md`, `.codex/`, `.claude/`, `.opencode/` 같은 preserved local paths는 여전히 import 대상에 넣을 수 없습니다.
+
 `check-upstream-release.cjs` 결과에서 `update_available`이 `false`면 여기서 멈추고 no-op으로 끝냅니다. 이때는 tracked upstream baseline이 upstream latest와 같거나 더 앞선 상태입니다.
 
 즉:
