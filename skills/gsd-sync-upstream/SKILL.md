@@ -50,12 +50,21 @@ node scripts/check-upstream-release.cjs --current-file get-shit-done/UPSTREAM_VE
 - latest upstream GitHub release tag
 - latest upstream release published date
 - fork `package.json` version
+- compare status (`current`, `update_available`, `ahead`)
+
+이 compare report는 항상 먼저 보여줘야 합니다. maintainer는 이 값들과 status만 보고 no-op인지, dry-run으로 갈 수 있는지, local-ahead인지 판단할 수 있어야 합니다.
 
 4. `update_available`이 `false`면:
 
-- repo가 current인지 local-ahead인지 설명합니다.
+- repo가 `current`인지 `local-ahead`인지 분리해서 설명합니다.
 - 이 판단이 `package.json`만이 아니라 `get-shit-done/UPSTREAM_VERSION` 기준임을 분명히 말합니다.
 - 비교한 버전과 날짜를 보여 주고 명시적으로 no-op으로 종료합니다.
+- 이 경로에서는 worktree를 건드리거나 apply/dry-run을 강행하지 않습니다.
+
+**Compare outcome handling**
+- `current` — tracked baseline이 upstream latest와 같다. 날짜와 태그를 보고하고 no-op으로 종료합니다.
+- `ahead` — tracked baseline이 upstream latest보다 앞선다. local-ahead 상태를 설명하고 no-op으로 종료합니다.
+- `update_available` — upstream latest가 더 새롭다. 이 경우에만 dry-run/apply로 넘어갑니다.
 
 5. `update_available`이 `true`면 먼저 dry-run을 실행합니다.
 
