@@ -15,10 +15,10 @@
 
 ### Apply Flow
 
-- [ ] **APPLY-01**: 스킬이 dry-run으로 touched paths, preserved paths, overlay reapply/delete 목록을 보여줄 수 있다
-- [ ] **APPLY-02**: 스킬이 source-of-truth 우선 반영을 기본값으로 실제 apply를 수행할 수 있다
-- [ ] **APPLY-03**: 스킬이 필요 시 루트 import surface 확장 반영을 후속 단계로 지원할 수 있다
-- [ ] **APPLY-04**: apply 동안 preserve 목록에 있는 로컬 경로를 보호할 수 있다
+- [x] **APPLY-01**: 스킬이 dry-run으로 touched paths, preserved paths, overlay reapply/delete 목록을 보여줄 수 있다
+- [x] **APPLY-02**: 스킬이 source-of-truth 우선 반영을 기본값으로 실제 apply를 수행할 수 있다
+- [x] **APPLY-03**: 스킬이 필요 시 루트 import surface 확장 반영을 후속 단계로 지원할 수 있다
+- [x] **APPLY-04**: apply 동안 preserve 목록에 있는 로컬 경로를 보호할 수 있다
 
 ### Localization Audit
 
@@ -70,10 +70,10 @@
 | SYNC-01 | Phase 1 | Complete |
 | SYNC-02 | Phase 1 | Complete |
 | SYNC-03 | Phase 1 | Complete |
-| APPLY-01 | Phase 2 | Pending |
-| APPLY-02 | Phase 2 | Pending |
-| APPLY-03 | Phase 2 | Pending |
-| APPLY-04 | Phase 2 | Pending |
+| APPLY-01 | Phase 2 | Complete |
+| APPLY-02 | Phase 2 | Complete |
+| APPLY-03 | Phase 2 | Complete |
+| APPLY-04 | Phase 2 | Complete |
 | L10N-01 | Phase 3 | Pending |
 | L10N-02 | Phase 3 | Pending |
 | L10N-03 | Phase 3 | Pending |

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to plan
-stopped_at: Phase 1 complete; Phase 2 planning is next
-last_updated: "2026-03-24T15:15:00.000Z"
+stopped_at: Phase 2 complete; ready for `$gsd-plan-phase 3`
+last_updated: "2026-03-25T01:05:00.000Z"
 progress:
   total_phases: 4
-  completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 2
+  total_plans: 6
+  completed_plans: 6
 ---
 
 # Project State
@@ -19,11 +19,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-24)
 
 **Core value:** upstream 변경을 가져온 뒤에도 `get-shit-done-ko`가 동일한 기능을 유지하도록, 안전하게 반영하고 검증 가능한 업데이트 흐름을 제공한다.
-**Current focus:** Phase 02 — Safe Apply Flow
+**Current focus:** Phase 03 — Localization Gap Audit
 
 ## Current Position
 
-Phase: 02
+Phase: 03
 Plan: Not started
 
 ## Performance Metrics
@@ -56,6 +56,8 @@ Plan: Not started
 - [Phase 1]: Baseline-first compare contract locked for upstream sync — Tracked baseline file remains the only sync eligibility source of truth; bundled skill helper mirrors repo-local behavior
 - [Phase 1]: Compare-first maintainer workflow locked across skill and runbooks — Skill flow, runbook, and release checklist now agree that current and ahead are explicit no-op exits and only update_available unlocks dry-run/apply
 - [Phase 1]: Deterministic compare and no-op coverage locked for Phase 1 — Fixture-based tests now verify current, ahead, update_available, and dry-run no-op invariants so Phase 1 does not depend on live upstream state alone
+- [Phase 2]: Source-of-truth apply mode made explicit for safe apply flow — The apply helper now names and validates its default mode, and maintainer docs use the same command contract instead of relying on undocumented defaults
+- [Phase 2]: Opt-in import extension path added without weakening preserve guardrails — The helper now supports include-entry for one-off root imports while rejecting preserved local paths and keeping the default import surface unchanged
 
 ### Pending Todos
 
@@ -63,10 +65,10 @@ Plan: Not started
 
 ### Blockers/Concerns
 
-- 현재 blocker 없음. 다음 단계는 Phase 2에서 preserve-aware dry-run/apply 흐름을 계획하는 것이다.
+- 현재 blocker 없음. 다음 단계는 Phase 3에서 변경 파일 기준 localization gap audit를 계획하는 것이다.
 
 ## Session Continuity
 
 Last session: 2026-03-24 23:10
-Stopped at: Phase 1 complete; ready for `$gsd-plan-phase 2`
+Stopped at: Phase 2 complete; ready for `$gsd-plan-phase 3`
 Resume file: None

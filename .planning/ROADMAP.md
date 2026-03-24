@@ -13,7 +13,7 @@
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Baseline Compare Core** - tracked baseline과 upstream latest를 비교해 no-op/current/update 가능 여부를 정확히 판단한다 (completed 2026-03-24)
-- [ ] **Phase 2: Safe Apply Flow** - dry-run과 실제 apply를 source-of-truth 우선 전략으로 안전하게 실행한다
+- [x] **Phase 2: Safe Apply Flow** - dry-run과 실제 apply를 source-of-truth 우선 전략으로 안전하게 실행한다 (completed 2026-03-25)
 - [ ] **Phase 3: Localization Gap Audit** - 변경 파일 기준 번역, zh-CN 재유입, token-sensitive drift를 점검한다
 - [ ] **Phase 4: Validation and Reporting** - canonical validation과 동일 기능 보장 보고 체계를 완성한다
 
@@ -45,9 +45,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: dry-run 결과를 structured summary로 정리한다
-- [ ] 02-02: source-of-truth 우선 apply mode를 구현한다
-- [ ] 02-03: 루트 확장 반영 옵션과 preserve 경로 보호를 검증한다
+- [x] 02-01: dry-run 결과를 structured summary로 정리한다
+- [x] 02-02: source-of-truth 우선 apply mode를 구현한다
+- [x] 02-03: 루트 확장 반영 옵션과 preserve 경로 보호를 검증한다
 
 ### Phase 3: Localization Gap Audit
 **Goal**: sync 후 localized fork 품질을 지키기 위해 번역/overlay/token drift를 자동 점검한다
@@ -84,6 +84,6 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Baseline Compare Core | 3/3 | Complete    | 2026-03-24 |
-| 2. Safe Apply Flow | 0/3 | Not started | - |
+| 2. Safe Apply Flow | 3/3 | Complete    | 2026-03-25 |
 | 3. Localization Gap Audit | 0/3 | Not started | - |
 | 4. Validation and Reporting | 0/3 | Not started | - |
