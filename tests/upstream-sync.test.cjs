@@ -28,6 +28,10 @@ function writeJson(root, relativePath, value) {
   writeFile(root, relativePath, `${JSON.stringify(value, null, 2)}\n`);
 }
 
+function readFile(root, relativePath) {
+  return fs.readFileSync(path.join(root, relativePath), 'utf8');
+}
+
 function makeBaselineDoc(tag) {
   return [
     '# Upstream Sync 기준선',
@@ -128,6 +132,38 @@ describe('runRefresh', () => {
     assert.deepStrictEqual(result.preserved, PRESERVED_PATHS);
     assert.deepStrictEqual(result.overlay_reapply, []);
     assert.deepStrictEqual(result.overlay_delete, []);
+    assert.strictEqual(readFile(repoDir, 'README.md'), 'localized readme\n');
+    assert.strictEqual(readFile(repoDir, 'docs/core.md'), 'core doc\n');
+  });
+
+  test('returns a no-op dry-run when the tracked baseline is ahead of upstream latest', () => {
+    const repoDir = makeTempDir('upstream-sync-repo');
+    seedRepo(repoDir, {
+      baselineTag: 'v1.28.1',
+      packageVersion: '1.28.1',
+      readme: 'localized readme\n',
+      coreDoc: 'core doc\n',
+      localDoc: 'keep my local overlay\n',
+    });
+    writeFile(repoDir, '.planning/local-state.md', 'preserve planning state\n');
+
+    const result = runRefresh({
+      cwd: repoDir,
+      currentFile: 'get-shit-done/UPSTREAM_VERSION',
+      toTag: 'v1.28.0',
+      dryRun: true,
+    });
+
+    assert.strictEqual(result.applied, false);
+    assert.strictEqual(result.no_op, true);
+    assert.strictEqual(result.status, 'ahead');
+    assert.deepStrictEqual(result.preserved, PRESERVED_PATHS);
+    assert.deepStrictEqual(result.overlay_reapply, []);
+    assert.deepStrictEqual(result.overlay_delete, []);
+    assert.strictEqual(readFile(repoDir, 'README.md'), 'localized readme\n');
+    assert.strictEqual(readFile(repoDir, 'docs/core.md'), 'core doc\n');
+    assert.strictEqual(readFile(repoDir, 'docs/localized-guide.md'), 'keep my local overlay\n');
+    assert.strictEqual(readFile(repoDir, '.planning/local-state.md'), 'preserve planning state\n');
   });
 
   test('describes overlay reapply and delete paths in a dry-run update', () => {
