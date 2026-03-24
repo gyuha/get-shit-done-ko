@@ -1,0 +1,108 @@
+const { afterEach, describe, test } = require('node:test');
+const assert = require('node:assert');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+
+const {
+  buildTranslationCandidates,
+  runAudit,
+} = require('../scripts/audit-localization-gap.cjs');
+
+const tempDirs = [];
+
+function makeTempDir(name) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), `${name}-`));
+  tempDirs.push(dir);
+  return dir;
+}
+
+function writeFile(root, relativePath, content) {
+  const targetPath = path.join(root, relativePath);
+  fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+  fs.writeFileSync(targetPath, content, 'utf8');
+}
+
+function writeJson(root, relativePath, value) {
+  writeFile(root, relativePath, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function seedRepo(root, { baselineTag, packageVersion }) {
+  writeJson(root, 'package.json', {
+    name: 'get-shit-done-ko',
+    version: packageVersion,
+  });
+  writeFile(root, 'get-shit-done/UPSTREAM_VERSION', `${baselineTag}\n`);
+}
+
+afterEach(() => {
+  while (tempDirs.length > 0) {
+    fs.rmSync(tempDirs.pop(), { recursive: true, force: true });
+  }
+});
+
+describe('localization audit', () => {
+  test('builds translation candidates from changed file paths', () => {
+    assert.deepStrictEqual(
+      buildTranslationCandidates([
+        'README.md',
+        'docs/UPSTREAM-SYNC.md',
+        'scripts/run-tests.cjs',
+        'agents/researcher.md',
+        'commands/help.md',
+      ]),
+      ['README.md', 'docs/UPSTREAM-SYNC.md', 'agents/researcher.md', 'commands/help.md']
+    );
+  });
+
+  test('produces changed_files and translation_candidates from baseline and upstream snapshots', () => {
+    const repoDir = makeTempDir('l10n-audit-repo');
+    const baselineDir = makeTempDir('l10n-audit-baseline');
+    const upstreamDir = makeTempDir('l10n-audit-upstream');
+
+    seedRepo(repoDir, { baselineTag: 'v1.28.0', packageVersion: '1.28.1' });
+    seedRepo(baselineDir, { baselineTag: 'v1.28.0', packageVersion: '1.28.1' });
+    seedRepo(upstreamDir, { baselineTag: 'v1.29.0', packageVersion: '1.29.0' });
+
+    writeFile(baselineDir, 'README.md', 'baseline readme\n');
+    writeFile(baselineDir, 'docs/guide.md', 'baseline guide\n');
+    writeFile(baselineDir, 'scripts/tool.cjs', 'console.log("baseline");\n');
+
+    writeFile(repoDir, 'README.md', 'localized readme\n');
+    writeFile(repoDir, 'docs/guide.md', 'baseline guide\n');
+    writeFile(repoDir, 'scripts/tool.cjs', 'console.log("baseline");\n');
+    writeFile(repoDir, 'docs/localized-guide.md', 'keep my local overlay\n');
+
+    writeFile(upstreamDir, 'README.md', 'upstream readme\n');
+    writeFile(upstreamDir, 'docs/guide.md', 'upstream guide\n');
+    writeFile(upstreamDir, 'scripts/tool.cjs', 'console.log("upstream");\n');
+    writeFile(upstreamDir, 'commands/new-command.md', 'new command\n');
+
+    const result = runAudit({
+      cwd: repoDir,
+      currentFile: 'get-shit-done/UPSTREAM_VERSION',
+      toTag: 'v1.29.0',
+      baselineDir,
+      upstreamDir,
+    });
+
+    assert.strictEqual(result.current_tag, 'v1.28.0');
+    assert.strictEqual(result.incoming_tag, 'v1.29.0');
+    assert.strictEqual(result.apply_mode, 'source-of-truth');
+    assert.deepStrictEqual(result.changed_files, [
+      'README.md',
+      'commands/new-command.md',
+      'docs/guide.md',
+      'get-shit-done/UPSTREAM_VERSION',
+      'package.json',
+      'scripts/tool.cjs',
+    ]);
+    assert.deepStrictEqual(result.translation_candidates, [
+      'README.md',
+      'commands/new-command.md',
+      'docs/guide.md',
+    ]);
+    assert.ok(result.overlay_reapply.includes('README.md'));
+    assert.ok(result.overlay_reapply.includes('docs/localized-guide.md'));
+  });
+});
