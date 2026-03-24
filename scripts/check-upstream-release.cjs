@@ -7,6 +7,9 @@ const https = require('https');
 const DEFAULT_REPO = 'gsd-build/get-shit-done';
 const DEFAULT_RELEASES_URL = `https://api.github.com/repos/${DEFAULT_REPO}/releases/latest`;
 
+// Sync eligibility is driven by the tracked upstream baseline, not the fork's
+// package version. package.json is reported for maintainer context only.
+
 function parseArgs(argv) {
   const args = {
     json: false,
@@ -223,6 +226,9 @@ function buildReleaseState({
   latestUrl = `https://github.com/${repo}/releases`,
   packageVersion = null,
 }) {
+  // currentTag always comes from the tracked baseline file (or an explicit
+  // override for tests). latestTag always comes from upstream release data (or
+  // an explicit override for tests). packageVersion is informational only.
   const comparison = compareVersions(currentTag, latestTag);
   const current = stripTagPrefix(currentTag);
   const latest = stripTagPrefix(latestTag);
