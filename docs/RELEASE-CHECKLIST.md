@@ -18,6 +18,7 @@ node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --d
 - 실제 반영은 dry-run 결과를 확인한 뒤 `node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag>`로 진행합니다.
 - sync 직후에는 아래 기준 검증 명령을 다시 실행합니다.
 - 루트 import surface를 넓혀야 하는 예외 상황에서는 `--include-entry <path>`를 명시적으로 사용하고, expanded touched paths를 다시 검토한 뒤에만 apply합니다.
+- localization audit 결과의 `overlay_missing`은 release 전에 한국어 overlay 작업 대상으로 남겨야 하고, `zh_cn_reintroduced`는 즉시 제거해야 합니다.
 
 compare status 해석:
 

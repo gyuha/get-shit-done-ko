@@ -147,7 +147,9 @@ node scripts/run-tests.cjs
 
 `--mode source-of-truth`는 tracked upstream import surface를 다시 가져오고, local overlay를 재적용하고, 제거된 overlay를 삭제한 뒤 `get-shit-done/UPSTREAM_VERSION`를 새 baseline으로 갱신하는 기본 apply mode입니다.
 
-localization audit 단계에서는 `node scripts/audit-localization-gap.cjs --to-tag <latest_tag> --mode source-of-truth --json`를 실행해 `changed_files`, `overlay_reapply`, `overlay_delete`, `translation_candidates`를 확인합니다.
+localization audit 단계에서는 `node scripts/audit-localization-gap.cjs --to-tag <latest_tag> --mode source-of-truth --json`를 실행해 `changed_files`, `overlay_reapply`, `overlay_delete`, `translation_candidates`, `overlay_missing`, `zh_cn_reintroduced`를 확인합니다.
+
+`overlay_missing`은 changed translation surface 중 아직 preserved Korean overlay가 없는 항목입니다. `zh_cn_reintroduced`는 filename 또는 content/link 기준으로 금지된 zh-CN 재유입이 감지된 항목입니다.
 
 루트 import surface를 일시적으로 넓혀야 하면 `--include-entry <path>`를 추가할 수 있습니다.
 
