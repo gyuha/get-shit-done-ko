@@ -190,6 +190,40 @@ function buildZhCnReintroduced(changedFiles, upstreamDir) {
   return findings;
 }
 
+function isTokenSensitivePath(relativePath) {
+  return (
+    relativePath.startsWith('commands/') ||
+    relativePath.startsWith('agents/') ||
+    relativePath.startsWith('scripts/') ||
+    relativePath.startsWith('hooks/') ||
+    relativePath.startsWith('bin/') ||
+    /README/i.test(relativePath)
+  );
+}
+
+function buildTokenSensitiveCandidates(changedFiles, upstreamDir) {
+  const candidates = [];
+
+  for (const relativePath of changedFiles) {
+    if (isTokenSensitivePath(relativePath)) {
+      candidates.push(relativePath);
+      continue;
+    }
+
+    const upstreamPath = path.join(upstreamDir, relativePath);
+    if (!pathExists(upstreamPath) || fs.statSync(upstreamPath).isDirectory()) {
+      continue;
+    }
+
+    const content = fs.readFileSync(upstreamPath, 'utf8');
+    if (/@|<task|<latest_tag>|`node |`npm |`pnpm |`yarn |[A-Za-z0-9_/-]+\.[A-Za-z]+/m.test(content)) {
+      candidates.push(relativePath);
+    }
+  }
+
+  return candidates;
+}
+
 function cleanupTempDirs(dirs) {
   for (const dir of dirs) {
     if (dir) {
@@ -256,6 +290,7 @@ function runAudit(args) {
       translation_candidates: buildTranslationCandidates(changedFiles),
       overlay_missing: buildOverlayMissing(buildTranslationCandidates(changedFiles), dryRun.overlay_reapply),
       zh_cn_reintroduced: buildZhCnReintroduced(changedFiles, upstreamDir),
+      token_sensitive_candidates: buildTokenSensitiveCandidates(changedFiles, upstreamDir),
     };
   } finally {
     cleanupTempDirs(tempDirs);
@@ -319,6 +354,7 @@ if (require.main === module) {
 
 module.exports = {
   buildOverlayMissing,
+  buildTokenSensitiveCandidates,
   buildTranslationCandidates,
   buildZhCnReintroduced,
   collectChangedFiles,

@@ -6,6 +6,7 @@ const path = require('path');
 
 const {
   buildOverlayMissing,
+  buildTokenSensitiveCandidates,
   buildTranslationCandidates,
   buildZhCnReintroduced,
   runAudit,
@@ -74,6 +75,13 @@ describe('localization audit', () => {
       buildZhCnReintroduced(['README.zh-CN.md', 'docs/index.md'], upstreamDir),
       ['README.zh-CN.md', 'docs/index.md']
     );
+
+    writeFile(upstreamDir, 'docs/task.md', 'Use `node scripts/run-tests.cjs` with <latest_tag> and @refs.\n');
+    writeFile(upstreamDir, 'docs/prose.md', '일반 설명 문장만 있습니다.\n');
+    assert.deepStrictEqual(
+      buildTokenSensitiveCandidates(['commands/new-command.md', 'docs/task.md', 'docs/prose.md'], upstreamDir),
+      ['commands/new-command.md', 'docs/task.md']
+    );
   });
 
   test('produces changed_files and translation_candidates from baseline and upstream snapshots', () => {
@@ -136,6 +144,13 @@ describe('localization audit', () => {
     assert.deepStrictEqual(result.zh_cn_reintroduced, [
       'README.zh-CN.md',
       'docs/index.md',
+    ]);
+    assert.deepStrictEqual(result.token_sensitive_candidates, [
+      'README.md',
+      'README.zh-CN.md',
+      'commands/new-command.md',
+      'docs/index.md',
+      'scripts/tool.cjs',
     ]);
     assert.ok(result.overlay_reapply.includes('README.md'));
     assert.ok(result.overlay_reapply.includes('docs/localized-guide.md'));
