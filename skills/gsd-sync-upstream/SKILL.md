@@ -75,6 +75,8 @@ node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --d
 6. dry-run 결과에서 아래를 요약합니다.
 
 - incoming tag
+- status
+- no-op
 - touched paths
 - preserved paths
 - overlay reapply

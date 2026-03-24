@@ -116,6 +116,16 @@ Maintainer-only repo sync는 `$gsd-update`가 아니라 `$gsd-sync-upstream`로 
 4. upstream latest가 같거나 더 낮으면 비교한 버전과 날짜를 보여 주고 no-op으로 종료합니다.
 5. dry-run은 `node scripts/apply-upstream-refresh.cjs --from-current --to-tag <tag> --dry-run`로 먼저 실행하고, touched paths / preserved paths / overlay reapply 목록을 확인합니다.
 
+dry-run review fields:
+
+- incoming tag
+- status
+- no-op
+- touched paths
+- preserved paths
+- overlay reapply
+- overlay delete
+
 compare status 해석:
 
 - `current`: tracked baseline과 upstream latest가 같다. no-op으로 종료합니다.
