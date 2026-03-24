@@ -313,6 +313,7 @@ function formatDryRun(result) {
   const lines = [
     '## Upstream Refresh Dry Run',
     '',
+    `- status: ${result.status}`,
     `- current tag: ${result.current_tag}`,
     `- incoming tag: ${result.incoming_tag}`,
   ];
@@ -323,6 +324,7 @@ function formatDryRun(result) {
   if (result.package_version) {
     lines.push(`- fork package version: ${result.package_version}`);
   }
+  lines.push(`- no-op: ${result.no_op ? 'yes' : 'no'}`);
   lines.push(`- summary: ${result.summary}`);
 
   lines.push('', '### touched paths');

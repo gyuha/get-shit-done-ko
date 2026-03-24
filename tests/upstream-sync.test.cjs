@@ -129,6 +129,21 @@ describe('runRefresh', () => {
     assert.strictEqual(result.applied, false);
     assert.strictEqual(result.no_op, true);
     assert.strictEqual(result.status, 'current');
+    assert.deepStrictEqual(Object.keys(result).sort(), [
+      'applied',
+      'current_tag',
+      'incoming_tag',
+      'latest_published_at',
+      'no_op',
+      'overlay_delete',
+      'overlay_reapply',
+      'package_version',
+      'preserved',
+      'status',
+      'summary',
+      'touched',
+      'update_available',
+    ]);
     assert.deepStrictEqual(result.preserved, PRESERVED_PATHS);
     assert.deepStrictEqual(result.overlay_reapply, []);
     assert.deepStrictEqual(result.overlay_delete, []);
@@ -205,6 +220,8 @@ describe('runRefresh', () => {
     assert.strictEqual(result.applied, false);
     assert.strictEqual(result.no_op, false);
     assert.strictEqual(result.status, 'update_available');
+    assert.strictEqual(result.latest_published_at, '2026-03-22T15:45:26Z');
+    assert.strictEqual(result.package_version, '1.28.1');
     assert.ok(result.summary.includes('v1.28.0'));
     assert.ok(result.summary.includes('v1.29.0'));
     assert.ok(result.touched.includes('docs'));
@@ -212,6 +229,31 @@ describe('runRefresh', () => {
     assert.ok(result.overlay_reapply.includes('README.md'));
     assert.ok(result.overlay_reapply.includes('docs/localized-guide.md'));
     assert.ok(result.overlay_delete.includes('docs/removed-locally.md'));
+  });
+
+  test('formats the dry-run summary with explicit review fields', () => {
+    const { formatDryRun } = require('../scripts/apply-upstream-refresh.cjs');
+    const output = formatDryRun({
+      status: 'update_available',
+      current_tag: 'v1.28.0',
+      incoming_tag: 'v1.29.0',
+      latest_published_at: '2026-03-22T15:45:26Z',
+      package_version: '1.29.0',
+      summary: 'Ready to refresh vendored GSD from v1.28.0 to v1.29.0.',
+      touched: ['docs', 'scripts'],
+      preserved: ['.planning/'],
+      overlay_reapply: ['README.md'],
+      overlay_delete: ['docs/removed-locally.md'],
+      update_available: true,
+      no_op: false,
+    });
+
+    assert.match(output, /- status: update_available/);
+    assert.match(output, /- incoming tag: v1.29.0/);
+    assert.match(output, /### touched paths/);
+    assert.match(output, /### preserved paths/);
+    assert.match(output, /### overlay reapply/);
+    assert.match(output, /### overlay delete/);
   });
 
   test('applies an upstream refresh, preserves overlays, and updates tracked baseline files', () => {
