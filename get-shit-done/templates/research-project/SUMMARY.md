@@ -1,21 +1,21 @@
-# Research Summary Template
+# 리서치 요약 템플릿 (Research Summary Template)
 
 > 한국어 우선 안내: 이 템플릿은 `SUMMARY` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/research/SUMMARY.md` — executive summary of project research with roadmap implications.
+Template for `.planning/research/SUMMARY.md` — roadmap에 영향을 주는 프로젝트 리서치 요약 템플릿입니다.
 
 <template>
 
 ```markdown
-# Project Research Summary
+# Project Research Summary (프로젝트 리서치 요약)
 
 **Project:** [name from PROJECT.md]
 **Domain:** [inferred domain type]
 **Researched:** [date]
 **Confidence:** [HIGH/MEDIUM/LOW]
 
-## Executive Summary
+## Executive Summary (핵심 요약)
 
 [2-3 paragraph overview of research findings]
 
@@ -23,9 +23,9 @@ Template for `.planning/research/SUMMARY.md` — executive summary of project re
 - The recommended approach based on research
 - Key risks and how to mitigate them
 
-## Key Findings
+## Key Findings (핵심 발견)
 
-### Recommended Stack
+### Recommended Stack (권장 스택)
 
 [Summary from STACK.md — 1-2 paragraphs]
 
@@ -34,7 +34,7 @@ Template for `.planning/research/SUMMARY.md` — executive summary of project re
 - [Technology]: [purpose] — [why recommended]
 - [Technology]: [purpose] — [why recommended]
 
-### Expected Features
+### Expected Features (예상 기능)
 
 [Summary from FEATURES.md]
 
@@ -49,7 +49,7 @@ Template for `.planning/research/SUMMARY.md` — executive summary of project re
 **Defer (v2+):**
 - [Feature] — not essential for launch
 
-### Architecture Approach
+### Architecture Approach (아키텍처 접근)
 
 [Summary from ARCHITECTURE.md — 1 paragraph]
 
@@ -58,7 +58,7 @@ Template for `.planning/research/SUMMARY.md` — executive summary of project re
 2. [Component] — [responsibility]
 3. [Component] — [responsibility]
 
-### Critical Pitfalls
+### Critical Pitfalls (치명적 함정)
 
 [Top 3-5 from PITFALLS.md]
 
@@ -66,7 +66,7 @@ Template for `.planning/research/SUMMARY.md` — executive summary of project re
 2. **[Pitfall]** — [how to avoid]
 3. **[Pitfall]** — [how to avoid]
 
-## Implications for Roadmap
+## Implications for Roadmap (roadmap 시사점)
 
 Based on research, suggested phase structure:
 
@@ -88,13 +88,13 @@ Based on research, suggested phase structure:
 
 [Continue for suggested phases...]
 
-### Phase Ordering Rationale
+### Phase Ordering Rationale (phase 순서 근거)
 
 - [Why this order based on dependencies discovered]
 - [Why this grouping based on architecture patterns]
 - [How this avoids pitfalls from research]
 
-### Research Flags
+### Research Flags (추가 조사 플래그)
 
 Phases likely needing deeper research during planning:
 - **Phase [X]:** [reason — e.g., "complex integration, needs API research"]
@@ -103,7 +103,7 @@ Phases likely needing deeper research during planning:
 Phases with standard patterns (skip research-phase):
 - **Phase [X]:** [reason — e.g., "well-documented, established patterns"]
 
-## Confidence Assessment
+## Confidence Assessment (신뢰도 평가)
 
 | Area | Confidence | Notes |
 |------|------------|-------|
@@ -114,14 +114,14 @@ Phases with standard patterns (skip research-phase):
 
 **Overall confidence:** [HIGH/MEDIUM/LOW]
 
-### Gaps to Address
+### Gaps to Address (해결할 공백)
 
 [Any areas where research was inconclusive or needs validation during implementation]
 
 - [Gap]: [how to handle during planning/execution]
 - [Gap]: [how to handle during planning/execution]
 
-## Sources
+## Sources (출처)
 
 ### Primary (HIGH confidence)
 - [Context7 library ID] — [topics]

@@ -1,13 +1,13 @@
-# Summary Template
+# 요약 템플릿 (Summary Template)
 
 > 한국어 우선 안내: 이 템플릿은 `summary` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/phases/XX-name/{phase}-{plan}-SUMMARY.md` - phase completion documentation.
+Template for `.planning/phases/XX-name/{phase}-{plan}-SUMMARY.md` - phase 완료를 기록하는 템플릿입니다.
 
 ---
 
-## File Template
+## File Template (파일 템플릿)
 
 ```markdown
 ---
@@ -65,7 +65,7 @@ completed: YYYY-MM-DD
 - [두 번째 핵심 결과]
 - [필요하면 세 번째 결과]
 
-## Task Commits
+## Task Commits (작업 커밋)
 
 각 task는 atomic commit으로 기록합니다:
 
@@ -84,13 +84,13 @@ _Note: TDD tasks may have multiple commits (test → feat → refactor)_
 ## Decisions Made (결정 사항)
 [핵심 결정과 짧은 이유, 없으면 "없음 - 계획대로 진행"]
 
-## Deviations from Plan
+## Deviations from Plan (계획 대비 변경 사항)
 
 [없으면: "없음 - 계획대로 실행"]
 
 [If deviations occurred:]
 
-### Auto-fixed Issues
+### Auto-fixed Issues (자동 수정 이슈)
 
 **1. [Rule X - Category] Brief description**
 - **Found during:** Task [N] ([task name])
@@ -133,7 +133,7 @@ _Note: TDD tasks may have multiple commits (test → feat → refactor)_
 ```
 
 <frontmatter_guidance>
-**Purpose:** Enable automatic context assembly via dependency graph. Frontmatter makes summary metadata machine-readable so plan-phase can scan all summaries quickly and select relevant ones based on dependencies.
+**Purpose:** dependency graph를 이용한 자동 컨텍스트 조합을 가능하게 합니다. frontmatter는 summary 메타데이터를 기계가 읽을 수 있게 만들어 plan-phase가 관련 summary를 빠르게 선택할 수 있게 합니다.
 
 **Fast scanning:** Frontmatter is first ~25 lines, cheap to scan across all summaries without reading full content.
 
@@ -199,9 +199,9 @@ The one-liner should tell someone what actually shipped.
 - 15-min access tokens with 7-day refresh tokens
 - Storing refresh tokens in database for revocation capability
 
-## Deviations from Plan
+## Deviations from Plan (계획 대비 변경 사항)
 
-### Auto-fixed Issues
+### Auto-fixed Issues (자동 수정 이슈)
 
 **1. [Rule 2 - Missing Critical] Added password hashing with bcrypt**
 - **Found during:** Task 2 (Login endpoint implementation)

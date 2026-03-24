@@ -1,4 +1,4 @@
-# Developer Profile
+# 개발자 프로필 (Developer Profile)
 
 > 한국어 우선 안내: 이 템플릿은 `user-profile` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
@@ -15,13 +15,13 @@
 
 ---
 
-## Quick Reference
+## Quick Reference (빠른 참고)
 
 {{summary_instructions}}
 
 ---
 
-## Communication Style
+## Communication Style (커뮤니케이션 스타일)
 
 **Rating:** {{communication_style.rating}} | **Confidence:** {{communication_style.confidence}}
 
@@ -35,7 +35,7 @@
 
 ---
 
-## Decision Speed
+## Decision Speed (의사결정 속도)
 
 **Rating:** {{decision_speed.rating}} | **Confidence:** {{decision_speed.confidence}}
 
@@ -49,7 +49,7 @@
 
 ---
 
-## Explanation Depth
+## Explanation Depth (설명 깊이)
 
 **Rating:** {{explanation_depth.rating}} | **Confidence:** {{explanation_depth.confidence}}
 
@@ -63,7 +63,7 @@
 
 ---
 
-## Debugging Approach
+## Debugging Approach (디버깅 접근)
 
 **Rating:** {{debugging_approach.rating}} | **Confidence:** {{debugging_approach.confidence}}
 
@@ -77,7 +77,7 @@
 
 ---
 
-## UX Philosophy
+## UX Philosophy (UX 철학)
 
 **Rating:** {{ux_philosophy.rating}} | **Confidence:** {{ux_philosophy.confidence}}
 
@@ -91,7 +91,7 @@
 
 ---
 
-## Vendor Philosophy
+## Vendor Philosophy (벤더 철학)
 
 **Rating:** {{vendor_philosophy.rating}} | **Confidence:** {{vendor_philosophy.confidence}}
 
@@ -105,7 +105,7 @@
 
 ---
 
-## Frustration Triggers
+## Frustration Triggers (답답함 유발 요인)
 
 **Rating:** {{frustration_triggers.rating}} | **Confidence:** {{frustration_triggers.confidence}}
 
@@ -119,7 +119,7 @@
 
 ---
 
-## Learning Style
+## Learning Style (학습 스타일)
 
 **Rating:** {{learning_style.rating}} | **Confidence:** {{learning_style.confidence}}
 
@@ -133,7 +133,7 @@
 
 ---
 
-## Profile Metadata
+## Profile Metadata (프로필 메타데이터)
 
 | Field | Value |
 |-------|-------|

@@ -1,13 +1,13 @@
-# UAT Template
+# UAT 템플릿 (UAT Template)
 
 > 한국어 우선 안내: 이 템플릿은 `UAT` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/phases/XX-name/{phase_num}-UAT.md` — persistent UAT session tracking.
+Template for `.planning/phases/XX-name/{phase_num}-UAT.md` — 지속적으로 이어지는 UAT 세션 추적 템플릿입니다.
 
 ---
 
-## File Template
+## File Template (파일 템플릿)
 
 ```markdown
 ---
@@ -18,7 +18,7 @@ started: [ISO timestamp]
 updated: [ISO timestamp]
 ---
 
-## Current Test
+## Current Test (현재 테스트)
 <!-- OVERWRITE each test - shows where we are -->
 
 number: [N]
@@ -27,7 +27,7 @@ expected: |
   [사용자가 관찰해야 하는 내용]
 awaiting: user response
 
-## Tests
+## Tests (테스트 목록)
 
 ### 1. [Test Name]
 expected: [관찰 가능한 동작 - 사용자가 실제로 봐야 하는 내용]
@@ -56,7 +56,7 @@ reason: [why blocked]
 
 ...
 
-## Summary
+## Summary (요약)
 
 total: [N]
 passed: [N]
@@ -65,7 +65,7 @@ pending: [N]
 skipped: [N]
 blocked: [N]
 
-## Gaps
+## Gaps (격차/누락)
 
 <!-- YAML format for plan-phase --gaps consumption -->
 - truth: "[테스트에서 기대한 동작]"
@@ -127,7 +127,7 @@ blocked: [N]
 
 **After diagnosis:**
 ```yaml
-## Gaps
+## Gaps (격차/누락)
 
 - truth: "Comment appears immediately after submission"
   status: failed
@@ -147,7 +147,7 @@ blocked: [N]
 
 <lifecycle>
 
-**Creation:** When /gsd:verify-work starts new session
+**Creation (생성 시점):** `/gsd:verify-work`가 새 세션을 시작할 때
 - Extract tests from SUMMARY.md files
 - Set status to "testing"
 - Current Test points to test 1
@@ -210,11 +210,11 @@ started: 2025-01-15T10:30:00Z
 updated: 2025-01-15T10:45:00Z
 ---
 
-## Current Test
+## Current Test (현재 테스트)
 
 [testing complete]
 
-## Tests
+## Tests (테스트 목록)
 
 ### 1. View Comments on Post
 expected: Comments section expands, shows count and comment list
@@ -242,7 +242,7 @@ result: pass
 expected: Post shows accurate count, increments when adding comment
 result: pass
 
-## Summary
+## Summary (요약)
 
 total: 6
 passed: 5
@@ -250,7 +250,7 @@ issues: 1
 pending: 0
 skipped: 0
 
-## Gaps
+## Gaps (격차/누락)
 
 - truth: "Comment appears immediately after submission in list"
   status: failed

@@ -16,7 +16,7 @@ created: {date}
 
 ---
 
-## Test Infrastructure
+## Test Infrastructure (테스트 인프라)
 
 | Property | Value |
 |----------|-------|
@@ -28,7 +28,7 @@ created: {date}
 
 ---
 
-## Sampling Rate
+## Sampling Rate (샘플링 빈도)
 
 - **After every task commit:** Run `{quick run command}`
 - **After every plan wave:** Run `{full suite command}`
@@ -37,7 +37,7 @@ created: {date}
 
 ---
 
-## Per-Task Verification Map
+## Per-Task Verification Map (작업별 검증 맵)
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
@@ -47,7 +47,7 @@ created: {date}
 
 ---
 
-## Wave 0 Requirements
+## Wave 0 Requirements (Wave 0 요구사항)
 
 - [ ] `{tests/test_file.py}` — stubs for REQ-{XX}
 - [ ] `{tests/conftest.py}` — shared fixtures
@@ -57,7 +57,7 @@ created: {date}
 
 ---
 
-## Manual-Only Verifications
+## Manual-Only Verifications (수동 검증 전용 항목)
 
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
@@ -67,7 +67,7 @@ created: {date}
 
 ---
 
-## Validation Sign-Off
+## Validation Sign-Off (검증 승인)
 
 - [ ] All tasks have `<automated>` verify or Wave 0 dependencies
 - [ ] Sampling continuity: no 3 consecutive tasks without automated verify

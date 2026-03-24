@@ -1,20 +1,20 @@
-# Pitfalls Research Template
+# 함정 리서치 템플릿 (Pitfalls Research Template)
 
 > 한국어 우선 안내: 이 템플릿은 `PITFALLS` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/research/PITFALLS.md` — common mistakes to avoid in the project domain.
+Template for `.planning/research/PITFALLS.md` — 해당 도메인에서 피해야 할 흔한 실수를 조사하는 템플릿입니다.
 
 <template>
 
 ```markdown
-# Pitfalls Research
+# Pitfalls Research (함정 리서치)
 
 **Domain:** [domain type]
 **Researched:** [date]
 **Confidence:** [HIGH/MEDIUM/LOW]
 
-## Critical Pitfalls
+## Critical Pitfalls (치명적 함정)
 
 ### Pitfall 1: [Name]
 
@@ -75,7 +75,7 @@ Template for `.planning/research/PITFALLS.md` — common mistakes to avoid in th
 
 [Continue for all critical pitfalls...]
 
-## Technical Debt Patterns
+## Technical Debt Patterns (기술 부채 패턴)
 
 Shortcuts that seem reasonable but create long-term problems.
 
@@ -85,7 +85,7 @@ Shortcuts that seem reasonable but create long-term problems.
 | [shortcut] | [benefit] | [cost] | [conditions, or "never"] |
 | [shortcut] | [benefit] | [cost] | [conditions, or "never"] |
 
-## Integration Gotchas
+## Integration Gotchas (통합 함정)
 
 Common mistakes when connecting to external services.
 
@@ -95,7 +95,7 @@ Common mistakes when connecting to external services.
 | [service] | [what people do wrong] | [what to do instead] |
 | [service] | [what people do wrong] | [what to do instead] |
 
-## Performance Traps
+## Performance Traps (성능 함정)
 
 Patterns that work at small scale but fail as usage grows.
 
@@ -105,7 +105,7 @@ Patterns that work at small scale but fail as usage grows.
 | [trap] | [how you notice] | [how to avoid] | [scale threshold] |
 | [trap] | [how you notice] | [how to avoid] | [scale threshold] |
 
-## Security Mistakes
+## Security Mistakes (보안 실수)
 
 Domain-specific security issues beyond general web security.
 
@@ -115,7 +115,7 @@ Domain-specific security issues beyond general web security.
 | [mistake] | [what could happen] | [how to avoid] |
 | [mistake] | [what could happen] | [how to avoid] |
 
-## UX Pitfalls
+## UX Pitfalls (UX 함정)
 
 Common user experience mistakes in this domain.
 
@@ -134,7 +134,7 @@ Things that appear complete but are missing critical pieces.
 - [ ] **[Feature]:** Often missing [thing] — verify [check]
 - [ ] **[Feature]:** Often missing [thing] — verify [check]
 
-## Recovery Strategies
+## Recovery Strategies (복구 전략)
 
 When pitfalls occur despite prevention, how to recover.
 
@@ -144,7 +144,7 @@ When pitfalls occur despite prevention, how to recover.
 | [pitfall] | LOW/MEDIUM/HIGH | [what to do] |
 | [pitfall] | LOW/MEDIUM/HIGH | [what to do] |
 
-## Pitfall-to-Phase Mapping
+## Pitfall-to-Phase Mapping (함정-Phase 매핑)
 
 How roadmap phases should address these pitfalls.
 
@@ -154,7 +154,7 @@ How roadmap phases should address these pitfalls.
 | [pitfall] | Phase [X] | [how to verify prevention worked] |
 | [pitfall] | Phase [X] | [how to verify prevention worked] |
 
-## Sources
+## Sources (출처)
 
 - [Post-mortems referenced]
 - [Community discussions]

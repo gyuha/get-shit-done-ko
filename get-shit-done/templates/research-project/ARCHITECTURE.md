@@ -1,22 +1,22 @@
-# Architecture Research Template
+# 아키텍처 리서치 템플릿 (Architecture Research Template)
 
 > 한국어 우선 안내: 이 템플릿은 `ARCHITECTURE` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/research/ARCHITECTURE.md` — system structure patterns for the project domain.
+Template for `.planning/research/ARCHITECTURE.md` — 해당 도메인의 시스템 구조 패턴을 조사하는 템플릿입니다.
 
 <template>
 
 ```markdown
-# Architecture Research
+# Architecture Research (아키텍처 리서치)
 
 **Domain:** [domain type]
 **Researched:** [date]
 **Confidence:** [HIGH/MEDIUM/LOW]
 
-## Standard Architecture
+## Standard Architecture (표준 아키텍처)
 
-### System Overview
+### System Overview (시스템 개요)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -40,7 +40,7 @@ Template for `.planning/research/ARCHITECTURE.md` — system structure patterns 
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Component Responsibilities
+### Component Responsibilities (컴포넌트 책임)
 
 | Component | Responsibility | Typical Implementation |
 |-----------|----------------|------------------------|
@@ -48,7 +48,7 @@ Template for `.planning/research/ARCHITECTURE.md` — system structure patterns 
 | [name] | [what it owns] | [how it's usually built] |
 | [name] | [what it owns] | [how it's usually built] |
 
-## Recommended Project Structure
+## Recommended Project Structure (권장 프로젝트 구조)
 
 ```
 src/
@@ -62,12 +62,12 @@ src/
 └── [folder]/           # [purpose]
 ```
 
-### Structure Rationale
+### Structure Rationale (구조 근거)
 
 - **[folder]/:** [why organized this way]
 - **[folder]/:** [why organized this way]
 
-## Architectural Patterns
+## Architectural Patterns (아키텍처 패턴)
 
 ### Pattern 1: [Pattern Name]
 
@@ -97,9 +97,9 @@ src/
 **When to use:** [conditions]
 **Trade-offs:** [pros and cons]
 
-## Data Flow
+## Data Flow (데이터 흐름)
 
-### Request Flow
+### Request Flow (요청 흐름)
 
 ```
 [User Action]
@@ -109,7 +109,7 @@ src/
 [Response] ← [Transform] ← [Query] ← [Database]
 ```
 
-### State Management
+### State Management (상태 관리)
 
 ```
 [State Store]
@@ -117,12 +117,12 @@ src/
 [Components] ←→ [Actions] → [Reducers/Mutations] → [State Store]
 ```
 
-### Key Data Flows
+### Key Data Flows (핵심 데이터 흐름)
 
 1. **[Flow name]:** [description of how data moves]
 2. **[Flow name]:** [description of how data moves]
 
-## Scaling Considerations
+## Scaling Considerations (확장 고려사항)
 
 | Scale | Architecture Adjustments |
 |-------|--------------------------|
@@ -130,12 +130,12 @@ src/
 | 1k-100k users | [approach — what to optimize first] |
 | 100k+ users | [approach — when to consider splitting] |
 
-### Scaling Priorities
+### Scaling Priorities (확장 우선순위)
 
 1. **First bottleneck:** [what breaks first, how to fix]
 2. **Second bottleneck:** [what breaks next, how to fix]
 
-## Anti-Patterns
+## Anti-Patterns (안티패턴)
 
 ### Anti-Pattern 1: [Name]
 
@@ -149,22 +149,22 @@ src/
 **Why it's wrong:** [the problem it causes]
 **Do this instead:** [the correct approach]
 
-## Integration Points
+## Integration Points (통합 지점)
 
-### External Services
+### External Services (외부 서비스)
 
 | Service | Integration Pattern | Notes |
 |---------|---------------------|-------|
 | [service] | [how to connect] | [gotchas] |
 | [service] | [how to connect] | [gotchas] |
 
-### Internal Boundaries
+### Internal Boundaries (내부 경계)
 
 | Boundary | Communication | Notes |
 |----------|---------------|-------|
 | [module A ↔ module B] | [API/events/direct] | [considerations] |
 
-## Sources
+## Sources (출처)
 
 - [Architecture references]
 - [Official documentation]

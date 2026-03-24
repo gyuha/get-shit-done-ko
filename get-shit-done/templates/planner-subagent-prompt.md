@@ -1,13 +1,13 @@
-# Planner Subagent Prompt Template
+# 플래너 서브에이전트 프롬프트 템플릿 (Planner Subagent Prompt Template)
 
 > 한국어 우선 안내: 이 템플릿은 `planner-subagent-prompt` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for spawning gsd-planner agent. The agent contains all planning expertise - this template provides planning context only.
+gsd-planner agent를 spawn할 때 쓰는 템플릿입니다. 계획 수립 전문성은 agent 자체에 있고, 이 템플릿은 planning context만 전달합니다.
 
 ---
 
-## Template
+## Template (템플릿)
 
 ```markdown
 <planning_context>
@@ -58,7 +58,7 @@ Before returning PLANNING COMPLETE:
 
 ---
 
-## Placeholders
+## Placeholders (치환 변수)
 
 | Placeholder | Source | Example |
 |-------------|--------|---------|
@@ -69,7 +69,7 @@ Before returning PLANNING COMPLETE:
 
 ---
 
-## Usage
+## Usage (사용법)
 
 **From /gsd:plan-phase (standard mode):**
 ```python
@@ -91,7 +91,7 @@ Task(
 
 ---
 
-## Continuation
+## Continuation (이어서 진행)
 
 For checkpoints, spawn fresh agent with:
 

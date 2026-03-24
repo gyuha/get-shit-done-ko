@@ -1,17 +1,17 @@
-# Discovery Template
+# Discovery 템플릿 (Discovery Template)
 
 > 한국어 우선 안내: 이 템플릿은 `discovery` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/phases/XX-name/DISCOVERY.md` - shallow research for library/option decisions.
+Template for `.planning/phases/XX-name/DISCOVERY.md` - 라이브러리/옵션 선택을 위한 경량 조사 템플릿입니다.
 
-**Purpose:** Answer "which library/option should we use" questions during mandatory discovery in plan-phase.
+**Purpose:** plan-phase의 필수 discovery에서 "어떤 라이브러리/옵션을 써야 하나"에 답하기 위한 문서입니다.
 
 For deep ecosystem research ("how do experts build this"), use `/gsd:research-phase` which produces RESEARCH.md.
 
 ---
 
-## File Template
+## File Template (파일 템플릿)
 
 ```markdown
 ---
@@ -79,16 +79,16 @@ Create `.planning/phases/XX-name/DISCOVERY.md`:
 ```markdown
 # [Topic] Discovery
 
-## Summary
+## Summary (요약)
 [2-3 paragraph executive summary - what was researched, what was found, what's recommended]
 
-## Primary Recommendation
+## Primary Recommendation (주요 권장안)
 [What to do and why - be specific and actionable]
 
-## Alternatives Considered
+## Alternatives Considered (검토한 대안)
 [What else was evaluated and why not chosen]
 
-## Key Findings
+## Key Findings (핵심 발견)
 
 ### [Category 1]
 - [Finding with source URL and relevance to our case]
@@ -96,10 +96,10 @@ Create `.planning/phases/XX-name/DISCOVERY.md`:
 ### [Category 2]
 - [Finding with source URL and relevance]
 
-## Code Examples
+## Code Examples (코드 예시)
 [Relevant implementation patterns, if applicable]
 
-## Metadata
+## Metadata (메타데이터)
 
 <metadata>
 <confidence level="high|medium|low">

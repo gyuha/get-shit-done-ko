@@ -1,15 +1,15 @@
-# Research Template
+# 리서치 템플릿 (Research Template)
 
 > 한국어 우선 안내: 이 템플릿은 `research` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/phases/XX-name/{phase_num}-RESEARCH.md` - comprehensive ecosystem research before planning.
+Template for `.planning/phases/XX-name/{phase_num}-RESEARCH.md` - planning 전에 수행하는 심층 생태계 조사 템플릿입니다.
 
-**Purpose:** Document what Claude needs to know to implement a phase well - not just "which library" but "how do experts build this."
+**Purpose:** phase를 잘 구현하기 위해 Claude가 알아야 할 내용을 기록합니다. 단순한 라이브러리 선택이 아니라 전문가들이 실제로 어떻게 구현하는지를 다룹니다.
 
 ---
 
-## File Template
+## File Template (파일 템플릿)
 
 ```markdown
 # Phase [X]: [Name] - 리서치 (Research)
@@ -19,7 +19,7 @@ Template for `.planning/phases/XX-name/{phase_num}-RESEARCH.md` - comprehensive 
 **Confidence:** [HIGH/MEDIUM/LOW]
 
 <user_constraints>
-## User Constraints (from CONTEXT.md)
+## User Constraints (from CONTEXT.md / 사용자 제약)
 
 **CRITICAL:** If CONTEXT.md exists from /gsd:discuss-phase, copy locked decisions here verbatim. These MUST be honored by the planner.
 
@@ -42,7 +42,7 @@ Template for `.planning/phases/XX-name/{phase_num}-RESEARCH.md` - comprehensive 
 </user_constraints>
 
 <research_summary>
-## Summary
+## Summary (요약)
 
 [2-3문단의 executive summary]
 - 무엇을 조사했는지
@@ -53,7 +53,7 @@ Template for `.planning/phases/XX-name/{phase_num}-RESEARCH.md` - comprehensive 
 </research_summary>
 
 <standard_stack>
-## Standard Stack
+## Standard Stack (권장 스택)
 
 The established libraries/tools for this domain:
 
@@ -83,7 +83,7 @@ yarn add [packages]
 </standard_stack>
 
 <architecture_patterns>
-## Architecture Patterns
+## Architecture Patterns (아키텍처 패턴)
 
 ### Recommended Project Structure
 ```
@@ -115,7 +115,7 @@ src/
 </architecture_patterns>
 
 <dont_hand_roll>
-## Don't Hand-Roll
+## Don't Hand-Roll (직접 구현 금지/지양)
 
 Problems that look simple but have existing solutions:
 
@@ -129,7 +129,7 @@ Problems that look simple but have existing solutions:
 </dont_hand_roll>
 
 <common_pitfalls>
-## Common Pitfalls
+## Common Pitfalls (흔한 함정)
 
 ### Pitfall 1: [Name]
 **What goes wrong:** [description]
@@ -151,7 +151,7 @@ Problems that look simple but have existing solutions:
 </common_pitfalls>
 
 <code_examples>
-## Code Examples
+## Code Examples (코드 예시)
 
 Verified patterns from official sources:
 
@@ -175,7 +175,7 @@ Verified patterns from official sources:
 </code_examples>
 
 <sota_updates>
-## State of the Art (2024-2025)
+## State of the Art (2024-2025 / 최신 관행)
 
 What's changed recently:
 
@@ -192,7 +192,7 @@ What's changed recently:
 </sota_updates>
 
 <open_questions>
-## Open Questions
+## Open Questions (열린 질문)
 
 Things that couldn't be fully resolved:
 
@@ -208,7 +208,7 @@ Things that couldn't be fully resolved:
 </open_questions>
 
 <sources>
-## Sources
+## Sources (출처)
 
 ### Primary (HIGH confidence)
 - [Context7 library ID] - [topics fetched]
@@ -222,7 +222,7 @@ Things that couldn't be fully resolved:
 </sources>
 
 <metadata>
-## Metadata
+## Metadata (메타데이터)
 
 **Research scope:**
 - Core technology: [what]
@@ -259,7 +259,7 @@ Things that couldn't be fully resolved:
 **Confidence:** HIGH
 
 <research_summary>
-## Summary
+## Summary (요약)
 
 Researched the Three.js ecosystem for building a 3D city driving game. The standard approach uses Three.js with React Three Fiber for component architecture, Rapier for physics, and drei for common helpers.
 
@@ -269,7 +269,7 @@ Key finding: Don't hand-roll physics or collision detection. Rapier (via @react-
 </research_summary>
 
 <standard_stack>
-## Standard Stack
+## Standard Stack (권장 스택)
 
 ### Core
 | Library | Version | Purpose | Why Standard |
@@ -301,7 +301,7 @@ npm install three @react-three/fiber @react-three/drei @react-three/rapier zusta
 </standard_stack>
 
 <architecture_patterns>
-## Architecture Patterns
+## Architecture Patterns (아키텍처 패턴)
 
 ### Recommended Project Structure
 ```
@@ -377,7 +377,7 @@ function Buildings({ positions }) {
 </architecture_patterns>
 
 <dont_hand_roll>
-## Don't Hand-Roll
+## Don't Hand-Roll (직접 구현 금지/지양)
 
 | Problem | Don't Build | Use Instead | Why |
 |---------|-------------|-------------|-----|
@@ -391,7 +391,7 @@ function Buildings({ positions }) {
 </dont_hand_roll>
 
 <common_pitfalls>
-## Common Pitfalls
+## Common Pitfalls (흔한 함정)
 
 ### Pitfall 1: Physics Tunneling
 **What goes wrong:** Fast objects pass through walls
@@ -413,7 +413,7 @@ function Buildings({ positions }) {
 </common_pitfalls>
 
 <code_examples>
-## Code Examples
+## Code Examples (코드 예시)
 
 ### Basic R3F + Rapier Setup
 ```typescript
@@ -462,7 +462,7 @@ function useVehicleControls(rigidBodyRef) {
 </code_examples>
 
 <sota_updates>
-## State of the Art (2024-2025)
+## State of the Art (2024-2025 / 최신 관행)
 
 | Old Approach | Current Approach | When Changed | Impact |
 |--------------|------------------|--------------|--------|
@@ -480,7 +480,7 @@ function useVehicleControls(rigidBodyRef) {
 </sota_updates>
 
 <sources>
-## Sources
+## Sources (출처)
 
 ### Primary (HIGH confidence)
 - /pmndrs/react-three-fiber - getting started, hooks, performance
@@ -496,7 +496,7 @@ function useVehicleControls(rigidBodyRef) {
 </sources>
 
 <metadata>
-## Metadata
+## Metadata (메타데이터)
 
 **Research scope:**
 - Core technology: Three.js + React Three Fiber
@@ -523,7 +523,7 @@ function useVehicleControls(rigidBodyRef) {
 
 ---
 
-## Guidelines
+## Guidelines (가이드라인)
 
 **When to create:**
 - Before planning phases in niche/complex domains

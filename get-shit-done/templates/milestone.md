@@ -35,7 +35,7 @@ Add this entry to `.planning/MILESTONES.md` when completing a milestone:
 If MILESTONES.md doesn't exist, create it with header:
 
 ```markdown
-# Project Milestones: [Project Name]
+# Project Milestones: [Project Name] (프로젝트 마일스톤)
 
 [Entries in reverse chronological order - newest first]
 ```
@@ -61,7 +61,7 @@ If MILESTONES.md doesn't exist, create it with header:
 
 **Git range format:**
 - First commit of milestone → last commit of milestone
-- Example: `feat(01-01)` → `feat(04-01)` for phases 1-4
+- 예시: `feat(01-01)` → `feat(04-01)` for phases 1-4
 </guidelines>
 
 <example>

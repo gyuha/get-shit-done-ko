@@ -1,9 +1,9 @@
-# Continue-Here Template
+# 이어서 작업 템플릿 (Continue-Here Template)
 
 > 한국어 우선 안내: 이 템플릿은 `continue-here` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Copy and fill this structure for `.planning/phases/XX-name/.continue-here.md`:
+`.planning/phases/XX-name/.continue-here.md`에 아래 구조를 복사해서 채우세요:
 
 ```yaml
 ---
@@ -17,6 +17,7 @@ last_updated: 2025-01-15T14:30:00Z
 
 ```markdown
 <current_state>
+[현재 정확히 어디까지 왔는지, 즉시 이어갈 맥락]
 [Where exactly are we? What's the immediate context?]
 </current_state>
 

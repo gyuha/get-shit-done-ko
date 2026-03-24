@@ -1,15 +1,15 @@
-# User Setup Template
+# 사용자 설정 템플릿 (User Setup Template)
 
 > 한국어 우선 안내: 이 템플릿은 `user-setup` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/phases/XX-name/{phase}-USER-SETUP.md` - human-required configuration that Claude cannot automate.
+Template for `.planning/phases/XX-name/{phase}-USER-SETUP.md` - Claude가 자동화할 수 없는 사람 손 작업을 기록하는 템플릿입니다.
 
-**Purpose:** Document setup tasks that literally require human action - account creation, dashboard configuration, secret retrieval. Claude automates everything possible; this file captures only what remains.
+**Purpose:** 계정 생성, 대시보드 설정, secret 조회처럼 사람이 직접 해야 하는 설정만 기록합니다. Claude가 자동화할 수 있는 것은 최대한 자동화하고, 남는 수동 작업만 이 파일에 남깁니다.
 
 ---
 
-## File Template
+## File Template (파일 템플릿)
 
 ```markdown
 # Phase {X}: User Setup Required
@@ -20,14 +20,14 @@ Template for `.planning/phases/XX-name/{phase}-USER-SETUP.md` - human-required c
 
 Complete these items for the integration to function. Claude automated everything possible; these items require human access to external dashboards/accounts.
 
-## Environment Variables
+## Environment Variables (환경 변수)
 
 | Status | Variable | Source | Add to |
 |--------|----------|--------|--------|
 | [ ] | `ENV_VAR_NAME` | [Service Dashboard → Path → To → Value] | `.env.local` |
 | [ ] | `ANOTHER_VAR` | [Service Dashboard → Path → To → Value] | `.env.local` |
 
-## Account Setup
+## Account Setup (계정 설정)
 
 [Only if new account creation is required]
 
@@ -35,7 +35,7 @@ Complete these items for the integration to function. Claude automated everythin
   - URL: [signup URL]
   - Skip if: Already have account
 
-## Dashboard Configuration
+## Dashboard Configuration (대시보드 설정)
 
 [Only if dashboard configuration is required]
 
@@ -44,7 +44,7 @@ Complete these items for the integration to function. Claude automated everythin
   - Set to: [Required value or configuration]
   - Notes: [Any important details]
 
-## Verification
+## Verification (검증)
 
 After completing setup, verify with:
 
@@ -62,7 +62,7 @@ Expected results:
 
 ---
 
-## When to Generate
+## When to Generate (생성 시점)
 
 Generate `{phase}-USER-SETUP.md` when plan frontmatter contains `user_setup` field.
 
@@ -74,7 +74,7 @@ Generate `{phase}-USER-SETUP.md` when plan frontmatter contains `user_setup` fie
 
 ---
 
-## Frontmatter Schema
+## Frontmatter Schema (frontmatter 스키마)
 
 In PLAN.md, `user_setup` declares human-required configuration:
 
@@ -98,7 +98,7 @@ user_setup:
 
 ---
 
-## The Automation-First Rule
+## The Automation-First Rule (자동화 우선 원칙)
 
 **USER-SETUP.md contains ONLY what Claude literally cannot do.**
 
@@ -117,7 +117,7 @@ user_setup:
 
 ---
 
-## Service-Specific Examples
+## Service-Specific Examples (서비스별 예시)
 
 <stripe_example>
 ```markdown
@@ -129,7 +129,7 @@ user_setup:
 
 Complete these items for Stripe integration to function.
 
-## Environment Variables
+## Environment Variables (환경 변수)
 
 | Status | Variable | Source | Add to |
 |--------|----------|--------|--------|
@@ -137,13 +137,13 @@ Complete these items for Stripe integration to function.
 | [ ] | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe Dashboard → Developers → API keys → Publishable key | `.env.local` |
 | [ ] | `STRIPE_WEBHOOK_SECRET` | Stripe Dashboard → Developers → Webhooks → [endpoint] → Signing secret | `.env.local` |
 
-## Account Setup
+## Account Setup (계정 설정)
 
 - [ ] **Create Stripe account** (if needed)
   - URL: https://dashboard.stripe.com/register
   - Skip if: Already have Stripe account
 
-## Dashboard Configuration
+## Dashboard Configuration (대시보드 설정)
 
 - [ ] **Create webhook endpoint**
   - Location: Stripe Dashboard → Developers → Webhooks → Add endpoint
@@ -161,7 +161,7 @@ Complete these items for Stripe integration to function.
     - `STRIPE_STARTER_PRICE_ID`
     - `STRIPE_PRO_PRICE_ID`
 
-## Local Development
+## Local Development (로컬 개발)
 
 For local webhook testing:
 ```bash
@@ -169,7 +169,7 @@ stripe listen --forward-to localhost:3000/api/webhooks/stripe
 ```
 Use the webhook signing secret from CLI output (starts with `whsec_`).
 
-## Verification
+## Verification (검증)
 
 After completing setup:
 
@@ -204,7 +204,7 @@ Expected: Build passes, webhook returns 400 (signature validation working).
 
 Complete these items for Supabase Auth to function.
 
-## Environment Variables
+## Environment Variables (환경 변수)
 
 | Status | Variable | Source | Add to |
 |--------|----------|--------|--------|
@@ -212,13 +212,13 @@ Complete these items for Supabase Auth to function.
 | [ ] | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase Dashboard → Settings → API → anon public | `.env.local` |
 | [ ] | `SUPABASE_SERVICE_ROLE_KEY` | Supabase Dashboard → Settings → API → service_role | `.env.local` |
 
-## Account Setup
+## Account Setup (계정 설정)
 
 - [ ] **Create Supabase project**
   - URL: https://supabase.com/dashboard/new
   - Skip if: Already have project for this app
 
-## Dashboard Configuration
+## Dashboard Configuration (대시보드 설정)
 
 - [ ] **Enable Email Auth**
   - Location: Supabase Dashboard → Authentication → Providers
@@ -230,7 +230,7 @@ Complete these items for Supabase Auth to function.
   - For Google: Add Client ID and Secret from Google Cloud Console
   - For GitHub: Add Client ID and Secret from GitHub OAuth Apps
 
-## Verification
+## Verification (검증)
 
 After completing setup:
 
@@ -258,20 +258,20 @@ npx supabase status
 
 Complete these items for SendGrid email to function.
 
-## Environment Variables
+## Environment Variables (환경 변수)
 
 | Status | Variable | Source | Add to |
 |--------|----------|--------|--------|
 | [ ] | `SENDGRID_API_KEY` | SendGrid Dashboard → Settings → API Keys → Create API Key | `.env.local` |
 | [ ] | `SENDGRID_FROM_EMAIL` | Your verified sender email address | `.env.local` |
 
-## Account Setup
+## Account Setup (계정 설정)
 
 - [ ] **Create SendGrid account**
   - URL: https://signup.sendgrid.com/
   - Skip if: Already have account
 
-## Dashboard Configuration
+## Dashboard Configuration (대시보드 설정)
 
 - [ ] **Verify sender identity**
   - Location: SendGrid Dashboard → Settings → Sender Authentication
@@ -283,7 +283,7 @@ Complete these items for SendGrid email to function.
   - Permission: Restricted Access → Mail Send (Full Access)
   - Copy key immediately (shown only once)
 
-## Verification
+## Verification (검증)
 
 After completing setup:
 
@@ -305,7 +305,7 @@ curl -X POST http://localhost:3000/api/test-email \
 
 ---
 
-## Guidelines
+## Guidelines (가이드라인)
 
 **Never include:** Actual secret values. Steps Claude can automate (package installs, code changes).
 

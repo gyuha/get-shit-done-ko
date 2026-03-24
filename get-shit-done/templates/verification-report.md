@@ -1,13 +1,13 @@
-# Verification Report Template
+# 검증 리포트 템플릿 (Verification Report Template)
 
 > 한국어 우선 안내: 이 템플릿은 `verification-report` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/phases/XX-name/{phase_num}-VERIFICATION.md` — phase goal verification results.
+Template for `.planning/phases/XX-name/{phase_num}-VERIFICATION.md` — phase 목표 검증 결과를 기록하는 템플릿입니다.
 
 ---
 
-## File Template
+## File Template (파일 템플릿)
 
 ```markdown
 ---
@@ -23,9 +23,9 @@ score: N/M must-haves verified
 **Verified:** {timestamp}
 **Status:** {passed | gaps_found | human_needed}
 
-## Goal Achievement
+## Goal Achievement (목표 달성 여부)
 
-### Observable Truths
+### Observable Truths (관찰 가능한 사실)
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
@@ -35,7 +35,7 @@ score: N/M must-haves verified
 
 **Score:** {N}/{M} truths verified
 
-### Required Artifacts
+### Required Artifacts (필수 산출물)
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
@@ -45,7 +45,7 @@ score: N/M must-haves verified
 
 **Artifacts:** {N}/{M} verified
 
-### Key Link Verification
+### Key Link Verification (핵심 연결 검증)
 
 | From | To | Via | Status | Details |
 |------|----|----|--------|---------|
@@ -55,7 +55,7 @@ score: N/M must-haves verified
 
 **Wiring:** {N}/{M} connections verified
 
-## Requirements Coverage
+## Requirements Coverage (요구사항 커버리지)
 
 | Requirement | Status | Blocking Issue |
 |-------------|--------|----------------|
@@ -65,7 +65,7 @@ score: N/M must-haves verified
 
 **Coverage:** {N}/{M} requirements satisfied
 
-## Anti-Patterns Found
+## Anti-Patterns Found (발견된 안티패턴)
 
 | File | Line | Pattern | Severity | Impact |
 |------|------|---------|----------|--------|
@@ -75,7 +75,7 @@ score: N/M must-haves verified
 
 **Anti-patterns:** {N} found ({blockers} blockers, {warnings} warnings)
 
-## Human Verification Required
+## Human Verification Required (사람 확인 필요)
 
 {If no human verification needed:}
 없음 — 프로그래밍적으로 검증 가능한 항목은 모두 확인됨.
@@ -92,14 +92,14 @@ score: N/M must-haves verified
 **Expected:** {What should happen}
 **Why human:** {Why can't verify programmatically}
 
-## Gaps Summary
+## Gaps Summary (격차 요약)
 
 {If no gaps:}
 **Gap 없음.** Phase 목표 달성. 다음 단계 진행 가능.
 
 {If gaps found:}
 
-### Critical Gaps (Block Progress)
+### Critical Gaps (Block Progress / 진행 차단 격차)
 
 1. **{Gap name}**
    - Missing: {what's missing}
@@ -111,14 +111,14 @@ score: N/M must-haves verified
    - Impact: {why this blocks the goal}
    - Fix: {what needs to happen}
 
-### Non-Critical Gaps (Can Defer)
+### Non-Critical Gaps (Can Defer / 나중으로 미룰 수 있는 격차)
 
 1. **{Gap name}**
    - Issue: {what's wrong}
    - Impact: {limited impact because...}
    - Recommendation: {fix now or defer}
 
-## Recommended Fix Plans
+## Recommended Fix Plans (권장 수정 plan)
 
 {If gaps found, generate fix plan recommendations:}
 
@@ -147,7 +147,7 @@ score: N/M must-haves verified
 
 ---
 
-## Verification Metadata
+## Verification Metadata (검증 메타데이터)
 
 **Verification approach:** Goal-backward (derived from phase goal)
 **Must-haves source:** {PLAN.md frontmatter | derived from ROADMAP.md goal}
@@ -162,7 +162,7 @@ score: N/M must-haves verified
 
 ---
 
-## Guidelines
+## Guidelines (가이드라인)
 
 **Status values:**
 - `passed` — All must-haves verified, no blockers
@@ -188,7 +188,7 @@ score: N/M must-haves verified
 
 ---
 
-## Example
+## Example (예시)
 
 ```markdown
 ---
@@ -204,9 +204,9 @@ score: 2/5 must-haves verified
 **Verified:** 2025-01-15T14:30:00Z
 **Status:** gaps_found
 
-## Goal Achievement
+## Goal Achievement (목표 달성 여부)
 
-### Observable Truths
+### Observable Truths (관찰 가능한 사실)
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
@@ -218,7 +218,7 @@ score: 2/5 must-haves verified
 
 **Score:** 1/5 truths verified
 
-### Required Artifacts
+### Required Artifacts (필수 산출물)
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
@@ -229,7 +229,7 @@ score: 2/5 must-haves verified
 
 **Artifacts:** 2/4 verified
 
-### Key Link Verification
+### Key Link Verification (핵심 연결 검증)
 
 | From | To | Via | Status | Details |
 |------|----|----|--------|---------|
@@ -240,7 +240,7 @@ score: 2/5 must-haves verified
 
 **Wiring:** 0/4 connections verified
 
-## Requirements Coverage
+## Requirements Coverage (요구사항 커버리지)
 
 | Requirement | Status | Blocking Issue |
 |-------------|--------|----------------|
@@ -250,7 +250,7 @@ score: 2/5 must-haves verified
 
 **Coverage:** 0/3 requirements satisfied
 
-## Anti-Patterns Found
+## Anti-Patterns Found (발견된 안티패턴)
 
 | File | Line | Pattern | Severity | Impact |
 |------|------|---------|----------|--------|
@@ -260,13 +260,13 @@ score: 2/5 must-haves verified
 
 **Anti-patterns:** 3 found (2 blockers, 1 warning)
 
-## Human Verification Required
+## Human Verification Required (사람 확인 필요)
 
 None needed until automated gaps are fixed.
 
-## Gaps Summary
+## Gaps Summary (격차 요약)
 
-### Critical Gaps (Block Progress)
+### Critical Gaps (Block Progress / 진행 차단 격차)
 
 1. **Chat component is placeholder**
    - Missing: Actual message list rendering
@@ -283,7 +283,7 @@ None needed until automated gaps are fixed.
    - Impact: Even if API worked, UI wouldn't call it
    - Fix: Add useEffect fetch in Chat, onSubmit fetch in ChatInput
 
-## Recommended Fix Plans
+## Recommended Fix Plans (권장 수정 plan)
 
 ### 03-04-PLAN.md: Implement Chat API
 
@@ -311,7 +311,7 @@ None needed until automated gaps are fixed.
 
 ---
 
-## Verification Metadata
+## Verification Metadata (검증 메타데이터)
 
 **Verification approach:** Goal-backward (derived from phase goal)
 **Must-haves source:** 03-01-PLAN.md frontmatter

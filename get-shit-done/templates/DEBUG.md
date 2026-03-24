@@ -1,13 +1,13 @@
-# Debug Template
+# 디버그 템플릿 (Debug Template)
 
 > 한국어 우선 안내: 이 템플릿은 `DEBUG` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/debug/[slug].md` — active debug session tracking.
+Template for `.planning/debug/[slug].md` — 진행 중인 디버그 세션을 추적하는 템플릿입니다.
 
 ---
 
-## File Template
+## File Template (파일 템플릿)
 
 ```markdown
 ---
@@ -17,7 +17,7 @@ created: [ISO timestamp]
 updated: [ISO timestamp]
 ---
 
-## Current Focus
+## Current Focus (현재 초점)
 <!-- OVERWRITE on each update - always reflects NOW -->
 
 hypothesis: [current theory being tested]
@@ -25,7 +25,7 @@ test: [how testing it]
 expecting: [what result means if true/false]
 next_action: [immediate next step]
 
-## Symptoms
+## Symptoms (증상)
 <!-- Written during gathering, then immutable -->
 
 expected: [what should happen]
@@ -34,14 +34,14 @@ errors: [error messages if any]
 reproduction: [how to trigger]
 started: [when it broke / always broken]
 
-## Eliminated
+## Eliminated (제외된 가설)
 <!-- APPEND only - prevents re-investigating after /clear -->
 
 - hypothesis: [theory that was wrong]
   evidence: [what disproved it]
   timestamp: [when eliminated]
 
-## Evidence
+## Evidence (증거)
 <!-- APPEND only - facts discovered during investigation -->
 
 - timestamp: [when found]
@@ -49,7 +49,7 @@ started: [when it broke / always broken]
   found: [what was observed]
   implication: [what this means]
 
-## Resolution
+## Resolution (해결)
 <!-- OVERWRITE as understanding evolves -->
 
 root_cause: [empty until found]
@@ -102,7 +102,7 @@ files_changed: []
 
 <lifecycle>
 
-**Creation:** Immediately when /gsd:debug is called
+**Creation (생성 시점):** `/gsd:debug`가 시작되면 즉시 생성
 - Create file with trigger from user input
 - Set status to "gathering"
 - Current Focus: next_action = "gather symptoms"

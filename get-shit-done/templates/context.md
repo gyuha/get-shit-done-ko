@@ -1,13 +1,13 @@
-# Phase Context Template
+# Phase 컨텍스트 템플릿 (Phase Context Template)
 
 > 한국어 우선 안내: 이 템플릿은 `context` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
 
-Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implementation decisions for a phase.
+Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - phase의 구현 결정을 기록하는 템플릿입니다.
 
-**Purpose:** Document decisions that downstream agents need. Researcher uses this to know WHAT to investigate. Planner uses this to know WHAT choices are locked vs flexible.
+**Purpose:** downstream agent가 꼭 알아야 하는 결정을 기록합니다. researcher는 무엇을 조사할지, planner는 무엇이 고정 결정인지 파악하는 데 사용합니다.
 
-**Key principle:** Categories are NOT predefined. They emerge from what was actually discussed for THIS phase. A CLI phase has CLI-relevant sections, a UI phase has UI-relevant sections.
+**Key principle:** 카테고리는 미리 정하지 않습니다. 이 phase에서 실제로 논의된 주제에 따라 자연스럽게 드러나야 합니다.
 
 **Downstream consumers:**
 - `gsd-phase-researcher` — Reads decisions to focus research (e.g., "card layout" → research card component patterns)
@@ -15,7 +15,7 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 
 ---
 
-## File Template
+## File Template (파일 템플릿)
 
 ```markdown
 # Phase [X]: [Name] - 컨텍스트 (Context)
@@ -24,14 +24,14 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 **Status:** 계획 준비 완료
 
 <domain>
-## Phase Boundary
+## Phase Boundary (phase 경계)
 
 [이 phase가 무엇을 전달하는지 명확히 적습니다. ROADMAP.md에서 온 고정 범위이며, discussion은 이 범위 안의 구현 방식을 구체화합니다.]
 
 </domain>
 
 <decisions>
-## Implementation Decisions
+## Implementation Decisions (구현 결정)
 
 ### [논의한 영역 1]
 - **D-01:** [내린 구체적 결정]
@@ -43,13 +43,13 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 ### [논의한 영역 3]
 - **D-04:** [내린 구체적 결정]
 
-### Claude's Discretion
+### Claude's Discretion (Claude 재량)
 [사용자가 "너가 정해도 된다"라고 한 영역. planning/implementation 중 Claude가 재량을 가질 수 있습니다.]
 
 </decisions>
 
 <specifics>
-## Specific Ideas
+## Specific Ideas (구체 아이디어)
 
 [discussion 중 나온 구체 레퍼런스, 예시, "이런 느낌" 요구를 적습니다. 제품 레퍼런스, 행동 방식, 상호작용 패턴 등을 포함합니다.]
 
@@ -58,7 +58,7 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 </specifics>
 
 <canonical_refs>
-## Canonical References
+## Canonical References (정본 참조 문서)
 
 **Downstream agents MUST read these before planning or implementing.**
 
@@ -76,7 +76,7 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 </canonical_refs>
 
 <code_context>
-## Existing Code Insights
+## Existing Code Insights (기존 코드 인사이트)
 
 ### Reusable Assets
 - [컴포넌트/hook/유틸]: [이 phase에서 어떻게 활용할 수 있는지]
@@ -90,7 +90,7 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 </code_context>
 
 <deferred>
-## Deferred Ideas
+## Deferred Ideas (보류 아이디어)
 
 [discussion 중 나왔지만 다른 phase에 속하는 아이디어를 적습니다. 잃어버리지 않도록 남기되, 이번 phase 범위 밖임을 명시합니다.]
 
@@ -115,14 +115,14 @@ Template for `.planning/phases/XX-name/{phase_num}-CONTEXT.md` - captures implem
 **Status:** Ready for planning
 
 <domain>
-## Phase Boundary
+## Phase Boundary (phase 경계)
 
 Display posts from followed users in a scrollable feed. Users can view posts and see engagement counts. Creating posts and interactions are separate phases.
 
 </domain>
 
 <decisions>
-## Implementation Decisions
+## Implementation Decisions (구현 결정)
 
 ### Layout style
 - Card-based layout, not timeline or list
@@ -138,7 +138,7 @@ Display posts from followed users in a scrollable feed. Users can view posts and
 - Friendly illustration + "Follow people to see posts here"
 - Suggest 3-5 accounts to follow based on interests
 
-### Claude's Discretion
+### Claude's Discretion (Claude 재량)
 - Loading skeleton design
 - Exact spacing and typography
 - Error state handling
@@ -146,7 +146,7 @@ Display posts from followed users in a scrollable feed. Users can view posts and
 </decisions>
 
 <canonical_refs>
-## Canonical References
+## Canonical References (정본 참조 문서)
 
 ### Feed display
 - `docs/features/social-feed.md` — Feed requirements, post card fields, engagement display rules
@@ -158,7 +158,7 @@ Display posts from followed users in a scrollable feed. Users can view posts and
 </canonical_refs>
 
 <specifics>
-## Specific Ideas
+## Specific Ideas (구체 아이디어)
 
 - "I like how Twitter shows the new posts indicator without disrupting your scroll position"
 - Cards should feel like Linear's issue cards — clean, not cluttered
@@ -166,7 +166,7 @@ Display posts from followed users in a scrollable feed. Users can view posts and
 </specifics>
 
 <deferred>
-## Deferred Ideas
+## Deferred Ideas (보류 아이디어)
 
 - Commenting on posts — Phase 5
 - Bookmarking posts — add to backlog
@@ -188,14 +188,14 @@ Display posts from followed users in a scrollable feed. Users can view posts and
 **Status:** Ready for planning
 
 <domain>
-## Phase Boundary
+## Phase Boundary (phase 경계)
 
 CLI command to backup database to local file or S3. Supports full and incremental backups. Restore command is a separate phase.
 
 </domain>
 
 <decisions>
-## Implementation Decisions
+## Implementation Decisions (구현 결정)
 
 ### Output format
 - JSON for programmatic use, table format for humans
@@ -212,7 +212,7 @@ CLI command to backup database to local file or S3. Supports full and incrementa
 - --no-retry flag to fail fast
 - Partial backups are deleted on failure (no corrupt files)
 
-### Claude's Discretion
+### Claude's Discretion (Claude 재량)
 - Exact progress bar implementation
 - Compression algorithm choice
 - Temp file handling
@@ -220,7 +220,7 @@ CLI command to backup database to local file or S3. Supports full and incrementa
 </decisions>
 
 <canonical_refs>
-## Canonical References
+## Canonical References (정본 참조 문서)
 
 ### Backup CLI
 - `docs/features/backup-restore.md` — Backup requirements, supported backends, encryption spec
@@ -229,7 +229,7 @@ CLI command to backup database to local file or S3. Supports full and incrementa
 </canonical_refs>
 
 <specifics>
-## Specific Ideas
+## Specific Ideas (구체 아이디어)
 
 - "I want it to feel like pg_dump — familiar to database people"
 - Should work in CI pipelines (exit codes, no interactive prompts)
@@ -237,7 +237,7 @@ CLI command to backup database to local file or S3. Supports full and incrementa
 </specifics>
 
 <deferred>
-## Deferred Ideas
+## Deferred Ideas (보류 아이디어)
 
 - Scheduled backups — separate phase
 - Backup rotation/retention — add to backlog
@@ -259,14 +259,14 @@ CLI command to backup database to local file or S3. Supports full and incrementa
 **Status:** Ready for planning
 
 <domain>
-## Phase Boundary
+## Phase Boundary (phase 경계)
 
 Organize existing photo library into structured folders. Handle duplicates and apply consistent naming. Tagging and search are separate phases.
 
 </domain>
 
 <decisions>
-## Implementation Decisions
+## Implementation Decisions (구현 결정)
 
 ### Grouping criteria
 - Primary grouping by year, then by month
@@ -283,7 +283,7 @@ Organize existing photo library into structured folders. Handle duplicates and a
 - Preserve original filename as suffix for searchability
 - Handle name collisions with incrementing suffix
 
-### Claude's Discretion
+### Claude's Discretion (Claude 재량)
 - Exact clustering algorithm
 - How to handle photos with no EXIF data
 - Folder emoji usage
@@ -291,7 +291,7 @@ Organize existing photo library into structured folders. Handle duplicates and a
 </decisions>
 
 <canonical_refs>
-## Canonical References
+## Canonical References (정본 참조 문서)
 
 ### Organization rules
 - `docs/features/photo-organization.md` — Grouping rules, duplicate policy, naming spec
@@ -300,7 +300,7 @@ Organize existing photo library into structured folders. Handle duplicates and a
 </canonical_refs>
 
 <specifics>
-## Specific Ideas
+## Specific Ideas (구체 아이디어)
 
 - "I want to be able to find photos by roughly when they were taken"
 - Don't delete anything — worst case, move to a review folder
@@ -308,7 +308,7 @@ Organize existing photo library into structured folders. Handle duplicates and a
 </specifics>
 
 <deferred>
-## Deferred Ideas
+## Deferred Ideas (보류 아이디어)
 
 - Face detection grouping — future phase
 - Cloud sync — out of scope for now
