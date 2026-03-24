@@ -5,7 +5,9 @@ const os = require('os');
 const path = require('path');
 
 const {
+  buildOverlayMissing,
   buildTranslationCandidates,
+  buildZhCnReintroduced,
   runAudit,
 } = require('../scripts/audit-localization-gap.cjs');
 
@@ -55,6 +57,25 @@ describe('localization audit', () => {
     );
   });
 
+  test('derives overlay gaps and zh-CN findings from deterministic inputs', () => {
+    const upstreamDir = makeTempDir('l10n-audit-upstream-content');
+    writeFile(upstreamDir, 'docs/index.md', 'See README.zh-CN.md for Chinese readers.\n');
+    writeFile(upstreamDir, 'README.zh-CN.md', 'Chinese readme\n');
+
+    assert.deepStrictEqual(
+      buildOverlayMissing(
+        ['README.md', 'docs/guide.md', 'commands/new-command.md'],
+        ['README.md']
+      ),
+      ['docs/guide.md', 'commands/new-command.md']
+    );
+
+    assert.deepStrictEqual(
+      buildZhCnReintroduced(['README.zh-CN.md', 'docs/index.md'], upstreamDir),
+      ['README.zh-CN.md', 'docs/index.md']
+    );
+  });
+
   test('produces changed_files and translation_candidates from baseline and upstream snapshots', () => {
     const repoDir = makeTempDir('l10n-audit-repo');
     const baselineDir = makeTempDir('l10n-audit-baseline');
@@ -74,7 +95,9 @@ describe('localization audit', () => {
     writeFile(repoDir, 'docs/localized-guide.md', 'keep my local overlay\n');
 
     writeFile(upstreamDir, 'README.md', 'upstream readme\n');
+    writeFile(upstreamDir, 'README.zh-CN.md', 'Chinese readme\n');
     writeFile(upstreamDir, 'docs/guide.md', 'upstream guide\n');
+    writeFile(upstreamDir, 'docs/index.md', 'Link to README.zh-CN.md\n');
     writeFile(upstreamDir, 'scripts/tool.cjs', 'console.log("upstream");\n');
     writeFile(upstreamDir, 'commands/new-command.md', 'new command\n');
 
@@ -91,8 +114,10 @@ describe('localization audit', () => {
     assert.strictEqual(result.apply_mode, 'source-of-truth');
     assert.deepStrictEqual(result.changed_files, [
       'README.md',
+      'README.zh-CN.md',
       'commands/new-command.md',
       'docs/guide.md',
+      'docs/index.md',
       'get-shit-done/UPSTREAM_VERSION',
       'package.json',
       'scripts/tool.cjs',
@@ -101,6 +126,16 @@ describe('localization audit', () => {
       'README.md',
       'commands/new-command.md',
       'docs/guide.md',
+      'docs/index.md',
+    ]);
+    assert.deepStrictEqual(result.overlay_missing, [
+      'commands/new-command.md',
+      'docs/guide.md',
+      'docs/index.md',
+    ]);
+    assert.deepStrictEqual(result.zh_cn_reintroduced, [
+      'README.zh-CN.md',
+      'docs/index.md',
     ]);
     assert.ok(result.overlay_reapply.includes('README.md'));
     assert.ok(result.overlay_reapply.includes('docs/localized-guide.md'));

@@ -162,6 +162,34 @@ function buildTranslationCandidates(changedFiles) {
   return changedFiles.filter(isTranslationCandidate);
 }
 
+function buildOverlayMissing(translationCandidates, overlayReapply) {
+  const preserved = new Set(overlayReapply);
+  return translationCandidates.filter(relativePath => !preserved.has(relativePath));
+}
+
+function buildZhCnReintroduced(changedFiles, upstreamDir) {
+  const findings = [];
+
+  for (const relativePath of changedFiles) {
+    if (/zh-CN/i.test(relativePath)) {
+      findings.push(relativePath);
+      continue;
+    }
+
+    const upstreamPath = path.join(upstreamDir, relativePath);
+    if (!pathExists(upstreamPath) || fs.statSync(upstreamPath).isDirectory()) {
+      continue;
+    }
+
+    const content = fs.readFileSync(upstreamPath, 'utf8');
+    if (/zh-CN|Chinese|README\.zh-CN\.md/i.test(content)) {
+      findings.push(relativePath);
+    }
+  }
+
+  return findings;
+}
+
 function cleanupTempDirs(dirs) {
   for (const dir of dirs) {
     if (dir) {
@@ -226,6 +254,8 @@ function runAudit(args) {
       overlay_reapply: dryRun.overlay_reapply,
       overlay_delete: dryRun.overlay_delete,
       translation_candidates: buildTranslationCandidates(changedFiles),
+      overlay_missing: buildOverlayMissing(buildTranslationCandidates(changedFiles), dryRun.overlay_reapply),
+      zh_cn_reintroduced: buildZhCnReintroduced(changedFiles, upstreamDir),
     };
   } finally {
     cleanupTempDirs(tempDirs);
@@ -288,7 +318,9 @@ if (require.main === module) {
 }
 
 module.exports = {
+  buildOverlayMissing,
   buildTranslationCandidates,
+  buildZhCnReintroduced,
   collectChangedFiles,
   formatHuman,
   parseArgs,
