@@ -160,3 +160,14 @@ Plans:
 Plans:
 - [x] 08-01: Localize the authoritative installed-runtime planning generators and templates under `.codex/get-shit-done/`.
 - [x] 08-02: Add direct installed-runtime regression coverage for Korean-first planning output and parser-safe guardrails.
+
+## Backlog
+
+### Phase 999.1: Make `gsd:help` command output Korean-first instead of mixed Korean-English (BACKLOG)
+
+**Goal:** [Captured for future planning]
+**Requirements:** TBD
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (promote with $gsd-review-backlog when ready)
