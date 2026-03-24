@@ -92,7 +92,20 @@ node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag> --mode source-of-t
 
 이 mode는 tracked upstream surface를 다시 가져오고, local overlay를 재적용하고, 제거된 overlay는 삭제한 뒤 `get-shit-done/UPSTREAM_VERSION`를 새 기준선으로 갱신합니다.
 
-9. apply가 끝나면 다음 canonical validation을 실행합니다.
+9. localization audit가 필요하면 다음 명령으로 changed manifest를 생성합니다.
+
+```bash
+node scripts/audit-localization-gap.cjs --to-tag <latest_tag> --mode source-of-truth --json
+```
+
+audit 결과에서는 아래 필드를 우선 확인합니다.
+
+- changed_files
+- overlay_reapply
+- overlay_delete
+- translation_candidates
+
+10. apply가 끝나면 다음 canonical validation을 실행합니다.
 
 ```bash
 node get-shit-done/bin/gsd-tools.cjs validate health

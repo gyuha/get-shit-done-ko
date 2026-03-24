@@ -138,6 +138,7 @@ compare status 해석:
 node scripts/check-upstream-release.cjs --current-file get-shit-done/UPSTREAM_VERSION --json
 node scripts/apply-upstream-refresh.cjs --from-current --to-tag <latest_tag> --dry-run
 node scripts/apply-upstream-refresh.cjs --to-tag <latest_tag> --mode source-of-truth
+node scripts/audit-localization-gap.cjs --to-tag <latest_tag> --mode source-of-truth --json
 node get-shit-done/bin/gsd-tools.cjs validate health
 node get-shit-done/bin/gsd-tools.cjs validate consistency
 node get-shit-done/bin/gsd-tools.cjs roadmap analyze
@@ -145,6 +146,8 @@ node scripts/run-tests.cjs
 ```
 
 `--mode source-of-truth`는 tracked upstream import surface를 다시 가져오고, local overlay를 재적용하고, 제거된 overlay를 삭제한 뒤 `get-shit-done/UPSTREAM_VERSION`를 새 baseline으로 갱신하는 기본 apply mode입니다.
+
+localization audit 단계에서는 `node scripts/audit-localization-gap.cjs --to-tag <latest_tag> --mode source-of-truth --json`를 실행해 `changed_files`, `overlay_reapply`, `overlay_delete`, `translation_candidates`를 확인합니다.
 
 루트 import surface를 일시적으로 넓혀야 하면 `--include-entry <path>`를 추가할 수 있습니다.
 
