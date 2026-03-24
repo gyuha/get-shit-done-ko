@@ -3,7 +3,7 @@
 
 한국어 우선 안내: 이 워크플로는 전체 GSD 명령 레퍼런스를 한국어 기준으로 먼저 보여 줍니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
 
-Display the complete GSD command reference. Output ONLY the reference content. Do NOT add project-specific analysis, git status, next-step suggestions, or any commentary beyond the reference.
+전체 GSD 명령 레퍼런스를 출력합니다. 레퍼런스 내용만 출력하고, 프로젝트별 분석, git 상태, 다음 단계 제안, 그 밖의 추가 코멘터리는 덧붙이지 마세요.
 </purpose>
 
 <reference>

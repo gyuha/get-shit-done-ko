@@ -195,6 +195,41 @@ Body.`;
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
   });
+
+  test('writes Korean-first help workflow content into installed Claude runtime', () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'gsd-claude-help-'));
+    const previousCwd = process.cwd();
+
+    try {
+      process.chdir(tempDir);
+      install(false, 'claude');
+
+      const installedHelp = fs.readFileSync(
+        path.join(tempDir, '.claude', 'get-shit-done', 'workflows', 'help.md'),
+        'utf8'
+      );
+
+      assert.ok(
+        installedHelp.includes('통합 플로우로 새 프로젝트를 초기화합니다.'),
+        'installed Claude help should localize new-project description'
+      );
+      assert.ok(
+        installedHelp.includes('자유 형식 텍스트를 적절한 GSD 명령으로 자동 라우팅합니다.'),
+        'installed Claude help should localize router description'
+      );
+      assert.ok(
+        installedHelp.includes('Usage: `/gsd:new-project`'),
+        'installed Claude help should preserve slash command usage'
+      );
+      assert.ok(
+        !installedHelp.includes('Initialize new project through unified flow.'),
+        'legacy English help sentence should not remain in installed Claude runtime'
+      );
+    } finally {
+      process.chdir(previousCwd);
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
+  });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
