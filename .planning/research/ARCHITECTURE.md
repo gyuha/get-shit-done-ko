@@ -44,7 +44,13 @@
 
 ```text
 skills/
-└── gsd-sync-upstream/          # maintainer-facing sync skill
+└── gsd-sync-upstream/          # maintainer-facing sync skill bundle
+    ├── SKILL.md               # orchestration entrypoint
+    ├── references/
+    │   └── context.md         # preserved paths / import surface policy
+    └── scripts/
+        ├── check-upstream-release.cjs
+        └── apply-upstream-refresh.cjs
 
 scripts/
 ├── check-upstream-release.cjs  # latest release compare
@@ -64,7 +70,7 @@ get-shit-done/
 
 ### Structure Rationale (구조 근거)
 
-- **`skills/gsd-sync-upstream/`:** 사용자-facing orchestration과 helper reuse 기준점을 둔다
+- **`skills/gsd-sync-upstream/`:** 스킬 본문, 참조 문서, 번들 helper를 함께 넣어 배포/재사용 단위를 명확히 한다
 - **`scripts/`:** compare/apply/validate를 독립 실행 가능하게 유지해 skill 밖에서도 재사용 가능하게 한다
 - **`docs/`:** 사람이 따라갈 수 있는 maintainer runbook과 blocker checklist를 유지한다
 
