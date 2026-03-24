@@ -47,6 +47,10 @@ const PRESERVED_PATHS = [
   '.opencode/',
 ];
 
+function normalizeEntry(entry) {
+  return entry.replace(/\\/g, '/').replace(/^\.\//, '').replace(/\/+$/, '');
+}
+
 function parseArgs(argv) {
   const args = {
     cwd: process.cwd(),
@@ -90,6 +94,13 @@ function parseArgs(argv) {
       args.mode = argv[++i];
       continue;
     }
+    if (arg === '--include-entry') {
+      if (!args.includeEntries) {
+        args.includeEntries = [];
+      }
+      args.includeEntries.push(argv[++i]);
+      continue;
+    }
     if (arg === '--baseline-dir') {
       args.baselineDir = path.resolve(argv[++i]);
       continue;
@@ -118,6 +129,7 @@ function printHelp() {
 Options:
   --to-tag <tag>           Target upstream tag to import
   --mode <name>            Apply strategy (default: source-of-truth)
+  --include-entry <path>   Append an extra upstream root entry for this run
   --current-file <path>    Machine-readable tracked baseline file
   --current-tag <tag>      Override tracked baseline tag
   --dry-run                Show what would change without mutating the repo
@@ -188,7 +200,30 @@ function resolveApplyMode(mode) {
   return resolvedMode;
 }
 
-function collectFiles(rootPath) {
+function getImportEntries(extraEntries = []) {
+  const preservedRoots = PRESERVED_PATHS.map(entry => normalizeEntry(entry));
+  const orderedEntries = [...IMPORT_ENTRIES];
+  const seen = new Set(orderedEntries.map(entry => normalizeEntry(entry)));
+
+  for (const entry of extraEntries) {
+    const normalizedEntry = normalizeEntry(entry);
+    if (!normalizedEntry) {
+      continue;
+    }
+    if (preservedRoots.some(root => normalizedEntry === root || normalizedEntry.startsWith(`${root}/`))) {
+      throw new Error(`Cannot include preserved path: ${entry}`);
+    }
+    if (seen.has(normalizedEntry)) {
+      continue;
+    }
+    orderedEntries.push(normalizedEntry);
+    seen.add(normalizedEntry);
+  }
+
+  return orderedEntries;
+}
+
+function collectFiles(rootPath, importEntries = IMPORT_ENTRIES) {
   const files = new Set();
 
   function walk(currentPath, relativePath) {
@@ -205,7 +240,7 @@ function collectFiles(rootPath) {
     files.add(relativePath);
   }
 
-  for (const entry of IMPORT_ENTRIES) {
+  for (const entry of importEntries) {
     walk(path.join(rootPath, entry), entry);
   }
 
@@ -228,9 +263,9 @@ function filesDiffer(leftPath, rightPath) {
   return !leftContent.equals(rightContent);
 }
 
-function collectOverlayEntries(baselineDir, repoDir) {
-  const baselineFiles = collectFiles(baselineDir);
-  const repoFiles = collectFiles(repoDir);
+function collectOverlayEntries(baselineDir, repoDir, importEntries = IMPORT_ENTRIES) {
+  const baselineFiles = collectFiles(baselineDir, importEntries);
+  const repoFiles = collectFiles(repoDir, importEntries);
   const union = new Set([...baselineFiles, ...repoFiles]);
   const overlays = [];
 
@@ -292,8 +327,8 @@ function updateTrackedBaselineFiles(cwd, targetTag) {
   fs.writeFileSync(docPath, content, 'utf8');
 }
 
-function importSnapshotIntoRepo(repoDir, snapshotDir) {
-  for (const entry of IMPORT_ENTRIES) {
+function importSnapshotIntoRepo(repoDir, snapshotDir, importEntries = IMPORT_ENTRIES) {
+  for (const entry of importEntries) {
     const repoPath = path.join(repoDir, entry);
     const sourcePath = path.join(snapshotDir, entry);
     removePath(repoPath);
@@ -303,7 +338,7 @@ function importSnapshotIntoRepo(repoDir, snapshotDir) {
   }
 }
 
-function buildDryRunResult({ releaseState, overlays, applyMode }) {
+function buildDryRunResult({ releaseState, overlays, applyMode, importEntries }) {
   const summary = releaseState.update_available
     ? `Ready to refresh vendored GSD from ${releaseState.current_tag} to ${releaseState.latest_tag}.`
     : `No refresh needed because tracked baseline ${releaseState.current_tag} is already current or ahead.`;
@@ -316,7 +351,7 @@ function buildDryRunResult({ releaseState, overlays, applyMode }) {
     package_version: releaseState.package_version,
     apply_mode: applyMode,
     summary,
-    touched: [...IMPORT_ENTRIES],
+    touched: [...importEntries],
     preserved: [...PRESERVED_PATHS],
     overlay_reapply: overlays.map(entry => entry.path),
     overlay_delete: overlays.filter(entry => entry.mode === 'delete').map(entry => entry.path),
@@ -390,6 +425,7 @@ function runRefresh(args) {
   }
 
   const applyMode = resolveApplyMode(args.mode);
+  const importEntries = getImportEntries(args.includeEntries);
   const currentTag = readCurrentTag({
     currentFile: args.currentFile,
     currentTag: args.currentTag,
@@ -407,7 +443,7 @@ function runRefresh(args) {
 
   if (compareVersions(currentTag, targetTag) >= 0) {
     return {
-      ...buildDryRunResult({ releaseState, overlays: [], applyMode }),
+      ...buildDryRunResult({ releaseState, overlays: [], applyMode, importEntries }),
       applied: false,
     };
   }
@@ -433,8 +469,8 @@ function runRefresh(args) {
     if (!args.baselineDir) tempDirs.push(baselineDir);
     if (!args.upstreamDir) tempDirs.push(upstreamDir);
 
-    const overlays = collectOverlayEntries(baselineDir, args.cwd);
-    const dryRunResult = buildDryRunResult({ releaseState, overlays, applyMode });
+    const overlays = collectOverlayEntries(baselineDir, args.cwd, importEntries);
+    const dryRunResult = buildDryRunResult({ releaseState, overlays, applyMode, importEntries });
 
     if (args.dryRun) {
       return {
@@ -445,7 +481,7 @@ function runRefresh(args) {
 
     const overlayBackup = stageOverlayBackup(args.cwd, overlays);
     tempDirs.push(overlayBackup.backupDir);
-    importSnapshotIntoRepo(args.cwd, upstreamDir);
+    importSnapshotIntoRepo(args.cwd, upstreamDir, importEntries);
     reapplyOverlayBackup(args.cwd, overlayBackup);
     updateTrackedBaselineFiles(args.cwd, targetTag);
 
@@ -490,6 +526,7 @@ module.exports = {
   collectFiles,
   collectOverlayEntries,
   formatDryRun,
+  getImportEntries,
   parseArgs,
   resolveApplyMode,
   runRefresh,

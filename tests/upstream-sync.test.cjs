@@ -6,7 +6,9 @@ const path = require('path');
 
 const { buildReleaseState } = require('../scripts/check-upstream-release.cjs');
 const {
+  IMPORT_ENTRIES,
   PRESERVED_PATHS,
+  getImportEntries,
   parseArgs,
   runRefresh,
 } = require('../scripts/apply-upstream-refresh.cjs');
@@ -313,8 +315,11 @@ describe('runRefresh', () => {
   });
 
   test('defaults the CLI mode to source-of-truth and rejects unknown modes', () => {
-    const parsed = parseArgs(['--to-tag', 'v1.29.0']);
+    const parsed = parseArgs(['--to-tag', 'v1.29.0', '--include-entry', 'prompts']);
     assert.strictEqual(parsed.mode, undefined);
+    assert.deepStrictEqual(parsed.includeEntries, ['prompts']);
+    assert.deepStrictEqual(getImportEntries(['prompts']).slice(-1), ['prompts']);
+    assert.ok(!getImportEntries([]).includes('prompts'));
 
     assert.throws(
       () => runRefresh({
@@ -326,5 +331,62 @@ describe('runRefresh', () => {
       }),
       /Unknown apply mode: invalid-mode/
     );
+
+    assert.throws(
+      () => getImportEntries(['.planning']),
+      /Cannot include preserved path: \.planning/
+    );
+  });
+
+  test('adds opt-in import entries without changing the default import surface', () => {
+    const repoDir = makeTempDir('upstream-sync-repo');
+    const baselineDir = makeTempDir('upstream-sync-baseline');
+    const upstreamDir = makeTempDir('upstream-sync-upstream');
+
+    seedRepo(baselineDir, {
+      baselineTag: 'v1.28.0',
+      packageVersion: '1.28.1',
+      readme: 'baseline readme\n',
+      coreDoc: 'baseline core\n',
+    });
+    seedRepo(repoDir, {
+      baselineTag: 'v1.28.0',
+      packageVersion: '1.28.1',
+      readme: 'localized readme\n',
+      coreDoc: 'baseline core\n',
+    });
+    seedRepo(upstreamDir, {
+      baselineTag: 'v1.29.0',
+      packageVersion: '1.29.0',
+      readme: 'upstream readme\n',
+      coreDoc: 'upstream core\n',
+    });
+
+    writeFile(baselineDir, 'prompts/system.md', 'baseline prompt\n');
+    writeFile(repoDir, 'prompts/system.md', 'baseline prompt\n');
+    writeFile(upstreamDir, 'prompts/system.md', 'upstream prompt\n');
+
+    const defaultResult = runRefresh({
+      cwd: repoDir,
+      currentFile: 'get-shit-done/UPSTREAM_VERSION',
+      toTag: 'v1.29.0',
+      dryRun: true,
+      baselineDir,
+      upstreamDir,
+    });
+    const extendedResult = runRefresh({
+      cwd: repoDir,
+      currentFile: 'get-shit-done/UPSTREAM_VERSION',
+      toTag: 'v1.29.0',
+      dryRun: true,
+      baselineDir,
+      upstreamDir,
+      includeEntries: ['prompts'],
+    });
+
+    assert.ok(!defaultResult.touched.includes('prompts'));
+    assert.ok(extendedResult.touched.includes('prompts'));
+    assert.ok(extendedResult.overlay_reapply.includes('README.md'));
+    assert.deepStrictEqual(IMPORT_ENTRIES.includes('prompts'), false);
   });
 });
