@@ -2,29 +2,29 @@
 gsd_state_version: 1.0
 milestone: v1.28.0
 milestone_name: milestone
-status: Milestone complete
-stopped_at: Completed Phase 07 automated upstream sync skill
-last_updated: "2026-03-23T15:24:17.440Z"
+status: Phase 08 planned
+stopped_at: Planned Phase 08 for Korean-first generated planning documents
+last_updated: "2026-03-24T12:40:00.000Z"
 progress:
-  total_phases: 7
+  total_phases: 8
   completed_phases: 7
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 18
+  completed_plans: 16
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-23)
+See: .planning/PROJECT.md (updated 2026-03-24)
 
 **Core value:** Korean-speaking users can use GSD end-to-end in Korean without breaking upstream command compatibility.
-**Current focus:** Milestone complete — Phases 01-07 are finished, including the maintainer upstream sync workflow.
+**Current focus:** Phase 08 planning is ready for Korean-first installed-skill planning document generation work in `.codex/get-shit-done/`.
 
 ## Current Position
 
-Phase: 07 (automated-upstream-gsd-sync-skill) — COMPLETE
-Plan: Complete (3 of 3)
+Phase: 08 (make-generated-planning-documents-korean-first-for-installed-skills) — PLANNED
+Plan: 0 of 2 planned
 
 ## Performance Metrics
 
@@ -91,11 +91,14 @@ Recent decisions affecting current work:
 - [Phase 06 planning]: The fork's published npm identity must become `get-shit-done-ko` so README install commands and actual package/bin entrypoints stay aligned.
 - [Phase 07 planning]: Upstream repo sync must stay separate from runtime self-update so maintainers do not confuse repo refreshes with `$gsd-update`.
 - [Phase 07 planning]: Compare upstream release state against the tracked upstream baseline rather than `package.json` alone because the fork package version (`1.28.1`) can move ahead of the imported upstream tag (`v1.28.0`).
+- [Phase 08 planning]: Installed-skill planning output must be fixed in the authoritative `.codex/get-shit-done/` runtime generation helpers and reusable templates, not only in repository-facing docs or the mirrored root runtime.
+- [Phase 08 planning]: Parser-sensitive labels such as `Tasks`, `Goal-Backward Verification`, and `Test Results` stay unchanged where downstream tooling expects them.
 
 ### Roadmap Evolution
 
 - Phase 6 added: Rename npm package and installer entrypoint to get-shit-done-ko
 - Phase 7 added: Automated upstream GSD sync skill
+- Phase 8 added: Make generated planning documents Korean-first for installed skills
 
 ### Pending Todos
 

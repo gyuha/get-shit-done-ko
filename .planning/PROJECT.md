@@ -26,6 +26,8 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 
 - **L10N-02**: Maintainer can run a terminology/integrity lint pass for translated assets.
 - **L10N-03**: Contributor can read a Korean maintainer guide for localization conventions.
+- **L10N-07**: Installed GSD skill flows generate Korean-first planning documents for scaffolded and templated planning artifacts without changing parser-sensitive labels, IDs, paths, or command tokens.
+- **L10N-08**: Maintainer can run regression checks that prove Korean-first generated planning-document output across the affected scaffold and template entrypoints.
 
 ### Out of Scope
 
@@ -44,6 +46,7 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 - The localization scope explicitly excludes command tokens, filenames, directory names, identifiers, and phase/requirement IDs.
 - The fork now also needs its published npm package identity to match the repository and README naming (`get-shit-done-ko`) without changing GSD command tokens or runtime flags.
 - The fork now includes a maintainer-only sync skill that compares upstream GitHub releases against the tracked baseline and can dry-run or apply a safe vendored-tree refresh when upstream moves ahead.
+- Installed Codex-skill planning output is produced by the vendored runtime generation helpers and reusable templates under `.codex/get-shit-done/`, so language fixes must land there rather than only in repository docs or the mirrored `get-shit-done/` tree.
 
 ## Constraints
 
@@ -69,6 +72,8 @@ Korean-speaking users can use GSD end-to-end in Korean without breaking upstream
 | Add a dedicated Korean maintainer release checklist instead of overloading README | Sync/release operations need a canonical checklist that is easy to re-run | ✓ Good |
 | Separate upstream repo sync from runtime self-update | The repo now has both an end-user `$gsd-update` flow and a maintainer need to refresh vendored sources, so the two workflows must not be conflated | ✓ Good |
 | Compare upstream release state against a tracked baseline, not only the fork npm version | The fork package is already `1.28.1` while the tracked upstream baseline is `v1.28.0`, so package semver alone would produce false "already ahead" results | ✓ Good |
+| Fix installed-skill planning language at the authoritative `.codex/get-shit-done/` runtime/template layer | Installed Codex skills read the vendored runtime under `.codex/get-shit-done/`, so changing only repo-facing docs or the mirrored root runtime would not fix the installed output | ✓ Planned |
+| Preserve parser-sensitive labels inside Korean-first planning docs | Downstream tooling still depends on exact labels such as `Tasks`, `Goal-Backward Verification`, and `Test Results`, so only surrounding prose should localize | ✓ Planned |
 
 ## Evolution
 
@@ -88,4 +93,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-23 after Phase 7 completion*
+*Last updated: 2026-03-24 after Phase 8 planning*

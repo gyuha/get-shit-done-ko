@@ -2,7 +2,7 @@
 
 ## Overview
 
-This roadmap takes the project from an empty destination repository to a Korean-first, upstream-compatible localization fork of `get-shit-done` `v1.28.0`. The work starts by mirroring the upstream tree, then localizes documentation and prompt assets in widening layers, and ends with compatibility verification so the fork remains safe to use and maintain.
+This roadmap takes the project from an empty destination repository to a Korean-first, upstream-compatible localization fork of `get-shit-done` `v1.28.0`. The work starts by mirroring the upstream tree, then localizes documentation and prompt assets in widening layers, and ends with compatibility verification and installed-skill output polish so the fork remains safe to use and maintain.
 
 ## Phases
 
@@ -98,7 +98,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -109,6 +109,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 5. Compatibility Validation and Release Prep | 3/3 | Complete | 2026-03-23 |
 | 6. Rename npm package and installer entrypoint to get-shit-done-ko | 3/3 | Complete | 2026-03-23 |
 | 7. Automated Upstream GSD Sync Skill | 3/3 | Complete | 2026-03-23 |
+| 8. Make generated planning documents Korean-first for installed skills | 0/2 | Planned | — |
 
 ### Phase 6: Rename npm package and installer entrypoint to get-shit-done-ko
 
@@ -142,3 +143,19 @@ Plans:
 - [x] 07-01: Introduce a dedicated upstream-sync skill, machine-readable baseline tracking, and release comparison logic.
 - [x] 07-02: Implement the safe upstream refresh flow that imports newer GSD sources and reapplies fork-local overlays.
 - [x] 07-03: Add regression coverage and maintainer documentation for no-op, dry-run, and successful sync flows.
+
+### Phase 8: Make generated planning documents Korean-first for installed skills
+
+**Goal:** Ensure installed GSD skills generate Korean-first planning documents across scaffolded and templated outputs while preserving machine-sensitive tokens and parser compatibility.
+**Requirements**: [L10N-07, L10N-08]
+**Depends on:** Phase 7
+**Plans:** 2 plans
+
+**Success Criteria** (what must be TRUE):
+  1. Installed skill flows generate Korean-first planning documents for the main scaffold/template entrypoints used by maintainers.
+  2. Machine-sensitive tokens, parser-expected labels, paths, and IDs remain compatible after the localization changes.
+  3. Regression coverage proves the Korean-first output for the affected generation paths.
+
+Plans:
+- [ ] 08-01: Localize the authoritative installed-runtime planning generators and templates under `.codex/get-shit-done/`.
+- [ ] 08-02: Add direct installed-runtime regression coverage for Korean-first planning output and parser-safe guardrails.

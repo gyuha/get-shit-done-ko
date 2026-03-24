@@ -41,6 +41,8 @@
 - [x] **L10N-04**: Maintainer can run a dedicated skill that checks `https://github.com/gsd-build/get-shit-done/releases` and determines whether a newer upstream release exists than this repo's tracked baseline.
 - [x] **L10N-05**: If a newer upstream release exists, maintainer can refresh the vendored GSD files in this repo while preserving Korean overlays, protected local files, and token-sensitive customizations.
 - [x] **L10N-06**: If this repo is already current or ahead, the sync skill reports the compared upstream/local versions with concrete release dates and exits without changing files.
+- **L10N-07**: Installed GSD skill flows generate Korean-first planning documents for scaffolded and templated planning artifacts without changing parser-sensitive labels, IDs, paths, or command tokens.
+- **L10N-08**: Maintainer can run regression checks that prove Korean-first generated planning-document output across the affected scaffold and template entrypoints.
 
 ### Package Identity
 
@@ -79,13 +81,15 @@
 | L10N-04 | Phase 7 | Complete |
 | L10N-05 | Phase 7 | Complete |
 | L10N-06 | Phase 7 | Complete |
+| L10N-07 | Phase 8 | Planned |
+| L10N-08 | Phase 8 | Planned |
 
 **Coverage:**
 - v1 requirements: 11 total
-- v2 requirements: 9 total
-- Mapped to phases: 18
+- v2 requirements: 11 total
+- Mapped to phases: 20
 - Unmapped: 2
 
 ---
 *Requirements defined: 2026-03-23*
-*Last updated: 2026-03-23 after Phase 7 completion*
+*Last updated: 2026-03-24 after Phase 8 planning*
