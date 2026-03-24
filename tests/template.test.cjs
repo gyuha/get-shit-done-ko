@@ -218,3 +218,90 @@ describe('template fill command', () => {
     assert.ok(verificationContent.includes('status: pending'), 'should preserve pending status field in installed runtime verification');
   });
 });
+
+describe('localized planning templates', () => {
+  const templateChecks = [
+    {
+      file: ['get-shit-done', 'templates', 'project.md'],
+      snippets: ['한국어로 빠르게 작성', '기존 코드베이스에서 시작할 때는 다음 순서를 권장합니다.'],
+      machineTokens: ['## What This Is', '## Core Value', '## Requirements'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'requirements.md'],
+      snippets: ['이번 milestone에서 실제로 구현하고 검증할 요구사항입니다.', '이번 범위에서 명시적으로 제외한 항목입니다.'],
+      machineTokens: ['## Out of Scope', '## Traceability'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'roadmap.md'],
+      snippets: ['roadmap 설명과 예시를 한국어로 제공', '사용자 관점에서 확인 가능한 결과'],
+      machineTokens: ['**Goal**:', '**Depends on**:', '**Requirements**:', '**Success Criteria**', '**Plans**:'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'state.md'],
+      snippets: ['세션이 바뀌어도 프로젝트가 어디까지 왔는지 즉시 알게 해 주는', '한 번 읽고 지금 상태를 안다'],
+      machineTokens: ['# Project State', '## Project Reference', '## Current Position', '**Current focus:**'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'codebase', 'stack.md'],
+      snippets: ['한국어로 채우기 위한 기준 문서입니다.', 'CLI 런타임과 테스트 코드'],
+      machineTokens: ['# Technology Stack'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'codebase', 'architecture.md'],
+      snippets: ['코드가 개념적으로 어떻게 나뉘어 있는지', '문서 중심 CLI + 설치 런타임 동기화 구조'],
+      machineTokens: ['# Architecture'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'codebase', 'structure.md'],
+      snippets: ['어디에 둬야 하는지 설명합니다.', '새 planning 템플릿'],
+      machineTokens: ['# Codebase Structure'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'codebase', 'conventions.md'],
+      snippets: ['어떻게 쓰는 것이 자연스러운가', 'token-sensitive 형식을 함부로 바꾸지 않음'],
+      machineTokens: ['# Coding Conventions'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'codebase', 'integrations.md'],
+      snippets: ['외부 서비스, 저장소, 인증, 배포 환경', '사람 손이 필요한 절차'],
+      machineTokens: ['# External Integrations'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'codebase', 'testing.md'],
+      snippets: ['현재 저장소에서 테스트를 어떻게 추가하고 실행해야', 'Node.js built-in `node:test`'],
+      machineTokens: ['# Testing Patterns'],
+    },
+    {
+      file: ['get-shit-done', 'templates', 'codebase', 'concerns.md'],
+      snippets: ['무엇을 특히 조심해야 하는지', '기계가 읽는 라벨은 유지하고 설명문만 번역'],
+      machineTokens: ['# Codebase Concerns'],
+    },
+  ];
+
+  for (const check of templateChecks) {
+    test(`${check.file.join('/')} is Korean-first while preserving machine tokens`, () => {
+      const content = fs.readFileSync(path.join(__dirname, '..', ...check.file), 'utf-8');
+
+      for (const snippet of check.snippets) {
+        assert.ok(content.includes(snippet), `Expected snippet "${snippet}" in ${check.file.join('/')}`);
+      }
+
+      for (const token of check.machineTokens) {
+        assert.ok(content.includes(token), `Expected machine token "${token}" in ${check.file.join('/')}`);
+      }
+    });
+
+    test(`installed runtime mirrors ${check.file.join('/')}`, () => {
+      const relative = check.file.slice(1);
+      const content = fs.readFileSync(path.join(__dirname, '..', '.codex', 'get-shit-done', ...relative), 'utf-8');
+
+      for (const snippet of check.snippets) {
+        assert.ok(content.includes(snippet), `Expected snippet "${snippet}" in installed runtime ${relative.join('/')}`);
+      }
+
+      for (const token of check.machineTokens) {
+        assert.ok(content.includes(token), `Expected machine token "${token}" in installed runtime ${relative.join('/')}`);
+      }
+    });
+  }
+});

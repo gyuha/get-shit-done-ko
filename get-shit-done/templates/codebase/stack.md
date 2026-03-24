@@ -1,11 +1,10 @@
 # Technology Stack Template
 
-> 한국어 우선 안내: 이 템플릿은 `stack` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
-
+> 한국어 우선 안내: 이 템플릿은 `.planning/codebase/STACK.md`를 한국어로 채우기 위한 기준 문서입니다.
 
 Template for `.planning/codebase/STACK.md` - captures the technology foundation.
 
-**Purpose:** Document what technologies run this codebase. Focused on "what executes when you run the code."
+**Purpose:** 실행 시 실제로 동작하는 기술 스택과 버전, 런타임 제약을 짧고 명확하게 기록합니다.
 
 ---
 
@@ -19,171 +18,139 @@ Template for `.planning/codebase/STACK.md` - captures the technology foundation.
 ## Languages
 
 **Primary:**
-- [Language] [Version] - [Where used: e.g., "all application code"]
+- [언어] [버전] - [주 사용 위치]
 
 **Secondary:**
-- [Language] [Version] - [Where used: e.g., "build scripts, tooling"]
+- [언어] [버전] - [보조 사용 위치]
 
 ## Runtime
 
 **Environment:**
-- [Runtime] [Version] - [e.g., "Node.js 20.x"]
-- [Additional requirements if any]
+- [런타임] [버전]
+- [추가 실행 조건]
 
 **Package Manager:**
-- [Manager] [Version] - [e.g., "npm 10.x"]
-- Lockfile: [e.g., "package-lock.json present"]
+- [패키지 매니저] [버전]
+- Lockfile: [예: package-lock.json]
 
 ## Frameworks
 
 **Core:**
-- [Framework] [Version] - [Purpose: e.g., "web server", "UI framework"]
+- [프레임워크] [버전] - [역할]
 
 **Testing:**
-- [Framework] [Version] - [e.g., "Jest for unit tests"]
-- [Framework] [Version] - [e.g., "Playwright for E2E"]
+- [도구] [버전] - [역할]
 
 **Build/Dev:**
-- [Tool] [Version] - [e.g., "Vite for bundling"]
-- [Tool] [Version] - [e.g., "TypeScript compiler"]
+- [도구] [버전] - [역할]
 
 ## Key Dependencies
 
-[Only include dependencies critical to understanding the stack - limit to 5-10 most important]
-
 **Critical:**
-- [Package] [Version] - [Why it matters: e.g., "authentication", "database access"]
-- [Package] [Version] - [Why it matters]
+- [패키지] [버전] - [중요한 이유]
+- [패키지] [버전] - [중요한 이유]
 
 **Infrastructure:**
-- [Package] [Version] - [e.g., "Express for HTTP routing"]
-- [Package] [Version] - [e.g., "PostgreSQL client"]
+- [패키지] [버전] - [기반 역할]
 
 ## Configuration
 
 **Environment:**
-- [How configured: e.g., ".env files", "environment variables"]
-- [Key configs: e.g., "DATABASE_URL, API_KEY required"]
+- [설정 방식]
+- [필수 환경 변수 또는 설정 파일]
 
 **Build:**
-- [Build config files: e.g., "vite.config.ts, tsconfig.json"]
+- [빌드 관련 설정 파일]
 
 ## Platform Requirements
 
 **Development:**
-- [OS requirements or "any platform"]
-- [Additional tooling: e.g., "Docker for local DB"]
+- [개발 환경 요구사항]
 
 **Production:**
-- [Deployment target: e.g., "Vercel", "AWS Lambda", "Docker container"]
-- [Version requirements]
+- [배포 대상]
+- [운영 버전 조건]
 
 ---
-
 *Stack analysis: [date]*
 *Update after major dependency changes*
 ```
 
 <good_examples>
+
 ```markdown
 # Technology Stack
 
-**Analysis Date:** 2025-01-20
+**Analysis Date:** 2026-03-24
 
 ## Languages
 
 **Primary:**
-- TypeScript 5.3 - All application code
+- JavaScript (CommonJS) - CLI 런타임과 테스트 코드
+- Markdown - 스킬, 워크플로, 템플릿 문서
 
 **Secondary:**
-- JavaScript - Build scripts, config files
+- JSON - 패키지/설정 메타데이터
+- Shell - 설치 및 검증 보조 명령
 
 ## Runtime
 
 **Environment:**
-- Node.js 20.x (LTS)
-- No browser runtime (CLI tool only)
+- Node.js 20.x 이상
+- 로컬 파일 시스템 접근 필요
 
 **Package Manager:**
 - npm 10.x
-- Lockfile: `package-lock.json` present
+- Lockfile: `package-lock.json`
 
 ## Frameworks
 
 **Core:**
-- None (vanilla Node.js CLI)
+- 별도 웹 프레임워크 없음 - Node.js 기반 CLI/문서 시스템
 
 **Testing:**
-- Vitest 1.0 - Unit tests
-- tsx - TypeScript execution without build step
+- Node.js 내장 `node:test` - 단위/통합 테스트
 
 **Build/Dev:**
-- TypeScript 5.3 - Compilation to JavaScript
-- esbuild - Used by Vitest for fast transforms
+- 별도 빌드 단계 최소화
+- `npx` 설치 흐름 지원
 
 ## Key Dependencies
 
 **Critical:**
-- commander 11.x - CLI argument parsing and command structure
-- chalk 5.x - Terminal output styling
-- fs-extra 11.x - Extended file system operations
+- `gray-matter` - frontmatter 파싱
+- `glob` - 파일 탐색
+- `minimist` - CLI 옵션 파싱
 
 **Infrastructure:**
-- Node.js built-ins - fs, path, child_process for file operations
+- Node.js built-ins - `fs`, `path`, `child_process`
 
 ## Configuration
 
 **Environment:**
-- No environment variables required
-- Configuration via CLI flags only
+- `.planning/config.json`
+- 일부 기능은 로컬 API 키 파일 또는 환경 변수 사용
 
 **Build:**
-- `tsconfig.json` - TypeScript compiler options
-- `vitest.config.ts` - Test runner configuration
+- `package.json`
+- `scripts/run-tests.cjs`
 
 ## Platform Requirements
 
 **Development:**
-- macOS/Linux/Windows (any platform with Node.js)
-- No external dependencies
+- macOS / Linux / Windows + Node.js
 
 **Production:**
-- Distributed as npm package
-- Installed globally via npm install -g
-- Runs on user's Node.js installation
-
----
-
-*Stack analysis: 2025-01-20*
-*Update after major dependency changes*
+- 로컬 개발 환경 또는 설치된 Codex/Claude runtime
 ```
+
 </good_examples>
 
 <guidelines>
-**What belongs in STACK.md:**
-- Languages and versions
-- Runtime requirements (Node, Bun, Deno, browser)
-- Package manager and lockfile
-- Framework choices
-- Critical dependencies (limit to 5-10 most important)
-- Build tooling
-- Platform/deployment requirements
 
-**What does NOT belong here:**
-- File structure (that's STRUCTURE.md)
-- Architectural patterns (that's ARCHITECTURE.md)
-- Every dependency in package.json (only critical ones)
-- Implementation details (defer to code)
+- 모든 dependency를 나열하지 말고, 이해에 필요한 핵심만 적습니다.
+- 버전이 중요한 경우에만 구체 버전을 남깁니다.
+- STRUCTURE.md에 들어갈 파일 경로 설명은 여기로 가져오지 않습니다.
+- ARCHITECTURE.md에 들어갈 설계 패턴 설명도 분리합니다.
 
-**When filling this template:**
-- Check package.json for dependencies
-- Note runtime version from .nvmrc or package.json engines
-- Include only dependencies that affect understanding (not every utility)
-- Specify versions only when version matters (breaking changes, compatibility)
-
-**Useful for phase planning when:**
-- Adding new dependencies (check compatibility)
-- Upgrading frameworks (know what's in use)
-- Choosing implementation approach (must work with existing stack)
-- Understanding build requirements
 </guidelines>

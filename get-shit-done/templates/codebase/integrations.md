@@ -1,11 +1,10 @@
 # External Integrations Template
 
-> 한국어 우선 안내: 이 템플릿은 `integrations` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
-
+> 한국어 우선 안내: 이 템플릿은 `.planning/codebase/INTEGRATIONS.md`를 한국어로 정리하기 위한 기준입니다.
 
 Template for `.planning/codebase/INTEGRATIONS.md` - captures external service dependencies.
 
-**Purpose:** Document what external systems this codebase communicates with. Focused on "what lives outside our code that we depend on."
+**Purpose:** 이 코드베이스가 외부 서비스, 저장소, 인증, 배포 환경과 어떻게 연결되는지 정리합니다.
 
 ---
 
@@ -18,266 +17,102 @@ Template for `.planning/codebase/INTEGRATIONS.md` - captures external service de
 
 ## APIs & External Services
 
-**Payment Processing:**
-- [Service] - [What it's used for: e.g., "subscription billing, one-time payments"]
-  - SDK/Client: [e.g., "stripe npm package v14.x"]
-  - Auth: [e.g., "API key in STRIPE_SECRET_KEY env var"]
-  - Endpoints used: [e.g., "checkout sessions, webhooks"]
-
-**Email/SMS:**
-- [Service] - [What it's used for: e.g., "transactional emails"]
-  - SDK/Client: [e.g., "sendgrid/mail v8.x"]
-  - Auth: [e.g., "API key in SENDGRID_API_KEY env var"]
-  - Templates: [e.g., "managed in SendGrid dashboard"]
-
-**External APIs:**
-- [Service] - [What it's used for]
-  - Integration method: [e.g., "REST API via fetch", "GraphQL client"]
-  - Auth: [e.g., "OAuth2 token in AUTH_TOKEN env var"]
-  - Rate limits: [if applicable]
+**[Integration Type]:**
+- [서비스] - [사용 목적]
+  - SDK/Client: [사용 라이브러리]
+  - Auth: [인증 방식]
+  - Endpoints used: [주요 엔드포인트]
 
 ## Data Storage
 
 **Databases:**
-- [Type/Provider] - [e.g., "PostgreSQL on Supabase"]
-  - Connection: [e.g., "via DATABASE_URL env var"]
-  - Client: [e.g., "Prisma ORM v5.x"]
-  - Migrations: [e.g., "prisma migrate in migrations/"]
+- [저장소] - [용도]
+  - Connection: [연결 방식]
+  - Client: [클라이언트]
 
 **File Storage:**
-- [Service] - [e.g., "AWS S3 for user uploads"]
-  - SDK/Client: [e.g., "@aws-sdk/client-s3"]
-  - Auth: [e.g., "IAM credentials in AWS_* env vars"]
-  - Buckets: [e.g., "prod-uploads, dev-uploads"]
-
-**Caching:**
-- [Service] - [e.g., "Redis for session storage"]
-  - Connection: [e.g., "REDIS_URL env var"]
-  - Client: [e.g., "ioredis v5.x"]
+- [스토리지] - [용도]
 
 ## Authentication & Identity
 
 **Auth Provider:**
-- [Service] - [e.g., "Supabase Auth", "Auth0", "custom JWT"]
-  - Implementation: [e.g., "Supabase client SDK"]
-  - Token storage: [e.g., "httpOnly cookies", "localStorage"]
-  - Session management: [e.g., "JWT refresh tokens"]
-
-**OAuth Integrations:**
-- [Provider] - [e.g., "Google OAuth for sign-in"]
-  - Credentials: [e.g., "GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET"]
-  - Scopes: [e.g., "email, profile"]
+- [서비스] - [용도]
+  - Implementation: [구현 방식]
+  - Token storage: [토큰 저장 방식]
 
 ## Monitoring & Observability
 
 **Error Tracking:**
-- [Service] - [e.g., "Sentry"]
-  - DSN: [e.g., "SENTRY_DSN env var"]
-  - Release tracking: [e.g., "via SENTRY_RELEASE"]
-
-**Analytics:**
-- [Service] - [e.g., "Mixpanel for product analytics"]
-  - Token: [e.g., "MIXPANEL_TOKEN env var"]
-  - Events tracked: [e.g., "user actions, page views"]
+- [서비스] - [용도]
 
 **Logs:**
-- [Service] - [e.g., "CloudWatch", "Datadog", "none (stdout only)"]
-  - Integration: [e.g., "AWS Lambda built-in"]
+- [서비스] - [수집 방식]
 
 ## CI/CD & Deployment
 
 **Hosting:**
-- [Platform] - [e.g., "Vercel", "AWS Lambda", "Docker on ECS"]
-  - Deployment: [e.g., "automatic on main branch push"]
-  - Environment vars: [e.g., "configured in Vercel dashboard"]
+- [플랫폼] - [배포 방식]
 
 **CI Pipeline:**
-- [Service] - [e.g., "GitHub Actions"]
-  - Workflows: [e.g., "test.yml, deploy.yml"]
-  - Secrets: [e.g., "stored in GitHub repo secrets"]
+- [서비스] - [역할]
 
-## Environment Configuration
+## Local Tooling / Human Dependencies
 
-**Development:**
-- Required env vars: [List critical vars]
-- Secrets location: [e.g., ".env.local (gitignored)", "1Password vault"]
-- Mock/stub services: [e.g., "Stripe test mode", "local PostgreSQL"]
-
-**Staging:**
-- Environment-specific differences: [e.g., "uses staging Stripe account"]
-- Data: [e.g., "separate staging database"]
-
-**Production:**
-- Secrets management: [e.g., "Vercel environment variables"]
-- Failover/redundancy: [e.g., "multi-region DB replication"]
-
-## Webhooks & Callbacks
-
-**Incoming:**
-- [Service] - [Endpoint: e.g., "/api/webhooks/stripe"]
-  - Verification: [e.g., "signature validation via stripe.webhooks.constructEvent"]
-  - Events: [e.g., "payment_intent.succeeded, customer.subscription.updated"]
-
-**Outgoing:**
-- [Service] - [What triggers it]
-  - Endpoint: [e.g., "external CRM webhook on user signup"]
-  - Retry logic: [if applicable]
+- [사람이 직접 설정해야 하는 외부 요소]
 
 ---
-
-*Integration audit: [date]*
-*Update when adding/removing external services*
+*Integration analysis: [date]*
+*Update when external dependencies change*
 ```
 
 <good_examples>
+
 ```markdown
 # External Integrations
 
-**Analysis Date:** 2025-01-20
+**Analysis Date:** 2026-03-24
 
 ## APIs & External Services
 
-**Payment Processing:**
-- Stripe - Subscription billing and one-time course payments
-  - SDK/Client: stripe npm package v14.8
-  - Auth: API key in STRIPE_SECRET_KEY env var
-  - Endpoints used: checkout sessions, customer portal, webhooks
+**Package Registry:**
+- npm - 패키지 배포와 설치
+  - SDK/Client: npm CLI
+  - Auth: maintainer npm credentials
+  - Endpoints used: package publish/install
 
-**Email/SMS:**
-- SendGrid - Transactional emails (receipts, password resets)
-  - SDK/Client: @sendgrid/mail v8.1
-  - Auth: API key in SENDGRID_API_KEY env var
-  - Templates: Managed in SendGrid dashboard (template IDs in code)
-
-**External APIs:**
-- OpenAI API - Course content generation
-  - Integration method: REST API via openai npm package v4.x
-  - Auth: Bearer token in OPENAI_API_KEY env var
-  - Rate limits: 3500 requests/min (tier 3)
+**Git Hosting:**
+- GitHub - 소스 저장소, releases, issue/PR 관리
+  - SDK/Client: git / gh / 웹 UI
+  - Auth: git credentials or GitHub token
 
 ## Data Storage
 
 **Databases:**
-- PostgreSQL on Supabase - Primary data store
-  - Connection: via DATABASE_URL env var
-  - Client: Prisma ORM v5.8
-  - Migrations: prisma migrate in prisma/migrations/
+- 별도 애플리케이션 DB 없음 - 상태는 주로 파일로 관리
 
 **File Storage:**
-- Supabase Storage - User uploads (profile images, course materials)
-  - SDK/Client: @supabase/supabase-js v2.x
-  - Auth: Service role key in SUPABASE_SERVICE_ROLE_KEY
-  - Buckets: avatars (public), course-materials (private)
-
-**Caching:**
-- None currently (all database queries, no Redis)
+- 로컬 파일 시스템 - `.planning/`, `.codex/`, `skills/`
 
 ## Authentication & Identity
 
 **Auth Provider:**
-- Supabase Auth - Email/password + OAuth
-  - Implementation: Supabase client SDK with server-side session management
-  - Token storage: httpOnly cookies via @supabase/ssr
-  - Session management: JWT refresh tokens handled by Supabase
-
-**OAuth Integrations:**
-- Google OAuth - Social sign-in
-  - Credentials: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET (Supabase dashboard)
-  - Scopes: email, profile
-
-## Monitoring & Observability
-
-**Error Tracking:**
-- Sentry - Server and client errors
-  - DSN: SENTRY_DSN env var
-  - Release tracking: Git commit SHA via SENTRY_RELEASE
-
-**Analytics:**
-- None (planned: Mixpanel)
-
-**Logs:**
-- Vercel logs - stdout/stderr only
-  - Retention: 7 days on Pro plan
+- 없음 - 일반 사용자 인증 기능이 아닌 로컬 tooling 저장소
 
 ## CI/CD & Deployment
 
 **Hosting:**
-- Vercel - Next.js app hosting
-  - Deployment: Automatic on main branch push
-  - Environment vars: Configured in Vercel dashboard (synced to .env.example)
+- 로컬 설치형 사용 + GitHub 저장소 배포
 
 **CI Pipeline:**
-- GitHub Actions - Tests and type checking
-  - Workflows: .github/workflows/ci.yml
-  - Secrets: None needed (public repo tests only)
-
-## Environment Configuration
-
-**Development:**
-- Required env vars: DATABASE_URL, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
-- Secrets location: .env.local (gitignored), team shared via 1Password vault
-- Mock/stub services: Stripe test mode, Supabase local dev project
-
-**Staging:**
-- Uses separate Supabase staging project
-- Stripe test mode
-- Same Vercel account, different environment
-
-**Production:**
-- Secrets management: Vercel environment variables
-- Database: Supabase production project with daily backups
-
-## Webhooks & Callbacks
-
-**Incoming:**
-- Stripe - /api/webhooks/stripe
-  - Verification: Signature validation via stripe.webhooks.constructEvent
-  - Events: payment_intent.succeeded, customer.subscription.updated, customer.subscription.deleted
-
-**Outgoing:**
-- None
-
----
-
-*Integration audit: 2025-01-20*
-*Update when adding/removing external services*
+- 로컬 테스트 스크립트 중심, 필요 시 GitHub Actions 확장 가능
 ```
+
 </good_examples>
 
 <guidelines>
-**What belongs in INTEGRATIONS.md:**
-- External services the code communicates with
-- Authentication patterns (where secrets live, not the secrets themselves)
-- SDKs and client libraries used
-- Environment variable names (not values)
-- Webhook endpoints and verification methods
-- Database connection patterns
-- File storage locations
-- Monitoring and logging services
 
-**What does NOT belong here:**
-- Actual API keys or secrets (NEVER write these)
-- Internal architecture (that's ARCHITECTURE.md)
-- Code patterns (that's PATTERNS.md)
-- Technology choices (that's STACK.md)
-- Performance issues (that's CONCERNS.md)
+- "우리 코드 밖에 있는 의존성"만 적습니다.
+- 환경 변수, 대시보드 설정, 사람 손이 필요한 절차도 함께 적습니다.
+- 코드 내부 모듈 의존성은 ARCHITECTURE.md나 STRUCTURE.md로 분리합니다.
 
-**When filling this template:**
-- Check .env.example or .env.template for required env vars
-- Look for SDK imports (stripe, @sendgrid/mail, etc.)
-- Check for webhook handlers in routes/endpoints
-- Note where secrets are managed (not the secrets)
-- Document environment-specific differences (dev/staging/prod)
-- Include auth patterns for each service
-
-**Useful for phase planning when:**
-- Adding new external service integrations
-- Debugging authentication issues
-- Understanding data flow outside the application
-- Setting up new environments
-- Auditing third-party dependencies
-- Planning for service outages or migrations
-
-**Security note:**
-Document WHERE secrets live (env vars, Vercel dashboard, 1Password), never WHAT the secrets are.
 </guidelines>

@@ -1,11 +1,10 @@
 # Coding Conventions Template
 
-> 한국어 우선 안내: 이 템플릿은 `conventions` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
-
+> 한국어 우선 안내: 이 템플릿은 `.planning/codebase/CONVENTIONS.md`를 한국어 중심으로 작성하기 위한 기준입니다.
 
 Template for `.planning/codebase/CONVENTIONS.md` - captures coding style and patterns.
 
-**Purpose:** Document how code is written in this codebase. Prescriptive guide for Claude to match existing style.
+**Purpose:** 이 코드베이스에서 "어떻게 쓰는 것이 자연스러운가"를 문서화합니다.
 
 ---
 
@@ -19,292 +18,135 @@ Template for `.planning/codebase/CONVENTIONS.md` - captures coding style and pat
 ## Naming Patterns
 
 **Files:**
-- [Pattern: e.g., "kebab-case for all files"]
-- [Test files: e.g., "*.test.ts alongside source"]
-- [Components: e.g., "PascalCase.tsx for React components"]
+- [패턴]
 
 **Functions:**
-- [Pattern: e.g., "camelCase for all functions"]
-- [Async: e.g., "no special prefix for async functions"]
-- [Handlers: e.g., "handleEventName for event handlers"]
+- [패턴]
 
 **Variables:**
-- [Pattern: e.g., "camelCase for variables"]
-- [Constants: e.g., "UPPER_SNAKE_CASE for constants"]
-- [Private: e.g., "_prefix for private members" or "no prefix"]
+- [패턴]
 
 **Types:**
-- [Interfaces: e.g., "PascalCase, no I prefix"]
-- [Types: e.g., "PascalCase for type aliases"]
-- [Enums: e.g., "PascalCase for enum name, UPPER_CASE for values"]
+- [패턴]
 
 ## Code Style
 
 **Formatting:**
-- [Tool: e.g., "Prettier with config in .prettierrc"]
-- [Line length: e.g., "100 characters max"]
-- [Quotes: e.g., "single quotes for strings"]
-- [Semicolons: e.g., "required" or "omitted"]
+- [포매팅 규칙]
 
 **Linting:**
-- [Tool: e.g., "ESLint with eslint.config.js"]
-- [Rules: e.g., "extends airbnb-base, no console in production"]
-- [Run: e.g., "npm run lint"]
+- [린트 규칙]
 
 ## Import Organization
 
 **Order:**
-1. [e.g., "External packages (react, express, etc.)"]
-2. [e.g., "Internal modules (@/lib, @/components)"]
-3. [e.g., "Relative imports (., ..)"]
-4. [e.g., "Type imports (import type {})"]
+1. [그룹 1]
+2. [그룹 2]
+3. [그룹 3]
 
 **Grouping:**
-- [Blank lines: e.g., "blank line between groups"]
-- [Sorting: e.g., "alphabetical within each group"]
-
-**Path Aliases:**
-- [Aliases used: e.g., "@/ for src/, @components/ for src/components/"]
+- [빈 줄/정렬 규칙]
 
 ## Error Handling
 
 **Patterns:**
-- [Strategy: e.g., "throw errors, catch at boundaries"]
-- [Custom errors: e.g., "extend Error class, named *Error"]
-- [Async: e.g., "use try/catch, no .catch() chains"]
-
-**Error Types:**
-- [When to throw: e.g., "invalid input, missing dependencies"]
-- [When to return: e.g., "expected failures return Result<T, E>"]
-- [Logging: e.g., "log error with context before throwing"]
+- [오류 처리 전략]
 
 ## Logging
 
 **Framework:**
-- [Tool: e.g., "console.log, pino, winston"]
-- [Levels: e.g., "debug, info, warn, error"]
+- [사용 도구]
 
 **Patterns:**
-- [Format: e.g., "structured logging with context object"]
-- [When: e.g., "log state transitions, external calls"]
-- [Where: e.g., "log at service boundaries, not in utils"]
+- [로그를 남기는 위치와 방식]
 
 ## Comments
 
 **When to Comment:**
-- [e.g., "explain why, not what"]
-- [e.g., "document business logic, algorithms, edge cases"]
-- [e.g., "avoid obvious comments like // increment counter"]
-
-**JSDoc/TSDoc:**
-- [Usage: e.g., "required for public APIs, optional for internal"]
-- [Format: e.g., "use @param, @returns, @throws tags"]
+- [주석 기준]
 
 **TODO Comments:**
-- [Pattern: e.g., "// TODO(username): description"]
-- [Tracking: e.g., "link to issue number if available"]
+- [형식]
 
 ## Function Design
 
 **Size:**
-- [e.g., "keep under 50 lines, extract helpers"]
+- [함수 길이 기준]
 
 **Parameters:**
-- [e.g., "max 3 parameters, use object for more"]
-- [e.g., "destructure objects in parameter list"]
+- [파라미터 규칙]
 
 **Return Values:**
-- [e.g., "explicit returns, no implicit undefined"]
-- [e.g., "return early for guard clauses"]
+- [반환 규칙]
 
 ## Module Design
 
 **Exports:**
-- [e.g., "named exports preferred, default exports for React components"]
-- [e.g., "export from index.ts for public API"]
+- [export 원칙]
 
 **Barrel Files:**
-- [e.g., "use index.ts to re-export public API"]
-- [e.g., "avoid circular dependencies"]
+- [index 파일 사용 원칙]
 
 ---
-
 *Convention analysis: [date]*
 *Update when patterns change*
 ```
 
 <good_examples>
+
 ```markdown
 # Coding Conventions
 
-**Analysis Date:** 2025-01-20
+**Analysis Date:** 2026-03-24
 
 ## Naming Patterns
 
 **Files:**
-- kebab-case for all files (command-handler.ts, user-service.ts)
-- *.test.ts alongside source files
-- index.ts for barrel exports
+- 문서와 스크립트는 kebab-case 우선
+- 테스트는 `*.test.cjs`
 
 **Functions:**
-- camelCase for all functions
-- No special prefix for async functions
-- handleEventName for event handlers (handleClick, handleSubmit)
+- camelCase 사용
+- CLI command helper는 `cmdXxx` 패턴 사용
 
 **Variables:**
-- camelCase for variables
-- UPPER_SNAKE_CASE for constants (MAX_RETRIES, API_BASE_URL)
-- No underscore prefix (no private marker in TS)
-
-**Types:**
-- PascalCase for interfaces, no I prefix (User, not IUser)
-- PascalCase for type aliases (UserConfig, ResponseData)
-- PascalCase for enum names, UPPER_CASE for values (Status.PENDING)
+- 일반 변수는 camelCase
+- 상수는 UPPER_SNAKE_CASE
 
 ## Code Style
 
 **Formatting:**
-- Prettier with .prettierrc
-- 100 character line length
-- Single quotes for strings
-- Semicolons required
-- 2 space indentation
+- CommonJS 문법 유지
+- 불필요한 추상화보다 읽기 쉬운 함수 우선
+- 문자열 출력은 token-sensitive 형식을 함부로 바꾸지 않음
 
 **Linting:**
-- ESLint with eslint.config.js
-- Extends @typescript-eslint/recommended
-- No console.log in production code (use logger)
-- Run: npm run lint
+- 테스트와 실제 동작 검증을 더 중시
+- 기존 스타일과 일관성 유지
 
 ## Import Organization
 
 **Order:**
-1. External packages (react, express, commander)
-2. Internal modules (@/lib, @/services)
-3. Relative imports (./utils, ../types)
-4. Type imports (import type { User })
+1. Node.js built-ins
+2. 외부 패키지
+3. 로컬 모듈
 
 **Grouping:**
-- Blank line between groups
-- Alphabetical within each group
-- Type imports last within each group
-
-**Path Aliases:**
-- @/ maps to src/
-- No other aliases defined
-
-## Error Handling
-
-**Patterns:**
-- Throw errors, catch at boundaries (route handlers, main functions)
-- Extend Error class for custom errors (ValidationError, NotFoundError)
-- Async functions use try/catch, no .catch() chains
-
-**Error Types:**
-- Throw on invalid input, missing dependencies, invariant violations
-- Log error with context before throwing: logger.error({ err, userId }, 'Failed to process')
-- Include cause in error message: new Error('Failed to X', { cause: originalError })
-
-## Logging
-
-**Framework:**
-- pino logger instance exported from lib/logger.ts
-- Levels: debug, info, warn, error (no trace)
-
-**Patterns:**
-- Structured logging with context: logger.info({ userId, action }, 'User action')
-- Log at service boundaries, not in utility functions
-- Log state transitions, external API calls, errors
-- No console.log in committed code
+- 그룹 사이에 빈 줄 1개
 
 ## Comments
 
 **When to Comment:**
-- Explain why, not what: // Retry 3 times because API has transient failures
-- Document business rules: // Users must verify email within 24 hours
-- Explain non-obvious algorithms or workarounds
-- Avoid obvious comments: // set count to 0
-
-**JSDoc/TSDoc:**
-- Required for public API functions
-- Optional for internal functions if signature is self-explanatory
-- Use @param, @returns, @throws tags
-
-**TODO Comments:**
-- Format: // TODO: description (no username, using git blame)
-- Link to issue if exists: // TODO: Fix race condition (issue #123)
-
-## Function Design
-
-**Size:**
-- Keep under 50 lines
-- Extract helpers for complex logic
-- One level of abstraction per function
-
-**Parameters:**
-- Max 3 parameters
-- Use options object for 4+ parameters: function create(options: CreateOptions)
-- Destructure in parameter list: function process({ id, name }: ProcessParams)
-
-**Return Values:**
-- Explicit return statements
-- Return early for guard clauses
-- Use Result<T, E> type for expected failures
-
-## Module Design
-
-**Exports:**
-- Named exports preferred
-- Default exports only for React components
-- Export public API from index.ts barrel files
-
-**Barrel Files:**
-- index.ts re-exports public API
-- Keep internal helpers private (don't export from index)
-- Avoid circular dependencies (import from specific files if needed)
-
----
-
-*Convention analysis: 2025-01-20*
-*Update when patterns change*
+- 왜 이렇게 했는지 설명이 필요할 때만 작성
+- 명백한 코드 설명 주석은 피함
 ```
+
 </good_examples>
 
 <guidelines>
-**What belongs in CONVENTIONS.md:**
-- Naming patterns observed in the codebase
-- Formatting rules (Prettier config, linting rules)
-- Import organization patterns
-- Error handling strategy
-- Logging approach
-- Comment conventions
-- Function and module design patterns
 
-**What does NOT belong here:**
-- Architecture decisions (that's ARCHITECTURE.md)
-- Technology choices (that's STACK.md)
-- Test patterns (that's TESTING.md)
-- File organization (that's STRUCTURE.md)
+- 스타일 규칙은 "이상적인 기준"보다 "현재 저장소가 실제로 하는 방식"을 적습니다.
+- 예외가 있다면 어디서 예외가 허용되는지도 같이 씁니다.
+- 자동 포매터가 없으면 그 사실도 분명히 적습니다.
 
-**When filling this template:**
-- Check .prettierrc, .eslintrc, or similar config files
-- Examine 5-10 representative source files for patterns
-- Look for consistency: if 80%+ follows a pattern, document it
-- Be prescriptive: "Use X" not "Sometimes Y is used"
-- Note deviations: "Legacy code uses Y, new code should use X"
-- Keep under ~150 lines total
-
-**Useful for phase planning when:**
-- Writing new code (match existing style)
-- Adding features (follow naming patterns)
-- Refactoring (apply consistent conventions)
-- Code review (check against documented patterns)
-- Onboarding (understand style expectations)
-
-**Analysis approach:**
-- Scan src/ directory for file naming patterns
-- Check package.json scripts for lint/format commands
-- Read 5-10 files to identify function naming, error handling
-- Look for config files (.prettierrc, eslint.config.js)
-- Note patterns in imports, comments, function signatures
 </guidelines>

@@ -1,11 +1,10 @@
 # Architecture Template
 
-> 한국어 우선 안내: 이 템플릿은 `architecture` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
-
+> 한국어 우선 안내: 이 템플릿은 `.planning/codebase/ARCHITECTURE.md`를 한국어 중심으로 작성하기 위한 기준입니다.
 
 Template for `.planning/codebase/ARCHITECTURE.md` - captures conceptual code organization.
 
-**Purpose:** Document how the code is organized at a conceptual level. Complements STRUCTURE.md (which shows physical file locations).
+**Purpose:** 코드가 개념적으로 어떻게 나뉘어 있는지, 어떤 흐름으로 동작하는지 설명합니다.
 
 ---
 
@@ -18,241 +17,136 @@ Template for `.planning/codebase/ARCHITECTURE.md` - captures conceptual code org
 
 ## Pattern Overview
 
-**Overall:** [Pattern name: e.g., "Monolithic CLI", "Serverless API", "Full-stack MVC"]
+**Overall:** [전체 구조 패턴]
 
 **Key Characteristics:**
-- [Characteristic 1: e.g., "Single executable"]
-- [Characteristic 2: e.g., "Stateless request handling"]
-- [Characteristic 3: e.g., "Event-driven"]
+- [특징 1]
+- [특징 2]
+- [특징 3]
 
 ## Layers
 
-[Describe the conceptual layers and their responsibilities]
-
 **[Layer Name]:**
-- Purpose: [What this layer does]
-- Contains: [Types of code: e.g., "route handlers", "business logic"]
-- Depends on: [What it uses: e.g., "data layer only"]
-- Used by: [What uses it: e.g., "API routes"]
-
-**[Layer Name]:**
-- Purpose: [What this layer does]
-- Contains: [Types of code]
-- Depends on: [What it uses]
-- Used by: [What uses it]
+- Purpose: [이 레이어의 역할]
+- Contains: [포함 코드 종류]
+- Depends on: [의존 대상]
+- Used by: [이 레이어를 사용하는 곳]
 
 ## Data Flow
 
-[Describe the typical request/execution lifecycle]
-
-**[Flow Name] (e.g., "HTTP Request", "CLI Command", "Event Processing"):**
-
-1. [Entry point: e.g., "User runs command"]
-2. [Processing step: e.g., "Router matches path"]
-3. [Processing step: e.g., "Controller validates input"]
-4. [Processing step: e.g., "Service executes logic"]
-5. [Output: e.g., "Response returned"]
+**[Flow Name]:**
+1. [시작점]
+2. [중간 처리]
+3. [결과]
 
 **State Management:**
-- [How state is handled: e.g., "Stateless - no persistent state", "Database per request", "In-memory cache"]
+- [상태 처리 방식]
 
 ## Key Abstractions
 
-[Core concepts/patterns used throughout the codebase]
-
 **[Abstraction Name]:**
-- Purpose: [What it represents]
-- Examples: [e.g., "UserService, ProjectService"]
-- Pattern: [e.g., "Singleton", "Factory", "Repository"]
-
-**[Abstraction Name]:**
-- Purpose: [What it represents]
-- Examples: [Concrete examples]
-- Pattern: [Pattern used]
+- Purpose: [무엇을 추상화하는지]
+- Examples: [예시]
+- Pattern: [적용 패턴]
 
 ## Entry Points
 
-[Where execution begins]
-
 **[Entry Point]:**
-- Location: [Brief: e.g., "src/index.ts", "API Gateway triggers"]
-- Triggers: [What invokes it: e.g., "CLI invocation", "HTTP request"]
-- Responsibilities: [What it does: e.g., "Parse args, route to command"]
+- Location: [위치]
+- Triggers: [실행 조건]
+- Responsibilities: [책임]
 
 ## Error Handling
 
-**Strategy:** [How errors are handled: e.g., "Exception bubbling to top-level handler", "Per-route error middleware"]
+**Strategy:** [오류 처리 전략]
 
 **Patterns:**
-- [Pattern: e.g., "try/catch at controller level"]
-- [Pattern: e.g., "Error codes returned to user"]
+- [패턴 1]
+- [패턴 2]
 
 ## Cross-Cutting Concerns
 
-[Aspects that affect multiple layers]
-
 **Logging:**
-- [Approach: e.g., "Winston logger, injected per-request"]
+- [접근 방식]
 
 **Validation:**
-- [Approach: e.g., "Zod schemas at API boundary"]
+- [접근 방식]
 
 **Authentication:**
-- [Approach: e.g., "JWT middleware on protected routes"]
+- [접근 방식]
 
 ---
-
 *Architecture analysis: [date]*
 *Update when major patterns change*
 ```
 
 <good_examples>
+
 ```markdown
 # Architecture
 
-**Analysis Date:** 2025-01-20
+**Analysis Date:** 2026-03-24
 
 ## Pattern Overview
 
-**Overall:** CLI Application with Plugin System
+**Overall:** 문서 중심 CLI + 설치 런타임 동기화 구조
 
 **Key Characteristics:**
-- Single executable with subcommands
-- Plugin-based extensibility
-- File-based state (no database)
-- Synchronous execution model
+- 템플릿과 워크플로가 제품 동작의 중심
+- `.planning/`을 상태 저장소처럼 사용
+- root source와 installed runtime을 함께 관리
 
 ## Layers
 
 **Command Layer:**
-- Purpose: Parse user input and route to appropriate handler
-- Contains: Command definitions, argument parsing, help text
-- Location: `src/commands/*.ts`
-- Depends on: Service layer for business logic
-- Used by: CLI entry point (`src/index.ts`)
+- Purpose: 사용자 명령을 받아 적절한 workflow로 연결
+- Contains: slash command 문서, CLI 엔트리
+- Depends on: workflow/resource layer
+- Used by: Codex/Claude runtime
 
-**Service Layer:**
-- Purpose: Core business logic
-- Contains: FileService, TemplateService, InstallService
-- Location: `src/services/*.ts`
-- Depends on: File system utilities, external tools
-- Used by: Command handlers
+**Workflow Layer:**
+- Purpose: 단계별 작업 절차 정의
+- Contains: `workflows/*.md`
+- Depends on: templates, references, scripts
+- Used by: 명령 레이어와 유지보수자
 
-**Utility Layer:**
-- Purpose: Shared helpers and abstractions
-- Contains: File I/O wrappers, path resolution, string formatting
-- Location: `src/utils/*.ts`
-- Depends on: Node.js built-ins only
-- Used by: Service layer
+**Template Layer:**
+- Purpose: planning 문서의 기본 형식 제공
+- Contains: `templates/*.md`, `templates/codebase/*.md`
+- Depends on: 거의 없음
+- Used by: workflow와 CLI helper
 
 ## Data Flow
 
-**CLI Command Execution:**
-
-1. User runs: `gsd new-project`
-2. Commander parses args and flags
-3. Command handler invoked (`src/commands/new-project.ts`)
-4. Handler calls service methods (`src/services/project.ts` → `create()`)
-5. Service reads templates, processes files, writes output
-6. Results logged to console
-7. Process exits with status code
+**Project bootstrap:**
+1. 사용자가 `gsd-new-project` 또는 유사 명령 실행
+2. workflow가 현재 상태와 `.planning/` 존재 여부 확인
+3. 템플릿과 참조 문서를 읽어 planning 문서 작성
+4. 이후 phase/workflow가 같은 planning 문서를 계속 갱신
 
 **State Management:**
-- File-based: All state lives in `.planning/` directory
-- No persistent in-memory state
-- Each command execution is independent
+- 파일 기반 상태 관리
+- 핵심 상태는 `.planning/STATE.md`, `.planning/ROADMAP.md`, `.planning/PROJECT.md`
 
 ## Key Abstractions
 
-**Service:**
-- Purpose: Encapsulate business logic for a domain
-- Examples: `src/services/file.ts`, `src/services/template.ts`, `src/services/project.ts`
-- Pattern: Singleton-like (imported as modules, not instantiated)
-
-**Command:**
-- Purpose: CLI command definition
-- Examples: `src/commands/new-project.ts`, `src/commands/plan-phase.ts`
-- Pattern: Commander.js command registration
+**Phase:**
+- Purpose: 사용자 가치 단위의 작업 묶음
+- Examples: `01-*`, `08-*`
+- Pattern: phase directory + PLAN/SUMMARY/VERIFICATION 문서
 
 **Template:**
-- Purpose: Reusable document structures
-- Examples: PROJECT.md, PLAN.md templates
-- Pattern: Markdown files with substitution variables
-
-## Entry Points
-
-**CLI Entry:**
-- Location: `src/index.ts`
-- Triggers: User runs `gsd <command>`
-- Responsibilities: Register commands, parse args, display help
-
-**Commands:**
-- Location: `src/commands/*.ts`
-- Triggers: Matched command from CLI
-- Responsibilities: Validate input, call services, format output
-
-## Error Handling
-
-**Strategy:** Throw exceptions, catch at command level, log and exit
-
-**Patterns:**
-- Services throw Error with descriptive messages
-- Command handlers catch, log error to stderr, exit(1)
-- Validation errors shown before execution (fail fast)
-
-## Cross-Cutting Concerns
-
-**Logging:**
-- Console.log for normal output
-- Console.error for errors
-- Chalk for colored output
-
-**Validation:**
-- Zod schemas for config file parsing
-- Manual validation in command handlers
-- Fail fast on invalid input
-
-**File Operations:**
-- FileService abstraction over fs-extra
-- All paths validated before operations
-- Atomic writes (temp file + rename)
-
----
-
-*Architecture analysis: 2025-01-20*
-*Update when major patterns change*
+- Purpose: 반복 생성 문서의 표준 형식 제공
+- Examples: `project.md`, `roadmap.md`, `codebase/testing.md`
+- Pattern: markdown scaffold
 ```
+
 </good_examples>
 
 <guidelines>
-**What belongs in ARCHITECTURE.md:**
-- Overall architectural pattern (monolith, microservices, layered, etc.)
-- Conceptual layers and their relationships
-- Data flow / request lifecycle
-- Key abstractions and patterns
-- Entry points
-- Error handling strategy
-- Cross-cutting concerns (logging, auth, validation)
 
-**What does NOT belong here:**
-- Exhaustive file listings (that's STRUCTURE.md)
-- Technology choices (that's STACK.md)
-- Line-by-line code walkthrough (defer to code reading)
-- Implementation details of specific features
+- 파일 위치 설명은 STRUCTURE.md에 두고, 여기에는 역할과 흐름만 적습니다.
+- 구현 세부보다 "왜 이렇게 나뉘는가"를 설명합니다.
+- 새 기능을 넣을 때 어디를 건드려야 하는지 감이 오도록 써야 합니다.
 
-**File paths ARE welcome:**
-Include file paths as concrete examples of abstractions. Use backtick formatting: `src/services/user.ts`. This makes the architecture document actionable for Claude when planning.
-
-**When filling this template:**
-- Read main entry points (index, server, main)
-- Identify layers by reading imports/dependencies
-- Trace a typical request/command execution
-- Note recurring patterns (services, controllers, repositories)
-- Keep descriptions conceptual, not mechanical
-
-**Useful for phase planning when:**
-- Adding new features (where does it fit in the layers?)
-- Refactoring (understanding current patterns)
-- Identifying where to add code (which layer handles X?)
-- Understanding dependencies between components
 </guidelines>

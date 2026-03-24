@@ -1,11 +1,10 @@
 # Testing Patterns Template
 
-> 한국어 우선 안내: 이 템플릿은 `testing` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
-
+> 한국어 우선 안내: 이 템플릿은 `.planning/codebase/TESTING.md`를 한국어로 작성하기 위한 기준입니다.
 
 Template for `.planning/codebase/TESTING.md` - captures test framework and patterns.
 
-**Purpose:** Document how tests are written and run. Guide for adding tests that match existing patterns.
+**Purpose:** 현재 저장소에서 테스트를 어떻게 추가하고 실행해야 자연스러운지 정리합니다.
 
 ---
 
@@ -19,465 +18,156 @@ Template for `.planning/codebase/TESTING.md` - captures test framework and patte
 ## Test Framework
 
 **Runner:**
-- [Framework: e.g., "Jest 29.x", "Vitest 1.x"]
-- [Config: e.g., "jest.config.js in project root"]
+- [테스트 러너]
+- [설정 파일 위치]
 
 **Assertion Library:**
-- [Library: e.g., "built-in expect", "chai"]
-- [Matchers: e.g., "toBe, toEqual, toThrow"]
+- [assertion 도구]
+- [자주 쓰는 matcher]
 
 **Run Commands:**
 ```bash
-[e.g., "npm test" or "npm run test"]              # Run all tests
-[e.g., "npm test -- --watch"]                     # Watch mode
-[e.g., "npm test -- path/to/file.test.ts"]       # Single file
-[e.g., "npm run test:coverage"]                   # Coverage report
+[전체 테스트 명령]
+[특정 파일 테스트 명령]
+[커버리지 또는 통합 테스트 명령]
 ```
 
 ## Test File Organization
 
 **Location:**
-- [Pattern: e.g., "*.test.ts alongside source files"]
-- [Alternative: e.g., "__tests__/ directory" or "separate tests/ tree"]
+- [테스트 파일 위치 규칙]
 
 **Naming:**
-- [Unit tests: e.g., "module-name.test.ts"]
-- [Integration: e.g., "feature-name.integration.test.ts"]
-- [E2E: e.g., "user-flow.e2e.test.ts"]
+- [파일명 패턴]
 
 **Structure:**
-```
-[Show actual directory pattern, e.g.:
-src/
-  lib/
-    utils.ts
-    utils.test.ts
-  services/
-    user-service.ts
-    user-service.test.ts
-]
+```text
+[실제 디렉터리 예시]
 ```
 
 ## Test Structure
 
 **Suite Organization:**
-```typescript
-[Show actual pattern used, e.g.:
-
-describe('ModuleName', () => {
-  describe('functionName', () => {
-    it('should handle success case', () => {
-      // arrange
-      // act
-      // assert
-    });
-
-    it('should handle error case', () => {
-      // test code
-    });
-  });
-});
-]
-```
+- [describe / test 패턴]
 
 **Patterns:**
-- [Setup: e.g., "beforeEach for shared setup, avoid beforeAll"]
-- [Teardown: e.g., "afterEach to clean up, restore mocks"]
-- [Structure: e.g., "arrange/act/assert pattern required"]
+- [beforeEach/afterEach 사용 방식]
+- [arrange / act / assert 관례]
 
 ## Mocking
 
 **Framework:**
-- [Tool: e.g., "Jest built-in mocking", "Vitest vi", "Sinon"]
-- [Import mocking: e.g., "vi.mock() at top of file"]
-
-**Patterns:**
-```typescript
-[Show actual mocking pattern, e.g.:
-
-// Mock external dependency
-vi.mock('./external-service', () => ({
-  fetchData: vi.fn()
-}));
-
-// Mock in test
-const mockFetch = vi.mocked(fetchData);
-mockFetch.mockResolvedValue({ data: 'test' });
-]
-```
+- [mock 도구]
 
 **What to Mock:**
-- [e.g., "External APIs, file system, database"]
-- [e.g., "Time/dates (use vi.useFakeTimers)"]
-- [e.g., "Network calls (use mock fetch)"]
+- [mock 대상]
 
 **What NOT to Mock:**
-- [e.g., "Pure functions, utilities"]
-- [e.g., "Internal business logic"]
+- [실제 객체를 유지할 대상]
 
 ## Fixtures and Factories
 
 **Test Data:**
-```typescript
-[Show pattern for creating test data, e.g.:
-
-// Factory pattern
-function createTestUser(overrides?: Partial<User>): User {
-  return {
-    id: 'test-id',
-    name: 'Test User',
-    email: 'test@example.com',
-    ...overrides
-  };
-}
-
-// Fixture file
-// tests/fixtures/users.ts
-export const mockUsers = [/* ... */];
-]
-```
+- [fixture/factory 사용 패턴]
 
 **Location:**
-- [e.g., "tests/fixtures/ for shared fixtures"]
-- [e.g., "factory functions in test file or tests/factories/"]
+- [저장 위치]
 
 ## Coverage
 
 **Requirements:**
-- [Target: e.g., "80% line coverage", "no specific target"]
-- [Enforcement: e.g., "CI blocks <80%", "coverage for awareness only"]
+- [커버리지 기준]
 
 **Configuration:**
-- [Tool: e.g., "built-in coverage via --coverage flag"]
-- [Exclusions: e.g., "exclude *.test.ts, config files"]
-
-**View Coverage:**
-```bash
-[e.g., "npm run test:coverage"]
-[e.g., "open coverage/index.html"]
-```
+- [설정 방식]
 
 ## Test Types
 
 **Unit Tests:**
-- [Scope: e.g., "test single function/class in isolation"]
-- [Mocking: e.g., "mock all external dependencies"]
-- [Speed: e.g., "must run in <1s per test"]
+- [범위]
 
 **Integration Tests:**
-- [Scope: e.g., "test multiple modules together"]
-- [Mocking: e.g., "mock external services, use real internal modules"]
-- [Setup: e.g., "use test database, seed data"]
+- [범위]
 
 **E2E Tests:**
-- [Framework: e.g., "Playwright for E2E"]
-- [Scope: e.g., "test full user flows"]
-- [Location: e.g., "e2e/ directory separate from unit tests"]
+- [범위]
 
 ## Common Patterns
 
 **Async Testing:**
-```typescript
-[Show pattern, e.g.:
-
-it('should handle async operation', async () => {
-  const result = await asyncFunction();
-  expect(result).toBe('expected');
-});
-]
-```
+- [비동기 테스트 규칙]
 
 **Error Testing:**
-```typescript
-[Show pattern, e.g.:
-
-it('should throw on invalid input', () => {
-  expect(() => functionCall()).toThrow('error message');
-});
-
-// Async error
-it('should reject on failure', async () => {
-  await expect(asyncCall()).rejects.toThrow('error message');
-});
-]
-```
+- [오류 테스트 규칙]
 
 **Snapshot Testing:**
-- [Usage: e.g., "for React components only" or "not used"]
-- [Location: e.g., "__snapshots__/ directory"]
+- [사용 여부]
 
 ---
-
 *Testing analysis: [date]*
 *Update when test patterns change*
 ```
 
 <good_examples>
+
 ```markdown
 # Testing Patterns
 
-**Analysis Date:** 2025-01-20
+**Analysis Date:** 2026-03-24
 
 ## Test Framework
 
 **Runner:**
-- Vitest 1.0.4
-- Config: vitest.config.ts in project root
+- Node.js built-in `node:test`
+- 별도 중앙 설정 파일 없이 스크립트로 실행
 
 **Assertion Library:**
-- Vitest built-in expect
-- Matchers: toBe, toEqual, toThrow, toMatchObject
+- `node:assert`
+- `ok`, `strictEqual`, `deepStrictEqual`
 
 **Run Commands:**
 ```bash
-npm test                              # Run all tests
-npm test -- --watch                   # Watch mode
-npm test -- path/to/file.test.ts     # Single file
-npm run test:coverage                 # Coverage report
+node --test tests/template.test.cjs
+node --test tests/commands.test.cjs
+node scripts/run-tests.cjs
 ```
 
 ## Test File Organization
 
 **Location:**
-- *.test.ts alongside source files
-- No separate tests/ directory
+- `tests/` 디렉터리에 모아 둠
 
 **Naming:**
-- unit-name.test.ts for all tests
-- No distinction between unit/integration in filename
-
-**Structure:**
-```
-src/
-  lib/
-    parser.ts
-    parser.test.ts
-  services/
-    install-service.ts
-    install-service.test.ts
-  bin/
-    install.ts
-    (no test - integration tested via CLI)
-```
+- `*.test.cjs`
 
 ## Test Structure
 
 **Suite Organization:**
-```typescript
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-
-describe('ModuleName', () => {
-  describe('functionName', () => {
-    beforeEach(() => {
-      // reset state
-    });
-
-    it('should handle valid input', () => {
-      // arrange
-      const input = createTestInput();
-
-      // act
-      const result = functionName(input);
-
-      // assert
-      expect(result).toEqual(expectedOutput);
-    });
-
-    it('should throw on invalid input', () => {
-      expect(() => functionName(null)).toThrow('Invalid input');
-    });
-  });
-});
-```
+- `describe()` 안에 관련 command/feature를 묶고 `test()`로 세부 케이스를 작성
 
 **Patterns:**
-- Use beforeEach for per-test setup, avoid beforeAll
-- Use afterEach to restore mocks: vi.restoreAllMocks()
-- Explicit arrange/act/assert comments in complex tests
-- One assertion focus per test (but multiple expects OK)
+- 임시 프로젝트를 만들고 정리하는 helper를 재사용
+- CLI 결과는 성공 여부와 출력 JSON/텍스트를 함께 검증
 
 ## Mocking
 
 **Framework:**
-- Vitest built-in mocking (vi)
-- Module mocking via vi.mock() at top of test file
-
-**Patterns:**
-```typescript
-import { vi } from 'vitest';
-import { externalFunction } from './external';
-
-// Mock module
-vi.mock('./external', () => ({
-  externalFunction: vi.fn()
-}));
-
-describe('test suite', () => {
-  it('mocks function', () => {
-    const mockFn = vi.mocked(externalFunction);
-    mockFn.mockReturnValue('mocked result');
-
-    // test code using mocked function
-
-    expect(mockFn).toHaveBeenCalledWith('expected arg');
-  });
-});
-```
-
-**What to Mock:**
-- File system operations (fs-extra)
-- Child process execution (child_process.exec)
-- External API calls
-- Environment variables (process.env)
-
-**What NOT to Mock:**
-- Internal pure functions
-- Simple utilities (string manipulation, array helpers)
-- TypeScript types
-
-## Fixtures and Factories
-
-**Test Data:**
-```typescript
-// Factory functions in test file
-function createTestConfig(overrides?: Partial<Config>): Config {
-  return {
-    targetDir: '/tmp/test',
-    global: false,
-    ...overrides
-  };
-}
-
-// Shared fixtures in tests/fixtures/
-// tests/fixtures/sample-command.md
-export const sampleCommand = `---
-description: Test command
----
-Content here`;
-```
-
-**Location:**
-- Factory functions: define in test file near usage
-- Shared fixtures: tests/fixtures/ (for multi-file test data)
-- Mock data: inline in test when simple, factory when complex
+- 최소 mocking 원칙
+- 가능하면 임시 파일 시스템 기반 실제 동작 검증
 
 ## Coverage
 
 **Requirements:**
-- No enforced coverage target
-- Coverage tracked for awareness
-- Focus on critical paths (parsers, service logic)
-
-**Configuration:**
-- Vitest coverage via c8 (built-in)
-- Excludes: *.test.ts, bin/install.ts, config files
-
-**View Coverage:**
-```bash
-npm run test:coverage
-open coverage/index.html
+- 새 회귀 이슈가 생기면 대응 테스트를 추가
+- parser/token-sensitive 로직은 명시적 assertion 권장
 ```
 
-## Test Types
-
-**Unit Tests:**
-- Test single function in isolation
-- Mock all external dependencies (fs, child_process)
-- Fast: each test <100ms
-- Examples: parser.test.ts, validator.test.ts
-
-**Integration Tests:**
-- Test multiple modules together
-- Mock only external boundaries (file system, process)
-- Examples: install-service.test.ts (tests service + parser)
-
-**E2E Tests:**
-- Not currently used
-- CLI integration tested manually
-
-## Common Patterns
-
-**Async Testing:**
-```typescript
-it('should handle async operation', async () => {
-  const result = await asyncFunction();
-  expect(result).toBe('expected');
-});
-```
-
-**Error Testing:**
-```typescript
-it('should throw on invalid input', () => {
-  expect(() => parse(null)).toThrow('Cannot parse null');
-});
-
-// Async error
-it('should reject on file not found', async () => {
-  await expect(readConfig('invalid.txt')).rejects.toThrow('ENOENT');
-});
-```
-
-**File System Mocking:**
-```typescript
-import { vi } from 'vitest';
-import * as fs from 'fs-extra';
-
-vi.mock('fs-extra');
-
-it('mocks file system', () => {
-  vi.mocked(fs.readFile).mockResolvedValue('file content');
-  // test code
-});
-```
-
-**Snapshot Testing:**
-- Not used in this codebase
-- Prefer explicit assertions for clarity
-
----
-
-*Testing analysis: 2025-01-20*
-*Update when test patterns change*
-```
 </good_examples>
 
 <guidelines>
-**What belongs in TESTING.md:**
-- Test framework and runner configuration
-- Test file location and naming patterns
-- Test structure (describe/it, beforeEach patterns)
-- Mocking approach and examples
-- Fixture/factory patterns
-- Coverage requirements
-- How to run tests (commands)
-- Common testing patterns in actual code
 
-**What does NOT belong here:**
-- Specific test cases (defer to actual test files)
-- Technology choices (that's STACK.md)
-- CI/CD setup (that's deployment docs)
+- 테스트 명령은 복붙해서 바로 실행할 수 있게 적습니다.
+- helper 패턴이 있다면 새 테스트도 그 흐름을 따르도록 설명합니다.
+- "무엇을 mock하지 않는가"를 함께 적으면 과도한 mocking을 막을 수 있습니다.
 
-**When filling this template:**
-- Check package.json scripts for test commands
-- Find test config file (jest.config.js, vitest.config.ts)
-- Read 3-5 existing test files to identify patterns
-- Look for test utilities in tests/ or test-utils/
-- Check for coverage configuration
-- Document actual patterns used, not ideal patterns
-
-**Useful for phase planning when:**
-- Adding new features (write matching tests)
-- Refactoring (maintain test patterns)
-- Fixing bugs (add regression tests)
-- Understanding verification approach
-- Setting up test infrastructure
-
-**Analysis approach:**
-- Check package.json for test framework and scripts
-- Read test config file for coverage, setup
-- Examine test file organization (collocated vs separate)
-- Review 5 test files for patterns (mocking, structure, assertions)
-- Look for test utilities, fixtures, factories
-- Note any test types (unit, integration, e2e)
-- Document commands for running tests
 </guidelines>

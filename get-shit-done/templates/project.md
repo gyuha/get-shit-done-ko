@@ -1,7 +1,6 @@
 # PROJECT.md Template
 
-> 한국어 우선 안내: 이 템플릿은 `project` 자산을 한국어 기준으로 먼저 읽을 수 있게 정리합니다. 아래 영문 원문은 upstream 동기화와 세부 의미 보존을 위해 함께 유지합니다.
-
+> 한국어 우선 안내: 이 템플릿은 `.planning/PROJECT.md`를 한국어로 빠르게 작성할 수 있게 돕습니다. `## What This Is`, `## Core Value`, `## Requirements` 같은 섹션 이름은 검증기와 프로필 출력이 읽으므로 그대로 유지합니다.
 
 Template for `.planning/PROJECT.md` — the living project context document.
 
@@ -12,55 +11,49 @@ Template for `.planning/PROJECT.md` — the living project context document.
 
 ## What This Is
 
-[현재 프로젝트를 정확히 설명하는 2-3문장. 이 제품이 무엇을 하고 누구를 위한 것인지 적습니다.
-사용자가 쓴 표현과 맥락을 최대한 유지하고, 실제 상태가 바뀌면 함께 업데이트합니다.]
+[이 프로젝트가 무엇인지 2-3문장으로 적습니다.
+누구를 위한 제품인지, 어떤 문제를 해결하는지, 현재 어느 정도까지 구현됐는지 한국어로 분명하게 설명합니다.]
 
 ## Core Value
 
-[가장 중요한 단 하나의 가치. 다른 것이 흔들려도 이것만큼은 반드시 지켜야 합니다.
-우선순위 충돌이 생길 때 판단 기준이 되는 한 문장으로 적습니다.]
+[다른 것이 흔들려도 반드시 지켜야 하는 핵심 가치 한 문장]
 
 ## Requirements
 
 ### Validated
 
-<!-- Shipped and confirmed valuable. -->
+<!-- 이미 배포되었고 가치가 검증된 요구사항 -->
 
-(아직 없음 — 먼저 ship해서 검증)
+- ✓ [검증된 요구사항] — [버전/phase]
 
 ### Active
 
-<!-- Current scope. Building toward these. -->
+<!-- 현재 구현 중이거나 이번 milestone에서 달성할 범위 -->
 
-- [ ] [요구사항 1]
-- [ ] [요구사항 2]
-- [ ] [요구사항 3]
+- [ ] [활성 요구사항 1]
+- [ ] [활성 요구사항 2]
+- [ ] [활성 요구사항 3]
 
 ### Out of Scope
 
-<!-- Explicit boundaries. Includes reasoning to prevent re-adding. -->
+<!-- 지금 만들지 않기로 한 범위와 이유 -->
 
-- [제외 범위 1] — [이유]
-- [제외 범위 2] — [이유]
+- [제외 항목 1] — [제외 이유]
+- [제외 항목 2] — [제외 이유]
 
 ## Context
 
-[구현 판단에 영향을 주는 배경 정보:
-- 기술 환경 또는 생태계
-- 관련 선행 작업 또는 경험
-- 사용자 조사/피드백 패턴
-- 해결해야 할 알려진 이슈]
+- [현재 코드베이스 상태]
+- [사용자 피드백 또는 운영 맥락]
+- [기술 부채나 제약]
+- [이미 결정된 전제]
 
 ## Constraints
 
-- **[유형]**: [무엇] — [이유]
-- **[유형]**: [무엇] — [이유]
-
-Common types: Tech stack, Timeline, Budget, Dependencies, Compatibility, Performance, Security
+- **[유형]**: [제약 내용] — [이유]
+- **[유형]**: [제약 내용] — [이유]
 
 ## Key Decisions
-
-<!-- Decisions that constrain future work. Add throughout project lifecycle. -->
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
@@ -74,116 +67,79 @@ Common types: Tech stack, Timeline, Budget, Dependencies, Compatibility, Perform
 
 <guidelines>
 
-**What This Is:**
-- Current accurate description of the product
-- 2-3 sentences capturing what it does and who it's for
-- Use the user's words and framing
-- Update when the product evolves beyond this description
+**What This Is**
+- 제품 소개 문장입니다.
+- 사용자의 표현을 최대한 보존합니다.
+- 제품 방향이 바뀌면 반드시 함께 갱신합니다.
 
-**Core Value:**
-- The single most important thing
-- Everything else can fail; this cannot
-- Drives prioritization when tradeoffs arise
-- Rarely changes; if it does, it's a significant pivot
+**Core Value**
+- 우선순위 충돌 시 최종 판단 기준입니다.
+- 짧고 단단한 한 문장으로 적습니다.
+- 자주 바꾸지 않습니다.
 
-**Requirements — Validated:**
-- Requirements that shipped and proved valuable
-- Format: `- ✓ [Requirement] — [version/phase]`
-- These are locked — changing them requires explicit discussion
+**Requirements**
+- `Validated`: 이미 가치가 증명된 항목
+- `Active`: 지금 만들고 있는 범위
+- `Out of Scope`: 이번 범위에서 명시적으로 제외한 항목
+- 제외 항목에는 반드시 이유를 남겨 scope creep를 막습니다.
 
-**Requirements — Active:**
-- Current scope being built toward
-- These are hypotheses until shipped and validated
-- Move to Validated when shipped, Out of Scope if invalidated
+**Context**
+- 구현 판단에 영향을 주는 현재 맥락을 적습니다.
+- 코드 구조, 운영 현실, 사용자 피드백, 기술 부채를 포함합니다.
 
-**Requirements — Out of Scope:**
-- Explicit boundaries on what we're not building
-- Always include reasoning (prevents re-adding later)
-- Includes: considered and rejected, deferred to future, explicitly excluded
+**Constraints**
+- 구현 선택을 제한하는 하드 조건입니다.
+- 기술 스택, 일정, 비용, 성능, 보안, 호환성 제약을 씁니다.
+- 이유 없는 제약은 나중에 흔들리기 쉬우므로 이유를 함께 적습니다.
 
-**Context:**
-- Background that informs implementation decisions
-- Technical environment, prior work, user feedback
-- Known issues or technical debt to address
-- Update as new context emerges
-
-**Constraints:**
-- Hard limits on implementation choices
-- Tech stack, timeline, budget, compatibility, dependencies
-- Include the "why" — constraints without rationale get questioned
-
-**Key Decisions:**
-- Significant choices that affect future work
-- Add decisions as they're made throughout the project
-- Track outcome when known:
-  - ✓ Good — decision proved correct
-  - ⚠️ Revisit — decision may need reconsideration
-  - — Pending — too early to evaluate
-
-**Last Updated:**
-- Always note when and why the document was updated
-- Format: `after Phase 2` or `after v1.0 milestone`
-- Triggers review of whether content is still accurate
+**Key Decisions**
+- 미래 phase에 영향을 주는 선택만 남깁니다.
+- 이유와 현재 평가 상태를 같이 적습니다.
 
 </guidelines>
 
 <evolution>
 
-PROJECT.md evolves throughout the project lifecycle.
-These rules are embedded in the generated PROJECT.md (## Evolution section)
-and implemented by workflows/transition.md and workflows/complete-milestone.md.
+PROJECT.md는 phase가 진행될수록 같이 자라야 합니다.
 
-**After each phase transition:**
-1. Requirements invalidated? → Move to Out of Scope with reason
-2. Requirements validated? → Move to Validated with phase reference
-3. New requirements emerged? → Add to Active
-4. Decisions to log? → Add to Key Decisions
-5. "What This Is" still accurate? → Update if drifted
+**After each phase transition**
+1. 더 이상 맞지 않는 Active 요구사항은 `Out of Scope`로 이동합니다.
+2. 실제로 검증된 요구사항은 `Validated`로 올립니다.
+3. 새 요구사항이 생기면 `Active`에 추가합니다.
+4. 중요한 선택이 생기면 `Key Decisions`에 기록합니다.
+5. `What This Is` 설명이 현실과 어긋났는지 확인합니다.
 
-**After each milestone:**
-1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
-4. Update Context with current state (users, feedback, metrics)
+**After each milestone**
+1. 모든 섹션을 다시 읽고 현재 상태와 맞는지 확인합니다.
+2. `Core Value`가 여전히 최우선인지 점검합니다.
+3. `Out of Scope`의 이유가 아직도 유효한지 확인합니다.
+4. `Context`를 최신 운영/사용자 상황으로 갱신합니다.
 
 </evolution>
 
 <brownfield>
 
-For existing codebases:
+기존 코드베이스에서 시작할 때는 다음 순서를 권장합니다.
 
-1. **Map codebase first** via `/gsd:map-codebase`
-
-2. **Infer Validated requirements** from existing code:
-   - What does the codebase actually do?
-   - What patterns are established?
-   - What's clearly working and relied upon?
-
-3. **Gather Active requirements** from user:
-   - Present inferred current state
-   - Ask what they want to build next
-
-4. **Initialize:**
-   - Validated = inferred from existing code
-   - Active = user's goals for this work
-   - Out of Scope = boundaries user specifies
-   - Context = includes current codebase state
+1. `/gsd:map-codebase`로 현재 구조를 먼저 파악합니다.
+2. 이미 동작 중인 기능을 기준으로 `Validated` 요구사항을 추론합니다.
+3. 이번 작업에서 새로 만들 범위를 사용자 목표 기준으로 `Active`에 적습니다.
+4. 이번에 하지 않을 범위를 `Out of Scope`에 명확히 적습니다.
+5. `Context`에 현재 코드베이스 특성과 운영 제약을 같이 남깁니다.
 
 </brownfield>
 
 <state_reference>
 
-STATE.md references PROJECT.md:
+STATE.md는 PROJECT.md를 이렇게 참조합니다.
 
 ```markdown
 ## Project Reference
 
 See: .planning/PROJECT.md (updated [date])
 
-**Core value:** [One-liner from Core Value section]
-**Current focus:** [Current phase name]
+**Core value:** [Core Value 한 줄]
+**Current focus:** [현재 집중 중인 phase]
 ```
-
-This ensures Claude reads current PROJECT.md context.
 
 </state_reference>
