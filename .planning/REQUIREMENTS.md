@@ -22,9 +22,9 @@
 
 ### Localization Audit
 
-- [ ] **L10N-01**: 스킬이 변경 파일 기준으로 한국어 번역/로컬 overlay 누락 여부를 점검할 수 있다
-- [ ] **L10N-02**: 스킬이 중국어 문서나 `zh-CN` 링크 재유입 여부를 점검할 수 있다
-- [ ] **L10N-03**: 스킬이 token-sensitive command/path/identifier drift 위험 파일을 식별해 보고할 수 있다
+- [x] **L10N-01**: 스킬이 변경 파일 기준으로 한국어 번역/로컬 overlay 누락 여부를 점검할 수 있다
+- [x] **L10N-02**: 스킬이 중국어 문서나 `zh-CN` 링크 재유입 여부를 점검할 수 있다
+- [x] **L10N-03**: 스킬이 token-sensitive command/path/identifier drift 위험 파일을 식별해 보고할 수 있다
 
 ### Validation
 
@@ -74,9 +74,9 @@
 | APPLY-02 | Phase 2 | Complete |
 | APPLY-03 | Phase 2 | Complete |
 | APPLY-04 | Phase 2 | Complete |
-| L10N-01 | Phase 3 | Pending |
-| L10N-02 | Phase 3 | Pending |
-| L10N-03 | Phase 3 | Pending |
+| L10N-01 | Phase 3 | Complete |
+| L10N-02 | Phase 3 | Complete |
+| L10N-03 | Phase 3 | Complete |
 | VAL-01 | Phase 4 | Pending |
 | VAL-02 | Phase 4 | Pending |
 | VAL-03 | Phase 4 | Pending |
