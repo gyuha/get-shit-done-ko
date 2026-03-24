@@ -7,6 +7,7 @@ const path = require('path');
 const { buildReleaseState } = require('../scripts/check-upstream-release.cjs');
 const {
   PRESERVED_PATHS,
+  parseArgs,
   runRefresh,
 } = require('../scripts/apply-upstream-refresh.cjs');
 
@@ -129,8 +130,10 @@ describe('runRefresh', () => {
     assert.strictEqual(result.applied, false);
     assert.strictEqual(result.no_op, true);
     assert.strictEqual(result.status, 'current');
+    assert.strictEqual(result.apply_mode, 'source-of-truth');
     assert.deepStrictEqual(Object.keys(result).sort(), [
       'applied',
+      'apply_mode',
       'current_tag',
       'incoming_tag',
       'latest_published_at',
@@ -220,6 +223,7 @@ describe('runRefresh', () => {
     assert.strictEqual(result.applied, false);
     assert.strictEqual(result.no_op, false);
     assert.strictEqual(result.status, 'update_available');
+    assert.strictEqual(result.apply_mode, 'source-of-truth');
     assert.strictEqual(result.latest_published_at, '2026-03-22T15:45:26Z');
     assert.strictEqual(result.package_version, '1.28.1');
     assert.ok(result.summary.includes('v1.28.0'));
@@ -237,6 +241,7 @@ describe('runRefresh', () => {
       status: 'update_available',
       current_tag: 'v1.28.0',
       incoming_tag: 'v1.29.0',
+      apply_mode: 'source-of-truth',
       latest_published_at: '2026-03-22T15:45:26Z',
       package_version: '1.29.0',
       summary: 'Ready to refresh vendored GSD from v1.28.0 to v1.29.0.',
@@ -250,6 +255,7 @@ describe('runRefresh', () => {
 
     assert.match(output, /- status: update_available/);
     assert.match(output, /- incoming tag: v1.29.0/);
+    assert.match(output, /- apply mode: source-of-truth/);
     assert.match(output, /### touched paths/);
     assert.match(output, /### preserved paths/);
     assert.match(output, /### overlay reapply/);
@@ -295,6 +301,7 @@ describe('runRefresh', () => {
 
     assert.strictEqual(result.applied, true);
     assert.strictEqual(result.no_op, false);
+    assert.strictEqual(result.apply_mode, 'source-of-truth');
     assert.strictEqual(fs.readFileSync(path.join(repoDir, 'README.md'), 'utf8'), 'localized readme\n');
     assert.strictEqual(fs.readFileSync(path.join(repoDir, 'docs/core.md'), 'utf8'), 'upstream core\n');
     assert.strictEqual(fs.readFileSync(path.join(repoDir, 'docs/localized-guide.md'), 'utf8'), 'keep my local overlay\n');
@@ -303,5 +310,21 @@ describe('runRefresh', () => {
     assert.ok(fs.readFileSync(path.join(repoDir, 'docs/UPSTREAM-SYNC.md'), 'utf8').includes('`v1.29.0`'));
     assert.strictEqual(fs.readFileSync(path.join(repoDir, '.planning/local-state.md'), 'utf8'), 'preserve planning state\n');
     assert.strictEqual(fs.readFileSync(path.join(repoDir, 'AGENTS.md'), 'utf8'), 'local instructions\n');
+  });
+
+  test('defaults the CLI mode to source-of-truth and rejects unknown modes', () => {
+    const parsed = parseArgs(['--to-tag', 'v1.29.0']);
+    assert.strictEqual(parsed.mode, undefined);
+
+    assert.throws(
+      () => runRefresh({
+        cwd: makeTempDir('upstream-sync-repo'),
+        currentTag: 'v1.28.0',
+        currentFile: 'get-shit-done/UPSTREAM_VERSION',
+        toTag: 'v1.29.0',
+        mode: 'invalid-mode',
+      }),
+      /Unknown apply mode: invalid-mode/
+    );
   });
 });

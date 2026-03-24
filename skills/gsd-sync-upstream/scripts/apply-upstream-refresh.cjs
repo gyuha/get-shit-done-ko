@@ -14,6 +14,8 @@ const {
 } = require('./check-upstream-release.cjs');
 
 const UPSTREAM_REPO = 'https://github.com/gsd-build/get-shit-done.git';
+const DEFAULT_APPLY_MODE = 'source-of-truth';
+const VALID_APPLY_MODES = new Set([DEFAULT_APPLY_MODE]);
 const IMPORT_ENTRIES = [
   '.github',
   '.gitignore',
@@ -84,6 +86,10 @@ function parseArgs(argv) {
       args.toTag = argv[++i];
       continue;
     }
+    if (arg === '--mode') {
+      args.mode = argv[++i];
+      continue;
+    }
     if (arg === '--baseline-dir') {
       args.baselineDir = path.resolve(argv[++i]);
       continue;
@@ -111,6 +117,7 @@ function printHelp() {
 
 Options:
   --to-tag <tag>           Target upstream tag to import
+  --mode <name>            Apply strategy (default: source-of-truth)
   --current-file <path>    Machine-readable tracked baseline file
   --current-tag <tag>      Override tracked baseline tag
   --dry-run                Show what would change without mutating the repo
@@ -171,6 +178,14 @@ function materializeSnapshot({ cwd, tag, fromCurrent, explicitDir, tempPrefix })
     return cwd;
   }
   return cloneUpstreamTag(tag, makeTempDir(tempPrefix));
+}
+
+function resolveApplyMode(mode) {
+  const resolvedMode = mode || DEFAULT_APPLY_MODE;
+  if (!VALID_APPLY_MODES.has(resolvedMode)) {
+    throw new Error(`Unknown apply mode: ${resolvedMode}`);
+  }
+  return resolvedMode;
 }
 
 function collectFiles(rootPath) {
@@ -288,7 +303,7 @@ function importSnapshotIntoRepo(repoDir, snapshotDir) {
   }
 }
 
-function buildDryRunResult({ releaseState, overlays }) {
+function buildDryRunResult({ releaseState, overlays, applyMode }) {
   const summary = releaseState.update_available
     ? `Ready to refresh vendored GSD from ${releaseState.current_tag} to ${releaseState.latest_tag}.`
     : `No refresh needed because tracked baseline ${releaseState.current_tag} is already current or ahead.`;
@@ -299,6 +314,7 @@ function buildDryRunResult({ releaseState, overlays }) {
     incoming_tag: releaseState.latest_tag,
     latest_published_at: releaseState.latest_published_at,
     package_version: releaseState.package_version,
+    apply_mode: applyMode,
     summary,
     touched: [...IMPORT_ENTRIES],
     preserved: [...PRESERVED_PATHS],
@@ -316,6 +332,7 @@ function formatDryRun(result) {
     `- status: ${result.status}`,
     `- current tag: ${result.current_tag}`,
     `- incoming tag: ${result.incoming_tag}`,
+    `- apply mode: ${result.apply_mode}`,
   ];
 
   if (result.latest_published_at) {
@@ -372,6 +389,7 @@ function runRefresh(args) {
     throw new Error('--to-tag is required');
   }
 
+  const applyMode = resolveApplyMode(args.mode);
   const currentTag = readCurrentTag({
     currentFile: args.currentFile,
     currentTag: args.currentTag,
@@ -389,7 +407,7 @@ function runRefresh(args) {
 
   if (compareVersions(currentTag, targetTag) >= 0) {
     return {
-      ...buildDryRunResult({ releaseState, overlays: [] }),
+      ...buildDryRunResult({ releaseState, overlays: [], applyMode }),
       applied: false,
     };
   }
@@ -416,7 +434,7 @@ function runRefresh(args) {
     if (!args.upstreamDir) tempDirs.push(upstreamDir);
 
     const overlays = collectOverlayEntries(baselineDir, args.cwd);
-    const dryRunResult = buildDryRunResult({ releaseState, overlays });
+    const dryRunResult = buildDryRunResult({ releaseState, overlays, applyMode });
 
     if (args.dryRun) {
       return {
@@ -473,6 +491,7 @@ module.exports = {
   collectOverlayEntries,
   formatDryRun,
   parseArgs,
+  resolveApplyMode,
   runRefresh,
   updateTrackedBaselineFiles,
 };
