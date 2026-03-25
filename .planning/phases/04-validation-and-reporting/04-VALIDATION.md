@@ -22,18 +22,18 @@ created: 2026-03-25
 |----------|-------|
 | **Framework** | Node built-in test runner (`node --test`) |
 | **Config file** | none |
-| **Quick run command** | `node --test tests/validation-reporting.test.cjs -x` |
+| **Quick run command** | `task-specific smoke command from the verification map below` |
 | **Full suite command** | `node scripts/run-tests.cjs` |
-| **Estimated runtime** | ~120 seconds |
+| **Estimated runtime** | ~5-30 seconds per task smoke, ~120 seconds for the full suite |
 
 ---
 
 ## Sampling Rate (샘플링 빈도)
 
-- **After every task commit:** Run `node --test tests/validation-reporting.test.cjs -x`
+- **After every task commit:** Run the task-specific smoke command from the verification map below.
 - **After every plan wave:** Run `node --test tests/path-replacement.test.cjs tests/runtime-converters.test.cjs tests/codex-config.test.cjs tests/antigravity-install.test.cjs tests/copilot-install.test.cjs tests/upstream-sync.test.cjs tests/localization-gap-audit.test.cjs -x`
 - **Before `$gsd-verify-work`:** Full suite must be green with `node scripts/run-tests.cjs`
-- **Max feedback latency:** 120 seconds
+- **Max feedback latency:** 30 seconds for per-task smoke when practical; reserve the ~120 second suite for wave/full verification only.
 
 ---
 
@@ -41,11 +41,11 @@ created: 2026-03-25
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 04-01-01 | 01 | 1 | VAL-01 | integration | `node --test tests/validation-reporting.test.cjs -x` | ❌ W0 | ⬜ pending |
-| 04-02-01 | 02 | 1 | VAL-02 | integration | `node --test tests/validation-reporting.test.cjs -x` | ❌ W0 | ⬜ pending |
-| 04-02-02 | 02 | 1 | VAL-03 | unit | `node --test tests/validation-reporting.test.cjs -x` | ❌ W0 | ⬜ pending |
-| 04-03-01 | 03 | 2 | RPT-01 | integration | `node --test tests/validation-reporting.test.cjs -x` | ❌ W0 | ⬜ pending |
-| 04-03-02 | 03 | 2 | RPT-02 | unit/integration | `node --test tests/validation-reporting.test.cjs -x` | ❌ W0 | ⬜ pending |
+| 04-01-01 | 01 | 1 | VAL-01 | contract smoke | `test -f tests/validation-reporting.test.cjs && rg -n "runValidationSequence|QUICK_VALIDATION_TESTS|validate health|validate consistency|roadmap analyze|scripts/run-tests\\.cjs" tests/validation-reporting.test.cjs` | ✅ planned artifact | ⬜ pending |
+| 04-02-01 | 02 | 2 | VAL-02 | integration smoke | `node --test tests/validation-reporting.test.cjs --test-name-pattern "quick|default|canonical|gate" -x` | ✅ from 04-01 | ⬜ pending |
+| 04-02-02 | 02 | 2 | VAL-03 | unit smoke | `node --test tests/validation-reporting.test.cjs --test-name-pattern "verdict|next action|owner|severity|pass-with-caveats|partial|fail" -x` | ✅ from 04-01 | ⬜ pending |
+| 04-03-01 | 03 | 3 | RPT-01 | artifact smoke | `node --test tests/validation-reporting.test.cjs --test-name-pattern "report|latest|markdown|json" -x` | ✅ from 04-01 | ⬜ pending |
+| 04-03-02 | 03 | 3 | RPT-02 | docs/contract smoke | `rg -n "node scripts/validation-reporting\\.cjs|latest\\.json|latest\\.md|validation-report-<timestamp>|--mode source-of-truth" skills/gsd-sync-upstream/SKILL.md docs/UPSTREAM-SYNC.md docs/RELEASE-CHECKLIST.md .planning/phases/04-validation-and-reporting/04-VALIDATION.md` | ✅ doc surfaces | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -74,7 +74,7 @@ created: 2026-03-25
 - [ ] Sampling continuity: no 3 consecutive tasks without automated verify
 - [ ] Wave 0 covers all MISSING references
 - [ ] No watch-mode flags
-- [ ] Feedback latency < 120s
+- [ ] Per-task smoke latency < 30s when practical; longer suites only at wave/full checkpoints
 - [ ] `nyquist_compliant: true` set in frontmatter
 
 **Approval:** pending
