@@ -52,17 +52,7 @@ skills/
         ├── check-upstream-release.cjs
         └── apply-upstream-refresh.cjs
 
-scripts/
-├── check-upstream-release.cjs  # latest release compare
-├── apply-upstream-refresh.cjs  # vendored refresh apply
-└── run-tests.cjs               # post-sync regression suite
-
-docs/
-├── UPSTREAM-SYNC.md            # maintainer runbook
-└── RELEASE-CHECKLIST.md        # canonical validation checklist
-
-get-shit-done/
-└── UPSTREAM_VERSION            # tracked upstream baseline
+UPSTREAM_VERSION            # tracked upstream baseline
 
 .planning/
 └── [reports or sync summaries] # optional run output / audit artifacts
@@ -72,7 +62,6 @@ get-shit-done/
 
 - **`skills/gsd-sync-upstream/`:** 스킬 본문, 참조 문서, 번들 helper를 함께 넣어 배포/재사용 단위를 명확히 한다
 - **`scripts/`:** compare/apply/validate를 독립 실행 가능하게 유지해 skill 밖에서도 재사용 가능하게 한다
-- **`docs/`:** 사람이 따라갈 수 있는 maintainer runbook과 blocker checklist를 유지한다
 
 ## Architectural Patterns (아키텍처 패턴)
 
@@ -180,8 +169,8 @@ Phase 2: widen import to root surfaces and runtime-adjacent files
 
 | Service | Integration Pattern | Notes |
 |---------|---------------------|-------|
-| GitHub Releases | latest release metadata fetch | `scripts/check-upstream-release.cjs`가 사용 |
-| upstream Git repo | tag clone / snapshot import | `scripts/apply-upstream-refresh.cjs`가 사용 |
+| GitHub Releases | latest release metadata fetch | `skills/gsd-sync-upstream/scripts/check-upstream-release.cjs`가 사용 |
+| upstream Git repo | tag clone / snapshot import | `skills/gsd-sync-upstream/scripts/apply-upstream-refresh.cjs`가 사용 |
 
 ### Internal Boundaries (내부 경계)
 
@@ -195,8 +184,8 @@ Phase 2: widen import to root surfaces and runtime-adjacent files
 
 - `skills/gsd-sync-upstream/SKILL.md`
 - `skills/gsd-sync-upstream/references/context.md`
-- `scripts/check-upstream-release.cjs`
-- `scripts/apply-upstream-refresh.cjs`
+- `skills/gsd-sync-upstream/scripts/check-upstream-release.cjs`
+- `skills/gsd-sync-upstream/scripts/apply-upstream-refresh.cjs`
 - `docs/UPSTREAM-SYNC.md`
 
 ---
