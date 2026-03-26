@@ -1,109 +1,198 @@
 # Testing Patterns
 
-**Analysis Date:** 2026-03-24
+**Analysis Date:** 2026-03-26
 
 ## Test Framework
 
 **Runner:**
-- Node.js built-in `node:test`
-- 별도 중앙 설정 파일 없이 `scripts/run-tests.cjs`가 `tests/*.test.cjs`를 정렬해 실행
+- Node.js built-in `node:test` is the primary runner, used directly in `tests/core.test.cjs`, `tests/config.test.cjs`, `tests/commands.test.cjs`, and the rest of `tests/*.test.cjs`.
+- The repository-level runner is `scripts/run-tests.cjs`, invoked by `package.json` as `npm test`.
 
 **Assertion Library:**
-- `node:assert`
-- `strictEqual`, `ok`, `deepStrictEqual`를 자주 사용 (`tests/dispatcher.test.cjs`)
+- `node:assert` is the default assertion library in files such as `tests/core.test.cjs`, `tests/config.test.cjs`, and `tests/commands.test.cjs`.
+- `node:assert/strict` is used where stricter semantics are preferred, as in `tests/security.test.cjs`.
 
 **Run Commands:**
 ```bash
 npm test
-node scripts/run-tests.cjs
-node --test tests/dispatcher.test.cjs
+node --test tests/config.test.cjs
 npm run test:coverage
 ```
 
 ## Test File Organization
 
 **Location:**
-- 모든 테스트는 `tests/`에 모음
+- All checked-in automated tests are centralized under `tests/`.
+- Test support helpers live beside the suites in `tests/helpers.cjs`; there is no separate `__tests__/` or fixture directory.
 
 **Naming:**
-- `*.test.cjs`
+- Use `*.test.cjs` for executable suites, such as `tests/frontmatter.test.cjs`, `tests/verify.test.cjs`, and `tests/upstream-sync.test.cjs`.
+- Keep helper-only utilities outside the suffix pattern, for example `tests/helpers.cjs`.
 
 **Structure:**
 ```text
 tests/
 ├── helpers.cjs
-├── dispatcher.test.cjs
-├── init.test.cjs
-├── runtime-converters.test.cjs
-└── ... 총 42개 test files
+├── core.test.cjs
+├── commands.test.cjs
+├── config.test.cjs
+├── verify.test.cjs
+├── security.test.cjs
+└── ...other *.test.cjs
 ```
 
 ## Test Structure
 
 **Suite Organization:**
-- `describe()`로 명령 그룹 또는 기능 영역을 묶고, `test()`로 세부 케이스를 작성
+```javascript
+const { test, describe, beforeEach, afterEach } = require('node:test');
+const assert = require('node:assert');
+
+describe('config-set command', () => {
+  let tmpDir;
+
+  beforeEach(() => {
+    tmpDir = createTempProject();
+    runGsdTools('config-ensure-section', tmpDir);
+  });
+
+  afterEach(() => {
+    cleanup(tmpDir);
+  });
+
+  test('sets nested values via dot-notation', () => {
+    const result = runGsdTools('config-set workflow.research false', tmpDir);
+    assert.ok(result.success, `Command failed: ${result.error}`);
+  });
+});
+```
+Pattern source: `tests/config.test.cjs`.
 
 **Patterns:**
-- 임시 프로젝트 디렉터리를 만들어 CLI를 실제에 가깝게 실행함 (`tests/helpers.cjs`, `tests/dispatcher.test.cjs`)
-- stdout/stderr 텍스트와 종료 코드까지 함께 검증함
-- 한국어 현지화 포크 특성상 사용자-facing 문자열도 assertion 대상임 (`tests/dispatcher.test.cjs`)
+- Group cases by exported function or CLI command with top-level `describe(...)`, as seen in `tests/core.test.cjs`, `tests/security.test.cjs`, and `tests/workspace.test.cjs`.
+- Use `beforeEach` and `afterEach` to create and remove isolated temp directories for nearly every filesystem-affecting suite, using helpers from `tests/helpers.cjs`.
+- Keep assertions close to the command result: arrange data on disk, run the helper or CLI entrypoint, parse JSON if needed, then assert exact fields, as in `tests/commands.test.cjs`, `tests/verify.test.cjs`, and `tests/upstream-sync.test.cjs`.
+- Large suites are broken into comment-delimited sections inside a single file rather than split across many tiny files, as in `tests/core.test.cjs` and `tests/verify.test.cjs`.
 
 ## Mocking
 
-**Framework:**
-- 별도 mocking 프레임워크 없음
+**Framework:** manual stubbing only
+
+**Patterns:**
+```javascript
+beforeEach(() => {
+  origFetch = global.fetch;
+  origWriteSync = fs.writeSync;
+  captured = '';
+  fs.writeSync = (fd, data) => {
+    if (fd === 1) captured += data;
+    return Buffer.byteLength(String(data));
+  };
+});
+
+afterEach(() => {
+  global.fetch = origFetch;
+  fs.writeSync = origWriteSync;
+});
+
+global.fetch = async () => ({
+  ok: true,
+  json: async () => ({ web: { results: [] } }),
+});
+```
+Pattern source: `tests/commands.test.cjs`.
 
 **What to Mock:**
-- 환경 변수와 임시 파일 시스템 정도만 최소한으로 제어
-- 외부 API 호출은 테스트 내에서 조건 분기 또는 stubbed execution result로 다룸 (`tests/commands.test.cjs`)
+- Mock network boundaries like `global.fetch` when testing command logic that would otherwise call an external API, as in the `websearch command` tests in `tests/commands.test.cjs`.
+- Stub direct output sinks like `fs.writeSync` when validating CLI JSON written through `output(...)`, also in `tests/commands.test.cjs`.
 
 **What NOT to Mock:**
-- 가능하면 `node get-shit-done/bin/gsd-tools.cjs ...` 실제 실행 경로
-- 파일 시스템 기반 planning state 생성/수정 흐름
+- Do not mock filesystem-heavy project state when a temp directory can exercise the real behavior. Suites in `tests/config.test.cjs`, `tests/verify.test.cjs`, `tests/workspace.test.cjs`, and `tests/upstream-sync.test.cjs` create actual files and directories instead.
+- Do not mock Git when a disposable repo is sufficient. `tests/helpers.cjs` creates real repositories via `git init`, and suites such as `tests/workspace.test.cjs` and `tests/core.test.cjs` run actual Git commands.
 
 ## Fixtures and Factories
 
 **Test Data:**
-- 임시 프로젝트 생성 helper를 재사용
-- 각 테스트가 필요한 최소 `.planning/` 또는 config 파일을 직접 써서 시나리오를 만듦
+```javascript
+function createTempProject() {
+  const tmpDir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'gsd-test-'));
+  fs.mkdirSync(path.join(tmpDir, '.planning', 'phases'), { recursive: true });
+  return tmpDir;
+}
+
+function runGsdTools(args, cwd = process.cwd(), env = {}) {
+  return runGsdToolsAt(TOOLS_PATH, args, cwd, env);
+}
+```
+Pattern source: `tests/helpers.cjs`.
 
 **Location:**
-- `tests/helpers.cjs`
-- 개별 테스트 파일 내부 inline fixture
+- Reusable test factories and process helpers live in `tests/helpers.cjs`.
+- Suite-specific inline factories are acceptable when tightly scoped, such as `validPlanContent(...)` in `tests/verify.test.cjs`, `makeTempDir(...)` and `seedRepo(...)` in `tests/upstream-sync.test.cjs`, and `writeFile(...)` helpers in `tests/localization-gap-audit.test.cjs`.
 
 ## Coverage
 
-**Requirements:**
-- `npm run test:coverage`는 `get-shit-done/bin/lib/*.cjs` 기준 line coverage 70%를 요구 (`package.json`)
-- 회귀가 생긴 기능은 대응 테스트를 추가하는 패턴이 강함
+**Requirements:** `npm run test:coverage` enforces at least 70% line coverage through `c8 --check-coverage --lines 70` in `package.json`.
 
-**Configuration:**
-- `c8 --check-coverage --lines 70 --reporter text --include 'get-shit-done/bin/lib/*.cjs' --exclude 'tests/**' --all node scripts/run-tests.cjs`
+**View Coverage:**
+```bash
+npm run test:coverage
+```
+
+Coverage scope notes:
+- Coverage currently includes `get-shit-done/bin/lib/*.cjs` and excludes `tests/**`, as configured in `package.json`.
+- The coverage script runs through `scripts/run-tests.cjs`, so new tests should remain discoverable by the `.test.cjs` scan in `tests/`.
 
 ## Test Types
 
 **Unit Tests:**
-- CLI lib 함수와 parser, config, state, security 동작 검증 (`tests/core.test.cjs`, `tests/config.test.cjs`, `tests/security.test.cjs`)
+- Pure helper and parser behavior is tested by importing functions directly, for example `tests/frontmatter.test.cjs`, `tests/security.test.cjs`, and parts of `tests/core.test.cjs`.
 
 **Integration Tests:**
-- 설치기/런타임 변환/명령 디스패치와 같은 end-to-end 성격 검증 (`tests/antigravity-install.test.cjs`, `tests/copilot-install.test.cjs`, `tests/runtime-converters.test.cjs`)
+- CLI and workflow behaviors are tested by creating temp projects and invoking the real Node entrypoint via `runGsdTools(...)` or `runCodexGsdTools(...)`, as in `tests/config.test.cjs`, `tests/commands.test.cjs`, `tests/verify.test.cjs`, and `tests/codex-config.test.cjs`.
+- Script-level integration tests import and execute exported script helpers directly with real filesystem state, as in `tests/upstream-sync.test.cjs` and `tests/localization-gap-audit.test.cjs`.
 
 **E2E Tests:**
-- 브라우저/E2E 프레임워크 기반 테스트는 감지되지 않음
+- No separate browser or full end-to-end framework was detected. The closest pattern is CLI integration through disposable repos and temp directories.
 
 ## Common Patterns
 
 **Async Testing:**
-- Node test runner의 동기/비동기 지원을 그대로 사용
-- 외부 호출이 필요한 경우 promise-returning helper 결과를 기다려 검증
+```javascript
+test('handles network failure', async () => {
+  process.env.BRAVE_API_KEY = 'test-key';
+
+  global.fetch = async () => {
+    throw new Error('Network timeout');
+  };
+
+  await cmdWebsearch('test query', {}, false);
+
+  const output = JSON.parse(captured);
+  assert.strictEqual(output.available, false);
+  assert.strictEqual(output.error, 'Network timeout');
+});
+```
+Pattern source: `tests/commands.test.cjs`.
 
 **Error Testing:**
-- 실패 케이스는 `success === false`와 stderr 메시지를 함께 확인
-- 잘못된 인자, 없는 경로, unknown subcommand를 중점 검증 (`tests/dispatcher.test.cjs`)
+```javascript
+test('throws on traversal attempt', () => {
+  assert.throws(
+    () => requireSafePath('../../etc/passwd', base, 'PRD file'),
+    /PRD file validation failed/
+  );
+});
+```
+Pattern source: `tests/security.test.cjs`.
+
+Additional recurring practices:
+- Prefer exact message fragments for regression-sensitive output, including localized text, as in `tests/config.test.cjs` assertions for Korean error messages.
+- Use documented regression IDs in test names or surrounding comments when preserving a known bug or backfill, such as `REG-01` in `tests/core.test.cjs` and `REG-04` in `tests/frontmatter.test.cjs`.
+- Validate structured JSON output after every CLI command instead of only checking exit success, as in `tests/config.test.cjs`, `tests/commands.test.cjs`, and `tests/verify.test.cjs`.
 
 **Snapshot Testing:**
-- Snapshot testing은 사용하지 않음
+- Not used. No snapshot files or snapshot assertion helpers were detected.
 
 ---
-*Testing analysis: 2026-03-24*
-*Update when test patterns change*
+*Testing analysis: 2026-03-26*

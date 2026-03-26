@@ -1,96 +1,103 @@
 # Coding Conventions
 
-**Analysis Date:** 2026-03-24
+**Analysis Date:** 2026-03-26
 
 ## Naming Patterns
 
 **Files:**
-- JavaScript/CLI 모듈은 소문자 kebab-case 또는 단일 의미 이름을 사용 (`get-shit-done/bin/lib/state.cjs`, `scripts/run-tests.cjs`)
-- 테스트는 `*.test.cjs`
-- 문서와 워크플로는 kebab-case 유지, token-sensitive 파일명은 변경하지 않음 (`AGENTS.md`, `README.md`)
+- Runtime code uses CommonJS filenames with `.js` for the npm entrypoint and build scripts in `bin/install.js` and `scripts/build-hooks.js`.
+- Library modules under `get-shit-done/bin/lib/` use lowercase kebab-like names with `.cjs`, for example `get-shit-done/bin/lib/core.cjs`, `get-shit-done/bin/lib/config.cjs`, and `get-shit-done/bin/lib/commands.cjs`.
+- Tests live in `tests/` and use `*.test.cjs`, for example `tests/core.test.cjs`, `tests/config.test.cjs`, and `tests/workspace.test.cjs`.
 
 **Functions:**
-- camelCase 사용 (`parseNamedArgs`, `cmdInitNewProject`, `getGlobalDir`)
-- CLI command handlers는 `cmdXxx` 패턴을 자주 사용 (`get-shit-done/bin/lib/init.cjs`)
+- Use camelCase for exported helpers and command handlers, such as `loadConfig`, `findProjectRoot`, `cmdConfigNewProject`, and `cmdHistoryDigest` in `get-shit-done/bin/lib/core.cjs`, `get-shit-done/bin/lib/config.cjs`, and `get-shit-done/bin/lib/commands.cjs`.
+- Prefix CLI command implementations with `cmd`, as shown by `cmdGenerateSlug`, `cmdCurrentTimestamp`, and `cmdVerifyPathExists` in `get-shit-done/bin/lib/commands.cjs`.
+- Use verb-led helper names for test utilities, such as `runGsdTools`, `createTempProject`, and `cleanup` in `tests/helpers.cjs`.
 
 **Variables:**
-- 일반 변수는 camelCase
-- 상수는 UPPER_SNAKE_CASE (`GSD_CODEX_MARKER`, `CODEX_AGENT_SANDBOX`)
+- Use camelCase for normal locals and parameters, including `selectedRuntimes`, `explicitDir`, `planningBase`, and `configPath` in `bin/install.js` and `get-shit-done/bin/lib/config.cjs`.
+- Use UPPER_SNAKE_CASE for process-wide constants, for example `GSD_CODEX_MARKER`, `CODEX_AGENT_SANDBOX`, `VALID_CONFIG_KEYS`, and `HOOKS_TO_COPY` in `bin/install.js`, `get-shit-done/bin/lib/config.cjs`, and `scripts/build-hooks.js`.
+- Prefer short descriptive loop variables when scope is local, such as `dir`, `fm`, `hook`, and `tmpDir` in `get-shit-done/bin/lib/commands.cjs`, `scripts/build-hooks.js`, and `tests/*.test.cjs`.
 
 **Types:**
-- TypeScript 타입 선언은 현재 주요 구현 패턴이 아님
+- No TypeScript types, interfaces, or JSDoc typedef blocks are used in the runtime modules inspected under `get-shit-done/bin/lib/` and `scripts/`.
+- JSDoc is used selectively for function contracts and parameter meaning, for example `runGsdToolsAt` in `tests/helpers.cjs`, `getConfigDirFromHome` in `bin/install.js`, and `reapStaleTempFiles` in `get-shit-done/bin/lib/core.cjs`.
 
 ## Code Style
 
 **Formatting:**
-- CommonJS 유지 (`require`, `module`-style file organization)
-- 함수와 상수 사이에 설명성 주석을 넣되, 지나친 주석은 피함 (`scripts/run-tests.cjs`, `bin/install.js`)
-- 가드 절과 early return을 선호함 (`get-shit-done/bin/gsd-tools.cjs`, `hooks/gsd-workflow-guard.js`)
-- 사용자/기계가 읽는 토큰은 보존하고 설명층만 현지화함 (`AGENTS.md`, `docs/UPSTREAM-SYNC.md`)
+- Preserve `'use strict';` when a file already declares it, as in `scripts/run-tests.cjs` and `tests/security.test.cjs`. Most runtime files omit it and rely on Node CommonJS defaults, such as `bin/install.js` and `get-shit-done/bin/lib/commands.cjs`.
+- Use two-space indentation, semicolons, and single-quoted strings consistently across `bin/install.js`, `get-shit-done/bin/lib/*.cjs`, and `tests/*.test.cjs`.
+- Keep long destructuring imports on one `const { ... } = require(...)` line when manageable, even if the line becomes long, as in `get-shit-done/bin/lib/commands.cjs` and `tests/verify.test.cjs`.
+- Prefer explicit early returns and guard clauses instead of nested branches, as seen in `cmdGenerateSlug` in `get-shit-done/bin/lib/commands.cjs` and `cmdConfigNewProject` in `get-shit-done/bin/lib/config.cjs`.
+- Preserve token-sensitive literal strings and path fragments exactly in localized surfaces. This rule is reinforced by project guidance in `AGENTS.md` and by audit coverage in `scripts/audit-localization-gap.cjs` with tests in `tests/localization-gap-audit.test.cjs`.
 
 **Linting:**
-- 별도 ESLint/Prettier 설정은 저장소 루트에서 감지되지 않음
-- 대신 테스트와 동작 검증이 스타일 일관성의 주요 안전장치임
+- No active ESLint, Prettier, Biome, or EditorConfig configuration was detected at the repository root; only `package.json` and `package-lock.json` were present.
+- Style is enforced by existing file patterns plus automated tests, not by a checked-in formatter or linter config.
+- When changing generated or packaged assets, keep syntax-valid JavaScript because `scripts/build-hooks.js` validates hooks with `vm.Script` before copying them to `hooks/dist`.
 
 ## Import Organization
 
 **Order:**
-1. Node.js built-ins
-2. 외부 패키지 또는 package-local require
-3. 로컬 헬퍼/모듈
+1. Node built-ins first via `require(...)`, such as `fs`, `path`, `os`, `readline`, and `child_process` in `bin/install.js`, `get-shit-done/bin/lib/core.cjs`, and `tests/core.test.cjs`.
+2. Local project modules next, usually via relative `require(...)`, such as `./core.cjs`, `./model-profiles.cjs`, and `../get-shit-done/bin/lib/frontmatter.cjs` in `get-shit-done/bin/lib/config.cjs`, `get-shit-done/bin/lib/commands.cjs`, and `tests/frontmatter.test.cjs`.
+3. Inline `require(...)` inside a function is acceptable when the dependency is only needed on a narrow path, for example `require('os').homedir()` in `get-shit-done/bin/lib/core.cjs` and `require('child_process')` inside a single test in `tests/commands.test.cjs`.
 
-**Grouping:**
-- import/require 그룹 사이에 빈 줄 1개를 두는 패턴이 자주 보임 (`bin/install.js`, `get-shit-done/bin/gsd-tools.cjs`)
+**Path Aliases:**
+- Not detected. All imports are relative file paths or Node built-ins in `bin/`, `get-shit-done/bin/lib/`, `scripts/`, and `tests/`.
 
 ## Error Handling
 
 **Patterns:**
-- CLI 유틸리티는 invalid input을 즉시 종료시키는 hard-fail 방식 (`get-shit-done/bin/gsd-tools.cjs`)
-- hook scripts는 절대 메인 툴 실행을 막지 않도록 silent fail 또는 advisory-only 패턴 사용 (`hooks/gsd-workflow-guard.js`)
-- cross-platform 문제는 코드 안에서 직접 감지하고 명시적 메시지를 출력함 (`bin/install.js`의 WSL detection)
+- CLI-facing failures call centralized `error(...)` helpers that write to stderr and exit, as shown in `get-shit-done/bin/lib/core.cjs`, `get-shit-done/bin/lib/config.cjs`, and `get-shit-done/bin/lib/commands.cjs`.
+- Non-critical filesystem cleanup and probing frequently use `try { ... } catch {}` with intentionally empty catches, especially in `get-shit-done/bin/lib/core.cjs`, `get-shit-done/bin/lib/commands.cjs`, and `tests/helpers.cjs`.
+- Functions that need to keep executing after a recoverable failure return structured objects rather than throwing, for example `runGsdToolsAt` in `tests/helpers.cjs` and `cmdVerifyPathExists` in `get-shit-done/bin/lib/commands.cjs`.
+- JSON output helpers return machine-readable payloads through `output(...)`; command functions prefer `{ success/data }`-style objects over ad hoc strings in `get-shit-done/bin/lib/core.cjs`, `get-shit-done/bin/lib/config.cjs`, and `get-shit-done/bin/lib/commands.cjs`.
 
 ## Logging
 
-**Framework:**
-- 전용 로깅 프레임워크 없음
+**Framework:** console plus direct stdio writes
 
 **Patterns:**
-- 사용자-facing CLI는 `console.error`, `console.log`, helper `output/error`를 사용
-- 테스트는 stdout/stderr 문자열까지 직접 assertion 함 (`tests/dispatcher.test.cjs`)
+- Runtime commands prefer `fs.writeSync(1, ...)` and `fs.writeSync(2, ...)` through `output(...)` and `error(...)` in `get-shit-done/bin/lib/core.cjs` to avoid buffered stdout issues.
+- Build and installer scripts log directly with `console.log`, `console.warn`, and `console.error`, as in `scripts/build-hooks.js` and `bin/install.js`.
+- Tests capture stdout by replacing `fs.writeSync` when validating command output, as in the `websearch command` suite in `tests/commands.test.cjs`.
 
 ## Comments
 
 **When to Comment:**
-- 플랫폼/런타임 제약, parser caveat, ownership marker 같은 비자명한 이유를 설명할 때
-- 코드 블록의 목적이 이름만으로 충분히 드러나지 않을 때
+- Use file header comments to state module purpose, such as `Core — 공용 유틸리티...` in `get-shit-done/bin/lib/core.cjs`, `Config — planning config CRUD 작업` in `get-shit-done/bin/lib/config.cjs`, and `GSD Tools Tests - config.cjs` in `tests/config.test.cjs`.
+- Add section dividers with box-drawing comments to break up long files, for example `// ─── loadConfig ───` in `tests/core.test.cjs` and `// ─── Path Traversal Prevention ───` in `tests/security.test.cjs`.
+- Add brief why-focused comments around regressions, platform quirks, and workarounds, such as WSL detection notes in `bin/install.js`, coverage notes in `scripts/run-tests.cjs`, and regression annotations like `REG-01` and `REG-04` in `tests/core.test.cjs` and `tests/frontmatter.test.cjs`.
 
-**TODO Comments:**
-- production code에서 TODO/FIXME가 두드러지게 남아 있는 패턴은 많지 않음
-- 템플릿/참조 문서에는 예시용 TODO가 존재할 수 있으므로 실제 이슈와 구분해야 함
+**JSDoc/TSDoc:**
+- Use JSDoc selectively for reusable helpers with non-obvious inputs or behavior, as in `tests/helpers.cjs`, `bin/install.js`, and `get-shit-done/bin/lib/core.cjs`.
+- Avoid blanket JSDoc on every function; many short command handlers and tests use no docblock, for example `cmdGenerateSlug` in `get-shit-done/bin/lib/commands.cjs`.
 
 ## Function Design
 
 **Size:**
-- 설치기(`bin/install.js`)는 대형 단일 파일 패턴
-- CLI lib는 도메인별 모듈로 분리하되, 각 파일 내부 함수는 실용적 크기를 허용
+- Large multi-purpose modules are accepted when they group a domain, such as `bin/install.js`, `get-shit-done/bin/lib/core.cjs`, and `get-shit-done/bin/lib/commands.cjs`.
+- Within those modules, keep individual helpers focused on one command or transformation, as shown by `cmdCurrentTimestamp`, `cmdListTodos`, and `validateKnownConfigKeyPath`.
 
 **Parameters:**
-- CLI 파서 함수는 raw argv 배열을 직접 다루고, named flag helper를 재사용함 (`parseNamedArgs`, `parseMultiwordArg`)
+- Pass `cwd` explicitly through command-layer functions instead of relying entirely on process-global state, for example `cmdConfigNewProject(cwd, choicesJson, raw)` in `get-shit-done/bin/lib/config.cjs` and `cmdListTodos(cwd, area, raw)` in `get-shit-done/bin/lib/commands.cjs`.
+- Use plain object option bags for optional behavior where a function has multiple toggles, such as `reapStaleTempFiles(prefix, { maxAgeMs, dirsOnly })` in `get-shit-done/bin/lib/core.cjs` and `runAudit({...})` consumers in `tests/localization-gap-audit.test.cjs`.
 
 **Return Values:**
-- helper는 plain object/primitive 반환
-- CLI entry는 직접 output/error side effect를 수행하는 경우가 많음
+- Reusable library functions return plain objects, arrays, booleans, or strings without class wrappers, as in `loadConfig`, `detectSubRepos`, and `buildNewProjectConfig`.
+- Test helpers return `{ success, output, error }` envelopes for shell-driven assertions in `tests/helpers.cjs`.
+- CLI command handlers generally terminate by calling `output(...)` or `error(...)` rather than returning user-facing strings directly.
 
 ## Module Design
 
 **Exports:**
-- CommonJS `require` 기반 모듈 분리
-- `get-shit-done/bin/lib/*.cjs`는 기능별로 책임을 나눔 (`state.cjs`, `roadmap.cjs`, `security.cjs`)
+- Use `module.exports = { ... }` object exports at the end of CommonJS modules, as in `get-shit-done/bin/lib/core.cjs`, `get-shit-done/bin/lib/config.cjs`, `scripts/apply-upstream-refresh.cjs`, and `tests/helpers.cjs`.
+- Export internal pure helpers when tests need direct coverage, for example `extractFrontmatter` from `get-shit-done/bin/lib/frontmatter.cjs`, `buildReleaseState` from `scripts/check-upstream-release.cjs`, and `runAudit` from `scripts/audit-localization-gap.cjs`.
 
 **Barrel Files:**
-- barrel/index 패턴은 거의 사용하지 않음
-- 진입점이 직접 필요한 모듈을 import함 (`get-shit-done/bin/gsd-tools.cjs`)
+- Not used. Each module is imported directly by relative path, for example `../get-shit-done/bin/lib/core.cjs` and `../scripts/check-upstream-release.cjs`.
 
 ---
-*Convention analysis: 2026-03-24*
-*Update when patterns change*
+*Convention analysis: 2026-03-26*

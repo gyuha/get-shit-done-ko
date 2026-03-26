@@ -1,126 +1,158 @@
 # Architecture
 
-**Analysis Date:** 2026-03-24
+**Analysis Date:** 2026-03-26
 
 ## Pattern Overview
 
-**Overall:** 문서 중심 워크플로 저장소 + Node.js CLI 유틸리티 + 다중 런타임 설치 자산을 함께 유지하는 메타 프롬프트 시스템
+**Overall:** 자산 중심 installer + file-based workflow orchestration 구조
 
 **Key Characteristics:**
-- 사용자 진입점은 `commands/gsd/*.md`와 각 런타임별 installed mirror로 제공됨
-- 실제 상태 관리는 `.planning/` 파일 집합에 축적됨
-- orchestration logic은 `get-shit-done/workflows/*.md`, 기계적 보조 작업은 `get-shit-done/bin/lib/*.cjs`에 분리됨
-- 이 포크는 upstream 구조를 유지한 채 한국어 레이어를 덧씌우는 방식으로 운영됨 (`AGENTS.md`, `docs/UPSTREAM-SYNC.md`)
+- `bin/install.js`가 source-of-truth 자산을 런타임별 설치 레이아웃으로 변환한다.
+- `commands/gsd/*.md`와 `get-shit-done/workflows/*.md`가 분리되어 command layer와 execution layer를 나눈다.
+- `.planning/`이 프로젝트 상태 저장소 역할을 하며 `get-shit-done/bin/lib/*.cjs`가 그 상태를 읽고 갱신한다.
 
 ## Layers
 
-**Command Layer:**
-- Purpose: 사용자가 실행하는 slash command / skill entry를 제공
-- Contains: `commands/gsd/*.md`, `skills/gsd-sync-upstream/SKILL.md`
-- Depends on: workflow layer, installed runtime mirrors
-- Used by: Claude Code, Codex, OpenCode, Copilot, Cursor, Antigravity 사용자
+**Installer Layer:**
+- Purpose: 저장소 자산을 Claude, Codex, OpenCode, Gemini, Copilot, Cursor, Antigravity 레이아웃으로 복제하고 경로를 변환한다.
+- Location: `bin/install.js`
+- Contains: 런타임 선택, 경로 치환, 명령/skill 변환, hook 설치, uninstall, manifest 생성
+- Depends on: `package.json`, `commands/gsd/`, `get-shit-done/`, `agents/`, `hooks/dist/`, `skills/`
+- Used by: npm bin 엔트리 `get-shit-done-ko`
 
-**Workflow Layer:**
-- Purpose: 명령별 절차, 게이트, 서브에이전트 오케스트레이션 정의
-- Contains: `get-shit-done/workflows/*.md`
-- Depends on: templates, references, CLI tools, agent definitions
-- Used by: command layer와 runtime-installed copies
+**Command Definition Layer:**
+- Purpose: 사용자가 호출하는 slash command 또는 skill의 진입 문서를 제공한다.
+- Location: `commands/gsd/`
+- Contains: frontmatter가 있는 command markdown, `@~/.claude/get-shit-done/workflows/*.md` execution context 참조
+- Depends on: `get-shit-done/workflows/`
+- Used by: Claude/Copilot/Gemini 계열 런타임과 installer의 변환 로직
 
-**Template & Reference Layer:**
-- Purpose: planning 산출물 형식과 공통 지식을 제공
-- Contains: `get-shit-done/templates/`, `get-shit-done/references/`
-- Depends on: 거의 없음
-- Used by: workflows, agents, tests
+**Workflow Asset Layer:**
+- Purpose: 각 command가 따라야 할 절차, 체크리스트, branching 조건을 선언형 문서로 정의한다.
+- Location: `get-shit-done/workflows/`
+- Contains: phase planning, execution, mapping, milestone, verification, settings 관련 markdown workflow
+- Depends on: `get-shit-done/templates/`, `get-shit-done/references/`, `get-shit-done/bin/gsd-tools.cjs`
+- Used by: `commands/gsd/*.md`, installed runtime mirrors under `.claude/`, `.codex/`, `.opencode/`
 
-**CLI Tools Layer:**
-- Purpose: 복잡한 파일/상태 조작을 안정적으로 수행
-- Contains: `get-shit-done/bin/gsd-tools.cjs`, `get-shit-done/bin/lib/*.cjs`
-- Depends on: Node.js built-ins, filesystem
-- Used by: workflows, scripts, tests
+**CLI Utility Layer:**
+- Purpose: workflow 문서 안의 반복 shell 패턴을 안정적인 Node CLI 명령으로 대체한다.
+- Location: `get-shit-done/bin/gsd-tools.cjs`, `get-shit-done/bin/lib/*.cjs`
+- Contains: init payload 생성, planning state CRUD, roadmap/phase/milestone 계산, verification, template fill, security helpers
+- Depends on: `get-shit-done/bin/lib/core.cjs` 공용 경로/출력 헬퍼와 `.planning/` 파일들
+- Used by: `get-shit-done/workflows/*.md`, `tests/*.test.cjs`
 
-**Installation Layer:**
-- Purpose: 여러 AI 런타임에 맞는 자산을 배치하고 변환
-- Contains: `bin/install.js`, `hooks/`, runtime-specific folders like `.claude/`, `.opencode/`
-- Depends on: package metadata, templates, agent/command assets
-- Used by: end users installing GSD
+**Project State Layer:**
+- Purpose: 프로젝트별 장기 컨텍스트와 실행 이력을 파일로 유지한다.
+- Location: `.planning/`
+- Contains: `PROJECT.md`, `REQUIREMENTS.md`, `ROADMAP.md`, `STATE.md`, phase directories, quick tasks, codebase maps
+- Depends on: `get-shit-done/templates/*.md`, `get-shit-done/bin/lib/state.cjs`, `get-shit-done/bin/lib/roadmap.cjs`, `get-shit-done/bin/lib/phase.cjs`
+- Used by: 거의 모든 workflow와 `get-shit-done/bin/lib/init.cjs`
+
+**Runtime Mirror Layer:**
+- Purpose: 실제 에이전트 런타임이 읽는 설치 결과를 저장한다.
+- Location: `.claude/`, `.codex/`, `.opencode/`
+- Contains: 설치된 agent definitions, converted commands/skills, `get-shit-done/` engine copy, settings/hooks/manifests
+- Depends on: `bin/install.js`
+- Used by: 각 로컬 runtime integration test와 실제 사용자 런타임
+
+**Quality Gate Layer:**
+- Purpose: installer, CLI helpers, 변환 로직, localization safety를 회귀 테스트로 고정한다.
+- Location: `tests/`
+- Contains: Node test runner 기반 `.test.cjs` 파일, temp project helpers in `tests/helpers.cjs`
+- Depends on: `get-shit-done/bin/gsd-tools.cjs`, `bin/install.js`, source assets under `commands/`, `agents/`, `get-shit-done/`
+- Used by: `scripts/run-tests.cjs`, `npm test`, `npm run test:coverage`
 
 ## Data Flow
 
-**Project bootstrap flow:**
-1. 사용자가 `README.md`에 문서화된 명령으로 설치 또는 명령 실행
-2. workflow가 `node get-shit-done/bin/gsd-tools.cjs init ...`를 호출해 상태와 설정을 로드 (`get-shit-done/workflows/*.md`, `get-shit-done/bin/lib/init.cjs`)
-3. workflow가 템플릿/참조를 읽고 `.planning/` 문서를 생성 또는 갱신
-4. 후속 phase/workflow가 같은 `.planning/` 아티팩트를 기준으로 이어서 실행
+**Runtime installation flow:**
+1. 사용자가 npm bin 엔트리 `bin/install.js`를 실행한다.
+2. installer가 runtime 선택과 설치 위치를 해석하고, source 자산 `commands/gsd/`, `agents/`, `get-shit-done/`, `hooks/dist/`, `skills/`를 읽는다.
+3. installer가 runtime별 변환기를 적용해 target config dir 아래 `.claude/`, `.codex/`, `.opencode/`, `.github/`, `.cursor/`, `.agent/` 형태로 복제한다.
+4. 생성된 mirror가 각 런타임의 command/skill/agent 진입점이 된다.
 
-**Runtime install flow:**
-1. `bin/install.js`가 runtime/설치 위치를 해석
-2. 소스 자산(`commands/`, `agents/`, `get-shit-done/`, `hooks/`)을 런타임별 형식으로 복사/치환
-3. 런타임별 설정 블록과 훅을 주입
+**Project workflow flow:**
+1. 사용자가 설치된 command 문서 예: `commands/gsd/map-codebase.md` 또는 설치 mirror의 동등 자산을 호출한다.
+2. command 문서가 `get-shit-done/workflows/*.md`를 execution context로 로드한다.
+3. workflow가 `get-shit-done/bin/gsd-tools.cjs`의 `init`, `state`, `roadmap`, `verify`, `template` 명령을 호출해 현재 `.planning/` 상태를 구조화한다.
+4. 결과 산출물은 `.planning/` 아래 markdown/json 파일로 저장되고 다음 workflow의 입력이 된다.
+
+**Test verification flow:**
+1. `scripts/run-tests.cjs`가 `tests/*.test.cjs`를 실행한다.
+2. tests가 `tests/helpers.cjs`를 통해 temp project 또는 temp git project를 만든다.
+3. 테스트가 `get-shit-done/bin/gsd-tools.cjs`와 `bin/install.js`를 직접 호출해 source asset, installer, runtime mirror 동작을 검증한다.
 
 **State Management:**
-- 영속 상태는 `.planning/STATE.md`, `.planning/ROADMAP.md`, `.planning/REQUIREMENTS.md`, `.planning/config.json` 중심
-- `get-shit-done/bin/lib/state.cjs`, `roadmap.cjs`, `phase.cjs`, `config.cjs`가 파일 기반 상태 전이를 담당
+- 상태는 메모리 DB가 아니라 `.planning/` 파일 집합에 저장한다.
+- `get-shit-done/bin/lib/core.cjs`의 `planningDir`, `planningPaths`, `findProjectRoot`, `resolveWorktreeRoot`가 상태 저장 위치를 정규화한다.
+- `get-shit-done/bin/lib/init.cjs`가 workflow용 초기 컨텍스트 JSON을 만든다.
 
 ## Key Abstractions
 
-**Workflow:**
-- Purpose: 사용자의 높은 수준 명령을 단계별 절차로 변환
-- Examples: `get-shit-done/workflows/new-project.md`, `get-shit-done/workflows/map-codebase.md`
-- Pattern: Markdown instruction asset + CLI init JSON + optional agent spawn
+**Command Document:**
+- Purpose: 사용자가 직접 호출하는 인터페이스를 정의한다.
+- Examples: `commands/gsd/map-codebase.md`, `commands/gsd/plan-phase.md`, `commands/gsd/execute-phase.md`
+- Pattern: YAML frontmatter + objective/context/process sections + workflow reference
 
-**Agent:**
-- Purpose: 특정 역할에 맞춘 분리된 작업 수행
-- Examples: `agents/gsd-codebase-mapper.md`, `agents/gsd-planner.md`, `agents/gsd-verifier.md`
-- Pattern: frontmatter + tool allowlist + role/process description
+**Workflow Document:**
+- Purpose: command를 실행 가능한 단계로 풀어낸다.
+- Examples: `get-shit-done/workflows/map-codebase.md`, `get-shit-done/workflows/new-project.md`, `get-shit-done/workflows/help.md`
+- Pattern: XML-like section blocks + shell snippets + decision branches
 
-**Planning Files:**
-- Purpose: 사람이 읽고 에이전트도 읽을 수 있는 프로젝트 메모리 저장
-- Examples: `.planning/PROJECT.md`, `.planning/STATE.md`
-- Pattern: token-sensitive Markdown structure
+**Planning Artifact:**
+- Purpose: 프로젝트 맥락과 phase 실행 결과를 누적한다.
+- Examples: `.planning/PROJECT.md`, `.planning/ROADMAP.md`, `.planning/STATE.md`, `.planning/codebase/*.md`
+- Pattern: markdown templates filled by workflows and CLI helpers
 
-**Runtime Mirror:**
-- Purpose: 동일한 GSD 자산을 호스트 에이전트별 소비 형식으로 제공
-- Examples: `.claude/get-shit-done/`, `.codex/get-shit-done/`, `.opencode/get-shit-done/`
-- Pattern: source asset 복사 + host-specific settings injection
+**Runtime Converter:**
+- Purpose: 하나의 source asset 집합을 각 runtime의 command/skill schema로 맞춘다.
+- Examples: `bin/install.js`의 `copyFlattenedCommands`, `copyCommandsAsCodexSkills`, `copyCommandsAsCopilotSkills`, `copyWithPathReplacement`
+- Pattern: recursive copy + content transformation + manifest verification
+
+**CLI Helper Module:**
+- Purpose: workflow 문서에서 재사용하는 계산과 파일 조작을 캡슐화한다.
+- Examples: `get-shit-done/bin/lib/core.cjs`, `get-shit-done/bin/lib/init.cjs`, `get-shit-done/bin/lib/commands.cjs`, `get-shit-done/bin/lib/verify.cjs`
+- Pattern: 명령형 Node module + `output()` JSON serialization + `.planning/` path helpers
 
 ## Entry Points
 
-**Package entrypoint:**
-- Location: `bin/install.js`
-- Triggers: `npx get-shit-done-ko@latest`, `node bin/install.js ...`
-- Responsibilities: 설치 대상 해석, 자산 복사, 런타임 설정 주입
+**Package binary:**
+- Location: `package.json`, `bin/install.js`
+- Triggers: `npx get-shit-done-ko@latest`, 로컬 개발 시 `node bin/install.js`
+- Responsibilities: 설치/제거, runtime asset 변환, hook 배포, runtime settings patch
 
-**CLI tools entrypoint:**
+**Workflow utility CLI:**
 - Location: `get-shit-done/bin/gsd-tools.cjs`
-- Triggers: workflows와 테스트가 `node .../gsd-tools.cjs <command>` 호출
-- Responsibilities: state/config/verify/template/init/roadmap 명령 디스패치
+- Triggers: workflow markdown inside `get-shit-done/workflows/*.md`, tests in `tests/*.test.cjs`
+- Responsibilities: init payload 생성, state/roadmap/phase 조작, verification, template fill, structured JSON output
 
-**Test entrypoint:**
-- Location: `scripts/run-tests.cjs`
-- Triggers: `npm test`
-- Responsibilities: `tests/*.test.cjs`를 정렬해 cross-platform 방식으로 실행
+**Runtime command assets:**
+- Location: `commands/gsd/*.md`
+- Triggers: runtime-specific slash command or converted skill invocation
+- Responsibilities: objective 선언, workflow 연결, allowed tools 스코프 지정
+
+**Build helper:**
+- Location: `scripts/build-hooks.js`
+- Triggers: `npm run build:hooks`, `prepublishOnly`
+- Responsibilities: `hooks/*.js` syntax 검증 후 `hooks/dist/`에 배포용 파일 복사
 
 ## Error Handling
 
-**Strategy:** hard-fail CLI + validation-first workflow
+**Strategy:** fail-fast CLI exit + permissive file probing
 
 **Patterns:**
-- CLI는 잘못된 인자나 경로를 즉시 `error(...)`로 중단함 (`get-shit-done/bin/gsd-tools.cjs`)
-- init 명령은 workflow에 필요한 컨텍스트를 JSON으로 묶어 반환해 프롬프트 로직의 분기 오류를 줄임 (`get-shit-done/bin/lib/init.cjs`)
-- 보안/무결성 관련 검사는 별도 모듈로 분리됨 (`get-shit-done/bin/lib/security.cjs`, `verify.cjs`)
+- 필수 인자가 없거나 경로가 잘못되면 `get-shit-done/bin/lib/core.cjs`의 `error()`가 stderr 출력 후 즉시 종료한다.
+- 선택적 파일 조회는 `safeReadFile()` 또는 `try/catch`로 감싸고, 읽기 실패 시 null/빈 결과로 폴백한다.
+- installer는 복제/검증 결과를 개별 항목 단위로 누적하고 일부 runtime asset 실패를 보고한다.
+- hook build는 `scripts/build-hooks.js`에서 syntax error를 발견하면 배포 전에 종료한다.
 
 ## Cross-Cutting Concerns
 
-**Logging:**
-- 외부 로깅 프레임워크보다 CLI 출력과 hook advisory 메시지 사용 (`hooks/gsd-workflow-guard.js`)
+**Logging:** `bin/install.js`, `scripts/build-hooks.js`, `get-shit-done/bin/lib/*.cjs`는 `console.log`, `console.warn`, `console.error`, `fs.writeSync` 기반 CLI 출력을 사용한다.
 
-**Validation:**
-- `validate health`, `validate consistency`, `verify ...` 계열 명령으로 planning 자산과 산출물을 검증함 (`get-shit-done/bin/gsd-tools.cjs`)
+**Validation:** 입력 검증과 planning 검증은 `get-shit-done/bin/lib/verify.cjs`, `get-shit-done/bin/lib/frontmatter.cjs`, `get-shit-done/bin/lib/security.cjs`, `scripts/secret-scan.sh`, `scripts/prompt-injection-scan.sh`로 분리한다.
 
-**Authentication:**
-- 앱 수준 auth는 없음
-- 외부 서비스 사용 여부는 API key/environment presence detection에 한정됨 (`get-shit-done/bin/lib/init.cjs`)
+**Authentication:** 애플리케이션 사용자 인증 계층은 없다. 외부 런타임 설정과 optional API key 파일 존재 여부 감지는 `bin/install.js`와 `get-shit-done/bin/lib/init.cjs`가 담당한다.
 
 ---
-*Architecture analysis: 2026-03-24*
-*Update when major patterns change*
+
+*Architecture analysis: 2026-03-26*
